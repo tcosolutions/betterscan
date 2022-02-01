@@ -1,0 +1,518 @@
+h1 a:hover {
+    text-decoration: none;
+}
+
+.pil {
+    border: 1px solid get-color(grayscale, mid-light);
+
+    .content-box {
+        border: none;
+    }
+
+    .element {
+          clear: both;
+        -webkit-transition: background-color ease-in-out .05s;
+        -o-transition: background-color ease-in-out .05s;
+        transition: background-color ease-in-out .05s;
+
+        &:last-child{
+            .wrapper {
+                border-bottom: none;
+            }
+        }
+
+        .wrapper {
+            border-bottom: 1px solid get-color(grayscale, mid-light);
+        }
+
+        &:hover {
+            background-color: get-color(lightgrey, x-light);
+            -webkit-transition: background-color ease-in-out .05s;
+            -o-transition: background-color ease-in-out .05s;
+            transition: background-color ease-in-out .05s;
+        }
+
+        a{
+            text-decoration:none;
+            color:get-color(grayscale,dark);
+        }
+
+        h3 {
+            margin: 0 0 7px 0;
+            font-size: 20px;
+            letter-spacing: 0.4px;
+            font-weight: bold;
+            display: inline;
+
+            span:hover {
+                color: get-color(grayscale, mid-dark);
+                cursor: pointer;
+            }
+        }
+
+        h4 {
+            font-size: 16px;
+        }
+
+        .analyzer-tooltip {
+            margin-top: -2px;
+            margin-left: 10px;
+            color: get-color(grayscale, mid-light);
+            font-size: 18px;
+        }
+
+        .documentation-link, .autofix-link {
+            margin-top: -2px;
+            margin-left: 8px;
+            font-size: 12px;
+            color: get-color(grayscale, base);
+
+            &:hover {
+                color: get-color(grayscale, dark);
+            }
+        }
+
+        .autofix-link {
+            color: get-color(qc, green);
+            font-color: 14px;
+            margin-left: 0px;
+        }
+
+        .details {
+            padding: 20px 15px 15px 25px;
+
+            .github_issue {
+                cursor: pointer;
+            }
+
+            .github_issue.open {
+                color: black;
+            }
+        }
+
+        .description {
+            margin-bottom: 10px;
+            padding: 0;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+            color: get-color(grayscale, base);
+        }
+
+        .tags {
+            font-size: 12px;
+            color: get-color(grayscale, base);
+            margin-top: 10px;
+
+            .label {
+                vertical-align: middle;
+                padding-top: 1px;
+                display: inline-block;
+            }
+
+            .cat-list {
+                display: inline;
+                margin-left: 20px;
+                padding: 0;
+
+                li {
+
+                    padding-left: 0;
+                    padding-right: 0;
+                    font-size: 12px;
+                    list-style-type: none;
+                    letter-spacing: 0.5px;
+                    vertical-align: middle;
+                    margin-right: 4px;
+                    color: get-color(grayscale, base);
+
+                }
+            }
+        }
+
+        .showall {
+            margin: 0 0 0 20px;
+            font-size: 16px;
+            color: get-color(grayscale, dark);
+
+            &.issueToggle {
+                display: none;
+            }
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &:before {
+                font-family: 'octicons';
+                content: '\f09a';
+                font-size: 22px;
+                margin-right: 7px;
+                vertical-align: middle;
+            }
+        }
+
+        .files-affected {
+            font-size: 15px;
+            color: get-color(grayscale, mid-dark);
+
+            &.issueToggle {
+                display: none;
+            }
+        }
+
+    }
+
+    .cat-list {
+        margin-bottom: 0;
+    }
+
+    .learnmore {
+        font-size: 22px;
+        font-weight: bold;
+        color: get-color(grayscale, mid-light);
+        margin-top: -32px;
+    }
+
+    .issue-list {
+        margin: 0 0 0 20px;
+        padding: 0;
+        font-size: 16px;
+
+        code {
+            overflow: auto;
+        }
+
+        .rotate-snippet {
+            position:relative;
+            z-index: 10;
+            padding: 20px;
+            background-color: get-color(white);
+            cursor: pointer;
+        }
+
+        &.issueToggle {
+            display: none;
+        }
+
+        ul.occurrences {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style-type: none;
+
+            span.file-name {
+                color: get-color(grayscale, dark);
+                letter-spacing: 0.4px;
+
+                &:before {
+                    font-family: 'octicons';
+                    content: '\f010';
+                    margin-right: 7px;
+                    font-size: 22px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    color: get-color(grayscale, mid-dark);
+                }
+            }
+
+            .show-code {
+                font-size: 13px;
+                color: get-color(grayscale, base);
+                margin-right: 3x;
+                line-height: 18px;
+                margin-top: 0px;
+
+                display: inline-block;
+
+                &.fileToggle {
+                    display: none;
+                }
+
+                &:hover {
+                    color: get-color(grayscale, dark);
+                }
+            }
+
+            a{
+                text-decoration:none;
+            }
+
+            ul {
+                display: block;
+                height: 100%;
+
+                -webkit-transition: height ease-in-out .05s;
+                -o-transition: height ease-in-out .05s;
+                transition: height ease-in-out .05s;
+            }
+
+            &.fileToggle ul {
+                height: 0px;
+                display: none;
+                -webkit-transition: height ease-in-out .05s;
+                -o-transition: height ease-in-out .05s;
+                transition: height ease-in-out .05s;
+            }
+        }
+
+        .issue-affected {
+            font-size: 16px;
+            color: get-color(grayscale, base);
+        }
+    }
+}
+
+.snippet {
+
+    margin: 0 3px 20px 0;
+
+    pre.line-numbers {
+        @include border-top-radius(0px);
+        @include border-bottom-radius(2px);
+    }
+
+    code {
+        max-height:200px;
+    }
+
+    .head {
+        border: 1px solid get-color(grayscale, mid-light);
+        border-bottom: 0;
+        @include border-top-radius(2px);
+
+        .description {
+            padding:5px;
+            padding-left: 10px;
+        }
+
+        .bar {
+            width: 100%;
+
+            .line-number {
+                font-size: 13px;
+                color: get-color(grayscale, mid-dark);
+                padding: 0 10px 0 10px;
+                width: 100px;
+                //border-right: 1px solid get-color(grayscale, mid-light);
+                line-height: 30px;
+            }
+
+            .full-file {
+                font-size: 13px;
+                color: get-color(grayscale, mid-dark);
+                padding: 0 10px 0 10px;
+                line-height: 30px;
+                &:hover {
+                  color: get-color(grayscale, dark);
+                }
+            }
+
+            .marker {
+                text-align: center;
+                font-size: 14px;
+                line-height: 30px;
+
+
+                li {
+                    display: inline-block;
+                    margin-right: 5px;
+
+                    width: 20px;
+                    height: 20px;
+
+                    line-height: 20px;
+                    padding:0;
+
+                    &.number {
+                        @include border-radius(2px);
+                        color: get-color(grayscale, dark);
+                        background: get-color(grayscale, light);
+                    }
+
+                    a {
+                        padding:0;
+                        margin:0;
+                        display:block;
+                        color:get-color(black);
+                        text-decoration:none;
+                    }
+
+                    &.number.active {
+                        cursor: pointer;
+                        background: get-color(qc, blue);
+                        color: get-color(white);
+                    }
+
+                    &:last-child {
+                        margin-right: 0px;
+                    }
+                }
+            }
+
+        }
+
+        .paginator {
+            width: 60px;
+            margin-right: -60px;
+
+            button {
+                color: get-color(grayscale, base);
+                border: 0;
+                background: transparent;
+                border-left: 1px solid get-color(grayscale, mid-light);
+                width: 30px;
+                height: 30px;
+
+                &:hover {
+                    color: get-color(grayscale, dark);
+                    background-color: get-color(grayscale, light);
+                }
+
+                &.inactive {
+                    color: get-color(grayscale, mid-light);
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+
+    .project-header {
+        .tabs {
+            li {
+                text-align: center;
+                margin-right: 0px;
+            }
+            // Determine width depending on number of tabs
+            @for $i from 1 through 6 {
+                li:first-child:nth-last-child(#{$i}),
+                li:first-child:nth-last-child(#{$i}) ~ li {
+                    width: #{(100%/$i)};
+                }
+        }
+        }
+    }
+    .pil {
+        .issue-list {
+            margin-left: 0px;
+
+            li {
+                ul {
+                    padding-left: 0px;
+                }
+            }
+        }
+        .element {
+            .documentation-link {
+                padding: 10px;
+                padding-left: 0px;
+                margin-left: 0px;
+                display: block;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.diff-head {
+    margin-bottom: 20px;
+    background-color: get-color(grayscale, light);
+    border: 1px solid get-color(grayscale, mid-light);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.snapshot-list {
+
+    border: 1px solid get-color(grayscale, mid-light);
+    margin-bottom: 10px;
+    @include border-radius(2px);
+
+    h4 {
+        margin: 0;
+        padding: 10px;
+        font-size: 17px;
+        background: get-color(grayscale, light);
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &:first-child {
+    }
+
+    .no-link {
+        padding: 10px;
+    }
+
+    .snapshot-item {
+
+        border-top: 1px solid get-color(grayscale, mid-light);
+        //padding: 10px;
+
+        &:first-child {
+            border-top: none;
+        }
+
+        &:nth-child(odd) {
+            background-color: get-color(lightgrey, light);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        & > a {
+            display: block;
+            width: 100%;
+            padding: 10px;
+
+            color: get-color(grayscale, dark);
+            text-decoration: none;
+
+            &:hover {
+                background-color: get-color(grayscale, light);
+            }
+        }
+
+        .content {
+            padding-top: 0;
+        }
+
+        .menu li {
+
+            a {
+                display: inline;
+                width: auto;
+                padding: 4px;
+
+                color: get-color(grayscale, dark);
+                text-decoration: none;
+
+                &:hover {
+                    background-color: get-color(grayscale, light);
+                }
+            }
+
+            display: inline;
+            font-size: 13px;
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .log {
+            margin-top: 15px;
+        }
+    }
+}

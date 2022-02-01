@@ -1,0 +1,18 @@
+{% extends "email/base.multipart" %}
+
+{% block html_headline %}
+    Can't fetch "<a href="{{project_url}}">{{project_name}}</a>"
+{%endblock%}
+
+{% block subject %}Fetching failed{% endblock %}
+
+{% block html_content %}
+    Hi {{user_name}},<br/>
+    <br/>
+    unfortunately we can't fetch <a href="{{project_url}}">{{project_name}}</a>. Most likely, this is due to authorization problems.
+    If the problem keeps persisting, do not hesitate to <a href="{{support.urls.contact}}">contact us</a>.
+{% endblock %}
+
+{% block html_button_primary_url %}{{reanalyze_url}}{% endblock%}
+
+{% block html_button_primary_text %}Retry to fetch the repository{% endblock%}

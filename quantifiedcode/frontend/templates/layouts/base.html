@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  {%block viewport %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%endblock%}
+  <meta name="description" content="A code analysis &amp; automation platform">
+  <meta name="keywords" content=", code analysis}">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Scanner Authors">
+  <link href="{{static_url}}/assets/gfx/qc-favicon.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+  <link href="{{static_url}}/assets/gfx/qc-favicon.png" rel="shortcut icon">
+
+  {%block structured_data%}{% endblock %}
+
+  <!-- Open Graph meta tags -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Scanner" />
+  <meta property="og:description" content="Scanner" />
+  <meta property="og:site_name" content="Scanner" />
+
+  {%block custom_css %}{%endblock%}
+
+  {%if DEBUG %}
+      <link href="{{static_url}}/css/main.css" rel="stylesheet" />
+  {% else %}
+      <link href="{{static_url}}/css/main.min.css" rel="stylesheet" />
+  {% endif %}
+  
+
+  <title>{%block title %}{{website_title}}{%endblock%}</title>
+</head>
+
+    {%block body_tag %}
+    <body>
+      {%endblock%}
+
+      <nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div id="nav-head" class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toggle-menu">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="{{static_url}}/assets/gfx/logo.png" />
+            </a>
+          </div>
+          <div id="menu">
+            <div class="collapse navbar-collapse" id="toggle-menu">
+              <ul class="nav navbar-nav">
+              </ul>
+
+              {%block menu_right %}
+              {% include '_menu.html' %}
+              {%endblock%}
+
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </nav>
+
+      <div id="main">
+        {%block main %}
+        <!-- <div class="container-fluid"> -->
+        {%block container %}
+        {%endblock%}
+        <!-- </div> -->
+        {%endblock%}
+      </div>
+
+
+      <div class="footer">
+        <div class="container">
+          {%block footer_links %}
+            {% include '_static_footer.html' %}
+          {%endblock%}
+        </div>
+      </div>
+
+
+      {%block js %}
+        {% include '_static_js.html' %}
+      {%endblock%}
+      {{tracking_code|safe}}
+
+    {%block body_end_tag %}
+    </body>
+    {%endblock%}
+</html>

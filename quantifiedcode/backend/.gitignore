@@ -1,0 +1,53 @@
+*.py[cod]
+hipchatlog.txt
+*.log
+*.pid
+data/*
+venv/*
+*/data/logs/*
+# C extensions
+*.so
+wsgi.py
+node_modules/
+*~
+# Packages
+*.egg
+celerybeat-schedule
+*.egg-info
+dist
+**/data/repositories/*
+build
+.checkmate
+eggs
+parts
+bin
+qc/frontend
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+**/settings/common.py
+**/settings/development.py
+**/settings/production.py
+**/settings/stage.py
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+secrets*.py
+!secrets_template.py
+*/settings/common.py
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject

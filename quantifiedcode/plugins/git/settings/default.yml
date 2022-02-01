@@ -1,0 +1,3 @@
+backend:
+  paths:
+    git_repositories: data/repositories

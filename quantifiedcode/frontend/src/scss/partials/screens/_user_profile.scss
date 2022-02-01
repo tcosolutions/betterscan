@@ -1,0 +1,53 @@
+#actualEmail {
+    font-weight: bold;
+}
+
+.pending-ownerships {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    li {
+        list-style-type: none;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid get-color(grayscale, light);
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+
+    }
+}
+
+.notification-settings {
+    .head {
+        p {
+            font-weight: 700;
+        }
+    }
+
+    @media(max-width: 768px) {
+        .project {
+            padding-bottom: 10px;
+        }
+    }
+
+    .row {
+        padding: 10px;
+    }
+
+    .row:nth-child(even) {
+        background: get-color(grayscale, light);
+    }
+
+    .row:first-child {
+        border-bottom: 1px solid get-color(grayscale, mid-light);
+        padding-bottom: 0px;
+    }
+}

@@ -1,0 +1,91 @@
+
+.content-box {
+    .file-path {
+        padding: 15px;
+
+        i {
+            margin-right: 10px;
+            color: get-color(grayscale, mid-dark);
+        }
+
+        .fa-folder {
+            margin-right: 10px;
+            color: get-color(grayscale, mid-dark);
+        }
+    }
+
+    .file-list {
+
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+        .badge {
+            margin-left: 3px;
+
+            &.severity-1 {
+                background-color: get-color(severity, 1);
+            }
+
+            &.severity-2 {
+                background-color: get-color(severity, 2);
+            }
+
+            &.severity-3 {
+                background-color: get-color(severity, 3);
+            }
+
+            &.severity-4 {
+                background-color: get-color(severity, 4);
+            }
+
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        i {
+            color: get-color(grayscale, base);
+            margin-right: 10px;
+            font-size: 13px;
+        }
+
+        tr {
+            &:hover {
+                td {
+                    background-color: get-color(grayscale, light);
+                }
+            }
+
+            td {
+                padding: 0;
+            }
+
+            td:last-child {
+                text-align:right;
+                padding-right:10px;
+            }
+
+            th:last-child {
+                text-align:right;
+                padding-right:10px;
+            }
+
+        }
+
+        .box-link {
+            display: block;
+            width: 100%;
+            padding: 8px;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+    }
+
+
+}
+

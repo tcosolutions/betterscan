@@ -1,0 +1,25 @@
+$slug-top: space-top;
+$slug-bottom: space-bottom;
+$slug-right: space-right;
+$slug-left: space-left;
+$maximum: 30;
+$step: 5;
+
+// Generates space-top-x and space-bottom-x classes
+// x = i * steps; i(max) = maximum
+
+@for $i from 0 through $maximum {
+    $space: $i * $step;
+    .#{$slug-top}-#{$space} {
+        margin-top: $space#{px !important};
+    }
+    .#{$slug-bottom}-#{$space} {
+        margin-bottom: $space#{px !important};
+    }
+    .#{$slug-right}-#{$space} {
+        margin-right: $space#{px !important};
+    }
+    .#{$slug-left}-#{$space} {
+        margin-left: $space#{px !important};
+    }
+}

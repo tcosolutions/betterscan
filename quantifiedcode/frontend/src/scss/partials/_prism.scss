@@ -1,0 +1,66 @@
+pre.line-numbers{
+    word-wrap:normal;
+    height:auto;
+    padding: 0;
+    margin-top: 0;
+}
+
+pre.line-numbers > code {
+    display: block;
+    position: relative;
+    padding-left: 3.8em;
+    overflow-x:auto;
+    word-wrap:normal;
+    margin: 0;
+}
+
+pre.line-numbers > code .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    font-size: 100%;
+    left: 0em;
+    width: 3.0em; /* works for line-numbers below 1000 lines */
+    letter-spacing: -1px;
+    border-right: 1px solid get-color(grayscale, base);
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+.line-numbers-rows > span {
+    pointer-events: none;
+    display: block;
+}
+
+.line-numbers-rows > span {
+    color: get-color(grayscale, base);
+    display: block;
+    text-align: right;
+    padding-right:0.8em;
+    margin-left:-3.8px;
+}
+
+.line-highlight {
+  strong{
+    color: get-color(white);
+    text-shadow: none;
+  }
+  background-color: get-color(severity, 1); //default: color of critical bugs
+
+  .severity-1 & {
+    background-color: get-color(severity, 1);
+  }
+  .severity-2 & {
+      background-color: get-color(severity, 2);
+  }
+  .severity-3 & {
+      background-color: get-color(severity, 3);
+  }
+  .severity-4 & {
+      background-color: get-color(severity, 4);
+  }
+}

@@ -1,0 +1,153 @@
+.codeEditor {
+  position: relative; //allow elements to be positioned as overlays over the editor
+}
+
+.CodeMirror-scrollbar-filler {
+  //the scrollbars are rendered natively, therefore we
+  //must pick the native scrollbar color for the
+  //scrollbar-filler
+  background: Scrollbar;
+}
+
+.CodeMirror {
+    @include border-bottom-radius(2px);
+    color: get-color(grayscale, dark);
+    border: 1px solid get-color(grayscale, mid-light);
+    line-height: 1.25;
+}
+
+.cm-s-qc {
+  &.CodeMirror {
+    background: get-color(white);
+  }
+
+  .CodeMirror-gutters { background: get-color(grayscale, base); }
+  .CodeMirror-linenumber { color: get-color(white); padding-right: 1em;}
+
+  span.cm-keyword {color: get-color(grayscale, mid-dark); font-weight: bold;}
+  span.cm-atom {color: #1752BD;}
+  span.cm-number {color: #178D00;}
+  span.cm-def {color: #DD5000;}
+  span.cm-variable {color: #1752BD;}
+  span.cm-variable-2 {color: #024993;}
+  span.cm-variable-3 {color: #6B829B;}
+  span.cm-property {color: #62FFA0;}
+  span.cm-operator {color: get-color(grayscale, dark)}
+  span.cm-comment {color: get-color(grayscale, dark);}
+  span.cm-string {color: #00740e;}
+  span.cm-meta {color: #C9F;}
+  span.cm-qualifier {color: get-color(white)700;}
+  span.cm-builtin {color: #680099;}
+  span.cm-bracket {color: #cc7;}
+  span.cm-tag {color: #FFBD40;}
+  span.cm-attribute {color: get-color(white)700;}
+  span.cm-comment {color: get-color(grayscale, base);}
+  span.cm-error {color: #FF0000;}
+
+  .CodeMirror-activeline-background {background: get-color(lightgrey, x-light); color: get-color(grayscale, dark);}
+}
+
+.CodeMirror-linewidget {
+  //margin and padding is not allowed directly on line widgets!
+  //otherwise, CodeMirror will calculate the position for the cursor incorrectly
+  > * {
+    //margin is not allowed on the element directly nested inside a CodeMirror-linewidget
+    //but padding is allowed
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
+}
+
+.CodeMirror-issueWidget {
+  border-top: 1px solid get-color(grayscale, mid-light);
+  border-bottom: 1px solid get-color(grayscale, mid-light);
+  background: get-color(lightgrey, x-light);
+  padding: 8px 10px;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  a.opener {
+    color: get-color(grayscale, dark);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .fa-chevron-right {
+    float: left;
+    margin-top: 2px;
+    transition: transform .2s;
+  }
+  &.open .fa-chevron-right {
+    transform: rotate(90deg);
+  }
+
+  .issue-title {
+    margin-left: 20px;
+    margin-right: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1em;
+    font-weight: bolder;
+  }
+  &.open .issue-title {
+    margin-left: 50px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+
+  .issue-content {
+    display: none;
+    margin-left: 50px;
+    margin-right: 5px;
+  }
+  &.open .issue-content {
+    display: block;
+  }
+
+  &.severity-1 {
+    border-radius: 0;
+    border-left: 8px solid get-color(severity, 1);
+  }
+
+  &.severity-2 {
+    border-radius: 0;
+    border-left: 8px solid get-color(severity, 2);
+  }
+
+  &.severity-3 {
+    border-radius: 0;
+    border-left: 8px solid get-color(severity, 3);
+  }
+
+  &.severity-4 {
+    border-radius: 0;
+    border-left: 8px solid get-color(severity, 4);
+  }
+
+  .github_issue {
+      float: right;
+      margin-top: -2px;
+      margin-left: 10px;
+      /*
+       * margin-right is set to 20px instead of 5px, since the parrent
+       * goes 15px beyond the box.  It would be better not to use
+       * `position: relative; left: -34px` on the parent (set in
+       * JavaScript), instead use `width: 100%;` and a negative margin
+       * on the element we want to cover (it should work, though it's
+       * not tested).
+       */
+      margin-right: 20px;
+      color: get-color(grayscale, dark);
+      font-size: 18px;
+      cursor: pointer;
+
+      &.open {
+    color: black;
+      }
+  }
+}

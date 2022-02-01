@@ -1,0 +1,46 @@
+// Import modules
+@import "modules/colors";
+@import "modules/mixins";
+@import "modules/typography";
+@import "modules/spaces";
+@import "modules/border_radius";
+@import "modules/categories";
+@import "modules/severities";
+
+// Import partials
+@import "partials/loader";
+@import "partials/header";
+@import "partials/tag";
+@import "partials/ribbons";
+@import "partials/controls";
+@import "partials/breadcrumb";
+@import "partials/main";
+@import "partials/sidebar";
+@import "partials/toolbar";
+@import "partials/font";
+@import "partials/markdown";
+@import "partials/prism";
+
+//todo: move to git plugin
+@import "partials/screens/commit_selector";
+
+// Import screens
+@import "partials/screens/email_list";
+@import "partials/screens/pull_request_list";
+@import "partials/screens/task_log";
+@import "partials/screens/project_details_header";
+@import "partials/screens/project_details";
+@import "partials/screens/issues_group_list";
+@import "partials/screens/project_details_code";
+@import "partials/screens/project_details_file_browser";
+@import "partials/screens/project_list_free";
+@import "partials/screens/project_list_compact";
+@import "partials/screens/project_settings";
+@import "partials/screens/snapshot_summary";
+@import "partials/screens/issue_class_list";
+@import "partials/screens/signup_base";
+@import "partials/screens/signup_first_login";
+@import "partials/screens/user_profile";
+@import "partials/screens/about";
+@import "partials/screens/tags";
+@import "partials/screens/helper";

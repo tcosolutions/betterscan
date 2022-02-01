@@ -1,0 +1,61 @@
+$categories: (
+    correctness : (text : '\f058'),
+    readability : (text : '\f06e'),
+    performance : (text : '\f0e4'),
+    maintainability : (text : '\f12e'),
+    security : (text : '\f023')
+);
+
+$states: (
+    open : (text : '\f009'),
+    closed : (text : '\f03a'),
+);
+
+@function get-category-text($category) {
+    @return map-get(map-get($categories, $category), text);
+}
+
+@each $category,$params in $categories {
+   .categories-#{$category} a:before {
+      width: 14px;
+      display: inline-block;
+      text-align: center;
+      content: map-get($params,text);
+      font-family: FontAwesome;
+      margin-right: 15px;
+      margin-top: -2px;
+      font-size: 17px;
+      color: get-color(grayscale, mid-light);
+    }
+
+    .categories-#{$category} .active{
+      a {
+        color: get-color(grayscale, dark);
+      }
+    }
+
+    .label-#{$category} {
+        color: get-color(grayscale,mid-dark);
+        margin-right:0;
+
+        &:before {
+            font-family: 'FontAwesome';
+            content: map-get($params,text);
+            font-size: 1.18em;
+        }
+    }
+
+    .label-#{$category}:empty {
+        display:inline !important;
+    }
+}
+
+ol.categories {
+    > li {
+        color:#000;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        background-color:none;
+    }
+}

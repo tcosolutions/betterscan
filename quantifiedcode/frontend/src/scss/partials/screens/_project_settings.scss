@@ -1,0 +1,122 @@
+.badges {
+
+    .copy-to-clipboard {
+        position: relative;
+        top: 10px;
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .zeroclipboard-is-hover {
+        background-color: get-color(grayscale, light);
+        cursor: pointer;
+    }
+
+    .badgeCode {
+        margin-right: 50px;
+        background-color: white;
+    }
+
+    .preview {
+         margin-bottom: 20px;
+
+        .in_progress {
+            margin-left: 5px;
+        }
+    }
+
+
+    ul {
+
+        list-style-type: none;
+
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin-bottom: 20px;
+        }
+
+    }
+}
+
+.project-roles {
+
+    ul.add,
+    ul.list {
+        padding: 0;
+        margin: 0 0 20px 0;
+        list-style-type: none;
+        @include border-radius(2px);
+
+        li {
+            margin: 0;
+            padding: 0;
+            border: 1px solid get-color(grayscale, mid-light);
+
+            &.no-result {
+                padding: 13px 15px;
+            }
+
+            &:first-child {
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid get-color(grayscale, mid-light);
+                border-bottom-left-radius: 2px;
+                border-bottom-right-radius: 2px;
+            }
+
+            a {
+                display: block;
+                padding: 13px 15px;
+
+                &:hover {
+                    background: get-color(grayscale, light);
+                    text-decoration: none;
+                }
+
+                &.remove {
+                    display: inline;
+                    padding: 0;
+
+                    &:hover {
+                        background: transparent;
+                    }
+
+                }
+
+            }
+
+            &.no-result span {
+                display: block;
+                //padding: 13px 15px;
+            }
+        }
+    }
+
+    ul.members {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+
+        li {
+            padding: 13px 15px;
+            margin: 0;
+
+            border: 1px solid get-color(grayscale, mid-light);
+            border-bottom: none;
+
+            &.no-result {
+                padding: 13px 15px;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid get-color(grayscale, mid-light);
+            }
+        }
+    }
+
+}

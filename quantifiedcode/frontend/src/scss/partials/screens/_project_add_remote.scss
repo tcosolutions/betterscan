@@ -1,0 +1,74 @@
+.owner.selector-inline {
+
+    position: relative;
+    margin-bottom: 20px;
+
+    ul.dropdown-menu {
+        top: 40px;
+    }
+}
+
+ul.github-projects,
+ul.user-projects
+{
+    padding: 0;
+    margin-bottom: 20px;
+    list-style-type: none;
+
+    > li {
+    margin-bottom: 5px;
+    > a {
+      display: block;
+      border: 1px solid get-color(grayscale, mid-light);
+      height: 52px;
+
+      .name {
+        display: inline-block;
+        position: relative;
+        margin-left: 15px;
+        margin-top: 13px;
+        font-size: 16px;
+
+        i.octicon-lock {
+            position: absolute;
+            top: 3px;
+        }
+
+        .github_project_name {
+            margin-left: 20px;
+
+            @media(max-width: 768px) {
+                margin-left: 0px;
+            }
+        }
+      }
+        }
+    }
+
+    .btn {
+        background-color: get-color(white);
+        display: block;
+        border: none;
+        width: 100%;
+        height: 50px;
+        padding: 0;
+
+        text-align: left;
+
+        &:hover {
+            cursor: pointer;
+            background-color: get-color(grayscale, light);
+            color: get-color(grayscale, dark);
+        }
+    }
+
+    .plus {
+        width: 50px;
+        height: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 15px;
+        border-left: 1px solid get-color(grayscale, mid-light);
+        background-color: get-color(grayscale, light);
+    }
+}

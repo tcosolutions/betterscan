@@ -1,0 +1,39 @@
+.first-login {
+
+    h2 {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .spacer {
+        border-bottom: 1px solid get-color(grayscale, mid-light);
+        height: 1px;
+        margin: 25px 0;
+    }
+
+    .bookmarked {
+        .icon {
+            float: right;
+            font-size: 24px;
+            margin-top: -3px;
+            margin-right: 5px;
+        }
+    }
+
+    .reanalyzed {
+        .icon {
+            float: right;
+            font-size: 20px;
+        }
+    }
+
+
+    .bookmarked,
+    .reanalyzed {
+        .alert {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    }
+}
+

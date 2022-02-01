@@ -1,0 +1,81 @@
+.dropdown-menu.selector-dropdown {
+    @include border-radius(2px);
+    top: auto;
+    left: auto;
+}
+
+//commit and branch selector
+.selector {
+    display: inline-block;
+    margin-right: 20px;
+    border: 1px solid get-color(lightgrey, base);
+    padding: 5px 15px;
+    background-color: get-color(grayscale, light);
+    color: get-color(grayscale, dark);
+    font-size: 14px;
+    @include border-radius(2px);
+    -webkit-box-shadow: inset 0 1px 1px 0 get-color(white);
+    box-shadow: inset 0 1px 1px 0 get-color(white);
+
+    &.branch {
+        .text:before {
+            font-family: octicons;
+            content: '\f020';
+            font-size: 19px;
+            margin-right: 10px;
+            color: get-color(grayscale, mid-dark);
+        }
+
+        .text:after {
+            font-family: octicons;
+            content: '\f0a3';
+            margin-left: 10px;
+            color: get-color(grayscale, mid-dark);
+        }
+    }
+
+    &.commit  {
+        text-decoration: none;
+
+        .text:before {
+            font-family: octicons;
+            content: '\f07e';
+            font-size: 19px;
+            margin-right: 10px;
+            color: get-color(grayscale, mid-dark);
+        }
+
+    }
+
+    .icon {
+        font-size: 19px;
+        margin-right: 5px;
+        color: get-color(grayscale, mid-dark);
+    }
+
+
+    &:hover {
+        border: 1px solid get-color(grayscale, mid-light);
+        background-color: get-color(lightgrey, base);
+    }
+}
+
+@media (max-width: 768px) {
+    .selector {
+        width: 100%;
+
+        &.commit  {
+            margin-top: 10px;
+        }
+
+        &.branch {
+            .text {
+                float: left;
+                &:after {
+                    float: right;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}

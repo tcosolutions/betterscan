@@ -1,0 +1,223 @@
+/* Project Head */
+
+.project-header {
+    border-bottom: 1px solid get-color(grayscale, light);
+    padding-bottom:10px;
+    margin-bottom:10px;
+
+    a {
+        color: get-color(grayscale, dark);
+    }
+
+    h1 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 30px;
+        color: get-color(grayscale, mid-dark);
+        letter-spacing: -0.1px;
+        display: inline-block;
+
+        @media(max-width: 768px) {
+            font-size: 24px;
+        }
+    }
+
+    a.bookmark-icon {
+        cursor: pointer;
+        color: get-color(grayscale, mid-dark);
+
+        &:hover {
+            color: get-color(qc, blue);
+        }
+
+        &.added {
+            color: get-color(qc, blue);
+        }
+    }
+
+    span.bookmark-icon.added {
+        color: get-color(qc, blue);
+        display: block;
+        width: 20px;
+        text-align: center;
+    }
+
+    .bookmark-icon {
+        display: inline-block;
+        margin-top: 10px;
+        width: 20px;
+        text-align: center;
+
+        i {
+            font-size: 38px;
+        }
+    }
+
+    .qc-badge {
+        padding-top: 15px;
+        float: right;
+
+        @media(max-width: 768px) {
+            padding: 15px;
+            padding-left: 0px;
+            float: left;
+        }
+    }
+
+
+
+    .meta, .tags {
+
+        margin-bottom: 10px;
+        padding-left: 0;
+
+        > li {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+            letter-spacing: 0.2px;
+        }
+
+        a {
+            color: get-color(grayscale, base);
+      &.label {
+        color: get-color(white);
+      }
+        }
+
+        .github:before {
+            content: '\f00a';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+
+        .contributors:before {
+            content: '\f037';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+
+        .stargazers:before {
+            content: '\f02a';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+
+        .author:before {
+            content: '\f018';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+
+        .date:before {
+            content: '\f046';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+
+        .commit:before {
+            content: '\f07e';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+
+        .branch:before {
+            content: '\f020';
+            margin-right: 5px;
+            font-family: octicons;
+            font-size: 13px;
+            color: get-color(grayscale, base);
+        }
+    }
+
+    @media(max-width: 768px) {
+        .meta {
+            li {
+                font-size: 14px;
+            }
+            li:first-child {
+                margin-right: 0px;
+            }
+
+            li.fetch-failed {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .gt:before {
+        font-family: octicons;
+        content: '\f078';
+        margin-right: 15px;
+        margin-left: 15px;
+        color: get-color(grayscale, mid-dark);
+    }
+
+    .description {
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: get-color(grayscale, mid-dark);
+    }
+
+  .tags {
+    > li {
+      margin-right: 4px;
+    }
+    i.fa {
+        visibility: hidden;
+    }
+  }
+
+  .tags:hover {
+    i.fa {
+        visibility: visible;
+    }
+  }
+
+    .analyze {
+        margin-top: 15px;
+    }
+
+    .re-analyze-button {
+        a {
+            font-size: 32px;
+            color: get-color(grayscale, base);
+            display: inline-block;
+            margin-top: -6px;
+
+            &:hover {
+                color: get-color(grayscale, dark);
+            }
+        }
+    }
+
+    .analyze-info {
+        font-size: 12px;
+        color: get-color(grayscale, base);
+    }
+
+    .filename {
+        font-size: 22px;
+        margin-top: 20px;
+
+        &:before {
+            font-family: 'octicons';
+            content: '\f010';
+            margin-right: 10px;
+        }
+    }
+}

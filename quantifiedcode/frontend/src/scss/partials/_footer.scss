@@ -1,0 +1,78 @@
+.footer {
+
+  position: relative;
+  bottom: 0;
+
+  width: 100%;
+  bottom: 0;
+  margin-top: 100px;
+  padding: 15px 0 40px 0;
+  font-size: 14px;
+  background: get-color(grayscale, light);
+
+  h5 {
+    font-size: 16px;
+    font-weight: bold;
+    color: get-color(grayscale, mid-dark);
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    &.horizontal-links {
+      float: right;
+      li {
+        float: left;
+        margin-left: 20px;
+      }
+    }
+
+    li {
+      line-height: 2;
+    }
+
+    a {
+      margin-right: 0;
+    }
+  }
+
+  hr {
+    border-color: get-color(grayscale, mid-light);
+  }
+
+  a {
+    letter-spacing: 0.1px;
+    margin-right: 20px;
+    font-size: 13px;
+  }
+
+  .desc {
+    color: get-color(grayscale, mid-dark);
+    text-align: justify;
+  }
+
+}
+
+@media (max-width: 768px) {
+    .footer {
+      a {
+        line-height: 200%;
+      }
+      
+      li {
+          float: left;
+          margin-right: 15px;
+      }
+
+      ul.horizontal-links {
+        float: left;
+
+        li {
+          margin-left: 0px;
+          margin-right: 15px;
+        }        
+      }
+    }
+}

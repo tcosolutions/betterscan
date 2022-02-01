@@ -1,0 +1,101 @@
+// Breadcrumbs
+
+.path-selector { 
+  // Visual formatting
+  display: inline-block;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+
+  
+  // Box model
+  width: auto;
+  height: 38px;
+  margin-bottom: 0;
+
+  // Other
+  border-radius: 0px;
+
+  > .path-list {
+    display: inline-block;
+    margin: 9px 0 0 15px;
+    padding: 0;
+
+    > li {
+      // Box model
+      display: inline;
+      padding-right: 5px;
+      //Typography + color
+      color: get-color(grayscale, mid-dark);
+
+      &:before  {
+        content: '/';
+        margin: 0 2px;
+        color: get-color(grayscale, mid-light);
+      }
+
+      &:nth-child(1):before {
+        content: none;
+        margin: 0;
+      }
+
+      > a {
+        //Typography + color
+        color: get-color(grayscale, mid-dark);
+
+        &:hover {
+          color: get-color(grayscale, dark);
+        }
+      }
+
+      button {
+        // Box model
+        margin: 0;
+        padding-right: 5px;
+        padding: 0;
+        border: none;
+        background: none;
+
+        // Other
+        vertical-align: middle;
+        &:hover {
+          color: get-color(grayscale, dark);
+        }
+      }
+    }
+
+    .path-dd {
+      button {
+        > .fa-chevron-right {
+          // Box model
+          font-size: 14px;
+          margin-top: 1px;
+        }
+      }
+
+      .btn-group, 
+      .dropdown-menu {
+        // Box model
+        margin-top:-4px;
+      }
+    }
+
+    .path-dd:hover, .btn-group:hover {
+    .dropdown-menu {
+        // Visual formatting
+        display: block;
+      }
+    }
+  }
+}
+
+.new-project {
+  // Box model
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top:20px;
+  padding: 15px;
+  padding-top:0;
+  
+  // Other
+  border:4px solid get-color(grayscale, light);
+}

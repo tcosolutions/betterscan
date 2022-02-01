@@ -1,0 +1,87 @@
+.subscriptions {
+    #plans {
+        .plan-name {
+            // Typography
+            font-weight: bold;
+        }
+
+        .btn {
+            position: relative;
+            top: -5px;
+            padding: 2px 6px 3px;
+            line-height: 2;
+        }
+
+        .subscription-plan {
+            padding-top: 10px;
+            padding-right: 5px;
+            margin-left: 0px;
+            margin-right: 0px;
+            &:nth-child(2n) {
+                background-color: get-color('grayscale', 'light');
+            }
+        }
+    }
+
+    #payment-plans {
+        h3 {
+            margin-top: 0px;
+            border-bottom: 1px solid get-color('grayscale', 'mid-light');
+        }
+    }
+
+    #payment-details {
+        h3 {
+            border-bottom: 1px solid get-color('grayscale', 'mid-light');
+        }
+    }
+
+    #billing-info {
+        h3 {
+            border-bottom: 1px solid get-color('grayscale', 'mid-light');
+        }
+    }
+
+    #billingForm,
+    #paymentForm {
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-top: 5px;
+        }
+
+        input {
+            // Box size
+            height: 30px;
+
+            // Typography
+            font-size: 15px;
+
+            // Other
+            &.form-control {
+            margin-bottom: 0px;
+            padding: 0px 10px;
+            border: 1px solid get-color(grayscale, mid-light);
+            @include border-radius(2px);
+            }
+        }
+
+        .form-group.has-warning {
+            input.form-control {
+            border-color: get-color(alert, warning);
+            }
+        }
+
+        .alert {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .purchase-btn {
+        font-size: 1.2em;
+        line-height: 1.5em;
+    }
+}

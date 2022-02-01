@@ -1,0 +1,278 @@
+// Navbar
+
+.navbar {
+    margin-bottom: 0px;
+    background: get-color(qc,blue);
+    color: get-color(white, base);
+    //-webkit-box-shadow: 0 1px 4px -1px get-color(grayscale, x-dark);
+    //box-shadow: 0 1px 4px -1px get-color(grayscale, x-dark);
+
+    .octicon-gist {
+        font-size: 17px;
+    }
+
+
+    li {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-left: 25px;
+    }
+
+    &-nav>li>.dropdown-menu {
+        position: absolute;
+        top: 50px;
+        border-top: none;
+
+        > li {
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 992px) {
+        .sm-right {
+            float: right !important;
+        }
+    }
+
+    &-default {
+
+    border:none;
+
+        .navbar-nav>.open>a {
+            //padding: 4px 10px 3px 10px;
+            color: get-color(white, base);
+            font-weight: 400;
+            background: transparent;
+
+            &:hover {
+                border: none;
+                @include border-radius(4px);
+                background: transparent;
+                color: get-color(white, base);
+            }
+
+            &:focus {
+                border: none;
+                @include border-radius(4px);
+                background: transparent;
+                color: get-color(white, base);
+            }
+            &:visited {
+                border: none;
+                @include border-radius(4px);
+                background: transparent;
+                color: get-color(white, base);
+            }
+        }
+
+
+        .navbar-nav>li>a {
+            padding: 4px 1px 3px 1px;
+            color: get-color(white, base);
+            font-weight: 400;
+            margin-left: 10px;
+            font-size: 15px;
+            border-bottom: 2px solid transparent;
+
+            &.active {
+                border: none;
+                border-bottom: 2px solid get-color(qc, active-grey);
+            }
+
+            &:hover, &:focus {
+                border: none;
+                color: get-color(qc, active-grey);
+
+                border-bottom: 2px solid get-color(qc, active-grey);
+            }
+
+            &.signup {
+                @include border-radius(4px);
+                padding: 3px 10px;
+                border: 1px solid get-color(white, base);
+                color: get-color(white, base);
+
+                &:hover, &:active {
+                    background: get-color(white, base);
+                    color: get-color(qc, blue);
+                }
+            }
+
+        }
+
+        .navbar-brand {
+
+            img {
+                height: 28px;
+            }
+        }
+
+        .navbar-toggle {
+
+            border-color: get-color(white, base);
+
+            &:hover,
+            &:focus {
+                background-color: get-color(qc, active-grey);
+                color: get-color(qc, blue);
+
+                .icon-bar {
+                    background-color: get-color(qc, blue);
+                    border-color: get-color(qc, blue);
+                }
+            }
+
+            .icon-bar {
+
+                background-color: get-color(white,base );
+            }
+    }
+    }
+
+    &-brand {
+        padding-top: 10px;
+    }
+
+    &-toggle {
+        margin-top: 8px;
+    }
+
+    li a {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        color: get-color(grayscale, dark);
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        li a {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        .navbar-brand {
+            img {
+                height: 20px;
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+#app,
+#body-wrapper {
+    overflow-x: hidden;
+}
+
+#app .navbar-toggle {
+	display: none;
+}
+
+#off-canvas-menu {
+	display: none;
+}
+
+@media (max-width: 768px) {
+
+	.off-canvas-buttons {
+		position: absolute;
+		top: 0;
+		right: 0;
+		cursor: pointer;
+
+		margin: 10px 0 0 0;
+		padding: 0;
+
+		li {
+			display: inline-block;
+			margin: 0 15px 0 0;
+			height: 30px;
+			padding: 5px 10px;
+			border: 1px solid get-color(white,base);
+			@include border-radius(5px);
+
+			&:hover {
+				background: get-color(white, base);
+				color: get-color(qc, blue);
+
+				a {
+					color: get-color(qc, blue)
+				}
+			}
+
+			a {
+				color: get-color(white, base);
+				margin: 0;
+				padding: 0;
+
+				&:hover {
+					color: get-color(qc, blue);
+				}
+			}
+		}
+
+	}
+
+	#off-canvas-menu {
+		position: absolute;
+		display: block;
+
+		top: 50px;
+		right: -220px;
+		width: 200px;
+
+		.menus ul {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0px;
+			width: 200px;
+			margin: 0;
+			padding: 0;
+			border-top: none;
+
+			background: get-color(white,base);
+
+			list-style-type: none;
+
+			-webkit-transition: left 600ms ease-out; /* Firefox */
+			-moz-transition: left 600ms ease-out; /* WebKit */
+			-o-transition: left 600ms ease-out; /* Opera */
+			transition: left 600ms ease-out; /* Standard */
+
+			&.on-canvas {
+				left: -218px;
+				-webkit-transition: left 400ms ease-out; /* Firefox */
+				-moz-transition: left 400ms ease-out; /* WebKit */
+				-o-transition: left 400ms ease-out; /* Opera */
+				transition: left 400ms ease-out; /* Standard */
+			}
+
+			.off-canvas-hide {
+				cursor: pointer;
+				border-bottom: 1px solid get-color(grayscale, light);
+				text-align: right;
+				color: get-color(grayscale, base);
+
+				&:hover {
+					background: #f5f5f5;
+				}
+			}
+
+			li {
+				padding: 0;
+				margin: 0;
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.off-canvas-buttons {
+		display: none;
+	}
+}

@@ -1,0 +1,12 @@
+rules:
+- id: detected-log4j-core
+  pattern-either:
+  - pattern-regex: log4j-core[<>a-zA-Z0-9\/\n \r.-]{1,100}<version>2\.(([0-9][^0-9])|(1[0-6]))
+  - pattern-regex: <version>2\.(([0-9][^0-9])|(1[0-6]))[<>a-zA-Z0-9\/\n \r.-]{1,100}log4j-core
+  - pattern-regex: log4j-core['", a-zA-Z]{1,10}version[:'" =]{1,5}2\.(([0-9][^0-9])|(1[0-6]))
+  - pattern-regex: log4j-core['", a-zA-Z]{1,10}rev['" =]{1,5}2\.(([0-9][^0-9])|(1[0-6]))
+  languages: [regex]
+  message: log4j-core insecure version detected
+  severity: ERROR
+  metadata:
+    category: security

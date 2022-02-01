@@ -1,0 +1,176 @@
+rules:
+- id: log4j-message-injection
+  metadata:
+    category: security
+    technology:
+    - java
+  message: Possible Lookup injection into Log4j messages.
+  patterns:
+  # Checks for error(...), warn(...), info(...), debug(...), fatal(...), trace(...), log(level, ...):
+  - pattern-either:
+    - pattern: (org.apache.logging.log4j.Logger $W).fatal($X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).fatal($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).fatal($MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).fatal(String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).fatal($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).fatal($MSG, ...);
+
+
+    - pattern: (org.apache.logging.log4j.Logger $W).error($X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).error($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).error($MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).error(String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).error($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).error($MSG, ...);
+
+    - pattern: (org.apache.logging.log4j.Logger $W).warn($X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).warn($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).warn($MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).warn(String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).warn($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).warn($MSG, ...);
+
+
+    - pattern: (org.apache.logging.log4j.Logger $W).info($X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).info($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).info($MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).info(String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).info($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).info($MSG, ...);
+
+
+    - pattern: (org.apache.logging.log4j.Logger $W).debug($X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).debug($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).debug($MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).debug(String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).debug($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).debug($MSG, ...);
+
+    - pattern: (org.apache.logging.log4j.Logger $W).trace($X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).trace($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).trace($MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).trace(String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).trace($MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).trace($MSG, ...);
+
+    - pattern: (org.apache.logging.log4j.Logger $W).log($LEVEL, $X + $Y, ...);
+    - pattern: |
+        String $MSG = $X + $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).log($LEVEL, $MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += $Y;
+        ...
+        (org.apache.logging.log4j.Logger $W).log($LEVEL, MSG, ...);
+    - pattern: (org.apache.logging.log4j.Logger $W).log($LEVEL, String.format($X, ...), ...);
+    - pattern: |
+        String $MSG = String.format($X, ...);
+        ...
+        (org.apache.logging.log4j.Logger $W).log($LEVEL, $MSG, ...);
+    - pattern: |
+        String $MSG = $X;
+        ...
+        $MSG += String.format(...);
+        ...
+        (org.apache.logging.log4j.Logger $W).log($LEVEL, $MSG, ...);
+  severity: WARNING
+  languages:
+  - java

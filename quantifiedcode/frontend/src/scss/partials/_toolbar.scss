@@ -1,0 +1,397 @@
+.toolbar {
+  border-radius: 0;
+  background: get-color(grayscale, light);
+  -webkit-box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+  box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+
+  .head {
+    text-transform: capitalize;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .element-wrapper {
+    border: 1px solid get-color(grayscale,mid-light);
+    border-bottom: none;
+    padding: 5px;
+  }
+
+  &.affix {
+    z-index: 9999;
+    position: fixed;
+    top: 0px;
+    width: 877px;
+  }
+
+  &.affix-bottom {
+    width: 877px;
+    position: absolute;
+  }
+
+  ul.dropdowns {
+    float: right;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      float: left;
+      display: inline-block;
+    }
+
+    li.dropdown {
+      line-height: 40px;
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      a {
+        display: block;
+        cursor: pointer;
+        padding-right: 5px;
+        padding-left: 5px;
+        color: get-color(grayscale, mid-dark);
+
+        &:hover {
+          color: get-color(grayscale, dark);
+          text-decoration: none;
+        }
+      }
+
+      .octicon {
+        margin-left: 5px;
+        font-size: 13px;
+      }
+    }
+
+    .list {
+      width: 220px;
+      margin: 6px 0 0 0;
+      padding: 0;
+      border-top: none;
+      @include border-top-radius(0px);
+
+      li {
+        list-style: none;
+        border-bottom: 1px solid get-color(grayscale, light);
+        line-height: 26px;
+        margin: 0;
+        letter-spacing: 0.2px;
+        display: block;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          height: 36px;
+          padding: 8px 15px 9px 15px;
+          font-size: 13px;
+          display: block;
+          text-decoration: none;
+          color: get-color(grayscale, mid-dark);
+          padding-left: 15px;
+          -webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+          -o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+          transition: background-color ease-in-out .05s,color ease-in-out .05s;
+
+          &:hover {
+            text-decoration: none;
+            background-color: get-color(grayscale, light);
+            color: get-color(grayscale, dark);
+            -webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+            -o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+            transition: background-color ease-in-out .05s,color ease-in-out .05s;
+          }
+
+          &.button,
+          &.button-selected {
+            padding-left: 0;
+          }
+
+        }
+
+        .text {
+          display: block;
+          padding: 5px 15px;
+        }
+
+        .title {
+          display: inline-block;
+          margin-top: 1px;
+        }
+
+        .count {
+          float:right;
+          margin-top: 1px;
+          text-align: right;
+          color: get-color(grayscale, base);
+        }
+
+      }
+
+      .selected {
+        background-color: get-color(lightgrey, light);
+        padding-left: 15px;
+      }
+
+      .clickable {
+        padding-right: 74px;
+        padding-left: 0;
+
+        .filter-title {
+          display: block;
+          width: 100%;
+          height: 36px;
+          padding-left: 15px;
+        }
+
+        .controls {
+          margin-right: -74px;
+        }
+      }
+
+      .active {
+        background-color: get-color(lightgrey, light);
+
+        a {
+          background-color: get-color(lightgrey, light);
+          color: get-color(grayscale, dark);
+        }
+      }
+    }
+
+    .list {
+
+      li {
+        line-height: 33px;
+      }
+    }
+
+    .controls {
+    width: 74px;
+    display: inline;
+
+    .button {
+      display: inline-block;
+      width: 37px;
+      height: 36px;
+      padding-top: 2px;
+      padding-left: 12px !important;
+      border-left: 1px solid get-color(grayscale, light);
+      color: get-color(grayscale, dark);
+
+      &-selected {
+        display: inline-block;
+        width: 37px;
+        height: 36px;
+        padding-top: 2px;
+        padding-left: 0;
+        border-left: 1px solid get-color(grayscale, light);
+        color: get-color(qc, blue);
+
+        span {
+          width: 100%;
+          font-size: 18px;
+          margin-top: 2px;
+        }
+      }
+
+      &:hover {
+        color: get-color(grayscale, dark);
+        -webkit-transition: color ease-in-out .15s;
+        -o-transition: color ease-in-out .15s;
+        transition: color ease-in-out .15s;
+      }
+
+      span {
+        width: 100%;
+        font-size: 18px;
+        margin-top: 2px;
+      }
+    }
+
+    }
+  }
+
+  .path-selector,
+  .search {
+    width: 100%;
+    margin-right: 0;
+    padding: 0;
+    float: left;
+  }
+
+  .path-selector {
+    border: none;
+
+    @media(max-width: 768px) {
+      border-bottom: 1px solid get-color(grayscale, mid-light);
+    }
+  }
+
+  .search {
+    border: 1px solid get-color(grayscale, mid-light);
+    height: 52px;
+
+    span {
+      margin-left: -50px;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      vertical-align: middle;
+      display:inline-block;
+      font-size: 20px;
+      padding-top: 15px;
+      color: get-color(grayscale, base);
+    }
+
+    form {
+      padding-left: 50px;
+    }
+  }
+
+  .filter {
+    height: 40px;
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
+    padding-left: 50px;
+    border-radius: 0;
+    border-top-left-radius: 2px;
+    box-shadow: none;
+    font-size: 16px;
+    //border: 1px solid get-color(grayscale, mid-light);
+    background: 13px 9px no-repeat;
+    background-image: url('../assets/gfx/search-light.png') ;
+    -webkit-transition: background-image ease-in-out .15s, border ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: background-image ease-in-out .15s, border ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: background-image ease-in-out .15s, border ease-in-out .15s, box-shadow ease-in-out .15s;
+    color: get-color(grayscale, mid-dark);
+
+    &:focus {
+      //border-color: get-color(grayscale, base);
+      background: 13px 9px no-repeat get-color(white);
+      background-image: url('../assets/gfx/search-dark.png');
+      color: get-color(grayscale, dark);
+      //-webkit-box-shadow:
+        //inset 0 1px 1px get-color(black, $alpha: 0.075),
+        //0 0 5px get-color(black, $alpha: 0.2);
+      //box-shadow:
+        //inset 0 1px 1px get-color(black, $alpha: 0.075),
+        //0 0 5px get-color(black, $alpha: 0.2);
+      //-webkit-transition: background-image ease-in-out .15s, border ease-in-out .15s, box-shadow ease-in-out .15s;
+      //-o-transition: background-image ease-in-out .15s, border ease-in-out .15s, box-shadow ease-in-out .15s;
+      //transition: background-image ease-in-out .15s, border ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+
+    .toolbar-dropdowns {
+      clear: both;
+      width: 100%;
+
+
+      ul.dropdowns {
+        float: right;
+      }
+
+    }
+
+    .compact-form {
+      width: 100%;
+    }
+
+  }
+
+}
+
+.severity-filter {
+  li {
+    a {
+      &:before {
+        content:'\f096';
+        font-family: FontAwesome;
+        margin-right: 14px;
+        font-size: 17px;
+        color: get-color(grayscale, mid-light);
+        float: left;
+        margin-top: -1px;
+      }
+    }
+
+    &.active {
+      a {
+      color: get-color(grayscale, dark);
+      }
+
+      a:before  {
+        content:'\f046';
+        font-family: FontAwesome;
+        margin-right: 14px;
+        font-size: 17px;
+        color: get-color(grayscale, dark);
+      }
+
+      &.severity-1 {
+        a:before {
+          color: get-color(severity, 1);
+        }
+      }
+      &.severity-2 {
+        a:before {
+          color: get-color(severity, 2);
+        }
+      }
+      &.severity-3 {
+        a:before {
+          color: get-color(severity, 3);
+        }
+      }
+      &.severity-4 {
+        a:before {
+          color: get-color(severity, 4);
+        }
+      }
+    }
+
+
+  }
+
+  @media(max-width: 768px) {
+    .dropdown-menu-right {
+      left: -38px;
+    }
+  }
+
+}
+
+//@TODO: Replace &.selected with loop
+.categories-filter {
+  li {
+    a {
+      padding-left: 13px;
+    }
+
+    &.active {
+      a {
+        color: get-color(grayscale, dark);
+
+        &:before {
+          color: get-color(grayscale, dark);
+        }
+      }
+    }
+  }
+
+  @media(max-width: 768px) {
+    .dropdown-menu-right {
+      right: -6px;
+    }
+  }
+}

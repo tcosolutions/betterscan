@@ -1,0 +1,106 @@
+.team-header {
+    padding-top: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid get-color(grayscale, light);
+    background-color: get-color(lightgrey, x-light);
+    padding-bottom: 20px;
+}
+
+
+.team-list {
+
+    .delete-link {
+        display: inline-block;
+        padding: 3px;
+        margin-top: -35px;
+        color: get-color(grayscale, base);
+        position: absolute;
+        z-index: 10;
+        right: 30px;
+        -webkit-transition:color ease-in-out .15s;
+        -o-transition: color ease-in-out .15s;
+        transition: color ease-in-out .15s;
+
+        &:hover {
+            color: get-color(grayscale, dark);
+            text-decoration: none;
+
+            -webkit-transition: color ease-in-out .15s;
+            -o-transition: color ease-in-out .15s;
+            transition: color ease-in-out .15s;
+        }
+    }
+
+    .description {
+        margin-bottom: 0;
+    }
+
+    .team-item {
+        //padding: 22px 15px;
+    }
+}
+
+.team-members {
+    ul.add,
+    ul.list {
+        padding: 0;
+        margin: 0 0 20px 0;
+        list-style-type: none;
+
+        li {
+            margin: 0;
+            padding: 0;
+
+            border: 1px solid get-color(grayscale, mid-light);
+            border-bottom: none;
+
+            &:last-child {
+                border-bottom: 1px solid get-color(grayscale, mid-light);
+            }
+
+            a {
+                display: block;
+                padding: 13px 15px;
+
+                &:hover {
+                    background: get-color(grayscale, light);
+                    text-decoration: none;
+                }
+
+                &.remove {
+                    display: inline;
+                    padding: 0;
+
+                    &:hover {
+                        background: transparent;
+                    }
+
+                }
+            }
+
+            &.no-result span {
+                display: block;
+                //padding: 13px 15px;
+            }
+        }
+    }
+
+    ul.members {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+
+        li {
+            padding: 13px 15px;
+            margin: 0;
+
+            border: 1px solid get-color(grayscale, mid-light);
+            border-bottom: none;
+
+            &:last-child {
+                border-bottom: 1px solid get-color(grayscale, mid-light);
+            }
+        }
+    }
+
+}

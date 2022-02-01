@@ -1,0 +1,58 @@
+
+ul.email-list {
+  border: 1px solid get-color(grayscale, mid-light);
+  @include border-bottom-radius(2px);
+  background-color: get-color(white);
+
+  margin: 0;
+  padding: 0;
+}
+
+ul.email-list > li{
+        padding: 10px !important;
+        position:relative;
+
+        a{
+            text-decoration:none
+        };
+
+        &:last-child {
+                border-bottom: none;
+        };
+
+        &:nth-child(even) {
+            background-color: get-color(lightgrey, light);
+        };
+
+        &:nth-child(odd) {
+            background-color: get-color(lightgrey, mid-light);
+        };
+
+        input {
+            margin-top: 13px;
+        }
+
+        list-style-type: none;
+        border-bottom: 1px solid get-color(grayscale, mid-light);
+        clear: both;
+        padding: 4px;
+
+        .btn-group a.btn{
+            padding:0 4px 0 4px;
+            margin:0;
+            font-size:12px;
+            font-weight:normal;
+        };
+
+        span.settings{
+            padding:0px;
+            position:absolute;
+            right:5px;
+            top:0px;
+        };
+
+        a h4{
+            padding:0;
+            color:#000;
+        };
+    }

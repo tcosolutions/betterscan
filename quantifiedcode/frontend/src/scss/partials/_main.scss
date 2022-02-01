@@ -1,0 +1,505 @@
+// Main site-wide CSS
+
+.modal-backdrop{
+    z-index: -1;
+}
+
+span.l {
+    padding:8px 12px 8px 12px;
+    margin:2px;
+    font-size:24px;
+    font-weight:bolder;
+    border:6px #aaa solid;
+    border-radius:4px;
+    background:#ddd;
+    color:#fff;
+}
+
+p.quote{
+    margin:0 auto;
+    width: 400px;
+    font-size:16px;
+}
+
+@media(max-width: 768px) {
+    p.quote {
+        width: 100%;
+   }
+}
+
+p.quote i {
+    font-size:12px;
+}
+
+body {
+
+  	color: get-color(grayscale, dark) !important;
+  	font-family: "Lato", Helvetica,Arial,sans-serif;
+
+	.trial {
+	    margin-top: 10px;
+	    display: block;
+	    font-size: 13px;
+	    letter-spacing: 0.3px;
+	}
+}
+
+
+a {
+  color: get-color(qc, blue);
+  cursor: pointer;
+
+	&:hover {
+		color: get-color(qc, darkblue);
+	}
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: -0.1px;
+}
+
+h2 {
+	margin-bottom: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+#main {
+	min-height: 640px;
+	margin-bottom: 200px;
+	margin-top: 30px;
+}
+
+h1.headline {
+    font-size: 30px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+h2.headline {
+	font-size: 22px !important;
+	letter-spacing: 0.4px  !important;
+	font-weight: bold  !important;
+}
+
+h3.headline {
+	line-height: 50px !important;
+	font-size: 17px !important;
+	font-weight: bold !important;
+	vertical-align: middle !important;
+	letter-spacing: 0.2px !important;
+}
+
+h4.headline {
+	line-height: 50px !important;
+	font-size: 18px !important;
+	font-weight: 500 !important;
+	vertical-align: middle !important;
+}
+
+.monster-headline {
+	font-size: 54px;
+	font-weight: bold;
+	letter-spacing: -1px;
+	color: #333;
+	line-height: 1.05;
+	margin-bottom: 50px;
+}
+
+.monster-headline-text {
+	font-size: 60px;
+	font-weight: bold;
+	letter-spacing: -1px;
+	color: #333;
+	line-height: 1.05;
+	margin-bottom: 30px;
+}
+
+.text-block {
+	display: block;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media(max-width: 768px) {
+    .truncate-xs {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.content-box {
+	  	border: 1px solid get-color(grayscale, mid-light);
+	  	@include border-radius(2px);
+
+	  	>.head {
+	  		height: 50px;
+	  	 	border-bottom: 1px solid get-color(grayscale, mid-light);
+	  	 	padding: 13px 15px;
+
+	  	 	background: get-color(grayscale, light);
+			color: get-color(grayscale, dark);
+
+			-webkit-box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.5);
+			box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.5);
+
+	  	 	h1, h2, h3, h3 {
+	  	 		padding: 0;
+	  	 		margin: 0;
+	  	 		font-size: 22px;
+	  	 		display: inline-block;
+	  	 	}
+
+	  	 	i {
+	  	 		margin-right: 10px;
+	  	 		font-size: 17px;
+	  	 		color: get-color(grayscale, mid-dark);
+	  	 	}
+	  	}
+
+	  	>.body {
+	  		padding: 25px;
+	  		background: get-color(white);
+	  	}
+
+	  	table {
+	  		margin-bottom: 0px;
+	  	}
+
+	  	&.full {
+	  		padding: 0px;
+	  		border: 1px solid get-color(grayscale, mid-light);
+	  		background: get-color(lightgrey, light);
+
+	  		.body {
+	  			//padding: 0;
+	  			background: get-color(white);
+	  		}
+
+	  		.sidebar {
+	  			padding: 0;
+	  			border: none;
+
+	  			h3 {
+					margin: 0;
+					margin-left: 15px;
+					line-height: 50px;
+					font-size: 19px;
+					font-weight: bold;
+					vertical-align: middle;
+					letter-spacing: 0.2px;
+				}
+
+				ul {
+
+					margin: 0;
+					padding: 0;
+
+					li {
+						list-style: none;
+						line-height: 33px;
+						margin: 0;
+						letter-spacing: 0.2px;
+						display: block;
+
+						&:last-child {
+							border-bottom: none;
+						}
+
+						a {
+							display: block;
+							text-decoration: none;
+							color: get-color(grayscale, mid-dark);
+							padding-left: 15px;
+							-webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+							-o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+							transition: background-color ease-in-out .05s,color ease-in-out .05s;
+
+							&:hover {
+								text-decoration: none;
+								background-color: get-color(grayscale, light);
+								color: get-color(grayscale, dark);
+								-webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+								-o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+								transition: background-color ease-in-out .05s,color ease-in-out .05s;
+							}
+
+							&.button,
+							&.button-selected {
+								padding-left: 0;
+							}
+
+						}
+
+						&:hover {
+							text-decoration: none;
+							background-color: get-color(grayscale, light);
+							color: get-color(grayscale, dark);
+							-webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+							-o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+							transition: background-color ease-in-out .05s,color ease-in-out .05s;
+						}
+
+						&.active {
+							background: get-color(qc, blue);
+							color: get-color(white);
+						}
+
+						&.pointer:hover {
+							cursor: pointer;
+						}
+
+						.text {
+							display: block;
+							padding: 5px 15px;
+						}
+
+						.count {
+							float: right;
+							text-align: right;
+							margin-right: 10px;
+							color: get-color(grayscale, base);
+						}
+
+					}
+
+				}
+	  		}
+	  	}
+}
+
+.col-center {
+	float: none;
+	margin: 0 auto;
+}
+
+.space-top {
+	margin-top: 40px !important;
+}
+
+.space-bottom {
+	margin-bottom: 40px !important;
+}
+
+.space-right-5 {
+	margin-right: 5px !important;
+}
+
+.smooth-img {
+	border: 1px solid get-color(grayscale, mid-light);
+	border-radius: 5px;
+}
+
+pre {
+	@include border-radius(2px);
+}
+
+hr {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.alert {
+	@include border-radius(2px);
+	border: 1px solid get-color(grayscale, mid-light);
+	background-color: get-color(lightgrey, light);
+}
+
+li.organizations:hover > ul.dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+	padding: 0px;
+
+	&>li>a {
+		padding: 10px 15px;
+	}
+
+	.divider {
+		margin: 0;
+	}
+
+	li.section {
+		color: get-color(grayscale, base);
+
+		span {
+			display: block;
+			padding: 10px 15px;
+		}
+	}
+}
+
+p.request-indicator {
+
+	width: auto;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	margin-left: -70px;
+	border: 1px solid get-color(gold, dark);
+	border-top: none;
+	padding: 5px 15px;
+	font-size: 12px;
+	z-index: 1000;
+	background: get-color(gold, light);
+	color: get-color(grayscale, dark);
+	text-align: center;
+
+	-webkit-box-shadow: 0px 2px 3px 0px get-color(black, $alpha: 0.3);
+	-moz-box-shadow:    0px 2px 3px 0px get-color(black, $alpha: 0.3);
+	box-shadow:         0px 2px 3px 0px get-color(black, $alpha: 0.3);
+
+	> a {
+		color: get-color(grayscale, dark);
+
+		&:hover {
+			text-decoration: none;
+		}
+		> .fa-spin, > .fa-exclamation-triangle {
+			margin-right: 5px;
+		}
+	}
+}
+
+.action-indicator {
+
+	&.small-space {
+		margin-top: 20px;
+	}
+
+	&.space {
+		margin-top: 200px;
+	}
+
+	.light-spin {
+		color: get-color(grayscale, mid-light);
+
+		&.center {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+		}
+	}
+}
+
+.progress-bar {
+	background: get-color(qc, blue);
+}
+
+// Search Results
+
+.query-info {
+  width: 100%;
+  border: 1px solid get-color(grayscale, mid-light);
+  border-bottom: none;
+  padding: 15px;
+  margin-bottom: 0;
+  color: get-color(grayscale, mid-dark);
+
+  &>span {
+  	margin-right: 10px;
+  }
+}
+
+.pil .query-info,
+.pl .query-info {
+	border: none;
+	border-bottom: 1px solid get-color(grayscale, mid-light);
+}
+
+.no-results {
+	&.content-box {
+		border: none;
+	}
+}
+
+.no-results h2 {
+  margin: 0 0 5px 0;
+  font-size: 23px;
+  letter-spacing: 0.4px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+//Force Colors
+
+.grayscale-x-dark-bg { background-color: get-color(grayscale, x-dark) !important; }
+.grayscale-x-dark-color { color: get-color(grayscale, x-dark) !important; }
+
+.grayscale-dark-bg { background-color: get-color(grayscale, dark) !important; }
+.grayscale-dark-color { color: get-color(grayscale, dark) !important; }
+
+.grayscale-mid-dark-bg { background-color: get-color(grayscale, mid-dark) !important; }
+.grayscale-mid-dark-color { color: get-color(grayscale, mid-dark) !important; }
+
+.grayscale-base-bg { background-color: get-color(grayscale, base) !important; }
+.grayscale-base-color { color: get-color(grayscale, base) !important; }
+
+.grayscale-mid-light-bg { background-color: get-color(grayscale, mid-light) !important; }
+.grayscale-mid-light-color { color: get-color(grayscale, mid-light) !important; }
+
+.grayscale-light-bg { background-color: get-color(grayscale, light) !important; }
+.grayscale-light-color { color: get-color(grayscale, light) !important; }
+
+.grayscale-x-light-bg { background-color: get-color(grayscale, x-light) !important; }
+.grayscale-x-light-color { color: get-color(grayscale, x-light) !important; }
+
+
+.qc-primary-bg { background-color: get-color(qc, blue) !important; }
+.qc-primary-color { color: get-color(qc, blue) !important; }
+
+.qc-primary-dark-bg { background-color: get-color(qc, darkblue) !important; }
+.qc-primary-dark-color { color: get-color(qc, darkblue) !important; }
+
+.qc-orange-bg { background-color: get-color(qc, orange) !important; }
+.qc-orange-color { color: get-color(qc, orange) !important; }
+
+.qc-orange-dark-bg { background-color: get-color(qc, darkorange) !important; }
+.qc-orange-dark-color { color: get-color(qc, darkorange) !important; }
+
+.qc-green-bg { background-color: get-color(qc, green) !important; }
+.qc-green-color { color: get-color(qc, green) !important; }
+
+.qc-green-dark-bg { background-color: get-color(qc, darkgreen) !important; }
+.qc-green-dark-color { color: get-color(qc, darkgreen) !important; }
+
+
+.severity-1-bg { background-color: get-color(severity, 1) !important;}
+.severity-1-color { color: get-color(severity, 1) !important; }
+
+.severity-2-bg { background-color: get-color(severity, 2) !important; }
+.severity-2-color { color: get-color(severity, 2) !important; }
+
+.severity-3-bg { background-color: get-color(severity, 3) !important; }
+.severity-3-color { color: get-color(severity, 3) !important; }
+
+.severity-4-bg { background-color: get-color(severity, 4) !important; }
+.severity-4-color { color: get-color(severity, 4) !important; }
+
+.border {
+    border: 1px solid get-color(grayscale, mid-light);
+}
+
+.google-form  {
+    border: 0px;
+    overflow: hidden;
+    min-height: 900px;
+}

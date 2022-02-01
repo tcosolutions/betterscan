@@ -1,0 +1,175 @@
+// Colors
+
+/* At a minimum every palette defines a base colour, and then optionally adds tones use the following naming pattern:
+    - x-dark
+    -  dark *
+    - mid-dark
+    - base (default)
+    - mid-light
+    - light
+    - x-light
+*/ 
+
+//Function to get palettes
+@function get-color($palette, $tone: 'base', $alpha: 1) {
+    @if map-has-key($palettes, $palette) {
+        @if map-has-key(map-get($palettes, $palette), $tone) {
+            @return rgba(palette($palette, $tone), $alpha);
+        }
+        @else {
+            @warn "No palette `#{$palette}` with tone `#{$tone}`"
+        }
+    }
+    @else {
+        @warn "No palette with name `#{$palette}` in $palettes";
+    }
+    @return null;
+}
+
+//Function to colors
+@function palette($palette, $tone: 'base') {
+    @return map-get(map-get($palettes, $palette), $tone);
+}
+
+/*  Function to get colors with transparency
+    Usage: 
+        get-color(black);
+        get-color(black, light);
+        get-color(black, $alpha: 0.8)
+        get-color(black, light, 0.8)
+*/
+
+//  Base colors of paletes
+$_color-base-black: #000;
+$_color-base-white: #fff;
+$_color-base-grey: #777;
+$_color-base-lightgrey: #ddd;
+$_color-base-grayscale: #999;
+$_color-base-red: #ff0000;
+$_color-base-green: #00ff00;
+$_color-base-blue: #0000ff;
+$_color-base-yellow: #ffff00;
+$_color-base-orange: #ffaa00;
+$_color-base-purple: #a020f0;
+
+
+$palettes: (
+    black: (
+        base: $_color-base-black,
+    ),  
+    white: (
+        base: $_color-base-white,
+    ), 
+    grayscale: (
+        x-dark: $_color-base-black,
+        dark: #333,
+        mid-dark: #666,
+        mid-dark-2: #555,
+        base: $_color-base-grayscale,
+        mid-light-3: #bbb,
+        mid-light-2: #aaa,
+        mid-light: #ccc,
+        light: #eee,
+        x-light: $_color-base-white,
+    ),
+    qc: (
+        base: $_color-base-white,
+        //blue: #0079d2,
+        blue: #135389,
+        blueshadow: #08406F,
+        blue-opaq: rgba(#135389, 0.5),
+        darkblue: #005197,
+        darkerblue: #00396a,
+        green: #058A59,
+        darkgreen: #04613E,
+        grey: #44424a,
+        darkgrey: #191919,
+        active-grey: #e7ecf3,
+        active-grey-2: #768096,
+        orange: #EE5720,
+        darkorange: #BD4519,
+    ),
+    severity: (
+        1: #991f15,
+        2: #dc7f23,
+        3: #ddb438,
+        4: #53b89c,
+    ),
+    alert: (
+        info: #1ba2d4,
+        success: #4ab544,
+        warning: #ce9b11,
+        danger: #d13d3d,
+        info-light: #e4eef9,
+        success-light: #eaf6e7,
+        warning-light: #fcf5e4,
+        danger-light: #f9e7e7,
+        info-medium: #2cb2e4,
+        success-medium: #20c524,
+        warning-medium: #e1b02a,
+        danger-medium:#e34141,
+    ),
+    calltoaction: (
+        gradient-start: #008bd9,
+        gradient-end: #006ccb,
+        orange-gradient-start: #f08f27, 
+        orange-gradient-end: #ea7126,
+        green-gradient-start: #2bc53d,
+        green-gradient-end: #019b13,
+    ),
+    gold: (
+        dark: #e9c973,
+        light: #ffe8aa,
+    ),
+    orange: (
+        mid-dark: #ff7700,
+        base: $_color-base-orange,
+    ),        
+    red: (
+        dark: darken($_color-base-red, 10%),
+        base: $_color-base-red,
+        mid-light: #cc4444,
+        light: #fb9a99,
+    ),  
+    green: (
+        dark: #33a029,
+        base: $_color-base-green,
+        mid-light: #ccebc5,
+        light: #aaff00,
+    ),  
+    blue: (
+        dark:   darken($_color-base-blue, 10%),
+        mid-dark: #0044aa,
+        base:   $_color-base-blue,
+        mid-light: #1f78b4,
+        light: #a6cee3,
+    ),
+    yellow: (
+        dark:   darken($_color-base-yellow, 10%),
+        base:   $_color-base-yellow,
+        light:  lighten($_color-base-yellow, 10%),
+        x-light: #ffffaa,
+    ),    
+    grey: (
+        x-dark: #333,
+        dark: #444,
+        mid-dark: #555,
+        base:  $_color-base-grey,
+        mid-light: #888,
+        light: #999,
+        x-light: #aaa,
+    ),
+    lightgrey: (
+        mid-dark: #ccc,
+        base:  $_color-base-lightgrey,
+        mid-light: #eee,
+        light: #f8f8f8,
+        bg-light: #f2f2f2,
+        x-light: #fbfbfb,
+        xx-light: #fefefe,
+    ), 
+    purple: (
+        base:  $_color-base-purple,
+        mid-light: #7777aa,
+    ),
+);

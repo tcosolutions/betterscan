@@ -1,0 +1,32 @@
+{% extends "email/base.multipart" %}
+
+{% block html_headline %}
+    "{{project_name_short}}" analyzed
+{%endblock%}
+
+{% block subject %}Project analyzed{% endblock %}
+
+{% block html_content %}
+    "<a href="{{project_url}}">{{project_name_short}}</a>" has been successfully analyzed.<br/>
+    <br/>
+    <strong>What's next?</strong>
+    <ul>
+        <li>
+            Add your team members for free
+        </li>
+        <li>
+           Customize your analysis settings
+        </li>
+        <li>
+            Exclude files/folders from the analysis
+        </li>
+    </ul>
+{% endblock %}
+
+{% block html_button_primary_url %}
+    {{project_url}}
+{% endblock%}
+
+{% block html_button_primary_text %}
+    Check results
+{% endblock%}

@@ -1,0 +1,15 @@
+// Modals
+
+.modal .modal-body {
+    // Box model
+    max-height: 420px;
+
+    // Other
+    overflow-y: auto;
+
+    z-index:1060;
+
+    p {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,70 @@
+version: '3'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+      args:
+        - GIT_TOKEN
+    restart: always
+    working_dir: /srv/scanmycode/
+    entrypoint: python
+    command: /srv/scanmycode/manage.py runserver
+    ports:
+      - 5000:5000
+    volumes:
+      - ./data1:/srv/scanmycode/quantifiedcode/data/
+      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+    links:
+      - "postgres"
+
+  postgres:
+    image: postgres:13.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: qc
+      POSTGRES_USER: qc
+      POSTGRES_PASSWORD: qc
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      -
+        type: bind
+        source: ./postgres-data
+        target: /var/lib/postgresql/data
+  worker_1:
+    build:
+      context: .
+      dockerfile: docker/worker/Dockerfile
+      args:
+        - GIT_TOKEN
+    hostname: worker_1
+    restart: on-failure
+    depends_on:
+      - rabbitmq3
+    working_dir: /srv/scanmycode/
+    entrypoint: python
+    command: /srv/scanmycode/manage.py runworker
+    volumes:
+      - ./data1:/srv/scanmycode/quantifiedcode/data/
+      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+    links:
+      - "rabbitmq3"
+      - "server"
+      - "postgres"  
+
+  rabbitmq3:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=qc
+      - RABBITMQ_DEFAULT_PASS=qc
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 5s
+      timeout: 15s
+      retries: 1

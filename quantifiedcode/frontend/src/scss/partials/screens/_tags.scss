@@ -1,0 +1,59 @@
+
+.tags {
+    ul.add,
+    ul.list {
+        padding: 0;
+        margin: 0 0 20px 0;
+        list-style-type: none;
+
+        li {
+            margin: 0;
+            padding: 4px;
+
+            border: 1px solid get-color(grayscale, mid-light);
+            margin-right:6px;
+            display:inline-block;
+
+            a {
+                display: block;
+                padding: 13px 15px;
+
+                &:hover {
+                    background: get-color(grayscale, light);
+                    text-decoration: none;
+                }
+
+                &.remove {
+                    display: inline;
+                    padding: 0;
+
+                    &:hover {
+                        background: transparent;
+                    }
+
+                }
+            }
+
+            &.no-result span {
+                display: block;
+                //padding: 13px 15px;
+            }
+        }
+    }
+
+    ul.tags {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+
+        li {
+            padding: 13px 15px;
+            margin: 0;
+            margin-right:6px;
+            display:inline-block;
+
+            border: 1px solid get-color(grayscale, mid-light);
+        }
+    } 
+
+}

@@ -1,0 +1,879 @@
+//Toolbar
+
+.tabs {
+    padding-top:0;
+    margin: 20px 0 5px 0;
+    padding-left: 0;
+
+    li {
+        display: inline-block;
+        margin-right: 30px;
+        font-size: 16px;
+        letter-spacing: 0.4px;
+        border-bottom: 3px solid get-color(lightgrey, x-light);
+
+        a {
+            display: block;
+            padding: 5px 0;
+            height: 100%;
+            color: get-color(grayscale, dark);
+            text-decoration: none;
+        }
+
+        &:hover {
+            border-bottom: 3px solid get-color(grayscale, mid-light);
+        }
+
+        &.active {
+            border-bottom: 3px solid get-color(grayscale, dark);
+        }
+
+        &.disabled {
+          a {
+            cursor: default;
+            color: get-color(grayscale, base);
+          }
+
+          &:hover {
+            border-bottom: 3px solid get-color(lightgrey, x-light);
+          }
+        }
+    }
+}
+
+.paginator {
+  margin: 0;
+  display: inline-block;
+
+  .button,
+  .button-inactive {
+    height: 38px;
+  }
+
+  .page-left {
+    padding: 8px 15px 8px 13px;
+    margin-right: 5px;
+  }
+
+  .page-right {
+    padding: 8px 13px 8px 15px;
+  }
+
+  a.button {
+    display: inline-block;
+    background-color: get-color(white);
+    border: 1px solid get-color(grayscale, mid-light);
+    color: get-color(grayscale, base);
+    -webkit-transition: background-color ease-in-out .15s,color ease-in-out .15s;
+    -o-transition: background-color ease-in-out .15s,color ease-in-out .15s;
+    transition: background-color ease-in-out .15s,color ease-in-out .15s;
+
+    &:hover {
+      background-color: get-color(grayscale, light);
+      color: get-color(grayscale, dark);
+      -webkit-transition: background-color ease-in-out .15s,color ease-in-out .15s;
+      -o-transition: background-color ease-in-out .15s,color ease-in-out .15s;
+      transition: background-color ease-in-out .15s,color ease-in-out .15s;
+    }
+
+    span {
+      width: 100%;
+      text-align: center;
+      font-size: 22px;
+    }
+  }
+
+  .button-inactive {
+    display: inline-block;
+    border: 1px solid get-color(grayscale, mid-light);
+    color: get-color(grayscale, mid-light);
+
+    span {
+      width: 100%;
+      //margin-top: 14px;
+      text-align: center;
+      font-size: 22px;
+    }
+  }
+}
+
+.modal {
+  .paginator {
+    margin-top: 10px;
+
+   /*a.button {
+      width: 30px;
+      heigh: 30px;
+    }*/
+  }
+}
+
+.pagination {
+  border-radius: 0;
+  margin: 10px 0 0 0;
+  font-size: 14px;
+
+  & >li>a, & >li>span {
+    color: get-color(grayscale, mid-dark);
+    border-color: get-color(grayscale, mid-light);
+  }
+
+  & >li>a:hover, & >li>span:hover {
+    color: get-color(grayscale, mid-dark);
+    border-color: get-color(grayscale, mid-light);
+  }
+
+  & >li:first-child>a, & >li:first-child>span {
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  & >li:last-child>a, & >li:last-child>span {
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  & >.active>a, & >.active>span, & >.active>a:hover, & >.active>span:hover, & >.active>a:focus, & >.active>span:focus {
+    background-color: get-color(qc, blue);
+    border: 1px solid get-color(qc, blue);
+    color: get-color(qc, active-grey);
+  }
+
+  &>.disabled>span, &>.disabled>span:hover, &>.disabled>span:focus, &>.disabled>a, &>.disabled>a:hover, &>.disabled>a:focus {
+    border-color: get-color(grayscale, mid-light);
+  }
+}
+
+.pager {
+  li>a, {
+    font-size: 14px;
+    @include border-radius(5px);
+    border-color: get-color(grayscale, mid-light);
+  }
+
+  .next-link {
+    margin-right: 5px;
+  }
+
+  .prev-link {
+    margin-left: 5px;
+  }
+
+  i.mid {
+    font-size: 13px;
+  }
+
+  i {
+    font-size: 11px;
+  }
+}
+
+
+// Forms
+
+form {
+
+  input[type=radio],
+  input[type=checkbox] {
+  margin-right: 10px;
+  }
+
+  ul {
+    vertical-align: middle;
+    list-style-type: none;
+    font-size: 15px;
+    line-height: 2;
+    padding: 0;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+
+}
+
+input {
+
+  &.form-control {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border: 1px solid get-color(grayscale, mid-light);
+    border-radius: 0;
+    font-size: 15px;
+    height: 50px;
+    @include border-radius(2px);
+
+    &.no-margin {
+      margin-bottom: 0;
+    }
+
+    &.password {
+      &:focus {
+        position: relative;
+        z-index: 9999;
+      }
+
+      &.confirm {
+        margin-top: -1px;
+      }
+    }
+  }
+}
+
+.search-form {
+  input { width: 100%;}
+}
+
+.criterias {
+  .search-form {
+    @media(max-width: 786px) {
+      border-bottom: 1px solid get-color(grayscale, mid-light);
+    }
+  }
+}
+
+#github-projects,
+#user-projects {
+  .search-form {
+    @media(max-width: 786px) {
+      border-bottom: none;
+    }
+  }
+}
+
+
+textarea {
+
+  &.form-control {
+    font-size: 15px;
+    padding: 10px 15px;
+    @include border-radius(2px);
+  }
+}
+
+
+.btn {
+  @include border-radius(2px);
+  outline: none;
+  border: 1px solid get-color(grayscale, mid-light);
+  background-color: get-color(grayscale, light);
+  color: get-color(grayscale, mid-dark);
+  text-align: center;
+  font-weight: 500;
+
+  -webkit-box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.4);
+  box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.4);
+
+  &:uppercase {
+    text-transform: uppercase;
+  }
+
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+  outline: 0px;
+  @include border-radius(2px);
+}
+
+.btn:hover {
+  color: get-color(grayscale, dark);
+  -webkit-box-shadow: 0px 0px 5px 0px get-color(black, $alpha: 0.25);
+  -moz-box-shadow: 0px 0px 5px 0px get-color(black, $alpha: 0.25);
+  box-shadow: 0px 0px 5px 0px get-color(black, $alpha: 0.25);
+}
+
+.btn:active {
+  -webkit-box-shadow: inset 0 3px 5px get-color(black, $alpha: 0.25);
+  -moz-box-shadow: inset 0 3px 5px get-color(black, $alpha: 0.25);
+  box-shadow: inset 0 3px 5px get-color(black, $alpha: 0.25);
+}
+
+.btn-primary {
+  background-color: get-color(qc, blue);
+  border: 1px solid get-color(qc, blue);
+  color: get-color(white);
+
+  &:hover {
+    background-color: get-color(qc, blueshadow);
+    border-color: get-color(qc, darkblue);
+    color: get-color(white);
+  }
+
+  &:focus {
+    outline: 0px;
+    border-radius: 0;
+    background-color: get-color(qc, blueshadow);
+    border-color: get-color(qc, darkblue);
+  }
+}
+
+.btn-info {
+  background-color: get-color(alert, info-medium);
+  border: 1px solid get-color(alert, info);
+  color: get-color(white);
+
+  &:hover {
+    background-color: get-color(alert, info-medium);
+    border-color: get-color(alert, info);
+    color: get-color(white);
+  }
+
+  &:focus {
+    outline: 0px;
+    border-radius: 0;
+    background-color: get-color(alert, info);
+    border-color: get-color(alert, info);
+  }
+}
+
+.btn-warning {
+  background-color: get-color(alert, warning-medium);
+  border: 1px solid get-color(alert, warning);
+  color: get-color(white);
+
+  &:hover {
+    background-color: get-color(alert, warning-medium);
+    border-color: get-color(alert, warning);
+    color: get-color(white);
+  }
+
+  &:focus {
+    outline: 0px;
+    border-radius: 0;
+    background-color: get-color(alert, warning);
+    border-color: get-color(alert, warning);
+  }
+}
+
+.btn-danger {
+  background-color: get-color(alert, danger-medium);
+  border: 1px solid get-color(alert, danger);
+  color: get-color(white);
+
+  &:hover {
+    background-color: get-color(alert, danger-medium);
+    border-color: get-color(alert, danger);
+    color: get-color(white);
+  }
+
+  &:focus {
+    outline: 0px;
+    border-radius: 0;
+    background-color: get-color(alert, danger);
+    border-color: get-color(alert, danger);
+  }
+}
+
+.btn-success {
+  background-color: get-color(alert, success-medium);
+  border: 1px solid get-color(alert, success);
+  color: get-color(white);
+
+  &:hover {
+    background-color: get-color(alert, success-medium);
+    border-color: get-color(alert, success);
+    color: get-color(white);
+  }
+
+  &:focus {
+    outline: 0px;
+    border-radius: 0;
+    background-color: get-color(alert, success);
+    border-color: get-color(alert, success);
+  }
+}
+
+
+.btn-md,
+.btn-large {
+  @include border-radius(5px);
+  height: 50px;
+  padding: 11px 20px;
+  font-size: 17px !important;
+  letter-spacing: 0.2px;
+
+  &:hover {
+    //color: get-color(grayscale, dark);
+  }
+
+  &:focus,
+  &:active:focus {
+    @include border-radius(5px);
+  }
+}
+
+a.btn-md {
+  padding: 14px 20px 14px 20px;
+}
+
+.btn-lg {
+  @include border-radius(5px);
+  padding: 16px 35px;
+  font-weight: bold;
+
+  &:focus,
+  &:active:focus {
+    @include border-radius(5px);
+  }
+}
+
+.btn-xlg {
+  @include border-radius(8px);
+  padding: 20px 48px;
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 100%;
+
+  &:focus,
+  &:active:focus {
+    @include border-radius(8px);
+  }
+}
+
+@media (max-width: 768px) {
+    .btn-xlg {
+      padding: 20px 36px !important;
+      font-size: 18px !important;
+    }
+
+    .btn-lg {
+      font-size: 20px !important;
+    }
+
+    .btn-c2a {
+      text-transform: none !important;
+    }
+}
+
+.btn-c2a {
+
+  position:relative;
+
+  text-align: center;
+  font-size: 22px;
+  text-transform: uppercase;
+
+  font-weight: bold;
+
+  color: get-color(white);
+
+  background: get-color(qc, blue);
+
+  box-shadow: none;
+  border: none;
+
+  &.btn {
+    font-size: 14px;
+    padding: 7px 12px 6px 12px;
+  }
+
+  &.btn-md {
+    font-size: 17px;
+    padding: 13px 20px 14px 20px;
+  }
+
+  &.btn-lg {
+    font-size: 22px;
+    padding: 19px 35px 16px 35px;
+  }
+
+  &.btn-xlg {
+    font-size: 24px;
+    padding: 24px 48px 20px 48px
+  }
+
+  &.responsive {
+    width: 100%;
+  }
+
+
+  &.fa-trigger {
+    padding-right: 20px;
+    .text {
+      &:after {
+        -webkit-transform: translate(6px, 0);
+        -moz-transform: translate(6px, 0);
+        -o-transform: translate(6px, 0);
+        transform: translate(6px, 0);
+
+        -webkit-transition: transform 0.2s ease-in-out;
+        -moz-transition: transform 0.2s ease-in-out;
+        -o-transition: transform 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
+
+        margin-left: 5px;
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\f178";
+      }
+    }
+    &:hover {
+      .text {
+        &:after {
+          -webkit-transform: translate(10px, 0);
+          -moz-transform: translate(10px, 0);
+          -o-transform: translate(10px, 0);
+          transform: translate(10px, 0);
+
+          -webkit-transition: transform 0.2s ease-in-out;
+          -moz-transition: transform 0.2s ease-in-out;
+          -o-transition: transform 0.2s ease-in-out;
+          transition: transform 0.2s ease-in-out;
+        }
+      }
+    }
+  }
+
+  &.fa-trigger-md {
+    padding-right: 25px;
+  }
+
+  &.fa-trigger-lg {
+    padding-right: 39px;
+  }
+
+  &.fa-trigger-xlg {
+    padding-right: 50px;
+  }
+
+  &.btn-lg:hover .trigger {
+    transform: translate(6px, 0);
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.btn-xlg:hover .trigger-lg {
+    transform: translate(10px, 0);
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.btn-md:hover .trigger-md {
+    transform: translate(5px, 0);
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .trigger {
+    display: inline-block;
+    width: 42px;
+    height: 15px;
+    margin-left: 8px;
+
+    background: url('/static/assets/gfx/arrow-btn-c2a.png') center center no-repeat;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .trigger-lg {
+    display: inline-block;
+    width: 53px;
+    height: 17px;
+    margin-left: 15px;
+
+    background: url('/static/assets/gfx/arrow-btn-c2a-lg.png') center center no-repeat;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .trigger-md {
+    display: inline-block;
+    width: 53px;
+    height: 14px;
+
+    margin-left: 5px;
+
+    background: url('/static/assets/gfx/arrow-btn-c2a-md.png') center center no-repeat;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover {
+    color: get-color(white);
+    -webkit-box-shadow: 0px 2px 4px 0px get-color(black, $alpha: 0.3);
+    -moz-box-shadow:    0px 2px 4px 0px get-color(black, $alpha: 0.3);
+    box-shadow:         0px 2px 4px 0px get-color(black, $alpha: 0.3);
+  }
+
+  &:active {
+
+      transform: translate(0, 2px);
+
+      -webkit-transition: all 0.05s ease-in-out;
+      -moz-transition: all 0.05s ease-in-out;
+      -o-transition: all 0.05s ease-in-out;
+      transition: all 0.05s ease-in-out;
+  }
+
+  &:focus {
+    color: get-color(white);
+  }
+
+  &.blue, &.blue:active {
+    border: none;
+    background: get-color(qc, blue);
+  }
+
+  &.orange, &.orange:active {
+      border: none;
+      background: get-color(qc, orange);
+  }
+
+  &.green, &.green:active {
+    border: none;
+    background: get-color(qc, green);
+  }
+
+  &.ghost {
+    border: 1px solid get-color(white, base);
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: get-color(white, base);
+      color: get-color(qc, blue);
+    }
+  }
+
+  &.grey, &.grey:active {
+    border: 1px solid get-color(grayscale, mid-light);
+    background: get-color(grayscale, light);
+    color: get-color(grayscale, mid-dark);
+  }
+
+  &.blueghost {
+    border: 1px solid get-color(qc, blue);
+    color: get-color(qc, blue);
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: get-color(qc, blue);
+      color: get-color(white, base);
+    }
+  }
+
+  &.greyghost {
+    border: 1px solid get-color(grayscale, base);
+    color: get-color(grayscale, base);
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: get-color(grayscale, mid-light);
+      border: 1px solid get-color(grayscale, mid-light);
+      color: get-color(white, base);
+    }
+  }
+
+  &.orangeghost {
+    border: 1px solid get-color(qc, orange);
+    color: get-color(qc, orange);
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: get-color(qc, orange);
+      color: get-color(white, base);
+    }
+  }
+
+  &.greenghost {
+    border: 1px solid get-color(qc, green);
+    color: get-color(qc, green);
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: get-color(qc, green);
+      color: get-color(white, base);
+    }
+  }
+}
+
+.input-group-btn .btn-lg {
+  height: 52px;
+  padding: 10px 20px;
+}
+
+label {
+  font-weight: normal;
+  letter-spacing: 0.3px;
+}
+
+textarea {
+  margin-bottom: 20px;
+  @include border-radius(2px);
+}
+
+.form-info {
+  font-size: 16px;
+  margin-bottom: 35px;
+
+  &:before {
+    font-family: 'octicons';
+    content: '\f059';
+    margin-right: 10px;
+    color: get-color(grayscale, mid-dark);
+  }
+}
+
+.form-info-sm {
+  font-size: 14px;
+  margin-bottom: 35px;
+
+  &:before {
+    font-size: 16px;
+    font-family: 'octicons';
+    content: '\f059';
+    margin-right: 10px;
+    color: get-color(grayscale, mid-dark);
+  }
+}
+
+.form-spacer {
+
+  //border-bottom: 1px solid get-color(grayscale, mid-light);
+  height: 20px;
+  margin: 20px 0 35px 0;
+  text-align: center;
+  font-size: 18px;
+  color: get-color(black);
+
+  .spacer-text {
+    text-align: center;
+    position: relative;
+    top: 10px;
+    z-index: 10;
+    padding: 5px;
+    text-transform: uppercase;
+    background-color: get-color(white);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .spacer-border {
+    border-bottom: 1px solid get-color(grayscale, mid-light);
+  }
+
+  &.thin {
+    .spacer-border {
+      width: 0px;
+      -webkit-transition: width ease-in-out 1s;
+      -moz-transition: width ease-in-out 1s;
+      transition: width ease-in-out 1s;
+    }
+  }
+
+  &.large {
+    .spacer-border {
+      width: 100%;
+      -webkit-transition: width ease-in-out 1s;
+      -moz-transition: width ease-in-out 1s;
+      transition: width ease-in-out 1s;
+    }
+  }
+}
+
+.login-advice {
+  margin-top: 20px;
+}
+
+ul.dropdown-menu {
+  @include border-radius(2px);
+  color: get-color(grayscale, dark);
+
+  li {
+    a {
+      color: get-color(grayscale, dark);
+      font-size: 14px;
+    }
+
+    i {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      text-align: center;
+    }
+  }
+
+  .inactive {
+    a {
+      color: get-color(grayscale, mid-dark);
+    }
+  }
+
+  .active {
+    background-color: get-color(lightgrey, mid-light);
+
+    a, a:hover, a:focus {
+      color: get-color(grayscale, dark);
+      background-color: transparent;
+
+      &:before {
+        color: get-color(grayscale, dark);
+      }
+    }
+  }
+
+}
+
+// nav-tabs
+
+.nav-tabs>li>a,
+.nav-tabs>li>a:hover,
+.nav-tabs>li>a:focus {
+  @include border-top-radius(4px);
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  @include border-top-radius(4px);
+  border-bottom-color: get-color(white);
+}
+
+.nav-pills>li>a {
+  @include border-radius(4px);
+  background: get-color(grayscale, light);
+}
+
+.nav-pills>li>a:hover {
+  background: get-color(qc, blue);
+  color: get-color(white);
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover,
+.nav-pills>li.active>a:focus {
+  background: get-color(qc, blue);
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: 0;
+}

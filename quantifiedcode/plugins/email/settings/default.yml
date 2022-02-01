@@ -1,0 +1,6 @@
+email:
+  host: localhost
+  port: 25
+  username: null
+  password: null
+  tls: False

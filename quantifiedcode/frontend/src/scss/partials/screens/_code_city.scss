@@ -1,0 +1,41 @@
+.code-city-container{
+    position: relative;
+}
+
+.legend {
+  color: get-color(grayscale, mid-dark);
+  float: left;
+  font-size: 14px;
+}
+
+@media(max-width: 768px) {
+  .legend {
+      text-align: left;
+      margin-bottom: 10px;
+      padding: 10px;
+  }
+}
+
+.code-city{
+
+    position: relative;
+
+    .code-display {
+      position: relative;
+    }
+
+    .code-legend {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .node {
+      position: absolute;
+    }
+
+}

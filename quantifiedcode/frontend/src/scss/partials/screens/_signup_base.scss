@@ -1,0 +1,21 @@
+.github_scope,
+.accept_terms {
+    margin-top: 10px;
+
+    input {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .signup {
+        .tabs {
+            li {
+                margin-right: 0px;
+            }
+            li:first-child {
+                margin-right: 25px;
+            }
+        }
+    }
+}

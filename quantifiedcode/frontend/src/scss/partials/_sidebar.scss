@@ -1,0 +1,475 @@
+.sidebar {
+
+    & > div {
+        //position: relative;
+        //width: 100%;
+    }
+
+    &.affix {
+        z-index: 9999;
+        position: fixed;
+        top: 20px;
+        width: 262px;
+    }
+
+    &.affix-bottom {
+        width: 262px;
+        position: absolute;
+    }
+
+    .box {
+        @include border-radius(2px);
+        border: 1px solid get-color(grayscale, mid-light);
+        margin-bottom: 25px;
+        background-color: get-color(white);
+
+        .head {
+            border-bottom: 1px solid get-color(grayscale, mid-light);
+            padding: 0;
+            margin: 0;
+            height: 50px;
+            background: get-color(grayscale, light);
+            -webkit-box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+            box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+
+            h3 {
+                margin: 0;
+                margin-left: 15px;
+                line-height: 50px;
+                font-size: 17px;
+                font-weight: bold;
+                vertical-align: middle;
+                letter-spacing: 0.2px;
+                color: get-color(grayscale, dark);
+            }
+
+            .no-icon {
+                margin-left: 15px;
+            }
+
+            .all-link {
+
+                margin: 17px 15px 0 0;
+                color: get-color(grayscale, mid-dark);
+
+                font-size: 13px;
+
+                &:hover {
+                    text-decoration: none;
+                    color: get-color(grayscale, dark);
+                }
+            }
+        }
+
+        .list,
+        .tabs {
+            margin: 0;
+            padding: 0;
+
+            li {
+                list-style: none;
+                border-bottom: 1px solid get-color(grayscale, light);
+                line-height: 26px;
+                margin: 0;
+                letter-spacing: 0.2px;
+                display: block;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                a {
+                    font-size: 13px;
+                    display: block;
+                    text-decoration: none;
+                    color: get-color(grayscale, mid-dark);
+                    padding-left: 15px;
+                    -webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+                    -o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+                    transition: background-color ease-in-out .05s,color ease-in-out .05s;
+
+                    &:hover {
+                        text-decoration: none;
+                        background-color: get-color(grayscale, light);
+                        color: get-color(grayscale, dark);
+                        -webkit-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+                        -o-transition: background-color ease-in-out .05s,color ease-in-out .05s;
+                        transition: background-color ease-in-out .05s,color ease-in-out .05s;
+                    }
+
+                    &.button,
+                    &.button-selected {
+                        padding-left: 0;
+                    }
+
+                }
+
+                .text {
+                    display: block;
+                    padding: 5px 15px;
+                }
+
+                .count {
+                    float: right;
+                    text-align: right;
+                    margin-right: 10px;
+                    color: get-color(grayscale, base);
+                }
+
+            }
+
+            .selected {
+                background-color: get-color(grayscale, light);
+                padding-left: 15px;
+            }
+
+            .clickable {
+                padding-right: 74px;
+                padding-left: 0;
+
+                .filter-title {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    padding-left: 15px;
+                }
+
+                .controls {
+                    margin-right: -74px;
+                }
+            }
+
+            .active {
+                position: relative;
+                background-color: get-color(grayscale, light);
+
+                a {
+                    color: get-color(grayscale, dark);
+                }
+            }
+        }
+
+        .list {
+
+            li {
+                line-height: 33px;
+            }
+        }
+
+        &.todo {
+
+            .hide-link {
+                float: right;
+                color: get-color(grayscale, base);
+                font-size: 12px;
+                text-transform: uppercase;
+                margin-top: -32px;
+                margin-right: 15px;
+                letter-spacing: 0.2px;
+
+                &:hover {
+                    color: get-color(grayscale, dark);
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            li {
+
+                .done {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+
+                a.box-link {
+                    display: block;
+                    height: 100%;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+
+                a {
+                    strong {
+                        font-weight: bold;
+                    }
+                }
+
+                &:last-child {
+                    a.box-link  {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .default {
+        .active {
+            &:before{
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 2px;
+                content: "";
+                background-color: get-color(qc,blue);
+            }
+        }
+    }
+
+
+    .tab-box {
+        .head {
+            height: 50px;
+            border-bottom: 1px solid get-color(grayscale, mid-light);
+            -webkit-box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+            box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+
+            .settings-header {
+                margin-left: 10px;
+                letter-spacing: 0.2px;
+
+                i {
+                    margin-right: 10px;
+                    color: get-color(grayscale, mid-dark);
+                }
+            }
+
+            h4 {
+                margin: 0;
+                padding: 0;
+                height: 50px;
+                vertical-align: middle;
+                padding: 15px 5px;
+                font-size: 17px;
+            }
+        }
+
+        .active {
+            background-color: get-color(lightgrey, light);
+
+            a {
+                color: get-color(grayscale, dark);
+            }
+        }
+    }
+
+    .organizations-box {
+        .head {
+            height: 50px;
+            border-bottom: 1px solid get-color(grayscale, mid-light);
+            -webkit-box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+            box-shadow: inset 0 1px 2px 0 get-color(white, $alpha: 0.7);
+
+            h4 {
+                margin-top: 0;
+                margin-left: 10px;
+                padding: 15px 5px;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .severity-filter {
+        li {
+            a {
+                &:before {
+                content:'\f096';
+                font-family: FontAwesome;
+                margin-right: 14px;
+                font-size: 17px;
+                color: get-color(grayscale, mid-light);
+                }
+            }
+
+
+            &.active {
+                a {
+                color: get-color(grayscale, dark);
+                }
+
+                a:before  {
+                    content:'\f046';
+                    font-family: FontAwesome;
+                    margin-right: 14px;
+                    font-size: 17px;
+                    color: get-color(grayscale, dark);
+                }
+
+                &.severity-1 {
+                    a:before {
+                        color: get-color(severity, 1);
+                    }
+                }
+                &.severity-2 {
+                    a:before {
+                        color: get-color(severity, 2);
+                    }
+                }
+                &.severity-3 {
+                    a:before {
+                        color: get-color(severity, 3);
+                    }
+                }
+                &.severity-4 {
+                    a:before {
+                        color: get-color(severity, 4);
+                    }
+                }
+            }
+
+        }
+    }
+
+    .state-filter {
+
+        li {
+
+            a {
+                padding-left: 13px;
+
+                &:before {
+                    font-family: octicon;
+                    margin-right: 15px;
+                    font-size: 18px;
+                    color: get-color(grayscale, mid-light);
+                }
+            }
+
+            &.active {
+                a {
+                    color: get-color(grayscale, dark);
+
+                    &:before {
+                        color: get-color(grayscale, dark);
+                    }
+                }
+            }
+        }
+
+        .state {
+            @each $state,$params in $states {
+
+                &-#{$state} {
+                    a:before {
+                        content: map-get($params,text);
+                        font: normal normal normal 16px/1 octicons;
+                        margin-right: 15px;
+                        font-size: 17px;
+                        color: get-color(grayscale, mid-light);
+                    }
+
+                    &.active {
+                        a {
+                            color: get-color(grayscale, dark);
+
+                            &:before {
+                                color: get-color(grayscale, dark);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //@TODO: Replace &.selected with loop
+    .categories-filter {
+
+        li {
+
+            a {
+                padding-left: 13px;
+
+                &:before {
+                    font-family: FontAwesome;
+                    margin-right: 15px;
+                    font-size: 18px;
+                    color: get-color(grayscale, mid-light);
+                }
+            }
+
+            &.active {
+                a {
+                    color: get-color(grayscale, dark);
+
+                    &:before {
+                        color: get-color(grayscale, dark);
+                    }
+                }
+            }
+        }
+
+        .categories {
+            @each $category,$params in $categories {
+
+                &-#{$category} {
+                    a:before {
+                        content: map-get($params,text);
+                        font-family: FontAwesome;
+                        margin-right: 15px;
+                        font-size: 17px;
+                        color: get-color(grayscale, mid-light);
+                    }
+
+                    &.active {
+                        a {
+                            color: get-color(grayscale, dark);
+
+                            &:before {
+                                color: get-color(grayscale, dark);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .controls {
+        width: 74px;
+        display: inline;
+
+        .button {
+            display: inline-block;
+            width: 37px;
+            height: 33px;
+            padding-top: 2px;
+            padding-left: 0;
+            border-left: 1px solid get-color(grayscale, light);
+            color: get-color(grayscale, dark);
+
+            &-selected {
+                display: inline-block;
+                width: 37px;
+                height: 33px;
+                padding-top: 2px;
+                padding-left: 0;
+                border-left: 1px solid get-color(grayscale, light);
+                color: get-color(qc, blue);
+
+                span {
+                    width: 100%;
+                    font-size: 18px;
+                    margin-top: 2px;
+                }
+            }
+
+            &:hover {
+                color: get-color(grayscale, dark);
+                -webkit-transition: color ease-in-out .15s;
+                -o-transition: color ease-in-out .15s;
+                transition: color ease-in-out .15s;
+            }
+
+            span {
+                width: 100%;
+                font-size: 18px;
+                margin-top: 2px;
+            }
+        }
+
+
+    }
+
+}

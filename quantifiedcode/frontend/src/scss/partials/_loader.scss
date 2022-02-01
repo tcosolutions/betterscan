@@ -1,0 +1,16 @@
+.e404 {
+    h1 {
+        font-weight: 700;
+        font-size: 48px;
+    }
+    h2 {
+        font-weight: 500;
+        color: get-color(grayscale, mid-dark);
+        font-size: 28px;
+    }
+    p {
+        font-size: 18px;
+        color: get-color(grayscale, dark);
+        padding: 30px;
+    }
+}

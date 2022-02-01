@@ -1,0 +1,32 @@
+.label-severity {
+    margin-right:4px;
+    color:#fff !important;
+}
+
+@for $i from 1 through 4{
+  .severity-#{$i} {
+      position: relative;
+
+      &:before{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        display: block;
+        width: 6px;
+        content: "";
+        background-color: get-color(severity, $i);
+      }
+  }
+
+  .project-header .severity-#{$i} {
+    &:before{
+        width: 0px;
+    }
+  }
+
+  .label.severity-#{$i} {
+      border-left: 0px none;
+      background: get-color(severity,$i)
+  }
+}

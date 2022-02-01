@@ -1,0 +1,102 @@
+// Flash messages
+
+.flash-messages {
+    top: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1234;
+}
+
+.flash {
+
+  color: get-color(grayscale, dark);
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  border-radius: 0;
+
+  position: relative;
+
+  h3 {
+    font-weight: bold;
+    color: get-color(alert, success);
+    letter-spacing: 0.5px;
+    margin-top: 0px;
+    font-size: 28px;
+
+    @media(max-width: 768px) {
+      font-size: 20px;
+    }
+  }
+
+  .alert {
+    margin-bottom: 10px;
+  }
+
+  .alert-info {
+    background: get-color(alert, info-light, 0.95);
+  }
+
+  .alert-success {
+     background: get-color(alert, success-light, 0.95);
+  }
+
+  .alert-danger {
+    background: get-color(alert, danger-light, 0.95);
+  }
+
+  .alert-warning {
+    background: get-color(alert, warning-light, 0.95);
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .cross {
+    float: right;
+  }
+}
+
+.alert-info {
+  border: 1px solid get-color(alert, info);
+  border-left:  3px solid get-color(alert, info);
+  background: get-color(alert, info-light);
+  color: get-color(alert, info);
+}
+
+.alert-success {
+  border: 1px solid get-color(alert, success);
+  border-left:  3px solid get-color(alert, success);
+  background: get-color(alert, success-light);
+  color: get-color(alert, success);
+}
+
+.alert-danger {
+  border: 1px solid get-color(alert, danger);
+  border-left:  3px solid get-color(alert, danger);
+  background: get-color(alert, danger-light);
+  color: get-color(alert, danger);
+}
+
+.alert-warning {
+  border: 1px solid get-color(alert, warning);
+  border-left:  3px solid get-color(alert, warning);
+  background: get-color(alert, warning-light);
+  color: get-color(alert, warning);
+}
+
+[data-show="false"] {
+    display: none;
+}
+
+.flash-messages-menu {
+
+  & > a {
+    color: get-color(red, dark) !important;
+  }
+
+  &.open > a {
+    color: get-color(red, mid-light) !important;
+  }
+
+}

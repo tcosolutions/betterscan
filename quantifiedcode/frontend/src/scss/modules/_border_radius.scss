@@ -1,0 +1,43 @@
+$_lg: 5px;
+$_sm: 2px;
+
+.top-radius-lg {
+    @include border-top-radius($_lg);
+}
+
+.bottom-radius-lg {
+    @include border-bottom-radius($_lg);
+}
+
+.all-radius-lg {
+    @include border-radius($_lg);
+}
+
+.top-radius-sm {
+    @include border-top-radius($_sm);
+}
+
+.bottom-radius-sm {
+    @include border-bottom-radius($_sm);
+}
+
+.all-radius-sm {
+    @include border-radius($_sm);
+}
+
+.border-radius-top-none {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.border-bottom-none {
+    border-bottom: none !important;
+}
+
+.border-top-none {
+    border-top: none !important;
+}
+
+.bordered-top {
+    border-top: 1px solid get-color(grayscale, mid-light);
+}

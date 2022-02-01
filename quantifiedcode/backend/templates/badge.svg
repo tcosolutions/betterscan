@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="{{40+4*30 +5 }}" height="20">
+
+
+    <linearGradient id="b" x2="0" y2="100%">
+        <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+        <stop offset="1" stop-opacity=".1"/>
+    </linearGradient>
+
+    <mask id="a">
+        <rect width="114" height="20" rx="3" fill="#fff"/>
+    </mask>
+
+    <rect x="0" y="0" rx="5" ry="5" width="{{ 4*30 }}" height="20" style="fill:#555;stroke:#fff;stroke-width:0;opacity:1.0">
+    </rect>
+
+    {% set pos = 14 %}
+
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="fill:#991f15;stroke:#fff;stroke-width:0;opacity:1.0">
+    </rect>
+
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="fill:#dc7f23;stroke:#fff;stroke-width:0;opacity:1.0">
+    </rect>
+
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="fill:#ddb438;stroke:#fff;stroke-width:0;opacity:1.0">
+    </rect>
+
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="25" height="20" style="fill:#53b89c;stroke:#fff;stroke-width:0;opacity:1.0">
+    </rect>
+
+    <rect x="{{pos}}" y="0" rx="5" ry="5" width="30" height="20" style="fill:#53b89c;stroke:#fff;stroke-width:0;opacity:1.0">
+    </rect>
+
+    <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+        <text x="22" y="15" fill="#010101" fill-opacity=".3">issues</text>
+        <text x="23" y="14">issues</text>
+        {% set pos = 27 %}
+        {% set pos = pos + 30 %}
+        <text x="{{pos}}" y="15" fill="#010101" fill-opacity=".3">{{critical_issues | metricsuffix}}</text>
+        <text x="{{pos+1}}" y="14">{{critical_issues | metricsuffix}}</text>
+        {% set pos = pos + 30 %}
+        <text x="{{pos}}" y="15" fill="#010101" fill-opacity=".3">{{potential_bugs | metricsuffix}}</text>
+        <text x="{{pos+1}}" y="14">{{potential_bugs | metricsuffix}}</text>
+        {% set pos = pos + 30 %}
+        <text x="{{pos}}" y="15" fill="#010101" fill-opacity=".3">{{minor_issues | metricsuffix}}</text>
+        <text x="{{pos+1}}" y="14">{{minor_issues | metricsuffix}}</text>
+        {% set pos = pos + 30 %}
+        <text x="{{pos}}" y="15" fill="#010101" fill-opacity=".3">{{recommendations | metricsuffix}}</text>
+        <text x="{{pos+1}}" y="14">{{recommendations | metricsuffix}}</text>
+    </g>
+
+    <rect x="0" y="0" rx="5" ry="5" width="170" height="20" style="opacity:0.0">
+        <title>issues found by quantifiedcode.com</title>
+    </rect>
+    {% set pos = 14 %}
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="opacity:0.0">
+         <title>critical issues</title>
+    </rect>
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="opacity:0.0">
+        <title>potential bugs</title>
+    </rect>
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="opacity:0.0">
+        <title>minor issues</title>
+    </rect>
+    {% set pos = pos + 30 %}
+    <rect x="{{pos}}" y="0" rx="0" ry="0" width="30" height="20" style="opacity:0.0">
+        <title>recommendations</title>
+    </rect>
+
+</svg>

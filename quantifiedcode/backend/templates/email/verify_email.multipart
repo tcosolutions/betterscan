@@ -1,0 +1,31 @@
+{% extends "email/base.multipart" %}
+
+{#
+Template specific variables:
+- user_name (e.g., cashaddy)
+#}
+
+{% block html_headline %}
+    Please verify your email
+{%endblock%}
+
+{% block subject %}Confirm your e-mail address{% endblock %}
+
+{% block html_content %}
+    Hi there,<br/>
+    <br/>
+    we want to verify that you are "{{user_name}}".<br/>
+    <br/>
+    Verifying your email lets you receive notifications and password resets. If you wish to continue, please click on the button below.<br/>
+    <br/>
+    If you are not "{{user_name}}" or if you didn't request verification, you can ignore this email.
+{% endblock %}
+
+{% block html_button_primary_url %}{{activation_url}}{% endblock%}
+
+{% block html_button_primary_text %}
+    Yes, I'm "{{user_name}}"
+{% endblock%}
+
+
+

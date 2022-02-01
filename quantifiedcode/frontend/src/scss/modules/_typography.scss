@@ -1,0 +1,25 @@
+// Typography
+
+// FONT SETTING
+@function font($font, $size: 'base', $weight: 'normal') {
+    @return map-get(map-get($fonts, $font), $tone);
+}
+
+// $font_family: 
+
+// $fonts: (
+//     h1: (
+//         font-family: $font_family,
+//         font-weight: 700,
+//         font-size: 16px,
+//         line-height: 
+//     ),	
+// );
+
+
+//   font: {
+//     family: fantasy;
+//     size: 30em;
+//     weight: bold;
+//   }
+

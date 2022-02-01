@@ -1,0 +1,131 @@
+
+ul.legend li span.rect{
+    width:20px;
+    display:inline-block;
+}
+
+ul.legend{
+    list-style:none;
+    margin-left:0;
+    padding-left:0;
+    margin-top:20px;
+}
+
+ul.legend li{
+    display:inline-block;
+    margin-left:0;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+.chart rect:hover{
+    opacity:0.5 !important;
+}
+
+.chart .form:hover{
+    opacity:0.5 !important;
+}
+
+.summary
+{
+    border-bottom: 1px solid get-color(grayscale, mid-light);
+}
+
+.stack-chart text{
+    font-weight:lighter;
+    font-size:16px;
+}
+
+.block-chart rect.bar{
+    fill:#faa;
+}
+
+.block-chart rect.bg{
+    fill:#aaa;
+}
+
+.bar-chart .readability
+{
+    fill:#a6cee3;
+}
+
+.bar-chart .placeholder{
+    fill:#ddd;
+}
+
+ul.legend li span.readability{
+    background:#a6cee3;
+}
+
+.bar-chart .maintainability
+{
+    fill:#1f78b4;
+}
+
+.bar-chart text.central{
+    font-size:18px;
+    font-weight:bolder;
+    fill:#000;
+}
+
+ul.legend li span.maintainability{
+    background:#1f78b4;
+}
+
+.bar-chart .correctness
+{
+    fill:#ccebc5;
+}
+
+ul.legend li span.correctness{
+    background:#ccebc5;
+}
+
+.bar-chart .performance{
+    fill:#33a02c;
+}
+
+ul.legend li span.performance{
+    background:#33a02c;
+}
+
+.bar-chart .security{
+    fill:#fb9a99;
+}
+
+ul.legend li span.security{
+    background:#fb9a99;
+}
+
+.widget
+{
+    background:#f0f0f0;
+
+    h1,h2,h3,h4,h5,h6{
+        padding-top:4px;
+        margin:0 !important;
+        text-align:center;
+    }
+}
+
+.widget-300{
+    height:300px;
+}
+
+.widget-600{
+    height:600px;
+}
+
+.widget .content{
+    padding:5px;
+}
+
+@for $i from 1 through 4{
+  .widget h4.severity-#{$i} {
+    border:none;
+    border-top: get-color(severity,$i) 14px solid;
+    padding:4px 6px 4px 6px;
+    text-align:center;
+    text-weight:bolder;
+  }
+}
