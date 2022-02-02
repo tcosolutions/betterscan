@@ -123,6 +123,6 @@ plugins:
   #organizations:
   #  module: quantifiedcode.plugins.organizations
 
-    url: 'http://localhost:5000'
+url: 'http://localhost:5000'
 
 
