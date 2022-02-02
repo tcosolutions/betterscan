@@ -1,3 +1,15 @@
+# TLDR;
+
+To install it. Install `docker` and `docker-compose` and then:
+
+```
+git clone git@github.com:marcinguy/scanmycode-ce.git
+cd scanmycode-ce/docker
+./start.sh
+```
+
+
+
 # Welcome to Scanmycode CE (Community Edition)!
 
 Scanmycode is based on QuantifedCode. QuantifiedCode is a code analysis \& automation platform. It helps you to keep track of issues and
