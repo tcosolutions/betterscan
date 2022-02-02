@@ -8,6 +8,12 @@ cd scanmycode-ce/docker
 ./start.sh
 ```
 
+Go in the Browser to:
+
+`http://localhost:5000`
+
+Sign up locally (and login in when needed)
+
 
 
 # Welcome to Scanmycode CE (Community Edition)!
