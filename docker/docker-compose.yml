@@ -4,17 +4,18 @@ services:
     build:
       context: .
       dockerfile: docker/backend/Dockerfile
-      args:
-        - GIT_TOKEN
     restart: always
+    depends_on:
+      - postgres
     working_dir: /srv/scanmycode/
-    entrypoint: python
-    command: /srv/scanmycode/manage.py runserver
+    entrypoint: sh
+    command: -c "if [ -f /srv/scanmycode/setup_state/setup_done ]; then python /srv/scanmycode/manage.py runserver; else python /srv/scanmycode/manage.py setup && mkdir -p /srv/scanmycode/setup_state && touch /srv/scanmycode/setup_state/setup_done; fi"
     ports:
       - 5000:5000
     volumes:
       - ./data1:/srv/scanmycode/quantifiedcode/data/
       - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+      - ./setup_state:/srv/scanmycode/setup_state
     links:
       - "postgres"
 
@@ -29,20 +30,17 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      -
-        type: bind
-        source: ./postgres-data
-        target: /var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
   worker_1:
     build:
       context: .
       dockerfile: docker/worker/Dockerfile
-      args:
-        - GIT_TOKEN
     hostname: worker_1
     restart: on-failure
     depends_on:
       - rabbitmq3
+      - postgres
+      - server
     working_dir: /srv/scanmycode/
     entrypoint: python
     command: /srv/scanmycode/manage.py runworker
@@ -68,3 +66,8 @@ services:
       interval: 5s
       timeout: 15s
       retries: 1
+
+volumes:
+  db-data:
+    driver: local
+
