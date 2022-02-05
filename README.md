@@ -1,3 +1,7 @@
+# Star it
+
+If you like it, please give it a GitHub star/fork/contribute
+
 # TLDR;
 
 To install it. Install `docker` and `docker-compose` and then:
