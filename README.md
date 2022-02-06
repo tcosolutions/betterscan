@@ -20,7 +20,7 @@ Sign up locally (and login in when needed)
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3 and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule and other(s). Some were modified. 
 
 # Recorded DEMO
 
