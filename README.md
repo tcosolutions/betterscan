@@ -18,7 +18,9 @@ Go in the Browser to:
 
 Sign up locally (and login in when needed)
 
+# Under the hood
 
+Progpilot, Bandit, Brakeman, Gosec, confused, semgrep and other(s). Some were modified. 
 
 # Welcome to Scanmycode CE (Community Edition)!
 
