@@ -22,6 +22,13 @@ Sign up locally (and login in when needed)
 
 Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3 and other(s). Some were modified. 
 
+# Recorded DEMO
+
+Community Edition does not have GitHub support and other plugins. But rest is the same.
+
+![scanmycode-demo](https://user-images.githubusercontent.com/20355405/152678316-04fdcd54-73e8-42f8-9bf2-fb9a69618ff9.gif)
+
+
 # Welcome to Scanmycode CE (Community Edition)!
 
 Scanmycode is based on QuantifedCode. QuantifiedCode is a code analysis \& automation platform. It helps you to keep track of issues and
