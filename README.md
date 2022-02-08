@@ -6,6 +6,18 @@ If you like it, please give it a GitHub star/fork/contribute. This will ensure c
 
 To install it. Install `docker` and `docker-compose` and then:
 
+2 options
+
+1) Fastest (use DockerHub built images). If unsure, use this.
+
+```
+git clone git@github.com:marcinguy/scanmycode-ce.git
+cd scanmycode-ce/dockerhub
+./start.sh
+```
+
+2) Slower (build everything)
+
 ```
 git clone git@github.com:marcinguy/scanmycode-ce.git
 cd scanmycode-ce/docker
