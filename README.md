@@ -1,6 +1,6 @@
 # Star it
 
-If you like it, please give it a GitHub star/fork/contribute. This will ensure continous development :star:
+Nobody knows about this project. If you like it, please give it a GitHub star/fork/contribute. This will ensure continous development :star:
 
 # TLDR;
 
