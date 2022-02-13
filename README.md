@@ -1,7 +1,7 @@
 
 # What it does
 
-It is a Code Scanning/SAST/Static Analysis/Linting using many tools/Scanners with One Report. You can also add any tool to it. Currently, it support many languages and tech stacks. Similar to SonarQube, but it is different.
+It is a Code Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it support many languages and tech stacks. Similar to SonarQube, but it is different.
 
 [How is Scanmycode different than SonarQube?](#how-is-scanmycode-different-than-sonarqube)
 
