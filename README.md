@@ -1,3 +1,6 @@
+[How is Scanmycode different than SonarQube?](#how-is-scanmycode-different-than-sonarqube)
+
+
 # Star it
 
 Nobody knows about this project. If you like it, please give it a GitHub star/fork/contribute. This will ensure continous development :star:
@@ -39,6 +42,25 @@ Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint,
 Community Edition does not have GitHub support and other plugins. But rest is the same.
 
 ![scanmycode-demo](https://user-images.githubusercontent.com/20355405/152678316-04fdcd54-73e8-42f8-9bf2-fb9a69618ff9.gif)
+
+### How is Scanmycode different than SonarQube?
+
+Both use static analysis to find bugs and defects, but there are a few differences. 
+
+- Scanmycode can be extended with any tool producing JSON output (any binary, in any technology/language/product). That's the biggest difference. 
+- Scanmycode is Open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
+- Scanmycode supports scanning only changed files (differential analysis), SonarQube does not
+- Scanmycode uses also semgrep as one of the tools (without semgrep community rules, only Scanmycode's custom rules) 
+
+Below are semgrep's (also Scanmycode advantages over SonarQube):
+
+"Extending Semgrep with custom rules is simple, since Semgrep rules look like the source code you’re writing. Writing custom rules with SonarQube is restricted to a handful of languages and requires familiarity with Java and abstract syntax trees (ASTs)."
+
+"Semgrep supports user-defined autofixes; SonarQube does not.
+Semgrep focuses on speed and ease-of-use, making analysis possible at up to 20K-100K loc/sec per rule. SonarQube authors report approximately 0.4K loc/sec for rulesets in production." 
+
+Source: semgrep's website
+
 
 
 # Welcome to Scanmycode CE (Community Edition)!
