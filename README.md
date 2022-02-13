@@ -5,7 +5,7 @@ It is a Code Scanning/SAST/Static Analysis/Linting solution using many tools/Sca
 
 [How is Scanmycode different than SonarQube?](#how-is-scanmycode-different-than-sonarqube)
 
-Nobody knows about this project. If you like it, please give it a GitHub star/fork/contribute. This will ensure continous development :star:
+If you like it, please give it a GitHub star/fork/contribute. This will ensure continous development :star:
 
 # TLDR;
 
