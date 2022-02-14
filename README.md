@@ -35,6 +35,10 @@ Go in the Browser to:
 
 Sign up locally (and login in when needed)
 
+More info in the Wiki:
+
+https://github.com/marcinguy/scanmycode-ce/wiki
+
 # Under the hood
 
 Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule and other(s). Some were modified. 
