@@ -1,5 +1,6 @@
 import { render }  from 'react-dom';
 import React from "react"
+import ReactDOM from 'react-dom';
 import LoaderMixin from "components/mixins/loader"
 import Utils from "utils"
 var createReactClass = require('create-react-class');
@@ -61,7 +62,8 @@ var TaskLog = createReactClass({
     componentDidUpdate :function(){
         if (this.state.autoScroll && this.updateScroll && this.refs.taskLog){
             this.updateScroll = false
-            var node = this.refs.taskLog.getDOMNode()
+            //var node = this.refs.taskLog.getDOMNode()
+            var node = ReactDOM.findDOMNode(this);
             $(node).scrollTop($(node)[0].scrollHeight)
         }
     },
