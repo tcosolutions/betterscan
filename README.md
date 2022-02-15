@@ -67,6 +67,16 @@ Semgrep focuses on speed and ease-of-use, making analysis possible at up to 20K-
 
 Source: semgrep's website
 
+# Even more screenshots from scanning real projects
+
+![image](https://user-images.githubusercontent.com/20355405/154044790-a07ef065-9881-4ab6-ba05-ddf5be84e19a.png)
+![image](https://user-images.githubusercontent.com/20355405/154044817-92d3ebde-45b6-4b63-a0ee-414001effbe0.png)
+![image](https://user-images.githubusercontent.com/20355405/154044857-f53f1922-7e0c-4ede-ad96-b1d21075dad3.png)
+![image](https://user-images.githubusercontent.com/20355405/154044887-4d69d551-9cb3-4892-85e0-1383eeab8332.png)
+![image](https://user-images.githubusercontent.com/20355405/154044929-74ea5e0f-550e-4833-bd33-8d285e2195dd.png)
+![image](https://user-images.githubusercontent.com/20355405/154044957-3ace283a-bb76-4f15-9f49-520d6f21e7d3.png)
+
+
 
 
 # Welcome to Scanmycode CE (Community Edition)!
