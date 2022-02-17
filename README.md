@@ -62,8 +62,7 @@ Below are semgrep's (also Scanmycode advantages over SonarQube):
 
 "Extending Semgrep with custom rules is simple, since Semgrep rules look like the source code you’re writing. Writing custom rules with SonarQube is restricted to a handful of languages and requires familiarity with Java and abstract syntax trees (ASTs)."
 
-"Semgrep supports user-defined autofixes; SonarQube does not.
-Semgrep focuses on speed and ease-of-use, making analysis possible at up to 20K-100K loc/sec per rule. SonarQube authors report approximately 0.4K loc/sec for rulesets in production." 
+"Semgrep focuses on speed and ease-of-use, making analysis possible at up to 20K-100K loc/sec per rule. SonarQube authors report approximately 0.4K loc/sec for rulesets in production." 
 
 Source: semgrep's website
 
