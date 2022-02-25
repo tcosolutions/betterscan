@@ -93,6 +93,14 @@ optimize-css: $(BUILD_TMP_DIR)/static/css/main.css
 	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
 		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components \
 		  $(BUILD_TMP_DIR)/optimized/static
+	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
+		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components/octicons/octicons/ \
+		  $(BUILD_TMP_DIR)/optimized/static/css
+	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
+		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components/font-awesome/fonts/ \
+		  $(BUILD_TMP_DIR)/optimized/static/fonts
+
+
 
 static-files: $(STATIC_FILES)
 
@@ -129,3 +137,4 @@ rollback:
 		rm -rf $(BUILD_FINAL_DIR); \
 		mv $(BUILD_BACKUP_DIR) $(BUILD_FINAL_DIR); \
 	fi;
+
