@@ -6,23 +6,24 @@ name = "pypi"
 [packages]
 passlib = "==1.7.1"
 alembic = "==0.9.3"
-click = "==6.7"
-Flask = "==0.12.2"
+click = "*"
+Flask = "*"
 psycopg2 = "==2.7.2"
 chardet = "==3.0.4"
-SQLAlchemy = "==1.1.11"
-PyYAML = "==3.12"
+SQLAlchemy = "*"
+PyYAML = "*"
 WTForms = "==2.1"
 celery = "==3.1.25"
 six = "==1.10.0"
-requests = "==2.18.1"
-pyOpenSSL = "==17.2.0"
+requests = "*"
+pyOpenSSL = "*"
 python-dateutil = "==2.6.1"
 requirements-parser = "==0.1.0"
-Werkzeug = "==0.16.0"
+Werkzeug = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "2.7"
+
 
