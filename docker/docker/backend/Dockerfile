@@ -15,9 +15,13 @@ RUN tree /checkmate
 RUN python setup.py install
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 RUN pip install psycopg2 --upgrade
+#WORKDIR /
+#RUN wget https://nodejs.org/dist/v16.14.0/node-v16.14.0-linux-x64.tar.xz
+#RUN mkdir -p /usr/local/lib/nodejs
+#RUN tar -xJvf node-v16.14.0-linux-x64.tar.xz -C /usr/local/lib/nodejs 
+#ENV PATH "/usr/local/lib/nodejs/node-v16.14.0-linux-x64/bin:${PATH}"
 WORKDIR /srv/scanmycode/quantifiedcode/frontend
-RUN npm install -g bower
-RUN npm install --save-dev @babel/core @babel/cli
+RUN npm install
 RUN chmod -R ugo+rw /srv/scanmycode/quantifiedcode/frontend
 WORKDIR /srv/scanmycode/quantifiedcode/frontend
 RUN useradd user
