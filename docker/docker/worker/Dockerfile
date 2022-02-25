@@ -1,12 +1,13 @@
 FROM python:2.7
-RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk
+RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv
 WORKDIR /
 RUN mkdir -p /srv
 RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
 WORKDIR /srv/scanmycode
 RUN git pull
 WORKDIR /srv/scanmycode
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
+RUN pipenv install --system
 RUN pip install pylint===1.9.2
 RUN pip install stripe
 RUN git clone https://github.com/marcinguy/checkmate-ce /checkmate

@@ -4,9 +4,10 @@ RUN mkdir -p /srv
 RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
 WORKDIR /srv/scanmycode
 RUN git pull
-RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree sudo git ssh rsync npm ruby-sass
+RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree sudo git ssh rsync npm ruby-sass pipenv
 RUN tree
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
+RUN pipenv install --system
 RUN pip install pylint===1.9.2
 RUN pip install stripe
 RUN git clone https://github.com/marcinguy/checkmate-ce /checkmate
