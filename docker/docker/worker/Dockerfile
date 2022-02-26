@@ -9,6 +9,7 @@ WORKDIR /srv/scanmycode
 #RUN pip install -r requirements.txt
 RUN pipenv install --system
 RUN pip install pylint===1.9.2
+RUN pip3 install markupsafe==2.0.1
 RUN pip install stripe
 RUN git clone https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
