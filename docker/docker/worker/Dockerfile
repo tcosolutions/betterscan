@@ -9,7 +9,6 @@ WORKDIR /srv/scanmycode
 #RUN pip install -r requirements.txt
 RUN pipenv install --system
 RUN pip install pylint===1.9.2
-RUN pip3 install markupsafe==2.0.1
 RUN pip install stripe
 RUN git clone https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
@@ -29,6 +28,7 @@ RUN npm install -g jshint
 WORKDIR /root
 RUN git clone https://gitlab.com/marcinguy/trufflehog3-oss.git
 RUN cd trufflehog3-oss && python3 setup.py install
+RUN pip3 install markupsafe==2.0.1
 WORKDIR /srv/scanmycode
 RUN mkdir /root/confused/
 RUN cp /srv/scanmycode/analyzers/confused /root/confused/ #source https://gitlab.com/marcinguy/confused-oss
