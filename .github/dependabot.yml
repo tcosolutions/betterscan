@@ -9,7 +9,7 @@ updates:
     directory: "/" 
     schedule:
       interval: "daily"
-  - package-ecosystem: "composer"
+  - package-ecosystem: "npm"
     directory: "/quantifiedcode/frontend"
     schedule:
       interval: "daily"
