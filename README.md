@@ -11,6 +11,21 @@ It is a Code Scanning/SAST/Static Analysis/Linting solution using many tools/Sca
 
 If you like it, please give it a GitHub star/fork/contribute. This will ensure continous development :star:
 
+## Sponsors
+
+This project would not be possible without the generous support of our sponsors.
+
+<table>
+  <tr>
+    <td>Your Logo Here</td>
+    <td>Your Logo Here</td>
+    <td>Your Logo Here</td></td>
+    <td>Your Logo Here</td>
+  </tr>
+</table>
+
+If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/marcinguy) or [Patreon](https://www.patreon.com/marcinguy) (preffered due better VAT handling) 
+
 # TLDR;
 
 To install it. Install `docker` and `docker-compose` and then:
