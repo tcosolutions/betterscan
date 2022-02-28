@@ -17,14 +17,14 @@ This project would not be possible without the generous support of our sponsors.
 
 <table>
   <tr>
+    <td><a href="https://www.blacklane.com"><img width="200px" src="https://user-images.githubusercontent.com/20355405/155948072-81aaccac-3aba-46f0-a7fe-d083eb98ed75.png" /></a></td>
     <td>Your Logo Here</td>
     <td>Your Logo Here</td>
-    <td>Your Logo Here</td></td>
     <td>Your Logo Here</td>
   </tr>
 </table>
 
-If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/marcinguy) or [Patreon](https://www.patreon.com/marcinguy) (preffered due better VAT handling) 
+If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/marcinguy) or [Patreon](https://www.patreon.com/marcinguy) (preferred due better VAT handling) 
 
 # TLDR;
 
