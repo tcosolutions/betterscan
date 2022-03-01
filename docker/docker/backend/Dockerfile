@@ -10,6 +10,12 @@ RUN tree
 RUN pipenv install --system
 RUN pip3 install pylint===1.9.2
 RUN pip3 install stripe
+WORKDIR /
+RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
+WORKDIR /blitzdb3-ce
+RUN git pull
+RUN python3 setup.py install
+WORKDIR /
 RUN git clone -b checkmate3  https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
 RUN tree /checkmate
