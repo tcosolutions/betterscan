@@ -12,16 +12,17 @@ RUN pipenv install --system
 #RUN pip install pylint===1.9.2
 #RUN pip install stripe
 WORKDIR /
-RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
-WORKDIR /blitzdb3-ce
-RUN git pull
-RUN python3 setup.py install
-WORKDIR /
 RUN git clone -b checkmate3 https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
 RUN git checkout checkmate3
 RUN git pull
 RUN python3 setup.py install
+WORKDIR /
+RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
+WORKDIR /blitzdb3-ce
+RUN git pull
+RUN python3 setup.py install
+WORKDIR /
 RUN pip install psycopg2 --upgrade
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 WORKDIR /root
