@@ -26,7 +26,7 @@ def setup():
 
     #we create a new Settings object without defaults & secrets (as we're gonna write it back to the file)
     with open(settings_source,'r') as input_file:
-        settings_dict = yaml.load(input_file)
+        settings_dict = yaml.safe_load(input_file)
 
     click.echo("Hi! Let's get started with setting up your instance of QuantifiedCode.")
     click.echo("I will modify your setting file {source} and will put a backup in {source}.backup".format(source=settings_source))
