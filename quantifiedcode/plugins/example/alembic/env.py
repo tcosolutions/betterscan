@@ -1,5 +1,5 @@
-from __future__ import print_function
-from __future__ import with_statement
+
+
 from alembic import context
 from logging.config import fileConfig
 
@@ -57,7 +57,7 @@ def process_revision_directives(context, revision, directives):
                     continue
                 walk_graph(dependency, path + [dependency], tabs=tabs + 1)
 
-        for name in dependencies.keys():
+        for name in list(dependencies.keys()):
             walk_graph(name)
 
     find_circular_dependencies(dependencies)

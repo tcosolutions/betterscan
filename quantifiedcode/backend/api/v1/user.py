@@ -4,9 +4,9 @@
     Contains implementation user resources.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import uuid
 import time
@@ -109,11 +109,11 @@ class UserProfile(Resource):
         form = UserProfileForm(request.form)
 
         if not form.validate():
-            return {u'errors': form.errors}, 403
+            return {'errors': form.errors}, 403
 
         user = request.user
         data = form.data
-        email = data.get(u'email')
+        email = data.get('email')
         if email:
             if (user.get('email_change_requested_at') and
                     datetime.datetime.utcnow() - user.email_change_requested_at < datetime.timedelta(minutes=30)):
@@ -138,12 +138,12 @@ class UserProfile(Resource):
                 }
             )
 
-        email_settings = data.get(u'email_settings')
+        email_settings = data.get('email_settings')
 
         with backend.transaction():
             if email_settings:
                 email_settings = user.get('email_settings', {})
-                email_settings.update(data[u'email_settings'])
+                email_settings.update(data['email_settings'])
                 user.email_settings = email_settings
                 backend.update(user, ['email_settings'])
 
@@ -169,7 +169,7 @@ class ChangeUserPassword(Resource):
     def put(self):
         form = ChangePasswordForm(request.form)
         if not form.validate():
-            return ({u'errors': form.errors},
+            return ({'errors': form.errors},
                     400)
 
         password = form.password.data
@@ -186,7 +186,7 @@ class ChangeUserPassword(Resource):
         with backend.transaction():
             backend.update(request.user, ['password', 'password_set'])
 
-        return ({u'user': self.export(request.user)},
+        return ({'user': self.export(request.user)},
                 200)
 
 class UserLogout(Resource):
@@ -304,7 +304,7 @@ class UserSignup(Resource):
                     expires=(datetime.datetime.utcnow() + datetime.timedelta(days=7)),
                 )
 
-                activation_url = u"{}{}/user/validate/{}".format(
+                activation_url = "{}{}/user/validate/{}".format(
                     settings.get('url'),
                     settings.get('frontend.url'),
                     user.email_validation_code,

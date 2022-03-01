@@ -4,25 +4,24 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-passlib = "==1.7.1"
-alembic = "==0.9.3"
-click = "==7.1.2"
-Flask = "==0.12.2"
-psycopg2 = "==2.7.2"
-chardet = "==3.0.4"
-SQLAlchemy = "==1.1.11"
+passlib = "*"
+alembic = "*"
+click = "*"
+Flask = "*"
+psycopg2 = "*"
+chardet = "*"
+SQLAlchemy = "*"
 PyYAML = "*"
-WTForms = "==2.1"
-celery = "==3.1.25"
-six = "==1.10.0"
+WTForms = "*"
+celery = "*"
+six = "*"
 requests = "*"
 pyOpenSSL = "*"
-python-dateutil = "==2.6.1"
-requirements-parser = "==0.1.0"
-Werkzeug = "==0.16.0"
+python-dateutil = "*"
+requirements-parser = "*"
+Werkzeug = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "2.7"
-
+python_version = "3.7"

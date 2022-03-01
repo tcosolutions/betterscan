@@ -6,7 +6,7 @@
 
 """
 
-from __future__ import unicode_literals
+
 
 from passlib.hash import pbkdf2_sha256
 import uuid

@@ -10,7 +10,7 @@ There is a second mode enabled with -p which when set to 'all', prints all
 control characters and when set to 'bidi', prints only the 9 bidirectional
 control characters.
 """
-from __future__ import print_function
+
 
 import sys, os, argparse, re, unicodedata, subprocess
 import importlib
@@ -24,8 +24,8 @@ def _unicode(line, encoding):
 
 import platform
 if platform.python_version()[0] == '2':
-    _chr = unichr
-    do_unicode = unicode
+    _chr = chr
+    do_unicode = str
 else:
     _chr = chr
     do_unicode = _unicode

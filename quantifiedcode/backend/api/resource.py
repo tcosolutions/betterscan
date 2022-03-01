@@ -6,9 +6,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import traceback
 import time
@@ -75,7 +75,7 @@ class Resource(View):
     def export_fields(cls):
         export_map = settings.get_export_map(cls)
         export_fields = [field for field in export_map if isinstance(field, string_types)]
-        export_fields += [subfield for field in export_map if isinstance(field, dict) for subfield in field.keys()]
+        export_fields += [subfield for field in export_map if isinstance(field, dict) for subfield in list(field.keys())]
         return export_fields
 
     @staticmethod
@@ -142,7 +142,7 @@ class Resource(View):
                 status_code = 403
             except BaseException as e:
                 response = self.make_response({'message': 'Internal server error'})
-                logger.error(unicode(e))
+                logger.error(str(e))
                 logger.error(traceback.format_exc())
                 status_code = 500
         response.headers.add('X-elapsed-time-ms', str("%d" % int((time.time() - start) * 1000)))

@@ -6,9 +6,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import logging
 import datetime
@@ -65,7 +65,7 @@ def analyze(project):
 
     logger.info(branches_with_commit_date)
 
-    sorted_branches_with_commit_date = sorted(branches_with_commit_date.iteritems(), key=sorting_key, reverse=True)
+    sorted_branches_with_commit_date = sorted(iter(branches_with_commit_date.items()), key=sorting_key, reverse=True)
     recently_active_branches = [branch for branch, commit_date in sorted_branches_with_commit_date
                                 if (datetime.datetime.now() - commit_date < datetime.timedelta(days=30))]
 

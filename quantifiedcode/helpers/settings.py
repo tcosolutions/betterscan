@@ -1,6 +1,6 @@
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 import yaml
 import logging
@@ -148,7 +148,7 @@ class Settings(object):
             self.backend.register(model)
 
         #register providers
-        for name, params in config.get('providers',{}).items():
+        for name, params in list(config.get('providers',{}).items()):
             self.providers[name].append(params)
 
         # register hooks
@@ -157,7 +157,7 @@ class Settings(object):
 
         for filename in config.get('yaml_settings', []):
             with open(filename) as yaml_file:
-                settings_yaml = yaml.load(yaml_file.read())
+                settings_yaml = yaml.safe_load(yaml_file.read())
                 update(self._d, settings_yaml, overwrite=False)
 
         if config.get('settings'):
@@ -226,14 +226,14 @@ def load_settings(filenames):
         #we use print because logging is usually not yet configured when this runs
         print("Loading settings from {}".format(filename))
         with open(filename, 'r') as yaml_file:
-            settings_yaml = yaml.load(yaml_file.read())
+            settings_yaml = yaml.safe_load(yaml_file.read())
             if settings_yaml is None:
                 continue
             update(settings_dict, settings_yaml)
     return Settings(settings_dict)
 
 def update(d, ud, overwrite=True):
-    for key, value in ud.items():
+    for key, value in list(ud.items()):
         if key not in d:
             d[key] = value
         elif isinstance(value,dict):

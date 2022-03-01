@@ -17,7 +17,7 @@ class TemplateLoader(BaseLoader):
         self.paths = paths
 
     def get_source(self, environment, template):
-        for key, path in sorted(self.paths.items(), key=lambda x:x[0]):
+        for key, path in sorted(list(self.paths.items()), key=lambda x:x[0]):
             template_path = join(path, template)
             if not exists(template_path):
                 continue

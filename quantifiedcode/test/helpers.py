@@ -42,7 +42,7 @@ class ApplicationProcess(multiprocessing.Process):
                 use_reloader=False
             )
         except KeyboardInterrupt:
-            print "Exiting..."
+            print("Exiting...")
 
 class DatabaseTest(unittest.TestCase):
 
@@ -86,7 +86,7 @@ class DatabaseTest(unittest.TestCase):
     def _create_fixtures(self):
         fixture_objs = {}
         for fixture_dict in self.fixtures:
-            for key,fixture in fixture_dict.items():
+            for key,fixture in list(fixture_dict.items()):
                 objs = fixture(self,fixture_objs)
                 fixture_objs[key] = objs
                 setattr(self,key,objs)

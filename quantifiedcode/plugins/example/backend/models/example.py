@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from checkmate.lib.models import BaseDocument
 from blitzdb.fields import ForeignKeyField, TextField

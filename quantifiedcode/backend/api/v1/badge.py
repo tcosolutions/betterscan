@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from flask import Response, request
 
@@ -47,15 +47,15 @@ class Badge(Resource):
         issues_data = project.get_issues_data()
 
         # mimic `generateIssuesFromSnapshotSummary` (from `helpers/issue.js`)
-        for language, language_data in issues.iteritems():
+        for language, language_data in issues.items():
             if not language:
                 continue
 
-            for analyzer, analyzer_data in language_data.iteritems():
+            for analyzer, analyzer_data in language_data.items():
                 if not analyzer:
                     continue
 
-                for code, error_count in analyzer_data.iteritems():
+                for code, error_count in analyzer_data.items():
                     issue = {'code': code}
                     enrich_issue(issue, language, analyzer, issues_data)
 

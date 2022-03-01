@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from wtforms import Form, BooleanField, TextAreaField, StringField, SelectField, IntegerField, validators
 from .validators import validate_tags
@@ -31,32 +31,32 @@ class ProjectForm(Form):
 
 class ProjectDetailsForm(Form):
 
-    with_stats = BooleanField(u"With statistics", default=False, validators=[validators.Optional()])
+    with_stats = BooleanField("With statistics", default=False, validators=[validators.Optional()])
 
 class PublicProjectsForm(Form):
 
-    sort = SelectField(u"Sort Field", choices=[("analyzed_at","analysis date"),("name","name"),],validators=[validators.Optional()], default="analyzed_at")
-    direction = SelectField(u"Sort Direction", choices=[("desc","descending"),("asc","ascending"),],validators=[validators.Optional()], default="desc")
-    limit = IntegerField(u"Limit", validators=[validators.NumberRange(min=1,max=100),validators.Optional()],default=20)
-    offset = IntegerField(u"Offset", validators=[validators.NumberRange(min=0), validators.Optional()],default=0)
-    show_failed = BooleanField(u"Show failed projects", validators=[validators.Optional()],default=False)
-    query = StringField(u"Search Query", validators=[validators.Optional()],default="")
+    sort = SelectField("Sort Field", choices=[("analyzed_at","analysis date"),("name","name"),],validators=[validators.Optional()], default="analyzed_at")
+    direction = SelectField("Sort Direction", choices=[("desc","descending"),("asc","ascending"),],validators=[validators.Optional()], default="desc")
+    limit = IntegerField("Limit", validators=[validators.NumberRange(min=1,max=100),validators.Optional()],default=20)
+    offset = IntegerField("Offset", validators=[validators.NumberRange(min=0), validators.Optional()],default=0)
+    show_failed = BooleanField("Show failed projects", validators=[validators.Optional()],default=False)
+    query = StringField("Search Query", validators=[validators.Optional()],default="")
 
     def validate_query(self, field):
         field.data = [re.sub(r'(?:^"|"$)', '', word).strip() for word in field.data.split()]
 
 class ProjectsForm(Form):
 
-    sort = SelectField(u"Sort Field", choices=[("analyzed_at","analysis date"),("name","name"),],validators=[validators.Optional()], default="analyzed_at")
-    direction = SelectField(u"Sort Direction", choices=[("desc","descending"),("asc","ascending"),],validators=[validators.Optional()], default="desc")
-    limit = IntegerField(u"Limit", validators=[validators.NumberRange(min=1,max=100),validators.Optional()],default=20)
-    offset = IntegerField(u"Offset", validators=[validators.NumberRange(min=0), validators.Optional()],default=0)
-    show_failed = BooleanField(u"Show failed projects", validators=[validators.Optional()],default=False)
-    query = StringField(u"Search Query", validators=[validators.Optional()],default="")
+    sort = SelectField("Sort Field", choices=[("analyzed_at","analysis date"),("name","name"),],validators=[validators.Optional()], default="analyzed_at")
+    direction = SelectField("Sort Direction", choices=[("desc","descending"),("asc","ascending"),],validators=[validators.Optional()], default="desc")
+    limit = IntegerField("Limit", validators=[validators.NumberRange(min=1,max=100),validators.Optional()],default=20)
+    offset = IntegerField("Offset", validators=[validators.NumberRange(min=0), validators.Optional()],default=0)
+    show_failed = BooleanField("Show failed projects", validators=[validators.Optional()],default=False)
+    query = StringField("Search Query", validators=[validators.Optional()],default="")
 
     def validate_query(self, field):
         field.data = [re.sub(r'(?:^"|"$)', '', word).strip() for word in field.data.split()]
 
 class ProjectTagsForm(Form):
 
-    name = StringField(u"Name", validators=[validators.Regexp(r"^[\w\d\-\_\.]{2,30}$", re.I)])
+    name = StringField("Name", validators=[validators.Regexp(r"^[\w\d\-\_\.]{2,30}$", re.I)])

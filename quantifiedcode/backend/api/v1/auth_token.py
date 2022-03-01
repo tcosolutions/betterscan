@@ -4,8 +4,8 @@
     Contains implementation of the AuthToken resource.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 import hmac
 import base64

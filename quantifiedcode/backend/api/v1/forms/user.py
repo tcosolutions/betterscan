@@ -5,8 +5,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from flask import request
 from wtforms import Form, BooleanField, PasswordField, StringField, ValidationError, validators
@@ -83,7 +83,7 @@ class UserProfileForm(Form):
             'code_updates': bool,
             'notifications': bool,
         }
-        for key in data.keys():
+        for key in list(data.keys()):
             if key not in allowed_keys:
                 del data[key]
             elif not isinstance(data[key], allowed_keys[key]):

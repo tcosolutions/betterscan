@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 import json
 import logging
@@ -37,4 +37,4 @@ class JSONField(Field):
                 self.data = json.loads(value[0])
             except ValueError:
                 self.data = None
-                raise ValueError(self.gettext(u'Not a valid json string.'))
+                raise ValueError(self.gettext('Not a valid json string.'))

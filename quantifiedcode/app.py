@@ -6,16 +6,17 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import absolute_import
+
+
 
 import sys
 import re
 import argparse
-import urlparse
+import urllib.parse
 
 from flask import Flask,request
-from werkzeug.wsgi import DispatcherMiddleware
+#from werkzeug.wsgi import DispatcherMiddleware
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 from quantifiedcode.settings import settings, backend
 from quantifiedcode.backend.app import get_app as get_backend_app
@@ -43,18 +44,18 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        dest=u'host',
-        nargs=u'?',
-        default=u'0.0.0.0:5000',
+        dest='host',
+        nargs='?',
+        default='0.0.0.0:5000',
     )
 
     args = parser.parse_args(sys.argv[1:])
 
-    if u':' in args.host:
+    if ':' in args.host:
         host, port = args.host.split(':', 1)
         port = int(port)
     else:
-        url = urlparse.urlparse(settings.get('url'))
+        url = urllib.parse.urlparse(settings.get('url'))
         if url.port:
             port = url.port
         else:

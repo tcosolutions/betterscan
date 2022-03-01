@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import
+
 import click
 import logging
 
@@ -26,12 +26,12 @@ def _import_issue_classes():
 
     logger.info("Importing issue classes from checkmate...")
     analyzers = settings.checkmate_settings.analyzers
-    for analyzer, params in analyzers.items():
+    for analyzer, params in list(analyzers.items()):
         logger.info("Importing issue classes for analyzer {}".format(analyzer))
         if not all([key in params for key in analyzer_update_keys]):
             logger.warning("Skipping analyzer {} as it does not contain a '{}' field".format(key))
             continue
-        for code, issue_params in params.get('issues_data',{}).items():
+        for code, issue_params in list(params.get('issues_data',{}).items()):
             if not all([key in issue_params for key in issue_update_keys]):
                 logger.warning("Skipping issue class for code {}, as it does not contain a '{}' field".format(code, key))
                 continue

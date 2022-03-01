@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('path_', sa.String(), nullable=True),
     sa.Column('project', sa.String(length=32), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'gitrepository_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='gitrepository_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
     sa.UniqueConstraint('project', name='unique_gitrepository_project')
     )
@@ -56,7 +56,7 @@ def upgrade():
     sa.Column('author_date_ts', sa.Integer(), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('author_date', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'gitsnapshot_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='gitsnapshot_project_project', ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['snapshot'], ['snapshot.pk'], name='gitsnapshot_snapshot_snapshot', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
     sa.UniqueConstraint('project', 'sha', name='unique_together_gitsnapshot_project_sha'),
@@ -87,7 +87,7 @@ def upgrade():
     sa.Column('hash', sa.String(length=64), nullable=True),
     sa.ForeignKeyConstraint(['head_snapshot'], ['gitsnapshot.pk'], name='gitbranch_gitsnapshot_head_snapshot', ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['last_analyzed_snapshot'], ['gitsnapshot.pk'], name='gitbranch_gitsnapshot_last_analyzed_snapshot', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'gitbranch_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='gitbranch_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
     sa.UniqueConstraint('project', 'name', name='unique_together_gitbranch_project_name')
     )

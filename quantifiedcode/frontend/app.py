@@ -13,7 +13,7 @@ from .utils import StaticFilesFlask
 
 import os
 import math
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from datetime import date
 
 context = {
@@ -85,7 +85,7 @@ def get_app(settings):
         #we add the settings modules of the plugins to the require list for the core settings
         plugins_context['plugin_modules'] = ','.join(['"{}"'.format(module)
                                                       for module in plugins_context['plugin_modules']])
-        plugin_settings = u"\n"+render_template("plugins.js", **plugins_context)
+        plugin_settings = "\n"+render_template("plugins.js", **plugins_context)
 
         #debug = 1;
         if debug:
@@ -95,7 +95,7 @@ def get_app(settings):
                 read_file(os.path.join(static_folder,'bower_components/react/react.js')),
                 env_settings,
                 plugin_settings,
-                u'\nrequire(["main"],function(main){});\n'
+                '\nrequire(["main"],function(main){});\n'
             ])
         else:
             plugin_boot_scripts = ""

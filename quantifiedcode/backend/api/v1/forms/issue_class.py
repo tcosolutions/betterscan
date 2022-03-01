@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from wtforms import Form, BooleanField, SelectField, TextAreaField, StringField, IntegerField, FieldList, validators, ValidationError
 from .validators import validate_tags
@@ -20,17 +20,17 @@ class IssueClassForm(Form):
         self.analyzers = analyzers
         self.categories = categories
 
-    query = StringField(u"Query", [validators.Optional()])
-    project_id = StringField(u"Project ID",[validators.Optional()])
-    severity = StringField(u"Severity",[])
-    categories = StringField(u"Categories",[validators.Optional()])
-    language = StringField(u"Language",[validators.Optional()])
-    analyzer = StringField(u"Analyzer",[validators.Optional()])
-    sort = SelectField(u"Sort Field", choices=[("title","title"),("created_at","creation date"),("updated_at","update date"),("severity","severity")],validators=[validators.Optional()], default="title")
-    direction = SelectField(u"Sort Direction", choices=[("desc","descending"),("asc","ascending"),],validators=[validators.Optional()], default="asc")
-    type = SelectField(u"Type", choices=[("enabled","enabled"),("disabled","disabled"),("all","all")],validators=[validators.Optional()], default="all")
-    limit = IntegerField(u"Limit", validators=[validators.NumberRange(min=1,max=100),validators.Optional()],default=20)
-    offset = IntegerField(u"Offset", validators=[validators.NumberRange(min=0), validators.Optional()],default=0)
+    query = StringField("Query", [validators.Optional()])
+    project_id = StringField("Project ID",[validators.Optional()])
+    severity = StringField("Severity",[])
+    categories = StringField("Categories",[validators.Optional()])
+    language = StringField("Language",[validators.Optional()])
+    analyzer = StringField("Analyzer",[validators.Optional()])
+    sort = SelectField("Sort Field", choices=[("title","title"),("created_at","creation date"),("updated_at","update date"),("severity","severity")],validators=[validators.Optional()], default="title")
+    direction = SelectField("Sort Direction", choices=[("desc","descending"),("asc","ascending"),],validators=[validators.Optional()], default="asc")
+    type = SelectField("Type", choices=[("enabled","enabled"),("disabled","disabled"),("all","all")],validators=[validators.Optional()], default="all")
+    limit = IntegerField("Limit", validators=[validators.NumberRange(min=1,max=100),validators.Optional()],default=20)
+    offset = IntegerField("Offset", validators=[validators.NumberRange(min=0), validators.Optional()],default=0)
 
     def validate_severity(self, field):
         values = set()
@@ -48,20 +48,20 @@ class IssueClassForm(Form):
         field.data = [l.lower() for l in set(field.raw_data)]
         for entry in field.data:
             if not entry in self.categories:
-                raise ValidationError(u"Invalid category: {}".formt(entry))
+                raise ValidationError("Invalid category: {}".formt(entry))
 
     def validate_language(self, field):
         field.data = [l.lower() for l in set(field.raw_data)]
         for entry in field.data:
             if not entry in self.languages:
-                raise ValidationError(u"Invalid language: {}".formt(entry))
+                raise ValidationError("Invalid language: {}".formt(entry))
 
 
     def validate_analyzer(self, field):
         field.data = [l.lower() for l in set(field.raw_data)]
         for entry in field.data:
             if not entry in self.analyzers:
-                raise ValidationError(u"Invalid analyzer: {}".formt(entry))
+                raise ValidationError("Invalid analyzer: {}".formt(entry))
 
     def validate_query(self, field):
 
