@@ -134,7 +134,7 @@ TODO
 
 * update Dependencies (Backend & Frontend)
 * update to latest React
-* update to Python3
+* update to Python3 (see scanmycode3 branch - WIP)
 * update/add new Checkers (if you wish)
 
 # Licensing
