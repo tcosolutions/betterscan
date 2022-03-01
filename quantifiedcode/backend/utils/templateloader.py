@@ -23,7 +23,7 @@ class TemplateLoader(BaseLoader):
                 continue
             mtime = getmtime(template_path)
             with open(template_path) as f:
-                source = f.read().decode("utf-8")
+                source = f.read()
             return source, template_path, lambda: mtime == getmtime(path)
 
         raise TemplateNotFound(template)
