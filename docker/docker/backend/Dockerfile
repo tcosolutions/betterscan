@@ -1,21 +1,21 @@
-FROM python:2.7
+FROM python:3.7
 WORKDIR /
 RUN mkdir -p /srv
-RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
+RUN git clone -b scanmycode3 https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
 WORKDIR /srv/scanmycode
 RUN git pull
 RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree sudo git ssh rsync npm ruby-sass pipenv
 RUN tree
 #RUN pip install -r requirements.txt
 RUN pipenv install --system
-RUN pip install pylint===1.9.2
-RUN pip install stripe
-RUN git clone https://github.com/marcinguy/checkmate-ce /checkmate
+RUN pip3 install pylint===1.9.2
+RUN pip3 install stripe
+RUN git clone -b checkmate3  https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
 RUN tree /checkmate
-RUN python setup.py install
+RUN python3 setup.py install
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
-RUN pip install psycopg2 --upgrade
+RUN pip3 install psycopg2 --upgrade
 #WORKDIR /
 #RUN wget https://nodejs.org/dist/v16.14.0/node-v16.14.0-linux-x64.tar.xz
 #RUN mkdir -p /usr/local/lib/nodejs
@@ -33,3 +33,4 @@ WORKDIR /srv/scanmycode/quantifiedcode/plugins/git
 RUN chmod -R ugo+rw /srv/scanmycode/quantifiedcode/plugins/git 
 WORKDIR /srv/scanmycode/quantifiedcode/plugins/git/frontend
 RUN sudo -u user make
+RUN pip3 install email_validator

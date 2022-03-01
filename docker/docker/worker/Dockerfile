@@ -1,18 +1,21 @@
-FROM python:2.7
+FROM python:3.7
 RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv
 WORKDIR /
 RUN mkdir -p /srv
-RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
+RUN git clone -b scanmycode3 https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
 WORKDIR /srv/scanmycode
+RUN git checkout scanmycode3
 RUN git pull
 WORKDIR /srv/scanmycode
 #RUN pip install -r requirements.txt
 RUN pipenv install --system
-RUN pip install pylint===1.9.2
-RUN pip install stripe
-RUN git clone https://github.com/marcinguy/checkmate-ce /checkmate
+#RUN pip install pylint===1.9.2
+#RUN pip install stripe
+RUN git clone -b checkmate3 https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
-RUN python setup.py install
+RUN git checkout checkmate3
+RUN git pull
+RUN python3 setup.py install
 RUN pip install psycopg2 --upgrade
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 WORKDIR /root
@@ -39,6 +42,8 @@ RUN mkdir /root/phpscan/
 RUN cp /srv/scanmycode/analyzers/progpilot_dev20180720-215434.phar /root/phpscan/
 RUN cp /srv/scanmycode/analyzers/find_unicode_control2.py /usr/local/bin/
 RUN cp -pr /srv/scanmycode/analyzers/custom-semgrep /root
-RUN cp /srv/scanmycode/sshfeature/ssh /usr/local/lib/python2.7/site-packages/checkmate-0.2.0-py2.7.egg/checkmate/contrib/plugins/git/lib
-RUN mkdir -p /usr/local/lib/python2.7/site-packages/checkmate-0.2.0-py2.7.egg/checkmate/contrib/plugins/javascript/jshint/js
-RUN cp /srv/scanmycode/analyzers/json_reporter.js /usr/local/lib/python2.7/site-packages/checkmate-0.2.0-py2.7.egg/checkmate/contrib/plugins/javascript/jshint/js/
+RUN cp /srv/scanmycode/sshfeature/ssh /usr/local/lib/python3.7/site-packages/checkmate3-0.2.0-py3.7.egg/checkmate/contrib/plugins/git/lib
+RUN mkdir -p /usr/local/lib/python3.7/site-packages/checkmate3-0.2.0-py3.7.egg/checkmate/contrib/plugins/javascript/jshint/js
+RUN cp /srv/scanmycode/analyzers/json_reporter.js /usr/local/lib/python3.7/site-packages/checkmate3-0.2.0-py3.7.egg/checkmate/contrib/plugins/javascript/jshint/js/
+RUN pip3 install email_validator
+RUN pip install celery==4.4.6

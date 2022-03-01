@@ -67,7 +67,7 @@ def get_app(settings):
 
         def read_file(filename):
             with open(filename,'r') as input_file:
-                return input_file.read().decode('utf-8')
+                return input_file.read()
 
         settings_context = context.copy()
         settings_context['url'] = settings.get('frontend.url')
@@ -120,7 +120,7 @@ def get_app(settings):
     def git_settings_js():
         def read_file(filename):
           with open(filename,'r') as input_file:
-            return input_file.read().decode('utf-8')
+            return input_file.read()
       
         content = read_file('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
         
@@ -132,7 +132,7 @@ def get_app(settings):
     def project_settings_js():
         def read_file(filename):
           with open(filename,'r') as input_file:
-            return input_file.read().decode('utf-8')
+            return input_file.read()
 
         content = read_file('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
 
