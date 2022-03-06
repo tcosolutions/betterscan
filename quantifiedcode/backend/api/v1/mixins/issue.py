@@ -4,9 +4,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import re
 import logging
@@ -134,7 +134,7 @@ class FileRevisionIssueListMixin(object):
                     'ignore_comment' : row['ignore_comment'],
                     'occurrences': [],
                 }
-                issue.update(json.loads(str(row['data'])))
+                issue.update(json.loads(row['data']))
                 file_revision['issues'].append(issue)
 
             issue_occurrence = {

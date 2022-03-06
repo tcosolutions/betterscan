@@ -13,7 +13,7 @@ from .utils import StaticFilesFlask
 
 import os
 import math
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from datetime import date
 
 context = {
@@ -67,7 +67,7 @@ def get_app(settings):
 
         def read_file(filename):
             with open(filename,'r') as input_file:
-                return input_file.read().decode('utf-8')
+                return input_file.read()
 
         settings_context = context.copy()
         settings_context['url'] = settings.get('frontend.url')
@@ -85,7 +85,7 @@ def get_app(settings):
         #we add the settings modules of the plugins to the require list for the core settings
         plugins_context['plugin_modules'] = ','.join(['"{}"'.format(module)
                                                       for module in plugins_context['plugin_modules']])
-        plugin_settings = u"\n"+render_template("plugins.js", **plugins_context)
+        plugin_settings = "\n"+render_template("plugins.js", **plugins_context)
 
         #debug = 1;
         if debug:
@@ -95,7 +95,7 @@ def get_app(settings):
                 read_file(os.path.join(static_folder,'bower_components/react/react.js')),
                 env_settings,
                 plugin_settings,
-                u'\nrequire(["main"],function(main){});\n'
+                '\nrequire(["main"],function(main){});\n'
             ])
         else:
             plugin_boot_scripts = ""
@@ -120,7 +120,7 @@ def get_app(settings):
     def git_settings_js():
         def read_file(filename):
           with open(filename,'r') as input_file:
-            return input_file.read().decode('utf-8')
+            return input_file.read()
       
         content = read_file('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
         
@@ -132,7 +132,7 @@ def get_app(settings):
     def project_settings_js():
         def read_file(filename):
           with open(filename,'r') as input_file:
-            return input_file.read().decode('utf-8')
+            return input_file.read()
 
         content = read_file('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
 

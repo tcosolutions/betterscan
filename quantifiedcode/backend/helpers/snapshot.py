@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from quantifiedcode.settings import settings, backend
 from quantifiedcode.backend.models import Snapshot

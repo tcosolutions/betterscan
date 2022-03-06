@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 import logging
 
@@ -113,12 +113,12 @@ class GitSnapshots(Resource):
             diffs_by_pk[row['pk']]['sha_a'] = row['sha_a']
             diffs_by_pk[row['pk']]['sha_b'] = row['sha_b']
 
-        for diff in diffs_by_pk.values():
+        for diff in list(diffs_by_pk.values()):
             for key in ('issues_fixed', 'issues_added'):
                 if key not in diff:
                     diff[key] = 0
 
-        return diffs_by_pk.values()
+        return list(diffs_by_pk.values())
 
     @valid_user(anon_ok=True)
     @valid_project(public_ok=True)

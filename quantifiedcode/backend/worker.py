@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 import logging
 import datetime
@@ -47,7 +47,7 @@ def make_celery():
     #we parse the celerybeat task schedule
     celerybeat_schedule = celery_settings.get('celerybeat-schedule', {})
     new_schedule = {}
-    for task, params in celerybeat_schedule.items():
+    for task, params in list(celerybeat_schedule.items()):
         params = params.copy()
         if not 'schedule' in params:
             logger.warning("No schedule for task {}, skipping...".format(task))
@@ -66,7 +66,7 @@ def make_celery():
 
     #if we use Celery 3, we map the config parameter names to the old format
     if celery_version.startswith('3.'):
-        for key, value in celery_config.items():
+        for key, value in list(celery_config.items()):
             if key in config_mapping_3_4:
                 del celery_config[key]
                 celery_config[config_mapping_3_4[key]] = value

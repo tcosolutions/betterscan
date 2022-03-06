@@ -25,7 +25,7 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('user', sa.String(length=32), nullable=True),
-    sa.ForeignKeyConstraint(['user'], ['user.pk'], name='example_user_user', ondelete=u'CASCADE'),
+    sa.ForeignKeyConstraint(['user'], ['user.pk'], name='example_user_user', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
     sa.UniqueConstraint('user', name='unique_example_user')
     )

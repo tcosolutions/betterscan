@@ -4,9 +4,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import re
 import subprocess
@@ -186,10 +186,10 @@ class SnapshotSummary(Resource):
         if language not in summary:
             return {'message': 'not found'}, 404
 
-        for key in [key for key in summary.keys() if key != language]:
+        for key in [key for key in list(summary.keys()) if key != language]:
             del summary[key]
 
-        for key in [key for key in summary[language].keys() if key not in analyzers]:
+        for key in [key for key in list(summary[language].keys()) if key not in analyzers]:
             del summary[language][key]
 
         return {'summary': summary}, 200

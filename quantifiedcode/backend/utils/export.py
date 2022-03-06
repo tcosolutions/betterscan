@@ -3,8 +3,8 @@
     Contains export function used to translate database objects into dictionaries based on a mapping.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from six import string_types
 
@@ -79,7 +79,7 @@ def export(d, key):
             except KeyError:
                 pass
     elif isinstance(key, dict):
-        for key_name, key_value in key.items():
+        for key_name, key_value in list(key.items()):
             if key_name == '*':
                 if isinstance(d, dict):
                     for d_key in d:

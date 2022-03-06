@@ -154,6 +154,6 @@ new_routes = []
 prefix = "/v1"
 
 for route in routes:
-    new_routes.append({prefix + key: value for key, value in route.items()})
+    new_routes.append({prefix + key: value for key, value in list(route.items())})
 
 routes = new_routes

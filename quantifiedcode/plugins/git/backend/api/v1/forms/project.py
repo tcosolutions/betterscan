@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from wtforms import Form, BooleanField, TextAreaField, StringField, validators
 from .validators import GitUrl

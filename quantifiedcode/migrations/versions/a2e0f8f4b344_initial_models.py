@@ -81,7 +81,7 @@ def upgrade():
     sa.Column('reset_requested_at', sa.DateTime(), nullable=True),
     sa.Column('delete', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('pk'),
-    sa.UniqueConstraint('permalink', name=u'unique_project_permalink')
+    sa.UniqueConstraint('permalink', name='unique_project_permalink')
     )
     op.create_index(op.f('ix_project_analysis_priority'), 'project', ['analysis_priority'], unique=False)
     op.create_index(op.f('ix_project_analysis_requested_at'), 'project', ['analysis_requested_at'], unique=False)
@@ -174,7 +174,7 @@ def upgrade():
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('path', sa.String(length=2000), nullable=True),
     sa.Column('configuration', sa.String(length=64), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'filerevision_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='filerevision_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
     )
     op.create_index(op.f('ix_filerevision_configuration'), 'filerevision', ['configuration'], unique=False)
@@ -197,7 +197,7 @@ def upgrade():
     sa.Column('fingerprint', sa.String(length=255), nullable=False),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('configuration', sa.String(length=64), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'issue_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='issue_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
     sa.UniqueConstraint('project', 'fingerprint', 'analyzer', 'code', name='unique_together_issue_project_fingerprint_analyzer_code')
     )
@@ -231,9 +231,9 @@ def upgrade():
     op.create_table('project_tag_tags',
     sa.Column('tag', sa.String(length=32), nullable=True),
     sa.Column('project', sa.String(length=32), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'project_tag_tags_project', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['tag'], ['tag.pk'], name=u'project_tag_tags_tag', ondelete='CASCADE'),
-    sa.UniqueConstraint('project', 'tag', name=u'project_tag_tags_tags_unique')
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='project_tag_tags_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['tag'], ['tag.pk'], name='project_tag_tags_tag', ondelete='CASCADE'),
+    sa.UniqueConstraint('project', 'tag', name='project_tag_tags_tags_unique')
     )
     op.create_index(op.f('ix_project_tag_tags_project'), 'project_tag_tags', ['project'], unique=False)
     op.create_index(op.f('ix_project_tag_tags_tag'), 'project_tag_tags', ['tag'], unique=False)
@@ -246,7 +246,7 @@ def upgrade():
     sa.Column('issue_class', sa.String(length=32), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.ForeignKeyConstraint(['issue_class'], ['issueclass.pk'], name='projectissueclass_issueclass_issue_class', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'projectissueclass_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='projectissueclass_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
     sa.UniqueConstraint('project', 'issue_class', name='unique_together_projectissueclass_project_issue_class')
     )
@@ -264,7 +264,7 @@ def upgrade():
     sa.Column('analyzed', sa.Boolean(), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('configuration', sa.String(length=64), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'snapshot_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='snapshot_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
     )
     op.create_index(op.f('ix_snapshot_analyzed'), 'snapshot', ['analyzed'], unique=False)
@@ -283,7 +283,7 @@ def upgrade():
     sa.Column('project', sa.String(length=32), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('type', sa.String(length=50), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'task_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='task_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
     )
     op.create_index(op.f('ix_task_created_at'), 'task', ['created_at'], unique=False)
@@ -301,7 +301,7 @@ def upgrade():
     sa.Column('role', sa.String(length=30), nullable=True),
     sa.Column('user', sa.String(length=32), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'userrole_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='userrole_project_project', ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['user'], ['user.pk'], name='userrole_user_user', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
     )
@@ -321,7 +321,7 @@ def upgrade():
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('configuration', sa.String(length=64), nullable=True),
     sa.Column('snapshot_a', sa.String(length=32), nullable=True),
-    sa.ForeignKeyConstraint(['project'], [u'project.pk'], name=u'diff_project_project', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['project'], ['project.pk'], name='diff_project_project', ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['snapshot_a'], ['snapshot.pk'], name='diff_snapshot_snapshot_a', ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['snapshot_b'], ['snapshot.pk'], name='diff_snapshot_snapshot_b', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
@@ -351,9 +351,9 @@ def upgrade():
     op.create_table('filerevision_filerevision_dependencies',
     sa.Column('filerevision_right', sa.String(length=32), nullable=True),
     sa.Column('filerevision', sa.String(length=32), nullable=True),
-    sa.ForeignKeyConstraint(['filerevision'], [u'filerevision.pk'], name=u'filerevision_filerevision_dependencies_filerevision', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['filerevision_right'], [u'filerevision.pk'], name=u'filerevision_filerevision_dependencies_filerevision_right', ondelete='CASCADE'),
-    sa.UniqueConstraint('filerevision', 'filerevision_right', name=u'filerevision_filerevision_dependencies_dependencies_unique')
+    sa.ForeignKeyConstraint(['filerevision'], ['filerevision.pk'], name='filerevision_filerevision_dependencies_filerevision', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['filerevision_right'], ['filerevision.pk'], name='filerevision_filerevision_dependencies_filerevision_right', ondelete='CASCADE'),
+    sa.UniqueConstraint('filerevision', 'filerevision_right', name='filerevision_filerevision_dependencies_dependencies_unique')
     )
     op.create_index(op.f('ix_filerevision_filerevision_dependencies_filerevision'), 'filerevision_filerevision_dependencies', ['filerevision'], unique=False)
     op.create_index(op.f('ix_filerevision_filerevision_dependencies_filerevision_right'), 'filerevision_filerevision_dependencies', ['filerevision_right'], unique=False)
@@ -370,7 +370,7 @@ def upgrade():
     sa.Column('from_row', sa.Integer(), nullable=True),
     sa.Column('issue', sa.String(length=32), nullable=True),
     sa.Column('from_column', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['file_revision'], [u'filerevision.pk'], name=u'issueoccurrence_filerevision_file_revision', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['file_revision'], ['filerevision.pk'], name='issueoccurrence_filerevision_file_revision', ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['issue'], ['issue.pk'], name='issueoccurrence_issue_issue', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
     )
@@ -383,9 +383,9 @@ def upgrade():
     op.create_table('snapshot_filerevision_file_revisions',
     sa.Column('filerevision', sa.String(length=32), nullable=True),
     sa.Column('snapshot', sa.String(length=32), nullable=True),
-    sa.ForeignKeyConstraint(['filerevision'], [u'filerevision.pk'], name=u'snapshot_filerevision_file_revisions_filerevision', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['snapshot'], ['snapshot.pk'], name=u'snapshot_filerevision_file_revisions_snapshot', ondelete='CASCADE'),
-    sa.UniqueConstraint('snapshot', 'filerevision', name=u'snapshot_filerevision_file_revisions_file_revisions_unique')
+    sa.ForeignKeyConstraint(['filerevision'], ['filerevision.pk'], name='snapshot_filerevision_file_revisions_filerevision', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['snapshot'], ['snapshot.pk'], name='snapshot_filerevision_file_revisions_snapshot', ondelete='CASCADE'),
+    sa.UniqueConstraint('snapshot', 'filerevision', name='snapshot_filerevision_file_revisions_file_revisions_unique')
     )
     op.create_index(op.f('ix_snapshot_filerevision_file_revisions_filerevision'), 'snapshot_filerevision_file_revisions', ['filerevision'], unique=False)
     op.create_index(op.f('ix_snapshot_filerevision_file_revisions_snapshot'), 'snapshot_filerevision_file_revisions', ['snapshot'], unique=False)
@@ -395,12 +395,12 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('file_revision', sa.String(length=32), nullable=True),
-    sa.Column('key', sa.Enum(u'added', u'deleted', u'modified', name='difffilerevision_key', native_enum=False), nullable=True),
+    sa.Column('key', sa.Enum('added', 'deleted', 'modified', name='difffilerevision_key', native_enum=False), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('diff', sa.String(length=32), nullable=True),
     sa.Column('configuration', sa.String(length=64), nullable=True),
     sa.ForeignKeyConstraint(['diff'], ['diff.pk'], name='difffilerevision_diff_diff', ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['file_revision'], [u'filerevision.pk'], name=u'difffilerevision_filerevision_file_revision', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['file_revision'], ['filerevision.pk'], name='difffilerevision_filerevision_file_revision', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk')
     )
     op.create_index(op.f('ix_difffilerevision_configuration'), 'difffilerevision', ['configuration'], unique=False)
@@ -416,7 +416,7 @@ def upgrade():
     sa.Column('hash', sa.String(length=64), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('key', sa.Enum(u'added', u'fixed', name='diffissueoccurrence_key', native_enum=False), nullable=True),
+    sa.Column('key', sa.Enum('added', 'fixed', name='diffissueoccurrence_key', native_enum=False), nullable=True),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('diff', sa.String(length=32), nullable=True),
     sa.Column('issue_occurrence', sa.String(length=32), nullable=True),

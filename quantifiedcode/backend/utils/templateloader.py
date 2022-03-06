@@ -17,13 +17,13 @@ class TemplateLoader(BaseLoader):
         self.paths = paths
 
     def get_source(self, environment, template):
-        for key, path in sorted(self.paths.items(), key=lambda x:x[0]):
+        for key, path in sorted(list(self.paths.items()), key=lambda x:x[0]):
             template_path = join(path, template)
             if not exists(template_path):
                 continue
             mtime = getmtime(template_path)
             with open(template_path) as f:
-                source = f.read().decode("utf-8")
+                source = f.read()
             return source, template_path, lambda: mtime == getmtime(path)
 
         raise TemplateNotFound(template)

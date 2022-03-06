@@ -6,9 +6,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import os
 import shutil
@@ -76,7 +76,7 @@ def fetch_remote(project,
 
         # actually fetch the repository
         with tempfile.NamedTemporaryFile(delete=False) as tf:
-            tf.write(project.git.private_key)
+            tf.write(project.git.private_key.encode())
             tf.close()
 
             rc = tmp_repository.fetch(remote_name, branch=branch, ssh_identity_file=tf.name,

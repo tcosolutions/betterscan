@@ -12,4 +12,4 @@ def project(test, fixtures, name):
 
 
 def simple_project(test, fixtures):
-    return project(test, fixtures, name=u'test')
+    return project(test, fixtures, name='test')

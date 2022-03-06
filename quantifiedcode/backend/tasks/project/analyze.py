@@ -6,9 +6,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import os
 import shutil
@@ -28,7 +28,7 @@ from ..helpers import ExclusiveTask, TaskLogger
 
 from ...tasks.email import send_mail
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import json
 
 

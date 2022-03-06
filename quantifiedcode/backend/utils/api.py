@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 from quantifiedcode.settings import settings
 
@@ -47,7 +47,7 @@ def register_routes(routes, app, module=None, version=None):
     logger.debug("Registering routers for module {} version {}".format(module or "", version or ""))
     # Register all routes
     for route in routes:
-        for route_url, (resource_class, options) in route.items():
+        for route_url, (resource_class, options) in list(route.items()):
 
             identifier = "{}.{}".format(module, resource_class.__name__) if module else resource_class.__name__
             versioned_url = "/" + version + route_url if version else route_url

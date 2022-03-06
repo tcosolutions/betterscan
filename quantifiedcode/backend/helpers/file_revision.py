@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 from quantifiedcode.settings import settings
 
 def get_file_content_by_sha(project, sha):

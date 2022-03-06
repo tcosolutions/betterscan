@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 def enrich_issues(issues, issues_data):
     for issue in issues:
@@ -20,5 +20,5 @@ def enrich_issue(issue, language, analyzer, issues_data):
         code = issue['code']
         code_data = analyzer_data['codes'].get(code)
         if code_data:
-            for key, value in code_data.iteritems():
+            for key, value in code_data.items():
                 issue[key] = value

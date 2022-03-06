@@ -17,4 +17,4 @@ def user(test, fixtures, name, email, password, superuser=False,):
     return user
 
 def normal_user(test, fixtures):
-    return user(test, fixtures, name=u'test', email='test@test.de', password=u'testtest', superuser=False)
+    return user(test, fixtures, name='test', email='test@test.de', password='testtest', superuser=False)

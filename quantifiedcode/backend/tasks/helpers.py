@@ -4,9 +4,9 @@
     Contains export function used to translate database objects into dictionaries based on a mapping.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import logging
 import time
@@ -30,7 +30,7 @@ def launch_task_group(group, function, limit=6):
 
     active_cnt = 0
     if active_tasks:
-        for host, tasks in active_tasks.items():
+        for host, tasks in list(active_tasks.items()):
             if host.startswith("%s@" % group):
                 active_cnt += len(tasks)
 

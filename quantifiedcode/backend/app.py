@@ -6,9 +6,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import traceback
 
@@ -35,7 +35,7 @@ def get_app(settings):
 
 def configure(app, settings):
     register_routes(routes_v1, app)
-    for name, api in settings.get_plugin_apis().items():
+    for name, api in list(settings.get_plugin_apis().items()):
         register_routes(api['routes'], app, module=name, version=api['version'])
 
 if __name__ == "__main__":

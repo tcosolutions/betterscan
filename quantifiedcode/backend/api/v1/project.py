@@ -5,9 +5,9 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import absolute_import
+
+
+
 
 import logging
 import datetime
@@ -170,11 +170,11 @@ class ProjectDetails(Resource):
         if form.public.data is not None:
             data['public'] = form.public.data
 
-        for key, value in data.items():
+        for key, value in list(data.items()):
             request.project[key] = value
 
         with backend.transaction():
-            backend.update(request.project, data.keys())
+            backend.update(request.project, list(data.keys()))
 
         return ({'message': 'success!',
                  'project': self.export(request.project)},

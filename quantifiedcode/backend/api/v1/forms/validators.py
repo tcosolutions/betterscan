@@ -6,8 +6,8 @@
 
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+
+
 
 import re
 import yaml
@@ -50,7 +50,7 @@ class InputRegexp(validators.Regexp):
         if field.raw_data and isinstance(field.raw_data[0], string_types):
             raw_data = field.raw_data[0]
         else:
-            raw_data = u''
+            raw_data = ''
         if not self.regex.match(raw_data or ''):
             if message is None:
                 if self.message is None:
