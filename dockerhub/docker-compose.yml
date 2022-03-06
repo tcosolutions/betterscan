@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    image: scanmycode/scanmycode-ce:server 
+    image: scanmycode/scanmycode3-ce:server 
     restart: always
     depends_on:
       - postgres
@@ -30,7 +30,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   worker_1:
-    image: scanmycode/scanmycode-ce:worker 
+    image: scanmycode/scanmycode3-ce:worker 
     hostname: worker_1
     restart: on-failure
     depends_on:
