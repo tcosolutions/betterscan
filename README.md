@@ -35,7 +35,7 @@ To install it. Install `docker` and `docker-compose` and then:
 1) Fastest (use DockerHub built images). If unsure, use this.
 
 ```
-git clone git@github.com:marcinguy/scanmycode-ce.git
+git clone https://github.com/marcinguy/scanmycode-ce.git
 cd scanmycode-ce/dockerhub
 ./start.sh
 ```
