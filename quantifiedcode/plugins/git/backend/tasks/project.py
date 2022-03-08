@@ -37,13 +37,13 @@ def extract_tags_from_requirements_txt(repository, branch):
     tags = set()
     try:
         requirements_str = repository.get_file_content(branch, "requirements.txt")
-        parsed_requirements = parsed_requirements.decode("utf-8")
     except IOError:
         logger.info("Error: Can't get requirements file from {}".format(branch))
         return tags
 
     try:
         parsed_requirements = requirements.parse(requirements_str)
+        parsed_requirements = parsed_requirements.decode("utf-8")
     except Exception as err:
         logger.info("Error {0}: Can't parse requirements file {1} in {2}".format(
             err.__class__.__name__, requirements_str, branch))
