@@ -42,3 +42,4 @@ RUN chmod -R ugo+rw /srv/scanmycode/quantifiedcode/plugins/git
 WORKDIR /srv/scanmycode/quantifiedcode/plugins/git/frontend
 RUN sudo -u user make
 RUN pip3 install email_validator
+RUN pip install celery==4.4.6
