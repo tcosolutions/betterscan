@@ -43,7 +43,7 @@ cd scanmycode-ce/dockerhub
 2) Slower (build everything)
 
 ```
-git clone git@github.com:marcinguy/scanmycode-ce.git
+git clone https://github.com/marcinguy/scanmycode-ce.git
 cd scanmycode-ce/docker
 ./start.sh
 ```
@@ -132,9 +132,9 @@ Looking for contributing individuals and organizations. Feel free to contact me 
 
 TODO
 
-* update Dependencies (Backend & Frontend)
+* update Dependencies (Backend & Frontend - done)
 * update to latest React
-* update to Python3 (see scanmycode3 branch - WIP)
+* update to Python3 (see scanmycode3 branch - done)
 * update/add new Checkers (if you wish)
 
 # Licensing
@@ -174,24 +174,13 @@ Scanmycode requires the following external dependencies:
 
 Now with the dependencies installed, we can go ahead and download Scanmycode:
 
-    `git clone git@github.com:marcinguy/scanmycode-ce.git`
+    `git clone https://github.com/marcinguy/scanmycode-ce.git`
 
-### Set up a virtual environment (optional)
-
-In addition, it is advised to create a (Python 2.7) virtual environment to run Scanmycode in:
-
-````
-    virtualenv venv
-
-    #activate the virtual environment
-    source venv/bin/activate
-````
 
 ### Install the required Python packages
 
-Scanmycode CE manages dependencies via the Python package manager, pip. To install them, simply run
+Scanmycode CE manages dependencies via the Python package manager, pip.
 
-    `pip install -r requirements.txt`
 
 ### Edit Settings
 
