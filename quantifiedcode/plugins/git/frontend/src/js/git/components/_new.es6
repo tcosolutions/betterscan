@@ -145,7 +145,7 @@ var ProjectForm = React.createClass({
                         {this.formatFieldError('url')}
                         <input id="url"
                             className="form-control"
-                            placeholder="Git Repo - Clone with HTTPS (i.e https://github.com/user/project) or SSH (ssh://git@github.com/user_org/repo.git"
+                            placeholder="Git Repo - Clone with HTTPS (i.e https://github.com/user/project) or SSH (ssh://git@github.com/user_org/repo.git)"
                             value={this.state.url}
                             onChange={this.setter('url')} />
                         {warning}
