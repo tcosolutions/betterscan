@@ -1,5 +1,8 @@
-
 [<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz)
+
+
+(Above is Chat for core developers, end users, supporters - click on the badge to join) 
+
 # What it does
 
 It is a Code Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different.
