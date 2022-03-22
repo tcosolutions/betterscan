@@ -28,7 +28,7 @@ This project would not be possible without the generous support of our sponsors.
   </tr>
 </table>
 
-If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/marcinguy) or [Patreon](https://www.patreon.com/marcinguy) (preferred due better VAT handling) 
+If you also want to support this project, head over to our [Github sponsors page](https://github.com/sponsors/marcinguy) or [Patreon](https://www.patreon.com/marcinguy) 
 
 # TLDR;
 
