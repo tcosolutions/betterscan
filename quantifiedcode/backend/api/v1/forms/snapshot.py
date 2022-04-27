@@ -30,7 +30,7 @@ class SnapshotFileRevisionIssuesForm(Form):
     ignore = BooleanField("Show ignored issues", default=False, validators=[validators.Optional()])
 
     def validate_analyzer_code(self, field):
-        regex = r"^([\w\d]{2,30}):([\w\d]{2,30})$"
+        regex = r"^([\w\d]{2,30}):([-\w\d]{2,30})$"
         match = re.match(regex, field.data, re.I)
         if not match:
             raise ValidationError("Analyzer-code must be in the format {}!".format(regex))
