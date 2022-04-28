@@ -44,6 +44,7 @@ RUN mkdir /root/confused/
 RUN cp /srv/scanmycode/analyzers/confused /root/confused/ #source https://gitlab.com/marcinguy/confused-oss
 WORKDIR /root
 RUN git clone https://github.com/Raz0r/semgrep-smart-contracts.git
+RUN git clone https://github.com/marcinguy/smc-semgrep-js.git semgrepjs
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.41.0/pmd-bin-6.41.0.zip
 RUN unzip pmd-bin-6.41.0.zip
 RUN mkdir /root/phpscan/
