@@ -30,7 +30,8 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   worker_1:
-    image: scanmycode/scanmycode3-ce:worker 
+    image: scanmycode/scanmycode3-ce:worker
+    restart: unless-stopped
     hostname: worker_1
     restart: on-failure
     depends_on:
