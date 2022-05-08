@@ -3,7 +3,7 @@ Sign up (click on Try fee)
 ![image](https://user-images.githubusercontent.com/20355405/167312805-96c76982-7631-48cc-a3a7-a8e178e87b50.png)
 
 
-https://www.okteto.com/ - The Kubernetest Development Platform
+https://www.okteto.com/ - The Kubernetes Development Platform
 
 
 Installation time: ca. 1 minute
