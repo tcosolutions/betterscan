@@ -32,6 +32,8 @@ If you also want to support this project, head over to our [Github sponsors page
 
 # TLDR;
 
+## Local
+
 To install it. Install `docker` and `docker-compose` and then:
 
 2 options
@@ -57,6 +59,19 @@ Go in the Browser to:
 `http://localhost:5000`
 
 Sign up locally (and login in when needed)
+
+## Cloud
+
+Cloud and Kubernetest (scaling) installation:
+
+If your connection is not fast and/or you have no server.
+
+Check installation on Kubernetest (Free)
+
+https://github.com/marcinguy/scanmycode-ce/blob/master/okteto/README.md
+
+
+## Usage
 
 More info in the Wiki:
 
