@@ -62,7 +62,7 @@ Sign up locally (and login in when needed)
 
 ## Cloud
 
-Cloud and Kubernetest (scaling) installation:
+Cloud and Kubernetes (scaling) installation:
 
 If your connection is not fast and/or you have no server.
 
