@@ -66,7 +66,7 @@ Cloud and Kubernetes (scaling) installation:
 
 If your connection is not fast and/or you have no server.
 
-Check installation on Kubernetest (Free)
+Check installation on Kubernetest (Free) thanks to Okteto.com
 
 https://github.com/marcinguy/scanmycode-ce/blob/master/okteto/README.md
 
