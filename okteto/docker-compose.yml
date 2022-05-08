@@ -1,0 +1,63 @@
+version: '3'
+services:
+  server:
+    image: scanmycode/scanmycode3-ce:server 
+    restart: always
+    depends_on:
+      - postgres
+    working_dir: /srv/scanmycode/
+    command: /bin/sh -c "python /srv/scanmycode/manage.py setup && python /srv/scanmycode/manage.py runserver"
+    ports:
+      - 5000:5000
+    volumes:
+      - ./data1:/srv/scanmycode/quantifiedcode/data/
+      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+      - ./setup_state:/srv/scanmycode/setup_state
+    links:
+      - "postgres"
+
+  postgres:
+    image: postgres:13.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: qc
+      POSTGRES_USER: qc
+      POSTGRES_PASSWORD: qc
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  worker_1:
+    image: scanmycode/scanmycode3-ce:worker
+    restart: unless-stopped
+    hostname: worker_1
+    depends_on:
+      - rabbitmq
+      - postgres
+      - server
+    working_dir: /srv/scanmycode/
+    entrypoint: python
+    command: /srv/scanmycode/manage.py runworker
+    volumes:
+      - ./data1:/srv/scanmycode/quantifiedcode/data/
+      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+    links:
+      - "rabbitmq"
+      - "server"
+      - "postgres"  
+
+  rabbitmq:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=qc
+      - RABBITMQ_DEFAULT_PASS=qc
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+volumes:
+  db-data:
+    driver: local
+
