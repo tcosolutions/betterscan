@@ -10,9 +10,8 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./data1:/srv/scanmycode/quantifiedcode/data/
-      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
-      - ./setup_state:/srv/scanmycode/setup_state
+      - server1:/srv/scanmycode/quantifiedcode/data/repositories/
+      - server2:/srv/scanmycode/quantifiedcode/backend/data/tasks/
     links:
       - "postgres"
 
@@ -28,20 +27,18 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
-  worker_1:
+  worker:
     image: scanmycode/scanmycode3-ce:worker
     restart: unless-stopped
-    hostname: worker_1
     depends_on:
       - rabbitmq
       - postgres
       - server
     working_dir: /srv/scanmycode/
-    entrypoint: python
-    command: /srv/scanmycode/manage.py runworker
+    command: /bin/sh -c "python /srv/scanmycode/manage.py runworker"
     volumes:
-      - ./data1:/srv/scanmycode/quantifiedcode/data/
-      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+      - server1:/srv/scanmycode/quantifiedcode/data/repositories/
+      - server2:/srv/scanmycode/quantifiedcode/backend/data/tasks/
     links:
       - "rabbitmq"
       - "server"
@@ -59,5 +56,5 @@ services:
 
 volumes:
   db-data:
-    driver: local
-
+  server1:
+  server2:
