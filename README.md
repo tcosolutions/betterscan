@@ -83,6 +83,8 @@ https://github.com/marcinguy/scanmycode-ce/wiki
 
 You can plug it anywhere on your CI/CD pipeline as a command.
 
+With SMC one command, you add 1000+ checks using different scanners (SMC is Meta scanner in that sense) 
+
 SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
 
 ![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
