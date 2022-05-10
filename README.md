@@ -89,7 +89,7 @@ Fig 2. Photo courtesy of Viking from THC Telegram Channel
 
 You can put it under Quality Gates.
 
-Build Docker image Worker-CLI and run ´checkmate´ from there. Below is sample flow:
+Build Docker image Worker-CLI and run `checkmate` from there. Below is sample flow:
 
 
 CLI Mode only
