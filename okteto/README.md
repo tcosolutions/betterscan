@@ -28,8 +28,13 @@ cd okteto
 Run
 
 ```
-okteto stack deploy --build 
+okteto  deploy --build 
 ```
+
+Sample run:
+
+![image](https://user-images.githubusercontent.com/20355405/167563582-73f4a070-a9c3-42a1-92c9-0b0d812a06d8.png)
+
 
 Scanmycode CE will be available on 
 
@@ -44,4 +49,5 @@ https://server-marcinguy.cloud.okteto.net/
 
 Sample view in Okteto:
 
-![image](https://user-images.githubusercontent.com/20355405/167312847-17bc4b31-5c55-4125-a625-d5875ddbbeff.png)
+![image](https://user-images.githubusercontent.com/20355405/167563966-e8a65daf-d3d7-4257-bef8-5fcfb0895c98.png)
+
