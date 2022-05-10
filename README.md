@@ -66,6 +66,8 @@ Cloud and Kubernetes (scaling) installation:
 
 If your connection is not fast and/or you have no server.
 
+Installation time: ca. 1 minute
+
 Check installation on Kubernetes (Free) thanks to Okteto.com
 
 https://github.com/marcinguy/scanmycode-ce/blob/master/okteto/README.md
