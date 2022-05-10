@@ -77,6 +77,59 @@ More info in the Wiki:
 
 https://github.com/marcinguy/scanmycode-ce/wiki
 
+## Advanced Usage (CLI Mode only)
+
+You can plug it anywhere on your CI/CD pipeline as a command.
+
+SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
+
+![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
+
+Fig 2. Photo courtesy of Viking from THC Telegram Channel
+
+You can put it under Quality Gates.
+
+Build Docker image Worker-CLI and run ´checkmate´ from there. Below is sample flow:
+
+
+CLI Mode only
+
+1) Clone the repo
+2) set env var CODE_DIR ie `export CODE_DIR=/tmp/test`
+3) Cd into it
+4) Run `checkmate init`
+5) Run `checkmate git init`
+6) Run `checkmate git analyze`
+
+
+Run `checkmate issues`
+
+This will be shown
+```
+/root
+/tmp/test
+/tmp/test
+Loading plugin: git
+Loading plugin: trufflehog3
+Loading plugin: trojansource
+Loading plugin: metrics
+Loading plugin: bandit
+Loading plugin: brakeman
+Loading plugin: phpanalyzer
+Loading plugin: gosec
+Loading plugin: confused
+Loading plugin: pmd
+Loading plugin: semgrep
+Loading plugin: semgrepdefi
+Loading plugin: semgrepjs
+semgrepjs	ExpressLfrWarning	
+semgrepjs	CookieSessionNoDomain	
+semgrepjs	CookieSessionNoPath	
+semgrepjs	CookieSessionNoSecure	
+semgrepjs	CookieSessionDefault	
+semgrepjs	CookieSessionNoSamesite
+```
+
 # Under the hood
 
 Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule and other(s). Some were modified. 
