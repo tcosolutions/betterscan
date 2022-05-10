@@ -12,8 +12,6 @@ services:
     volumes:
       - server1:/srv/scanmycode/quantifiedcode/data/repositories/
       - server2:/srv/scanmycode/quantifiedcode/backend/data/tasks/
-    links:
-      - "postgres"
 
   postgres:
     image: postgres:13.2
@@ -39,10 +37,6 @@ services:
     volumes:
       - server1:/srv/scanmycode/quantifiedcode/data/repositories/
       - server2:/srv/scanmycode/quantifiedcode/backend/data/tasks/
-    links:
-      - "rabbitmq"
-      - "server"
-      - "postgres"  
 
   rabbitmq:
     container_name: "rabbitmq"
