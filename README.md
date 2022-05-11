@@ -162,6 +162,18 @@ Usage: checkmate [command] [command] [...] [args]
 Type "checkmate help" for help
 ```
 
+Same workflow as above, but using Docker binary:
+
+```
+export CODE_DIR=/tmp/test
+
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analzye'
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
+```
+
+
 # Under the hood
 
 Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule and other(s). Some were modified. 
