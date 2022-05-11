@@ -136,6 +136,8 @@ semgrepjs	CookieSessionNoSamesite
 
 There is a DockerHub image also for it ready.
 
+`docker pull scanmycode/scanmycode3-ce:worker-cli`
+
 You can run the Commands with docker as below:
 
 ```
