@@ -98,8 +98,8 @@ Build Docker image Worker-CLI and run `checkmate` from there. Below is sample fl
 
 CLI Mode only
 
-1) Clone the repo
-2) set env var CODE_DIR ie `export CODE_DIR=/tmp/test`
+1) Clone the repo i.e into `/tmp/test`
+2) set env var CODE_DIR i.e `export CODE_DIR=/tmp/test`. This env var should point to your Git cloned repo dir. 
 3) Cd into it
 4) Run `checkmate init`
 5) Run `checkmate git init`
