@@ -89,7 +89,7 @@ SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in D
 
 ![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
 
-Fig 2. Samole CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel) 
+Fig 2. Sample CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel) 
 
 You can put it under Quality Gates.
 
