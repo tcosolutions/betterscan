@@ -134,6 +134,32 @@ semgrepjs	CookieSessionDefault
 semgrepjs	CookieSessionNoSamesite
 ```
 
+There is a DockerHub image also for it ready.
+
+You can run the Commands with docker as below:
+
+```
+$ docker run -ti  scanmycode3-ce:worker-cli checkmate
+/root
+/root
+Loading plugin: git
+Loading plugin: trufflehog3
+Loading plugin: trojansource
+Loading plugin: metrics
+Loading plugin: bandit
+Loading plugin: brakeman
+Loading plugin: phpanalyzer
+Loading plugin: gosec
+Loading plugin: confused
+Loading plugin: pmd
+Loading plugin: semgrep
+Loading plugin: semgrepdefi
+Loading plugin: semgrepjs
+Usage: checkmate [command] [command] [...] [args]
+
+Type "checkmate help" for help
+```
+
 # Under the hood
 
 Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule and other(s). Some were modified. 
