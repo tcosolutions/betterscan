@@ -238,7 +238,7 @@ Advantages:
 * 100% Code transparency & full control of your code
 
 
-Cloud version and more at https://www.scanmycode.today
+Cloud version and more at https://www.scanmycode.io
 
 Cloud version has also many other plugins, also other plugins are commercially available for licensing (GitHub, GitHub organizations, Slack)
 
