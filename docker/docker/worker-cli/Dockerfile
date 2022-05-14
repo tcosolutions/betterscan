@@ -56,3 +56,5 @@ RUN mkdir -p /usr/local/lib/python3.7/site-packages/checkmate-0.2.0-py3.7.egg/ch
 RUN cp /srv/scanmycode/analyzers/json_reporter.js /usr/local/lib/python3.7/site-packages/checkmate-0.2.0-py3.7.egg/checkmate/contrib/plugins/javascript/jshint/js/
 RUN pip3 install email_validator
 RUN pip3 install celery==4.4.6
+RUN pip3 install testresources
+RUN pip3 install checkov
