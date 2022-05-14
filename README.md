@@ -223,7 +223,7 @@ The application consists of several parts:
 * A backend, realized as a Flask app, that exposes a REST API consumed by the frontend
 * A background worker, realized using Celery, that performs the code analysis
 
-Currently supports: PHP, Java, Scala, Python, Ruby, Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Secret Scanning, Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1000 checks) 
+Currently supports: PHP, Java, Scala, Python, Ruby, Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices, Secret Scanning, Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1000 checks) 
 
 Advantages:
 * Many tools, one report (unification) 
