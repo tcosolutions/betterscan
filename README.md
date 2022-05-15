@@ -126,6 +126,7 @@ Loading plugin: pmd
 Loading plugin: semgrep
 Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
+Loading plugin: checkov
 semgrepjs	ExpressLfrWarning	
 semgrepjs	CookieSessionNoDomain	
 semgrepjs	CookieSessionNoPath	
@@ -157,6 +158,7 @@ Loading plugin: pmd
 Loading plugin: semgrep
 Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
+Loading plugin: checkov
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
