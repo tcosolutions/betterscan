@@ -100,7 +100,7 @@ CLI Mode only
 
 1) Clone the repo i.e into `/tmp/test`
 2) set env var CODE_DIR i.e `export CODE_DIR=/tmp/test`. This env var should point to your Git cloned repo dir. 
-3) Cd into it
+3) Cd into it (this is important!)
 4) Run `checkmate init`
 5) Run `checkmate git init`
 6) Run `checkmate git analyze`
@@ -142,7 +142,7 @@ There is a DockerHub image also for it ready.
 You can run the Commands with docker as below:
 
 ```
-$ docker run -ti  scanmycode3-ce:worker-cli checkmate
+$ docker run -ti  scanmycode/scanmycode3-ce:worker-cli checkmate
 /root
 /root
 Loading plugin: git
@@ -168,11 +168,11 @@ Same workflow as above, but using Docker binary:
 
 ```
 export CODE_DIR=/tmp/test
-
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate init'
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
+cd /tmp/test
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate init'
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
+docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
 ```
 
 
