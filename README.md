@@ -211,11 +211,14 @@ Source: semgrep's website
 ![image](https://user-images.githubusercontent.com/20355405/154044887-4d69d551-9cb3-4892-85e0-1383eeab8332.png)
 ![image](https://user-images.githubusercontent.com/20355405/154044929-74ea5e0f-550e-4833-bd33-8d285e2195dd.png)
 ![image](https://user-images.githubusercontent.com/20355405/154044957-3ace283a-bb76-4f15-9f49-520d6f21e7d3.png)
-
+![smc-defi-sample](https://user-images.githubusercontent.com/20355405/169240036-1d6652fa-0724-42cf-ac41-2bbcf7398def.png)
+![smc-iac](https://user-images.githubusercontent.com/20355405/169240091-2171b1c6-9931-46be-ae97-a9f827c0120c.png)
+![terra](https://user-images.githubusercontent.com/20355405/169240143-3d590a0a-bd39-4652-9556-12ccdd4563d7.png)
 
 
 
 # Welcome to Scanmycode CE (Community Edition)!
+
 
 Scanmycode is based on QuantifedCode. QuantifiedCode is a code analysis \& automation platform. It helps you to keep track of issues and
 metrics in your software projects, and can be easily extended to support new types of analyses.
