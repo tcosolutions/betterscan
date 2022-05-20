@@ -214,6 +214,8 @@ Source: semgrep's website
 ![smc-defi-sample](https://user-images.githubusercontent.com/20355405/169240036-1d6652fa-0724-42cf-ac41-2bbcf7398def.png)
 ![smc-iac](https://user-images.githubusercontent.com/20355405/169240091-2171b1c6-9931-46be-ae97-a9f827c0120c.png)
 ![terra](https://user-images.githubusercontent.com/20355405/169240143-3d590a0a-bd39-4652-9556-12ccdd4563d7.png)
+![image](https://user-images.githubusercontent.com/20355405/169540378-22deb07c-1665-4614-915c-511f24689438.png)
+
 
 
 
