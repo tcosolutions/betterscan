@@ -190,7 +190,12 @@ Community Edition does not have GitHub support and other plugins. But rest is th
 
 Both use static analysis to find bugs and defects, but there are a few differences. 
 
-- Scanmycode can be extended with any tool producing JSON output (any binary, in any technology/language/product). That's the biggest difference. 
+- Scanmycode supports Cloudnative and Infrastructure Scanning
+- Scanmycode supports secrets Scanning 
+- Scanmycode can be extended with any tool producing JSON output (any binary, in any technology/language/product)
+
+Above are the biggest differences. 
+
 - Scanmycode is Open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
 - Scanmycode supports scanning only changed files (differential analysis), SonarQube does not
 - Scanmycode uses also semgrep as one of the tools (without semgrep community rules, only Scanmycode's custom rules) 
