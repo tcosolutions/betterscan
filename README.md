@@ -186,6 +186,10 @@ Community Edition does not have GitHub support and other plugins. But rest is th
 
 ![scanmycode-demo](https://user-images.githubusercontent.com/20355405/152678316-04fdcd54-73e8-42f8-9bf2-fb9a69618ff9.gif)
 
+or Check the:
+
+[Live Demo](https://app.scanmycode.io/explore)
+
 ### How is Scanmycode different than SonarQube?
 
 Both use static analysis to find bugs and defects, but there are a few differences. 
@@ -220,7 +224,6 @@ Source: semgrep's website
 ![smc-iac](https://user-images.githubusercontent.com/20355405/169240091-2171b1c6-9931-46be-ae97-a9f827c0120c.png)
 ![terra](https://user-images.githubusercontent.com/20355405/169240143-3d590a0a-bd39-4652-9556-12ccdd4563d7.png)
 ![image](https://user-images.githubusercontent.com/20355405/169540378-22deb07c-1665-4614-915c-511f24689438.png)
-
 
 
 
