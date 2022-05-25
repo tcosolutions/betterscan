@@ -41,7 +41,13 @@ RUN cd trufflehog3-oss && python3 setup.py install
 RUN pip3 install markupsafe==2.0.1
 WORKDIR /srv/scanmycode
 RUN mkdir /root/confused/
-RUN cp /srv/scanmycode/analyzers/confused /root/confused/ #source https://gitlab.com/marcinguy/confused-oss
+RUN git clone https://gitlab.com/marcinguy/confused-oss.git /root/confused
+RUN tree
+WORKDIR /root/confused
+RUN /usr/local/go/bin/go mod init confused
+RUN /usr/local/go/bin/go build confused
+RUN tree
+#RUN cp /srv/scanmycode/analyzers/confused /root/confused/ #source https://gitlab.com/marcinguy/confused-oss
 WORKDIR /root
 RUN git clone https://github.com/Raz0r/semgrep-smart-contracts.git
 RUN git clone https://github.com/marcinguy/smc-semgrep-js.git semgrepjs
