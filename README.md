@@ -72,6 +72,9 @@ Check installation on Kubernetes (Free) thanks to Okteto.com
 
 https://github.com/marcinguy/scanmycode-ce/blob/master/okteto/README.md
 
+## Platforms
+
+It is platform independent (Python). Checkers are also mostly available on different platforms. "Master" branch is for Linux x86_64, however there is also "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
 
 ## Usage
 
