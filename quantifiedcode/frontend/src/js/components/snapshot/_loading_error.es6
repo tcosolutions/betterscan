@@ -64,10 +64,7 @@ var SnapshotLoadingError = createReactClass({
             queuePosition = <span>(queue position: <strong>{props.project.analysis_queue_position || 'unknown'}</strong>)</span>
           }
           errorMessage = <div>
-            <h3 className="alert alert-info">
-              <i className="fa fa-spin fa-refresh" /> Waiting for analysis to start {queuePosition}
-            </h3>
-            <p>This page will update automatically when the analysis starts.</p>
+          <p>This page will update automatically when the analysis completes. Please check "Log" tab for error(s)</p>
           </div>
         }
         return errorMessage
