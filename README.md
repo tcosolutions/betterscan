@@ -86,7 +86,7 @@ https://github.com/marcinguy/scanmycode-ce/wiki
 
 You can plug it anywhere on your CI/CD pipeline as a command.
 
-With SMC one command, you add 1000+ checks using different scanners (SMC is Meta scanner in that sense, with supporting smart snapshots and other goodies. It is not just running tools always on full code) 
+With SMC one command, you add 1,500+ checks using different scanners (SMC is Meta scanner in that sense, with supporting smart snapshots and other goodies. It is not just running tools always on full code) 
 
 SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
 
@@ -241,13 +241,13 @@ The application consists of several parts:
 * A backend, realized as a Flask app, that exposes a REST API consumed by the frontend
 * A background worker, realized using Celery, that performs the code analysis
 
-Currently supports: PHP, Java, Scala, Python, Ruby, Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning, Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1000 checks) 
+Currently supports: PHP, Java, Scala, Python, Ruby, Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning, Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1,500+ checks) 
 
 Advantages:
 * Many tools, one report (unification) 
 * Dismiss, collaborate on findings. Mark false-positives
 * Enable/disable each individual check in Checkers
-* ca. 1000 checks now (Linters, Static Code Analysis/Code Scanning) 
+* ca. 1,500+ checks now (Linters, Static Code Analysis/Code Scanning) 
 * any tool outputting JSON can be added
 * fast (checks only new code on recheck)
 * Git support (HTTPS/TLS and SSH). For private repositories only SSH. 
