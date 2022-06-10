@@ -37,6 +37,19 @@ If you also want to support this project, head over to our [Github sponsors page
 
 # TL;DR
 
+
+Run this command in your code directory:
+
+`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli.sh)`
+
+or for HTML report:
+
+`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli-html.sh)`
+
+
+If you want to use the Platform, follow below:
+
+
 ## Local
 
 To install it. Install `docker` and `docker-compose` and then:
