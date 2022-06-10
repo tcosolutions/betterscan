@@ -40,11 +40,11 @@ If you also want to support this project, head over to our [Github sponsors page
 
 Run this command in your code directory:
 
-`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli.sh)`
+`sh <(curl https://raw.githubusercontent.com/marcinguy/scanmycode-ce/master/cli.sh)`
 
 or for HTML report:
 
-`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli-html.sh)`
+`sh <(curl https://raw.githubusercontent.com/marcinguy/scanmycode-ce/master/cli-html.sh)`
 
 That's it. You just checked your code for 1,500 Checks (Defects, Vulenrabilities, Best Practices)
 
