@@ -101,6 +101,51 @@ SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in D
 
 You can put it under Quality Gates.
 
+### Quick Install
+
+
+#### Plain CLI output
+
+Just run this command (it will take care of everything):
+
+
+`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli.sh)`
+
+Corresponds to running these:
+
+```
+export CODE_DIR=${PWD}
+cd $CODE_DIR
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze'
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues'
+```
+
+#### HTML CLI output
+
+Just run this command (it will take care of everything):
+
+`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli-html.sh)`
+
+report will be in the directory under `report.html`
+
+
+Corresponds to running these:
+
+```
+export CODE_DIR=${PWD}
+cd $CODE_DIR
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze'
+docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues html > report.html'
+```
+
+
+### Detailed explanation
+
+
 Build Docker image Worker-CLI and run `checkmate` from there. Below is sample flow:
 
 
