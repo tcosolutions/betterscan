@@ -46,6 +46,7 @@ or for HTML report:
 
 `sh <(curl https://github.com/marcinguy/scanmycode-ce/cli-html.sh)`
 
+That's it. You just checked your code for 1,500 Checks (Defects, Vulenrabilities, Best Practices)
 
 If you want to use the Platform, follow below:
 
