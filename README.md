@@ -129,7 +129,7 @@ You can put it under Quality Gates.
 Just run this command (it will take care of everything):
 
 
-`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli.sh)`
+`sh <(curl https://raw.githubusercontent.com/marcinguy/scanmycode-ce/master/cli.sh)`
 
 Corresponds to running these:
 
@@ -146,7 +146,7 @@ docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-c
 
 Just run this command (it will take care of everything):
 
-`sh <(curl https://github.com/marcinguy/scanmycode-ce/cli-html.sh)`
+`sh <(curl https://raw.githubusercontent.com/marcinguy/scanmycode-ce/master/cli-html.sh)`
 
 report will be in the directory under `report.html`
 
