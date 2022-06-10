@@ -55,6 +55,8 @@ Sample HTML report
 
 *Fig 2. Sample Report using CLI HTML output*
 
+FYI Above will maintain state via (.checkmate folder), only new commits will be checked.
+
 If you want to use the Platform, follow below:
 
 
