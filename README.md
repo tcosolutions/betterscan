@@ -48,6 +48,12 @@ or for HTML report:
 
 That's it. You just checked your code for 1,500 Checks (Defects, Vulenrabilities, Best Practices)
 
+
+Sample HTML report
+
+![image](https://user-images.githubusercontent.com/20355405/173078645-512ba3be-69f0-4df6-bc11-ac3d33b55e8b.png)
+*Fig 1. Sample Report using CLI HTML output*
+
 If you want to use the Platform, follow below:
 
 
