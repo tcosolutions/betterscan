@@ -51,8 +51,9 @@ That's it. You just checked your code for 1,500 Checks (Defects, Vulenrabilities
 
 Sample HTML report
 
-![image](https://user-images.githubusercontent.com/20355405/173078645-512ba3be-69f0-4df6-bc11-ac3d33b55e8b.png)
-*Fig 1. Sample Report using CLI HTML output*
+![image](https://user-images.githubusercontent.com/20355405/173091087-1edf7609-5006-4724-b46b-bab2502bc251.png)
+
+*Fig 2. Sample Report using CLI HTML output*
 
 If you want to use the Platform, follow below:
 
@@ -117,7 +118,7 @@ SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in D
 
 ![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
 
-*Fig 2. Sample CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel)*
+*Fig 3. Sample CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel)*
 
 You can put it under Quality Gates.
 
