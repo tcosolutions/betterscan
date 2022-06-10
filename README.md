@@ -46,7 +46,7 @@ or for HTML report:
 
 `sh <(curl https://raw.githubusercontent.com/marcinguy/scanmycode-ce/master/cli-html.sh)`
 
-That's it. You just checked your code for 1,500 Checks (Defects, Vulenrabilities, Best Practices)
+That's it. You just checked your code for 1,500 Checks (Defects, Vulnerabilities, Best Practices)
 
 
 Sample HTML report
