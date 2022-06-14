@@ -38,7 +38,7 @@ If you also want to support this project, head over to our [Github sponsors page
 # TL;DR
 
 
-Run this command in your code directory:
+Run this command in your code directory (checkout from Git - .git folder needs to be there, if you work with normal directory, make Git repo out of it `git init && git add . && git commit` etc):
 
 `sh <(curl https://raw.githubusercontent.com/marcinguy/scanmycode-ce/master/cli.sh)`
 
