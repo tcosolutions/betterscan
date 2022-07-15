@@ -103,6 +103,28 @@ Check installation on Kubernetes (Free) thanks to Okteto.com
 
 https://github.com/marcinguy/betterscan-ce/blob/master/okteto/README.md
 
+## GitHub Action
+
+WIP (Work in Progress)
+
+Add this to your workflow (in your GitHub repo under .github/workflows/betterscan.yml) with this content:
+
+
+```
+name: Betterscan Scan
+on: [push]
+jobs:
+  Betterscan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Betterscan Scan
+        uses: topcodersonline/betterscan@v3
+```
+
+
 ## Platforms & OS'es
 
 It is platform independent (Python). Checkers are also mostly available on different platforms. "Master" branch is for Linux x86_64, however there is also "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
