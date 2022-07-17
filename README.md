@@ -124,6 +124,7 @@ jobs:
         uses: topcodersonline/betterscan@v3
 ```
 
+Results will be printed in Job/Action output. Plan to add SARIF output to integrate it it GitHub Code Scanning Interface/tab (possibly in PRO version only) 
 
 ## Platforms & OS'es
 
