@@ -126,6 +126,11 @@ jobs:
 
 Results will be printed in Job/Action output. Plan to add SARIF output to integrate it it GitHub Code Scanning Interface/tab (possibly in PRO version only) 
 
+See sample integration below:
+
+![image](https://user-images.githubusercontent.com/20355405/180432431-bfaf0af5-be00-415f-947f-c080a8668cb7.png)
+*Fig 3. Sample integration with GitHub Action in Code Scanning tab*
+
 ## Platforms & OS'es
 
 It is platform independent (Python). Checkers are also mostly available on different platforms. "Master" branch is for Linux x86_64, however there is also "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
@@ -162,7 +167,7 @@ SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in D
 
 ![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
 
-*Fig 3. Sample CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel)*
+*Fig 4. Sample CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel)*
 
 You can put it under Quality Gates.
 
