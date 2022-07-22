@@ -122,13 +122,18 @@ jobs:
           fetch-depth: 0
       - name: Betterscan Scan
         uses: topcodersonline/betterscan@v3
+      - name: Upload the SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: report.sarif
 ```
 
 Results will be printed in Job/Action output. Plan to add SARIF output to integrate it it GitHub Code Scanning Interface/tab (possibly in PRO version only) 
 
 See sample integration below:
 
-![image](https://user-images.githubusercontent.com/20355405/180432431-bfaf0af5-be00-415f-947f-c080a8668cb7.png)
+![image](https://user-images.githubusercontent.com/20355405/180461548-8fbb6c47-0314-4f37-90f1-4292f788caf3.png)
+
 *Fig 3. Sample integration with GitHub Action in Code Scanning tab*
 
 ## Platforms & OS'es
