@@ -128,11 +128,15 @@ jobs:
           sarif_file: report.sarif
 ```
 
-Results will be printed in Job/Action output. Plan to add SARIF output to integrate it it GitHub Code Scanning Interface/tab (possibly in PRO version only) 
+Results will be printed in Job/Action output. Plan to add SARIF output to integrate it in GitHub Code Scanning Interface/tab (possibly in PRO version only) 
 
 See sample integration below:
 
 ![image](https://user-images.githubusercontent.com/20355405/180461548-8fbb6c47-0314-4f37-90f1-4292f788caf3.png)
+
+## GitLab
+
+It is possible to integrate results also in GitLab's Security & Compliance Dashboad. We can convert SARIF to GitLab format. GitLab Ultimate is required. 
 
 *Fig 3. Sample integration with GitHub Action in Code Scanning tab*
 
