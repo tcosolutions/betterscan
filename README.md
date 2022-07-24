@@ -137,7 +137,7 @@ See sample integration below:
 *Fig 3. Sample integration with GitHub Action in Code Scanning tab*
 
 
-## GitLab
+## GitLab Integration
 
 It is possible to integrate results also in GitLab's Security & Compliance Dashboad. We can convert SARIF to GitLab format. GitLab Ultimate is required. 
 
