@@ -262,6 +262,7 @@ Loading plugin: semgrep
 Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
 Loading plugin: checkov
+Loading plugin: kubescape
 semgrepjs	ExpressLfrWarning	
 semgrepjs	CookieSessionNoDomain	
 semgrepjs	CookieSessionNoPath	
@@ -294,6 +295,7 @@ Loading plugin: semgrep
 Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
 Loading plugin: checkov
+Loading plugin: kubescape
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
