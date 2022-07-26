@@ -337,7 +337,7 @@ Above are the biggest differences.
 
 - Betterscan is open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
 - Betterscan supports scanning only changed files (differential analysis), SonarQube does not
-- Betterscan uses many tools adding up to 1,500 checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
+- Betterscan uses many tools adding up to 1,500+ checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
 
 
 
