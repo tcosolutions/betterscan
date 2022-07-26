@@ -41,11 +41,11 @@ If you also want to support this project, head over to our [Github sponsors page
 # TL;DR
 
 
-Run this command in your code directory (checkout from Git - .git folder needs to be there, if you work with normal directory, make Git repo out of it `git init && git add . && git commit` etc):
+Run this command in your code directory (checkout from Git - .git folder needs to be there, if you work with the normal directory, make the Git repo out of it `git init && git add . && git commit` etc):
 
 `sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli.sh)`
 
-or for HTML report:
+or for an HTML report:
 
 `sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli-html.sh)`
 
@@ -65,11 +65,14 @@ If you want to use the Platform, follow below:
 
 ## Local
 
-To install it. Install `docker` and `docker-compose` and then:
+<h4>To install it, first:<h4>
+Install `docker` and `docker-compose`  
+ 
+<h5>then:<h5>
 
-2 options
+<strong>2 options:<strong/>
 
-1) Fastest (use DockerHub built images). If unsure, use this.
+1) Fastest method (use DockerHub built images). If unsure, use this.
 
 ```
 git clone https://github.com/marcinguy/betterscan-ce.git
@@ -77,7 +80,7 @@ cd betterscan-ce/dockerhub
 ./start.sh
 ```
 
-2) Slower (build everything)
+2) Slower method (build everything)
 
 ```
 git clone https://github.com/marcinguy/betterscan-ce.git
@@ -85,7 +88,7 @@ cd betterscan-ce/docker
 ./start.sh
 ```
 
-Go in the Browser to:
+Open up the Browser to:
 
 `http://localhost:5000`
 
@@ -143,7 +146,7 @@ It is possible to integrate results also in GitLab's Security & Compliance Dashb
 
 ## Platforms & OS'es
 
-It is platform independent (Python). Checkers are also mostly available on different platforms. "Master" branch is for Linux x86_64, however there is also "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
+It is platform independent (Python). Checkers are also mostly available on different platforms. The "Master" branch is for Linux x86_64, however there is also a "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
 
 ### Linux (amd64)
 
@@ -332,7 +335,7 @@ Both use static analysis to find bugs and defects, but there are a few differenc
 
 Above are the biggest differences. 
 
-- Betterscan is Open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
+- Betterscan is open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
 - Betterscan supports scanning only changed files (differential analysis), SonarQube does not
 - Betterscan uses many tools adding up to 1,500 checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
 
