@@ -334,15 +334,9 @@ Above are the biggest differences.
 
 - Betterscan is Open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
 - Betterscan supports scanning only changed files (differential analysis), SonarQube does not
-- Betterscan uses also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
+- Betterscan uses many tools adding up to 1,500 checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
 
-Below are semgrep's (also Betterscan advantages over SonarQube):
 
-"Extending Semgrep with custom rules is simple, since Semgrep rules look like the source code you’re writing. Writing custom rules with SonarQube is restricted to a handful of languages and requires familiarity with Java and abstract syntax trees (ASTs)."
-
-"Semgrep focuses on speed and ease-of-use, making analysis possible at up to 20K-100K loc/sec per rule. SonarQube authors report approximately 0.4K loc/sec for rulesets in production." 
-
-Source: semgrep's website
 
 # Even more screenshots from scanning real projects
 
