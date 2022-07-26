@@ -65,12 +65,12 @@ If you want to use the Platform, follow below:
 
 ## Local
 
-<h4>To install it, first:<h4>
+<h4>To install it, first:</h4>
 Install `docker` and `docker-compose`  
  
-<h5>then:<h5>
+<h5>then:</h5>
 
-<strong>2 options:<strong/>
+<strong>2 options:</strong>
 
 1) Fastest method (use DockerHub built images). If unsure, use this.
 
