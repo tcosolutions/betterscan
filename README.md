@@ -139,6 +139,45 @@ See sample integration below:
 
 *Fig 3. Sample integration with GitHub Action in Code Scanning tab*
 
+If you want to scan on PR to main, use this:
+
+```
+name: Betterscan Scan
+on: 
+ pull_request:
+   types: [opened, edited, reopened, review_requested, synchronize]
+   branches:
+      - 'main'
+jobs:
+  Betterscan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Betterscan Scan
+        uses: topcodersonline/betterscancustom@v1
+        with:
+         branch: ${{ github.head_ref || github.ref_name }}
+      - name: Upload the SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: report.sarif
+          
+```
+
+Action source:
+https://github.com/topcodersonline/betterscancustom
+
+Feel free to adjust.
+
+Flow:
+1) Make PR
+2) It will scan
+3) make git pull to get state (.checkmate folder) on your PR
+4) make changes, commits, push to PR
+5) repeat 2)
+
 
 ## GitLab Integration
 
