@@ -51,6 +51,10 @@ or for an HTML report:
 
 That's it. You just checked your code for 1,500 Checks (Defects, Vulnerabilities, Best Practices)
 
+Sample CLI report
+
+![image](https://user-images.githubusercontent.com/20355405/182452683-6005d8f8-480c-4d15-8201-5ab32edfa20a.png)
+
 
 Sample HTML report
 
@@ -177,6 +181,8 @@ Flow:
 3) make git pull to get state (.checkmate folder) on your PR
 4) make changes, commits, push to PR
 5) repeat 2)
+
+If you cannot afford GitHub Enterprise with Code Scannint, use GitHub Teams with CLI output.
 
 
 ## GitLab Integration
