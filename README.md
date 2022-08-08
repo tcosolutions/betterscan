@@ -308,6 +308,9 @@ Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
 Loading plugin: checkov
 Loading plugin: kubescape
+Loading plugin: insidersecswift
+Loading plugin: insiderseckotlin
+Loading plugin: insiderseccsharp
 semgrepjs	ExpressLfrWarning	
 semgrepjs	CookieSessionNoDomain	
 semgrepjs	CookieSessionNoPath	
@@ -341,6 +344,9 @@ Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
 Loading plugin: checkov
 Loading plugin: kubescape
+Loading plugin: insidersecswift
+Loading plugin: insiderseckotlin
+Loading plugin: insiderseccsharp
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
