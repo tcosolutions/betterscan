@@ -49,7 +49,7 @@ or for an HTML report:
 
 `sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli-html.sh)`
 
-That's it. You just checked your code for 1,700 Checks (Defects, Vulnerabilities, Best Practices)
+That's it. You just checked your code for 1,700+ Checks (Defects, Vulnerabilities, Best Practices)
 
 Sample CLI report
 
