@@ -65,3 +65,5 @@ RUN pip3 install celery==4.4.6
 RUN pip3 install testresources
 RUN pip3 install checkov
 RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | /bin/bash
+RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3.0.0_linux_x86_64.tar.gz
+RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
