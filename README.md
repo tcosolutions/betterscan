@@ -383,7 +383,7 @@ or Check the:
 Both use static analysis to find bugs and defects, but there are a few differences. 
 
 - Betterscan supports Cloudnative and Infrastructure Scanning
-- Betterscan supports secrets Scanning 
+- Betterscan supports secrets Scanning (166+ secret types - including GitLeaks) 
 - Betterscan can be extended with any tool producing JSON output (any binary, in any technology/language/product)
 
 Above are the biggest differences. 
@@ -420,7 +420,7 @@ The application consists of several parts:
 * A backend, realized as a Flask app, that exposes a REST API consumed by the frontend
 * A background worker, realized using Celery, that performs the code analysis
 
-Currently supports: PHP, Java, Scala, Python, Ruby, .NET Full Framework, C#, Swift, Kotlin,  Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning, Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1,700+ checks) 
+Currently supports: PHP, Java, Scala, Python, Ruby, .NET Full Framework, C#, Swift, Kotlin,  Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1,700+ checks) 
 
 Advantages:
 * Many tools, one report (unification) 
