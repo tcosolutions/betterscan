@@ -1,0 +1,2886 @@
+# yamllint disable
+# rule-set version: v1.0.44
+# yamllint enable
+---
+rules:
+- id: "find_sec_bugs.HTTPONLY_COOKIE-1"
+  pattern-either:
+  - patterns:
+    - pattern: |
+        javax.servlet.http.Cookie $C = new Cookie(..., ...);
+        ...
+        (HttpServletResponse $RESP).addCookie($C);
+    - pattern-not-inside: |
+        javax.servlet.http.Cookie $C = new Cookie(..., ...);
+        ...
+        $C.setHttpOnly(true);
+        ...
+        (HttpServletResponse $RESP).addCookie($C);
+  - pattern: "(javax.servlet.http.Cookie $C).setHttpOnly(false);"
+  message: |
+    A new cookie is created without the HttpOnly flag set. The HttpOnly flag is a directive to the
+    browser to make sure that the cookie can not be red by malicious script. When a user is the
+    target of a "Cross-Site Scripting", the attacker would benefit greatly from getting the session
+    id for example.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-1004: Sensitive Cookie Without 'HttpOnly' Flag"
+    technology:
+    - "java"
+- id: "find_sec_bugs.INSECURE_COOKIE-1"
+  pattern-either:
+  - patterns:
+    - pattern: |
+        javax.servlet.http.Cookie $C = new Cookie(..., ...);
+        ...
+        (HttpServletResponse $RESP).addCookie($C);
+    - pattern-not-inside: |
+        javax.servlet.http.Cookie $C = new Cookie(..., ...);
+        ...
+        $C.setSecure(true);
+        ...
+        (HttpServletResponse $RESP).addCookie($C);
+  - pattern: "(javax.servlet.http.Cookie $C).setSecure(false);"
+  message: |
+    "Storing sensitive data in a persistent cookie for an extended period can lead to a breach of
+    confidentiality or account compromise."
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-539: Information Exposure Through Persistent Cookies"
+    technology:
+    - "java"
+- id: "find_sec_bugs.COOKIE_PERSISTENT-1"
+  patterns:
+  - pattern-inside: |
+      (javax.servlet.http.Cookie $C).setMaxAge($AGE);
+  - metavariable-comparison:
+      metavariable: "$AGE"
+      comparison: "$AGE >= 31536000"
+  message: |
+    A new cookie is created without the Secure flag set. The Secure flag is a directive to the
+    browser to make sure that the cookie is not sent for insecure communication (http://)
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+    technology:
+    - "java"
+- id: "find_sec_bugs.COOKIE_USAGE-1"
+  patterns:
+  - pattern-inside: |
+      $FUNC(..., HttpServletRequest $REQ, ...) {
+        ...
+      }
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          for (Cookie $C : $REQ.getCookies()) {
+              ...
+          }
+      - pattern-either:
+        - pattern: "$C.getName();"
+        - pattern: "$C.getValue();"
+        - pattern: "$C.getPath();"
+    - pattern: "(Cookie $COOKIE).getName();"
+    - pattern: "(Cookie $COOKIE).getValue();"
+    - pattern: "(Cookie $COOKIE).getPath();"
+  message: |
+    The information stored in a custom cookie should not be sensitive or related to the session.
+    In most cases, sensitive data should only be stored in session and referenced by the user's
+    session cookie.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HTTP_RESPONSE_SPLITTING-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameter(...);"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
+        ...
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACER"
+        regex: ".*^(CRLF).*"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(*CRLF)"
+  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+  pattern-sinks:
+  - pattern: "new javax.servlet.http.Cookie(\"$KEY\", ...);"
+  - patterns:
+    - pattern-inside: |
+        $C = new javax.servlet.http.Cookie("$KEY", ...);
+        ...
+    - pattern: "$C.setValue(...);"
+  message: |
+    When an HTTP request contains unexpected CR and LF characters, the server may respond with an
+    output stream that is interpreted as two different HTTP responses (instead of one). An attacker
+    can control the second response and mount attacks such as cross-site scripting and cache
+    poisoning attacks.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+      Response Splitting')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameter(...);"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
+        ...
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACER"
+        regex: ".*^(CRLF).*"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(*CRLF)"
+  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+  pattern-sinks:
+  - pattern: "new javax.servlet.http.Cookie(\"$KEY\", ...);"
+  - patterns:
+    - pattern-inside: |
+        $C = new javax.servlet.http.Cookie("$KEY", ...);
+        ...
+    - pattern: "$C.setValue(...);"
+  message: |
+    This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added
+    to an HTTP response, it will allow a HTTP response splitting vulnerability. See
+    http://en.wikipedia.org/wiki/HTTP_response_splitting for more information.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+      Response Splitting')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameter(...);"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
+        ...
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACER"
+        regex: ".*^(CRLF).*"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(*CRLF)"
+  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+  pattern-sinks:
+  - pattern: "(javax.servlet.http.HttpServletResponse $RES).setHeader(\"$KEY\", ...);"
+  - pattern: "(javax.servlet.http.HttpServletResponse $RES).addHeader(\"$KEY\", ...);"
+  - pattern: "(javax.servlet.http.HttpServletResponseWrapper $WRP).setHeader(\"$KEY\",
+      ...);"
+  - pattern: "(javax.servlet.http.HttpServletResponseWrapper $WRP).addHeader(\"$KEY\",
+      ...);"
+  message: |
+    This code directly writes an HTTP parameter to an HTTP header, which allows for a HTTP
+    response splitting vulnerability. See http://en.wikipedia.org/wiki/HTTP_response_splitting for
+    more information.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
+      Response Splitting')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.TRUST_BOUNDARY_VIOLATION-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern: "(HttpServletRequest $H). ... .setAttribute($ARG1, $ARG2);"
+      - pattern-not: "(HttpServletRequest $H). ... .setAttribute(\"...\", \"...\");"
+    - patterns:
+      - pattern: "(HttpServletRequest $H). ... .putValue($ARG1, $ARG2);"
+      - pattern-not: "(HttpServletRequest $H). ... .putValue(\"...\", \"...\");"
+  languages:
+  - "java"
+  message: |
+    A trust boundary can be thought of as line drawn through a program. On one side
+    of the line, data is untrusted. On the other side of the line, data is assumed
+    to be trustworthy. The purpose of validation logic is to allow data to safely
+    cross the trust boundary - to move from untrusted to trusted. A trust boundary
+    violation occurs when a program blurs the line between what is trusted and what
+    is untrusted. By combining trusted and untrusted data in the same data
+    structure, it becomes easier for programmers to mistakenly trust unvalidated
+    data.
+  metadata:
+    category: "security"
+    cwe: "CWE-501: Trust Boundary Violation"
+  severity: "WARNING"
+- id: "find_sec_bugs.PERMISSIVE_CORS-1"
+  patterns:
+  - pattern-either:
+    - pattern: "(HttpServletResponse $RES).setHeader(\"$HEADER\", \"$VAL\")"
+    - pattern: "(HttpServletResponse $RES).addHeader(\"$HEADER\", \"$VAL\")"
+  - metavariable-regex:
+      metavariable: "$HEADER"
+      regex: "(?i)(Access-Control-Allow-Origin)"
+  - metavariable-regex:
+      metavariable: "$VAL"
+      regex: "(\\*|null)"
+  message: |
+    Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
+    JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
+    originate from the same domain. Without the Same Origin Policy, a malicious website could serve
+    up JavaScript that loads sensitive information from other websites using a client's
+    credentials, cull through it, and communicate it back to the attacker. HTML5 makes it possible
+    for JavaScript to access data across domains if a new HTTP header called
+    Access-Control-Allow-Origin is defined. With this header, a Web server defines which other
+    domains are allowed to access its domain using cross-origin requests. However, caution should
+    be taken when defining the header because an overly permissive CORS policy will allow a
+    malicious application to communicate with the victim application in an inappropriate way,
+    leading to spoofing, data theft, relay and other attacks.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    cwe: "CWE-942: Permissive Cross-domain Policy with Untrusted Domains"
+    category: "security"
+    technology:
+    - "java"
+- id: "find_sec_bugs.PERMISSIVE_CORS-2"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(HttpServletRequest $REQ).getParamater(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern: "(HttpServletResponse $RES).setHeader(\"$HEADER\", ...)"
+      - pattern: "(HttpServletResponse $RES).addHeader(\"$HEADER\", ...)"
+    - metavariable-regex:
+        metavariable: "$HEADER"
+        regex: "(?i)(Access-Control-Allow-Origin)"
+  message: |
+    Prior to HTML5, Web browsers enforced the Same Origin Policy which ensures that in order for
+    JavaScript to access the contents of a Web page, both the JavaScript and the Web page must
+    originate from the same domain. Without the Same Origin Policy, a malicious website could serve
+    up JavaScript that loads sensitive information from other websites using a client's
+    credentials, cull through it, and communicate it back to the attacker. HTML5 makes it possible
+    for JavaScript to access data across domains if a new HTTP header called
+    Access-Control-Allow-Origin is defined. With this header, a Web server defines which other
+    domains are allowed to access its domain using cross-origin requests. However, caution should
+    be taken when defining the header because an overly permissive CORS policy will allow a
+    malicious application to communicate with the victim application in an inappropriate way,
+    leading to spoofing, data theft, relay and other attacks.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    cwe: "CWE-942: Permissive Cross-domain Policy with Untrusted Domains"
+    category: "security"
+    technology:
+    - "java"
+- id: "find_sec_bugs.BLOWFISH_KEY_SIZE-1"
+  patterns:
+  - pattern-inside: |
+      $KEYGEN = javax.crypto.KeyGenerator.getInstance("Blowfish", ...);
+      ...
+      $KEYGEN.init($KEY_SIZE);
+  - metavariable-comparison:
+      metavariable: "$KEY_SIZE"
+      comparison: "$KEY_SIZE < 128"
+  message: |
+    A small key size makes the ciphertext vulnerable to brute force attacks. At least 128 bits of
+    entropy should be used when generating the key if use of Blowfish is required.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    technology:
+    - "java"
+- id: "find_sec_bugs.DES_USAGE-1"
+  patterns:
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("$ALG")
+  - metavariable-regex:
+      metavariable: "$ALG"
+      regex: "^(DES)/.*"
+  message: |
+    DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
+    of AES block ciphers instead of DES.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    technology:
+    - "java"
+- id: "find_sec_bugs.TDES_USAGE-1"
+  patterns:
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("$ALG")
+  - metavariable-regex:
+      metavariable: "$ALG"
+      regex: "^(DESede)/.*"
+  message: |
+    Triple DES (also known as 3DES or DESede) is considered strong ciphers for modern
+    applications. NIST recommends the usage of AES block ciphers instead of 3DES.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    technology:
+    - "java"
+- id: "find_sec_bugs.ECB_MODE-1"
+  patterns:
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("...")
+  - pattern-regex: "(AES|DES(ede)?)(/ECB/*)"
+  message: |
+    An authentication cipher mode which provides better confidentiality of the encrypted data
+    should be used instead of Electronic Code Book (ECB) mode, which does not provide good
+    confidentiality. Specifically, ECB mode produces the same output for the same input each time.
+    This allows an attacker to intercept and replay the data.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    technology:
+    - "java"
+- id: "find_sec_bugs.CIPHER_INTEGRITY-1"
+  patterns:
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("...")
+  - pattern-either:
+    - pattern-regex: "(/CBC/PKCS5Padding)"
+    - pattern-regex: "(AES|DES(ede)?)(/ECB/*)"
+  - pattern-not-regex: ".*/(CCM|CWC|OCB|EAX|GCM)/.*"
+  - pattern-not-regex: "^(RSA)/.*"
+  - pattern-not-regex: "^(ECIES)$"
+  message: |
+    The ciphertext produced is susceptible to alteration by an adversary. This mean that the
+    cipher provides no way to detect that the data has been tampered with. If the ciphertext can be
+    controlled by an attacker, it could be altered without detection.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-353: Missing Support for Integrity Check"
+    technology:
+    - "java"
+- id: "find_sec_bugs.PADDING_ORACLE-1"
+  patterns:
+  - pattern-inside: |-
+      javax.crypto.Cipher.getInstance("...")
+  - pattern-regex: "(/CBC/PKCS5Padding)"
+  - pattern-not-regex: "^(RSA)/.*"
+  - pattern-not-regex: "^(ECIES)$"
+  message: |
+    This specific mode of CBC with PKCS5Padding is susceptible to padding oracle attacks. An
+    adversary could potentially decrypt the message if the system exposed the difference between
+    plaintext with invalid padding or valid padding. The distinction between valid and invalid
+    padding is usually revealed through distinct error messages being returned for each condition.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-696: Incorrect Behavior Order"
+    technology:
+    - "java"
+- id: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST-1"
+  patterns:
+  - pattern: |
+      class $CLAZZ extends java.security.MessageDigest {
+        ...
+      }
+  message: |
+    Implementing a custom MessageDigest is error-prone. National Institute of Standards and
+    Technology(NIST) recommends the use of SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, or
+    SHA-512/256.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    technology:
+    - "java"
+- id: "find_sec_bugs.DEFAULT_HTTP_CLIENT-1"
+  patterns:
+  - pattern: "new org.apache.http.impl.client.DefaultHttpClient(...);"
+  message: |
+    DefaultHttpClient with default constructor is not compatible with TLS 1.2
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HAZELCAST_SYMMETRIC_ENCRYPTION-1"
+  patterns:
+  - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
+  message: |
+    The network communications for Hazelcast is configured to use a symmetric cipher (probably DES
+    or Blowfish). Those ciphers alone do not provide integrity or secure authentication. The use of
+    asymmetric encryption is preferred.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    technology:
+    - "java"
+- id: "find_sec_bugs.RSA_KEY_SIZE-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          $GEN = KeyPairGenerator.getInstance($ALG, ...);
+          ...
+      - pattern-either:
+        - pattern: "$VAR.initialize($SIZE, ...);"
+        - pattern: "new java.security.spec.RSAKeyGenParameterSpec($SIZE,...);"
+      - metavariable-comparison:
+          metavariable: "$SIZE"
+          comparison: "$SIZE < 2048"
+      - metavariable-regex:
+          metavariable: "$ALG"
+          regex: "\"(RSA|DSA)\""
+  message: |
+    Detected an insufficient key size for DSA. NIST recommends a key size
+    of 2048 or higher.
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+  severity: "WARNING"
+  languages:
+  - "java"
+- id: "find_sec_bugs.NULL_CIPHER-1"
+  pattern: "new javax.crypto.NullCipher()"
+  message: |
+    The NullCipher implements the Cipher interface by returning ciphertext identical to the
+    supplied plaintext. In a few contexts, such as testing, a NullCipher may be appropriate. Avoid
+    using the NullCipher. Its accidental use can introduce a significant confidentiality risk.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    technology:
+    - "java"
+- id: "find_sec_bugs.RSA_NO_PADDING-1"
+  patterns:
+  - pattern: "javax.crypto.Cipher.getInstance($ALG,...);"
+  - metavariable-regex:
+      metavariable: "$ALG"
+      regex: ".*NoPadding.*"
+  message: |
+    The software uses the RSA algorithm but does not incorporate Optimal Asymmetric
+    Encryption Padding (OAEP), which might weaken the encryption.
+  metadata:
+    cwe: "CWE-780: Use of RSA Algorithm without OAEP"
+  severity: "WARNING"
+  languages:
+  - "java"
+- id: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
+  patterns:
+  - pattern-either:
+    - pattern: "MessageDigest.getInstance($ALG, ...)"
+    - pattern: "Signature.getInstance($ALG, ...)"
+  - metavariable-regex:
+      metavariable: "$ALG"
+      regex: ".*(MD5|MD4|MD2|SHA1|SHA-1).*"
+  message: |
+    DES is considered strong ciphers for modern applications. Currently, NIST recommends the usage
+    of AES block ciphers instead of DES.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-326: Inadequate Encryption Strength"
+    technology:
+    - "java"
+- id: "find_sec_bugs.SSL_CONTEXT-1"
+  patterns:
+  - pattern-either:
+    - pattern: "new org.apache.http.impl.client.DefaultHttpClient();"
+    - pattern: "javax.net.ssl.SSLContext.getInstance(\"SSL\");"
+  message: |
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middleattacks
+    attacks since the client will trust any certificate.
+  metadata:
+    category: "security"
+    cwe: "CWE-295: Improper Certificate Validation"
+  severity: "WARNING"
+  languages:
+  - "java"
+- id: "find_sec_bugs.SERVLET_PARAMETER-1.SERVLET_CONTENT_TYPE-1.SERVLET_SERVER_NAME-1.SERVLET_SESSION_ID-1.SERVLET_QUERY_STRING-1.SERVLET_HEADER-1.SERVLET_HEADER_REFERER-1.SERVLET_HEADER_USER_AGENT-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern-either:
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getContentType(...)"
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getServerName(...)"
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getRequestedSessionId(...)"
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameterValues(...)"
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameterMap(...)"
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameterNames(...)"
+    - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameter(...)"
+  pattern-sinks:
+  - pattern-either:
+    - pattern: "\"...\" + $PAR"
+    - pattern: "$PAR + \"...\""
+  languages:
+  - "java"
+  message: |
+    The Servlet can read GET and POST parameters from various methods. The
+    value obtained should be considered unsafe."
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+  severity: "WARNING"
+- id: "find_sec_bugs.JAXRS_ENDPOINT-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.ws.rs.Path("...")
+        $TYPE $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
+        ...
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACER"
+        regex: ".*^(CRLF).*"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(*CRLF)"
+  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+  pattern-sinks:
+  - pattern: "return ...;"
+  message: |
+    This method is part of a REST Web Service (JSR311). The security of this web service should be
+    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
+    tested. The inputs should be tracked for potential vulnerabilities. The communication should
+    ideally be over SSL.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+    technology:
+    - "java"
+- id: "find_sec_bugs.JAXWS_ENDPOINT-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.jws.WebMethod(...)
+        $TYPE $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
+        ...
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACER"
+        regex: ".*^(CRLF).*"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(*CRLF)"
+  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+  pattern-sinks:
+  - pattern: "return ...;"
+  message: |
+    This method is part of a SOAP Web Service (JSR224). The security of this web service should be
+    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
+    tested. The inputs should be tracked for potential vulnerabilities. The communication should
+    ideally be over SSL.
+  languages:
+  - "java"
+  severity: "INFO"
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+    owasp: "OWASP: Cross-Site Request Forgery"
+    technology:
+    - "java"
+- id: "find_sec_bugs.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
+  patterns:
+  - pattern: "new java.net.Socket(...)"
+  languages:
+  - "java"
+  message: |
+    Beyond using an SSL socket, you need to make sure your use of SSLSocketFactory
+    does all the appropriate certificate validation checks to make sure you are not
+    subject to man-in-the-middle attacks. Please read the OWASP Transport Layer
+    Protection Cheat Sheet for details on how to do this correctly.
+  metadata:
+    cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
+  severity: "WARNING"
+- id: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern: "(HttpServletResponse $REQ).sendRedirect(...)"
+      - pattern-not: "(HttpServletResponse $REQ).sendRedirect(\"...\")"
+    - patterns:
+      - pattern: "(HttpServletResponse $REQ).addHeader(...)"
+      - pattern-not: "(HttpServletResponse $REQ).addHeader(\"...\", \"...\")"
+    - patterns:
+      - pattern: "(HttpServletResponse $REQ).encodeURL(...)"
+      - pattern-not: "(HttpServletResponse $REQ).encodeURL(\"...\")"
+    - patterns:
+      - pattern: "(HttpServletResponse $REQ).encodeRedirectUrl(...)"
+      - pattern-not: "(HttpServletResponse $REQ).encodeRedirectUrl(\"...\")"
+  languages:
+  - "java"
+  message: |
+    Unvalidated redirects occur when an application redirects a user to a
+    destination URL specified by a user supplied parameter that is not validated.
+    Such vulnerabilities can be used to facilitate phishing attacks.
+  metadata:
+    category: "security"
+    cwe: "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
+  severity: "ERROR"
+- id: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          class $V implements HostnameVerifier {
+            ...
+          }
+      - pattern-inside: |
+          public boolean verify(...) {
+            ...
+          }
+      - pattern: "return true;"
+    - patterns:
+      - pattern-inside: |
+          class $V implements X509TrustManager {
+            ...
+          }
+      - pattern-either:
+        - pattern: "public void checkClientTrusted(...) {}"
+        - pattern: "public void checkServerTrusted(...) {}"
+        - pattern: |
+            public X509Certificate[] getAcceptedIssuers() {
+              ...
+              return null;
+            }
+  languages:
+  - "java"
+  message: |
+    A HostnameVerifier that accept any host are often use because of certificate
+    reuse on many hosts. As a consequence, this is vulnerable to Man-in-the-middle
+    attacks since the client will trust any certificate.
+  metadata:
+    category: "security"
+    cwe: "CWE-295: Improper Certificate Validation"
+  severity: "WARNING"
+- id: "find_sec_bugs.FILE_UPLOAD_FILENAME-1"
+  patterns:
+  - pattern-inside: |
+      $FUNC(..., HttpServletRequest $REQ, ... ) {
+        ...
+        $FILES = (ServletFileUpload $SFU).parseRequest($REQ);
+        ...
+      }
+  - pattern-inside: |
+      for(FileItem $ITEM : $FILES) {
+        ...
+      }
+  - pattern: "$ITEM.getName()"
+  message: |
+    The filename provided by the FileUpload API can be tampered with by the client to reference
+    unauthorized files. The provided filename should be properly validated to ensure it's properly
+    structured, contains no unauthorized path characters (e.g., / \), and refers to an authorized
+    file.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.WEAK_FILENAMEUTILS-1"
+  patterns:
+  - pattern-inside: |
+      import static org.apache.commons.io.FilenameUtils;
+      ...
+  - pattern-either:
+    - pattern: "normalize(...)"
+    - pattern: "getExtension(...)"
+    - pattern: "isExtensions(...)"
+    - pattern: "getName(...)"
+    - pattern: "getBaseName(...)"
+    - pattern: "org.apache.commons.io.FilenameUtils.normalize(...)"
+    - pattern: "org.apache.commons.io.FilenameUtils.getExtension(...)"
+    - pattern: "org.apache.commons.io.FilenameUtils.isExtensions(...)"
+    - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+    - pattern: "org.apache.commons.io.FilenameUtils.getBaseName(...)"
+  message: |
+    A file is opened to read its content. The filename comes from an input
+    parameter. If an unfiltered parameter is passed to this file API, files from an
+    arbitrary filesystem location could be read.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.STRUTS_FORM_VALIDATION-1"
+  patterns:
+  - pattern-inside: |
+      class $CLASS extends $SC {
+        ...
+      }
+  - metavariable-regex:
+      metavariable: "$SC"
+      regex: "(ActionForm|ValidatorForm)"
+  - pattern-not: "public void validate() { ... }"
+  languages:
+  - "java"
+  message: |
+    Form inputs should have minimal input validation. Preventive validation helps
+    provide defense in depth against a variety of risks.
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+  severity: "WARNING"
+- id: "find_sec_bugs.AWS_QUERY_INJECTION-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(...) {
+          ...
+          $VAR = ... + $X;
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |
+          $REQ = new SelectRequest($QUERY, ...);
+          ...
+          $DB.select($REQ);
+      - pattern-inside: |
+          $DB.select(new SelectRequest($QUERY,...));
+      - pattern-inside: |
+          $DB.select((SelectRequest $SR).withSelectExpression($QUERY,...));
+    - pattern: "$QUERY"
+    - metavariable-pattern:
+        metavariable: "$DB"
+        pattern-either:
+        - pattern: "(AmazonSimpleDB $DB)"
+        - pattern: "(AmazonSimpleDBClient $DB)"
+  message: |
+    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
+    records.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-943: Improper Neutralization of Special Elements in Data Query Logic"
+    technology:
+    - "java"
+- id: "find_sec_bugs.BEAN_PROPERTY_INJECTION-1"
+  patterns:
+  - pattern-inside: |-
+      $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { ... }
+  - pattern-either:
+    - pattern: |
+        $MAP.put(..., $REQ.getParameter(...));
+        ...
+        $BEAN_UTIL.populate(..., $MAP);
+    - pattern: |
+        while (...) {
+            ...
+            $MAP.put(..., $REQ.getParameterValues(...));
+        }
+        ...
+        $BEAN_UTIL.populate(..., $MAP);
+  - metavariable-pattern:
+      metavariable: "$BEAN_UTIL"
+      pattern-either:
+      - pattern: "(BeanUtilsBean $B)"
+      - pattern: "new BeanUtilsBean()"
+      - pattern: "org.apache.commons.beanutils.BeanUtils"
+  message: |
+    An attacker can set arbitrary bean properties that can compromise system integrity. An
+    attacker can leverage this functionality to access special bean properties like
+    class.classLoader that will allow them to override system properties and potentially execute
+    arbitrary code.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-15: External Control of System or Configuration Setting"
+    technology:
+    - "java"
+- id: "find_sec_bugs.CRLF_INJECTION_LOGS-1"
+  patterns:
+  - pattern-either:
+    - pattern: |
+        $TAINTED = (HttpServletRequest $REQ).getParameter(...);
+        ...
+        $LOGGER.$METHOD(...,$TAINTED,...);
+    - pattern: |
+        $TAINTED = (HttpServletRequest $REQ).getParameter(...);
+        ...
+        $VAR = String.Format(..., $TAINTED,...);
+        ...
+        $LOGGER.$METHOD(...,$VAR,...);
+    - pattern: |
+        $TAINTED = (HttpServletRequest $REQ).getParameter(...);
+        ...
+        $LOGGER.$METHOD(...,String.Format(..., $TAINTED,...),...);
+    - pattern: |
+        $TAINTED = (HttpServletRequest $REQ).getParameter(...);
+        ...
+        $VAR = ... + $TAINTED + ...;
+        ...
+        $LOGGER.$METHOD(...,$VAR,...);
+    - pattern: |
+        $TAINTED = (HttpServletRequest $REQ).getParameter(...);
+        ...
+        $LOGGER.$METHOD(...,... + $TAINTED + ...,...);
+  - metavariable-regex:
+      metavariable: "$METHOD"
+      regex: "(log|logp|logrb|entering|exiting|fine|finer|finest|info|debug|trace|warn|warning|config|error|severe)"
+  - metavariable-pattern:
+      metavariable: "$LOGGER"
+      pattern-either:
+      - pattern: "(Logger $LOG)"
+      - pattern: "org.pmw.tinylog.Logger"
+      - pattern: "org.apache.log4j.Logger"
+      - pattern: "org.apache.logging.log4j.Logger"
+      - pattern: "org.slf4j.Logger"
+      - pattern: "org.apache.commons.logging.Log"
+      - pattern: "java.util.logging.Logger"
+  message: |
+    When data from an untrusted source is put into a logger and not neutralized correctly, an
+    attacker could forge log entries or include malicious content. Inserted false entries could be
+    used to skew statistics, distract the administrator or even to implicate another party in the
+    commission of a malicious act. If the log file is processed automatically, the attacker can
+    render the file unusable by corrupting the format of the file or injecting unexpected
+    characters. An attacker may also inject code or other commands into the log file and take
+    advantage of a vulnerability in the log processing utility (e.g. command injection or XSS).
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.COMMAND_INJECTION-1"
+  pattern-either:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(...,String $PARAM, ...) {
+          ...
+        }
+    - pattern-either:
+      - pattern: "(Runtime $R).exec($PARAM,...);"
+      - patterns:
+        - pattern-either:
+          - pattern: |
+              $CMDARR = new String[]{"$SHELL",...,$PARAM,...};
+              ...
+              (Runtime $R).exec($CMDARR,...);
+          - pattern: "(Runtime $R).exec(new String[]{\"$SHELL\",...,$PARAM,...}, ...);"
+          - pattern: "(Runtime $R).exec(java.util.String.format(\"...\", ...,$PARAM,...));"
+          - pattern: "(Runtime $R).exec((String $A) + (String $B));"
+        - metavariable-regex:
+            metavariable: "$SHELL"
+            regex: "(/.../)?(sh|bash|ksh|csh|tcsh|zsh)$"
+    - pattern-not: "(Runtime $R).exec(\"...\",\"...\",\"...\",...);"
+    - pattern-not: "(Runtime $R).exec(new String[]{\"...\",\"...\",\"...\",...},...);\n"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(...,String $PARAM, ...) {
+          ...
+        }
+    - pattern-either:
+      - pattern: "(ProcessBuilder $PB).command($PARAM,...);"
+      - patterns:
+        - pattern-either:
+          - pattern: "(ProcessBuilder $PB).command(\"$SHELL\",...,$PARAM,...);"
+          - pattern: |
+              $CMDARR = java.util.Arrays.asList("$SHELL",...,$PARAM,...);
+              ...
+              (ProcessBuilder $PB).command($CMDARR,...);
+          - pattern: "(ProcessBuilder $PB).command(java.util.Arrays.asList(\"$SHELL\",...,$PARAM,...),...);"
+          - pattern: "(ProcessBuilder $PB).command(java.util.String.format(\"...\",
+              ...,$PARAM,...));"
+          - pattern: "(ProcessBuilder $PB).command((String $A) + (String $B));"
+        - metavariable-regex:
+            metavariable: "$SHELL"
+            regex: "(/.../)?(sh|bash|ksh|csh|tcsh|zsh)$"
+    - pattern-not: "(ProcessBuilder $PB).command(\"...\",\"...\",\"...\",...);"
+    - pattern-not: "(ProcessBuilder $PB).command(java.util.Arrays.asList(\"...\",\"...\",\"...\",...));\n"
+  message: |
+    The highlighted API is used to execute a system command. If unfiltered input is passed to this
+    API, it can lead to arbitrary command execution.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-78: Improper Neutralization of Special Elements used in an OS Command
+      ('OS Command Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.CUSTOM_INJECTION-1"
+  patterns:
+  - pattern-either:
+    - pattern: |
+        $QUERY = ... + $VAR + ...;
+        ...
+        $ST.executeQuery($QUERY);
+    - pattern: |
+        $QUERY = ... + $VAR ;
+        ...
+        $ST.executeQuery($QUERY);
+    - pattern: |
+        $QUERY = String.format("...",...,$VAR,...);
+        ...
+        $ST.executeQuery($QUERY);
+    - pattern: "$ST.executeQuery((StringBuilder $SB).toString());"
+    - pattern: "$ST.executeQuery(... + $VAR + ...);"
+    - pattern: "$ST.executeQuery(... + $VAR);"
+    - pattern: "$ST.executeQuery(...,String.format(\"...\",...,$VAR,...), ...);"
+  - metavariable-pattern:
+      metavariable: "$ST"
+      pattern-either:
+      - pattern: "(java.sql.Statement $ST)"
+      - pattern: "(org.apache.turbine.om.peer.BasePeer $ST)"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
+      ('SQL Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.CUSTOM_INJECTION-2"
+  patterns:
+  - pattern-either:
+    - pattern: |
+        "$SQL_STR" + ...
+    - pattern: "String.format(\"$SQL_STR\", ...)"
+    - pattern: |
+        "$SQL_STR".concat(...)
+    - pattern: "(StringBuilder $BUILDER). ... .append(\"$SQL_STR\")"
+    - patterns:
+      - pattern-inside: |
+          StringBuilder $BUILDER = new StringBuilder("$SQL_STR");
+          ...
+      - pattern: "$BUILDER.append(...)"
+    - patterns:
+      - pattern-inside: |
+          $QUERY = "$SQL_STR";
+          ...
+      - pattern: "$QUERY += ..."
+  - metavariable-regex:
+      metavariable: "$SQL_STR"
+      regex: "(?i)(select|insert|create|update|alter|delete|drop)\\b"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
+      ('SQL Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.EL_INJECTION-1"
+  patterns:
+  - pattern-inside: |
+      $FUNC(..., String $EXPR, ...) {
+        ...
+        ELContext $CTX = ...;
+        ...
+      }
+  - pattern-either:
+    - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,
+        ...)"
+    - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),
+        $EXPR, ...)"
+  message: |
+    An expression is built with a dynamic value. The source of the value(s) should be verified to
+    avoid that unfiltered values fall into this risky code evaluation.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(javax.servlet.http.HttpServletRequest $VAR).getParameter(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern: "new org.springframework.web.servlet.ModelAndView($FST);"
+    - pattern: "$FST"
+  - patterns:
+    - pattern: "new org.springframework.web.servlet.ModelAndView($FST, $SND);"
+    - pattern: "$FST"
+  - patterns:
+    - pattern: "new org.springframework.web.servlet.ModelAndView($FST, $SND, $TRD);"
+    - pattern: "$FST"
+  - patterns:
+    - pattern: "new org.apache.struts.action.ActionForward($FST)"
+    - pattern: "$FST"
+  - patterns:
+    - pattern: "new org.apache.struts.action.ActionForward($FST, $SND)"
+    - pattern: "$FST"
+  - patterns:
+    - pattern: "new org.apache.struts.action.ActionForward($FST, $SND, $TRD)"
+    - pattern: "$SND"
+  - patterns:
+    - pattern: "new org.apache.struts.action.ActionForward($FST, $SND, $TRD)"
+    - pattern: "$TRD"
+  - patterns:
+    - pattern-inside: |
+        $ACTION = new org.apache.struts.action.ActionForward();
+        ...
+    - pattern: "$ACTION.setPath(...)"
+  - patterns:
+    - pattern-inside: |
+        $MVC = new org.springframework.web.servlet.ModelAndView();
+        ...
+    - pattern: "$MVC.setViewName(...);"
+  - patterns:
+    - pattern-inside: |
+        $REQ = $HTTP.getRequestDispatcher(...);
+        ...
+    - pattern-either:
+      - pattern: "$REQ.include($FST, $SND)"
+      - pattern: "$REQ.forward($FST, $SND)"
+  languages:
+  - "java"
+  message: |
+    Constructing a server-side redirect path with user input could allow an
+    attacker to download application binaries (including application classes or
+    jar files) or view arbitrary files within protected directories.
+  metadata:
+    category: "security"
+    cwe: "CWE-552: Files or Directories Accessible to External Parties"
+  severity: "ERROR"
+- id: "find_sec_bugs.HTTP_PARAMETER_POLLUTION-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(HttpServletRequest $REQ).getParameter(...)"
+  pattern-sanitizers:
+  - pattern: "java.net.URLEncoder.encode(...)"
+  - pattern: "com.google.common.net.UrlEscapers.urlPathSegmentEscaper().escape(...)"
+  pattern-sinks:
+  - pattern: "new org.apache.http.client.methods.HttpGet(...)"
+  - pattern: "new org.apache.commons.httpclient.methods.GetMethod(...)"
+  - pattern: "(org.apache.commons.httpclient.methods.GetMethod $GM).setQueryString(...)"
+  message: |
+    Concatenating unvalidated user input into a URL can allow an attacker to override the value of
+    a request parameter. Attacker may be able to override existing parameter values, inject a new
+    parameter or exploit variables out of a direct reach. HTTP Parameter Pollution (HPP) attacks
+    consist of injecting encoded query string delimiters into other existing parameters. If a web
+    application does not properly sanitize the user input, a malicious user may compromise the
+    logic of the application to perform either client-side or server-side attacks.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-88: Improper Neutralization of Argument Delimiters in a Command ('Argument
+      Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.LDAP_INJECTION-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $X, ...) {
+          ...
+          $VAR = ... + $X;
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sinks:
+  - pattern: "javax.naming.ldap.LdapName(...)"
+  - pattern: "(javax.naming.directory.Context $C).lookup(...)"
+  - pattern: "(javax.naming.Context $C).lookup(...)"
+  - patterns:
+    - pattern-inside: |-
+        (java.util.Properties $P).put($KEY, $VAL)
+    - pattern-not-inside: |
+        $FUNC(..., $VAL, ...) {
+          ...
+        }
+    - pattern: "$VAL"
+  - patterns:
+    - pattern-inside: |-
+        (com.unboundid.ldap.sdk.LDAPConnection $C).search($QUERY, ...)
+    - pattern: "$QUERY"
+  - patterns:
+    - pattern-either:
+      - pattern: "$CTX.lookup(...)"
+      - patterns:
+        - pattern-inside: |-
+            $CTX.search($QUERY, ...)
+        - pattern: "$QUERY"
+      - patterns:
+        - pattern-inside: |-
+            $CTX.search($NAME, $FILTER, ...)
+        - pattern: "$FILTER"
+    - metavariable-pattern:
+        metavariable: "$CTX"
+        pattern-either:
+        - pattern: "(javax.naming.directory.DirContext $C)"
+        - pattern: "(javax.naming.directory.InitialDirContext $IDC)"
+        - pattern: "(javax.naming.ldap.LdapContext $LC)"
+        - pattern: "(javax.naming.event.EventDirContext $EDC)"
+        - pattern: "(com.sun.jndi.ldap.LdapCtx $LC)"
+  - patterns:
+    - pattern-either:
+      - patterns:
+        - pattern-inside: |-
+            $CTX.list($QUERY, ...)
+        - pattern: "$QUERY"
+      - patterns:
+        - pattern-inside: |-
+            $CTX.lookup($QUERY, ...)
+        - pattern: "$QUERY"
+      - patterns:
+        - pattern-inside: |-
+            $CTX.search($QUERY, ...)
+        - pattern: "$QUERY"
+      - patterns:
+        - pattern-inside: |-
+            $CTX.search($NAME, $FILTER, ...)
+        - pattern: "$FILTER"
+    - metavariable-pattern:
+        metavariable: "$CTX"
+        pattern-either:
+        - pattern: "(org.springframework.ldap.core.LdapTemplate $LT)"
+        - pattern: "(org.springframework.ldap.core.LdapOperations $LO)"
+  message: |
+    Just like SQL, all inputs passed to an LDAP query need to be passed in safely. Unfortunately,
+    LDAP doesn't have prepared statement interfaces like SQL. Therefore, the primary defense
+    against LDAP injection is strong input validation of any untrusted data before including it in
+    an LDAP query.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-90: Improper Neutralization of Special Elements used in an LDAP Query
+      ('LDAP Injection')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.OGNL_INJECTION-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - metavariable-pattern:
+        metavariable: "$VAR"
+        pattern-either:
+        - pattern: "(String $S)"
+        - pattern: "(Map<String, ?> $M)"
+        - pattern: "(Map<String, String> $M)"
+        - pattern: "(Map<String, Object> $M)"
+    - pattern: "$VAR"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |-
+        com.opensymphony.xwork2.util.TextParseUtil.translateVariables($VAL, ...)
+    - pattern: "$VAL"
+  - patterns:
+    - pattern-inside: |-
+        com.opensymphony.xwork2.util.TextParseUtil.translateVariablesCollection($VAL, ...)
+    - pattern: "$VAL"
+  - pattern: "com.opensymphony.xwork2.util.TextParseUtil.shallBeIncluded(...)"
+  - pattern: "com.opensymphony.xwork2.util.TextParseUtil.commaDelimitedStringToSet(...)"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.TextParser $P).evaluate($VAR, $VAL, ...)
+    - pattern: "$VAL"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.OgnlTextParser $P).evaluate($VAR, $VAL, ...)
+    - pattern: "$VAL"
+  - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getGetMethod($CLZ,
+      ...)"
+  - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getSetMethod($CLZ,
+      ...)"
+  - pattern: "(com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getField($CLZ,
+      ...)"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).setProperties($MAP, ...)
+    - pattern: "$MAP"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).setProperty($VAL, ...)
+    - pattern: "$VAL"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).getValue($VAL, ...)
+    - pattern: "$VAL"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlReflectionProvider $P).setValue($VAL, ...)
+    - pattern: "$VAL"
+  - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getGetMethod($CLZ,
+      ...)"
+  - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getSetMethod($CLZ,
+      ...)"
+  - pattern: "(com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getField($CLZ,
+      ...)"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).setProperties($MAP, ...)
+    - pattern: "$MAP"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).setProperty($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).getValue($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.reflection.ReflectionProvider $P).setValue($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlUtil $P).setProperties($MAP, ...)
+    - pattern: "$MAP"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlUtil $P).setProperty($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlUtil $P).getValue($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlUtil $P).setValue($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlUtil $P).callMethod($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.ognl.OgnlUtil $P).compile($VAR, ...)
+    - pattern: "$VAR"
+  - pattern: "(org.apache.struts2.util.VelocityStrutsUtil $P).evaluate(...)"
+  - pattern: "org.apache.struts2.util.StrutsUtil.findString(...)"
+  - pattern: "org.apache.struts2.util.StrutsUtil.findValue(..., $VAL)"
+  - pattern: "org.apache.struts2.util.StrutsUtil.getText(...)"
+  - pattern: "org.apache.struts2.util.StrutsUtil.translateVariables(...)"
+  - patterns:
+    - pattern-inside: |-
+        org.apache.struts2.util.StrutsUtil.makeSelectList($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (org.apache.struts2.views.jsp.ui.OgnlTool $T).findValue($VAR, ...)
+    - pattern: "$VAR"
+  - pattern: "(com.opensymphony.xwork2.util.ValueStack $V).findString(...)"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.ValueStack $V).findValue($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.ValueStack $V).setValue($VAR, ...)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        (com.opensymphony.xwork2.util.ValueStack $V).setParameter($VAR, ...)
+    - pattern: "$VAR"
+  message: |
+    "A expression is built with a dynamic value. The source of the value(s) should be verified to
+    avoid that unfiltered values fall into this risky code evaluation."
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    technology:
+    - "java"
+- id: "find_sec_bugs.PATH_TRAVERSAL_IN-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(String[] $ARGS) {
+          ...
+        }
+    - pattern: "$ARGS[$IDX]"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |
+        $U = new java.net.URI($VAR)
+    - pattern-either:
+      - pattern-inside: |-
+          new java.io.File($U)
+      - pattern-inside: |-
+          java.nio.file.Paths.get($U)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.RandomAccessFile($INPUT,...)
+    - pattern: "$INPUT"
+  - pattern: "new java.io.FileReader(...)"
+  - pattern: "new javax.activation.FileDataSource(...)"
+  - pattern: "new java.io.FileInputStream(...)"
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          new java.io.File(...,(String $VAR), ...)
+      - pattern-inside: |-
+          java.nio.file.Paths.get(...,(String $VAR),...)
+      - pattern-inside: |-
+          java.io.File.createTempFile(...,(String $VAR), ...)
+      - pattern-inside: |-
+          java.io.File.createTempDirectory(...,(String $VAR),...)
+      - pattern-inside: |-
+          java.nio.file.Files.createTempFile(..., (String $VAR), ...)
+      - pattern-inside: |-
+          java.nio.file.Files.createTempDirectory(..., (String $VAR), ...)
+    - pattern: "$VAR"
+  message: |
+    A file is opened to read its content. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files from an arbitrary filesystem location
+    could be read. This rule identifies potential path traversal vulnerabilities. In many cases,
+    the constructed file path cannot be controlled by the user.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.PATH_TRAVERSAL_OUT-1.PATH_TRAVERSAL_OUT-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(String[] $ARGS) {
+          ...
+        }
+    - pattern: "$ARGS[$IDX]"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileWriter($PATH, ...)
+    - pattern: "$PATH"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileOutputStream($PATH, ...)
+    - pattern: "$PATH"
+  message: |
+    A file is opened to write to its contents. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files at an arbitrary filesystem location
+    could be modified. This rule identifies potential path traversal vulnerabilities. In many
+    cases, the constructed file path cannot be controlled by the user.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL-1"
+  mode: "taint"
+  pattern-sources:
+  - pattern: "(HttpServletRequest $REQ).getParameter(...)"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |
+        $U = new java.net.URI($VAR)
+    - pattern-either:
+      - pattern-inside: |-
+          new java.io.File($U)
+      - pattern-inside: |-
+          java.nio.file.Paths.get($U)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.RandomAccessFile($INPUT,...)
+    - pattern: "$INPUT"
+  - pattern: "new java.io.FileReader(...)"
+  - pattern: "new javax.activation.FileDataSource(...)"
+  - pattern: "new java.io.FileInputStream(...)"
+  - pattern: "new java.io.File(...)"
+  - pattern: "java.nio.file.Paths.get(...)"
+  - pattern: "java.io.File.createTempFile(...)"
+  - pattern: "java.io.File.createTempDirectory(...)"
+  - pattern: "java.nio.file.Files.createTempFile(...)"
+  - pattern: "java.nio.file.Files.createTempDirectory(...)"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileWriter($PATH, ...)
+    - pattern: "$PATH"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileOutputStream($PATH, ...)
+    - pattern: "$PATH"
+  message: |
+    "The software uses an HTTP request parameter to construct a pathname that should be within a
+    restricted directory, but it does not properly neutralize absolute path sequences such as
+    "/abs/path" that can resolve to a location that is outside of that directory. See
+    http://cwe.mitre.org/data/definitions/36.html for more information."
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $P = (HttpServletRequest $REQ).getParameter(...);
+        ...
+    - pattern-either:
+      - pattern: "$P + ..."
+      - pattern: "... + $P"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |
+        $U = new java.net.URI($VAR)
+    - pattern-either:
+      - pattern-inside: |-
+          new java.io.File($U)
+      - pattern-inside: |-
+          java.nio.file.Paths.get($U)
+    - pattern: "$VAR"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.RandomAccessFile($INPUT,...)
+    - pattern: "$INPUT"
+  - pattern: "new java.io.FileReader(...)"
+  - pattern: "new javax.activation.FileDataSource(...)"
+  - pattern: "new java.io.FileInputStream(...)"
+  - pattern: "new java.io.File(...)"
+  - pattern: "java.nio.file.Paths.get(...)"
+  - pattern: "java.io.File.createTempFile(...)"
+  - pattern: "java.io.File.createTempDirectory(...)"
+  - pattern: "java.nio.file.Files.createTempFile(...)"
+  - pattern: "java.nio.file.Files.createTempDirectory(...)"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileWriter($PATH, ...)
+    - pattern: "$PATH"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileOutputStream($PATH, ...)
+    - pattern: "$PATH"
+  message: |
+    "The software uses an HTTP request parameter to construct a pathname that should be within a
+    restricted directory, but it does not properly neutralize sequences such as ".." that can
+    resolve to a location that is outside of that directory. See
+    http://cwe.mitre.org/data/definitions/23.html for more information."
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    technology:
+    - "java"
+- id: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1"
+  pattern-either:
+  - patterns:
+    - pattern: "(javax.jdo.PersistenceManager $PM).newQuery($ARG)"
+    - pattern-not: "(javax.jdo.PersistenceManager $PM).newQuery(\"...\")"
+  - patterns:
+    - pattern: "(javax.jdo.PersistenceManager $PM).newQuery(..., $ARG)"
+    - pattern-not: "(javax.jdo.PersistenceManager $PM).newQuery(..., \"...\")"
+  - patterns:
+    - pattern: "(javax.jdo.Query $Q).setFilter($ARG)"
+    - pattern-not: "(javax.jdo.Query $Q).setFilter(\"...\")"
+  - patterns:
+    - pattern: "(javax.jdo.Query $Q).setGrouping($ARG)"
+    - pattern-not: "(javax.jdo.Query $Q).setGrouping(\"...\")"
+  - patterns:
+    - pattern: "(javax.jdo.Query $Q).setGrouping($ARG)"
+    - pattern-not: "(javax.jdo.Query $Q).setGrouping(\"...\")"
+  - patterns:
+    - pattern: "(org.hibernate.criterion.Restrictions $H).sqlRestriction($ARG, ...)"
+    - pattern-not: "(org.hibernate.criterion.Restrictions $H).sqlRestriction(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.hibernate.Session $S).createQuery($ARG, ...)"
+    - pattern-not: "(org.hibernate.Session $S).createQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(org.hibernate.Session $S).createSQLQuery($ARG, ...)"
+    - pattern-not: "(org.hibernate.Session $S).createSQLQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Statement $S).executeQuery($ARG, ...)"
+    - pattern-not: "(java.sql.Statement $S).createSQLQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Statement $S).execute($ARG, ...)"
+    - pattern-not: "(java.sql.Statement $S).execute(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Statement $S).executeUpdate($ARG, ...)"
+    - pattern-not: "(java.sql.Statement $S).executeUpdate(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Statement $S).executeLargeUpdate($ARG, ...)"
+    - pattern-not: "(java.sql.Statement $S).executeLargeUpdate(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Statement $S).addBatch($ARG, ...)"
+    - pattern-not: "(java.sql.Statement $S).addBatch(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.PreparedStatement $S).executeQuery($ARG, ...)"
+    - pattern-not: "(java.sql.PreparedStatement $S).executeQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.PreparedStatement $S).execute($ARG, ...)"
+    - pattern-not: "(java.sql.PreparedStatement $S).execute(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.PreparedStatement $S).executeUpdate($ARG, ...)"
+    - pattern-not: "(java.sql.PreparedStatement $S).executeUpdate(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.PreparedStatement $S).executeLargeUpdate($ARG, ...)"
+    - pattern-not: "(java.sql.PreparedStatement $S).executeLargeUpdate(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.PreparedStatement $S).addBatch($ARG, ...)"
+    - pattern-not: "(java.sql.PreparedStatement $S).addBatch(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Connection $S).prepareCall($ARG, ...)"
+    - pattern-not: "(java.sql.Connection $S).prepareCall(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Connection $S).prepareStatement($ARG, ...)"
+    - pattern-not: "(java.sql.Connection $S).prepareStatement(\"...\", ...)"
+  - patterns:
+    - pattern: "(java.sql.Connection $S).nativeSQL($ARG, ...)"
+    - pattern-not: "(java.sql.Connection $S).nativeSQL(\"...\", ...)"
+  - patterns:
+    - pattern: "new org.springframework.jdbc.core.PreparedStatementCreatorFactory($ARG,
+        ...)"
+    - pattern-not: "new org.springframework.jdbc.core.PreparedStatementCreatorFactory(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.PreparedStatementCreatorFactory $F).newPreparedStatementCreator($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.PreparedStatementCreatorFactory
+        $F).newPreparedStatementCreator(\"...\", ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).batchUpdate($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).batchUpdate(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).execute($ARG, ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).execute(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).query($ARG, ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).query(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForList($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForList(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForMap($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForMap(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForObject($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForObject(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForObject($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForObject(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForRowSet($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForRowSet(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForInt($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForInt(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).queryForLong($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).queryForLong(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcOperations $O).udpate($ARG, ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcOperations $O).udpate(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).batchUpdate($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).batchUpdate(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).execute($ARG, ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).execute(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).query($ARG, ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).query(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForList($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForList(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForMap($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForMap(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForObject($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForObject(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForRowSet($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForRowSet(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForInt($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForInt(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForLong($ARG,
+        ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).queryForLong(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.springframework.jdbc.core.JdbcTemplate $O).update($ARG, ...)"
+    - pattern-not: "(org.springframework.jdbc.core.JdbcTemplate $O).update(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(io.vertx.sqlclient.SqlClient $O).query($ARG, ...)"
+    - pattern-not: "(io.vertx.sqlclient.SqlClient $O).query(\"...\", ...)"
+  - patterns:
+    - pattern: "(io.vertx.sqlclient.SqlClient $O).preparedQuery($ARG, ...)"
+    - pattern-not: "(io.vertx.sqlclient.SqlClient $O).preparedQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(io.vertx.sqlclient.SqlConnection $O).prepare($ARG, ...)"
+    - pattern-not: "(io.vertx.sqlclient.SqlConnection $O).prepare(\"...\", ...)"
+  - patterns:
+    - pattern: "(org.apache.turbine.om.peer.BasePeer $O).executeQuery($ARG, ...)"
+    - pattern-not: "(org.apache.turbine.om.peer.BasePeer $O).executeQuery(\"...\",
+        ...)"
+  - patterns:
+    - pattern: "(org.apache.torque.util.BasePeer $O).executeQuery($ARG, ...)"
+    - pattern-not: "(org.apache.torque.util.BasePeer $O).executeQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(javax.persistence.EntityManager $O).createQuery($ARG, ...)"
+    - pattern-not: "(javax.persistence.EntityManager $O).createQuery(\"...\", ...)"
+  - patterns:
+    - pattern: "(javax.persistence.EntityManager $O).createNativeQuery($ARG, ...)"
+    - pattern-not: "(javax.persistence.EntityManager $O).createNativeQuery(\"...\",
+        ...)"
+  languages:
+  - "java"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command
+      ('SQL Injection')"
+  severity: "ERROR"
+- id: "find_sec_bugs.LDAP_ANONYMOUS-1"
+  patterns:
+  - pattern-inside: |
+      import javax.naming.Context;
+      ...
+  - pattern: "$ENV.put(Context.SECURITY_AUTHENTICATION, \"none\");"
+  languages:
+  - "java"
+  message: |
+    Without proper access control, executing an LDAP statement that contains a
+    user-controlled value can allow an attacker to abuse poorly configured LDAP
+    context
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+  severity: "WARNING"
+- id: "find_sec_bugs.LDAP_ENTRY_POISONING-1"
+  patterns:
+  - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
+      $ATTR, true, $DEREF)"
+  languages:
+  - "java"
+  message: |
+    Without proper access control, executing an LDAP statement that contains a
+    user-controlled value can allow an attacker to abuse poorly configured LDAP
+    context
+  metadata:
+    category: "security"
+    cwe: "CWE-20: Improper Input Validation"
+  severity: "ERROR"
+- id: "find_sec_bugs.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
+  patterns:
+  - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"...\");"
+  message: |
+    This code creates a database connect using a hardcoded, constant password. Anyone with access
+    to either the source code or the compiled code can easily learn the password.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-259: Use of Hard-coded Password"
+    technology:
+    - "java"
+- id: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
+  patterns:
+  - pattern: "java.sql.DriverManager.getConnection($URI, $USR, \"\");"
+  message: |
+    This code creates a database connect using a blank or empty password. This indicates that the
+    database is not protected by a password.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-259: Use of Hard-coded Password"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HARD_CODE_KEY-1"
+  pattern-either:
+  - patterns:
+    - pattern-not-inside: |
+        $FUNC(...,byte[] $KEY_BYTES, ...) {
+            ...
+        }
+    - pattern-either:
+      - pattern: "new DESKeySpec((byte[] $KEY_BYTES));"
+      - pattern: "new DESedeKeySpec((byte[] $KEY_BYTES));"
+      - pattern: "new KerberosKey(..., (byte[] $KEY_BYTES), ..., ...);"
+      - pattern: "new SecretKeySpec((byte[] $KEY_BYTES), ...);"
+      - pattern: "new X509EncodedKeySpec((byte[] $KEY_BYTES));"
+      - pattern: "new PKCS8EncodedKeySpec((byte[] $KEY_BYTES));"
+      - pattern: "new KeyRep(...,(byte[] $KEY_BYTES));"
+      - pattern: "new KerberosTicket(...,(byte[] $KEY_BYTES),...);"
+    - metavariable-pattern:
+        metavariable: "$KEY_BYTES"
+        patterns:
+        - pattern-not-regex: "(null)"
+  - patterns:
+    - pattern-not-inside: |
+        $FUNC(..., BigInteger $PRIVATE_KEY, ...) {
+            ...
+        }
+    - pattern-either:
+      - pattern: "new DSAPrivateKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new DSAPublicKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new DHPrivateKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new DHPublicKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new ECPrivateKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new RSAPrivateKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new RSAMultiPrimePrivateCrtKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new RSAPrivateCrtKeySpec((BigInteger $PRIVATE_KEY), ...);"
+      - pattern: "new RSAPublicKeySpec((BigInteger $PRIVATE_KEY), ...);"
+    - metavariable-pattern:
+        metavariable: "$PRIVATE_KEY"
+        patterns:
+        - pattern-not-regex: "(null)"
+  message: |
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    in an enterprise environment, and is certainly shared in open source. To be managed safely,
+    passwords and secret keys should be stored in separate configuration files or keystores.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-321: Use of Hard-coded Cryptographic Key"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HARD_CODE_KEY-4"
+  patterns:
+  - pattern-not-inside: |
+      $FUNC(..., $VAR_NAME, ...) {
+          ...
+      }
+  - pattern-either:
+    - pattern: "(String $VAR_NAME).equals(...)"
+    - pattern: "(String $OTHER).equals((String $VAR_NAME))"
+    - pattern: "java.util.Arrays.equals(...,(String $VAR_NAME),...)"
+    - pattern: "(byte[] $VAR_NAME).equals(...)"
+    - pattern: "(byte[] $OTHER).equals((byte[] $VAR_NAME))"
+    - pattern: "java.util.Arrays.equals(...,(byte[] $VAR_NAME),...)"
+    - pattern: "java.lang.Byte.comapre(...,(byte[] $VAR_NAME),...)"
+    - pattern: "(char[] $VAR_NAME).equals(...)"
+    - pattern: "(char[] $OTHER).equals((char[] $VAR_NAME))"
+    - pattern: "java.util.Arrays.equals(...,(char[] $VAR_NAME),...)"
+  - metavariable-regex:
+      metavariable: "$VAR_NAME"
+      regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
+  message: |
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    in an enterprise environment, and is certainly shared in open source. To be managed safely,
+    passwords and secret keys should be stored in separate configuration files or keystores.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-321: Use of Hard-coded Cryptographic Key"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HARD_CODE_KEY-2"
+  patterns:
+  - pattern-either:
+    - pattern: "String $VAR = \"...\";"
+    - pattern: "byte[] $VAR = {...};"
+    - pattern: "byte[] $VAR = new byte[]{...};"
+    - pattern: "char[] $VAR = {...};"
+    - pattern: "char[] $VAR = new char[]{...};"
+  - metavariable-regex:
+      metavariable: "$VAR"
+      regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
+  message: |
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    in an enterprise environment, and is certainly shared in open source. To be managed safely,
+    passwords and secret keys should be stored in separate configuration files or keystores.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-321: Use of Hard-coded Cryptographic Key"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HARD_CODE_KEY-3"
+  patterns:
+  - pattern: "String $VAR = \"$VAL\";"
+  - metavariable-regex:
+      metavariable: "$VAL"
+      regex: "(?i).*(password|motdepasse|heslo|adgangskode|wachtwoord|salasana|passwort|passord|senha|geslo|clave|losenord|clave|parola|secret|pwd).*"
+  message: |
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    in an enterprise environment, and is certainly shared in open source. To be managed safely,
+    passwords and secret keys should be stored in separate configuration files or keystores.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-321: Use of Hard-coded Cryptographic Key"
+    technology:
+    - "java"
+- id: "find_sec_bugs.HARD_CODE_PASSWORD-1"
+  patterns:
+  - pattern-either:
+    - pattern-inside: |
+        char[] $PWD = ...;
+        ...
+    - pattern: "(KeyStore $KS).load(..., $PWD)"
+    - pattern: "new PBEKeySpec($PWD, ...)"
+    - pattern: "new PasswordAuthentication(\"...\", $PWD)"
+    - pattern: "(PasswordCallback $CB).setPassword($PWD)"
+    - pattern: "new KeyStore.PasswordProtection($PWD)"
+    - pattern: "new KerberosKey(...,$PWD,...);"
+    - pattern: "(javax.net.ssl.KeyManagerFactory $KMF).init(..., $PWD);"
+  - metavariable-pattern:
+      metavariable: "$PWD"
+      patterns:
+      - pattern-not-regex: "(null)"
+  message: |
+    Passwords should not be kept in the source code. The source code can be widely shared in an
+    enterprise environment, and is certainly shared in open source. To be managed safely, passwords
+    and secret keys should be stored in separate configuration files or keystores.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    category: "security"
+    cwe: "CWE-259: Use of Hard-coded Password"
+    technology:
+    - "java"
+- id: "find_sec_bugs.DANGEROUS_PERMISSION_COMBINATION-1"
+  pattern-either:
+  - pattern: |
+      $RUNVAR = new RuntimePermission("createClassLoader");
+      ...
+      (PermissionCollection $PC).add($RUNVAR);
+  - pattern: |
+      $REFVAR = new ReflectPermission("suppressAccessChecks");
+      ...
+      (PermissionCollection $PC).add($REFVAR);
+  - pattern: "(PermissionCollection $PC).add(new ReflectPermission(\"suppressAccessChecks\"))"
+  - pattern: "(PermissionCollection $PC).add(new RuntimePermission(\"createClassLoader\"))"
+  languages:
+  - "java"
+  message: |
+    Do not grant dangerous combinations of permissions.
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+  severity: "WARNING"
+- id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-1"
+  patterns:
+  - pattern-either:
+    - pattern: "java.nio.file.Files.setPosixFilePermissions(..., java.nio.file.attribute.PosixFilePermissions.fromString(\"$PERM_STRING\"));"
+    - pattern: |
+        $PERMISSIONS = java.nio.file.attribute.PosixFilePermissions.fromString("$PERM_STRING");
+        ...
+        java.nio.file.Files.setPosixFilePermissions(..., $PERMISSIONS);
+  - metavariable-regex:
+      metavariable: "$PERM_STRING"
+      regex: "[rwx-]{6}[rwx]{1,}"
+  languages:
+  - "java"
+  message: |
+    Overly permissive file permission
+  metadata:
+    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
+    category: "security"
+    confidence: "HIGH"
+  severity: "WARNING"
+- id: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
+  patterns:
+  - pattern-inside: |
+      $PERMS.add($P);
+      ...
+      java.nio.file.Files.setPosixFilePermissions(..., $PERMS);
+  - metavariable-regex:
+      metavariable: "$P"
+      regex: "(PosixFilePermission.){0,1}(OTHERS_)"
+  languages:
+  - "java"
+  message: |
+    Overly permissive file permission
+  metadata:
+    cwe: "CWE-732: Incorrect Permission Assignment for Critical Resource"
+    category: "security"
+    confidence: "HIGH"
+  severity: "WARNING"
+- id: "find_sec_bugs.PREDICTABLE_RANDOM-1"
+  patterns:
+  - pattern-either:
+    - pattern: |
+        java.util.Random $R = new java.util.Random();
+        ...
+        $R.$METHOD();
+    - pattern: "(java.util.Random $R).$METHOD()"
+    - pattern: "new java.util.Random().$METHOD()"
+    - pattern: "org.apache.commons.lang.math.RandomUtils.$METHOD()"
+    - pattern: "org.apache.commons.lang.RandomStringUtils.$METHOD(...)"
+  - metavariable-regex:
+      metavariable: "$METHOD"
+      regex: "^(next|random)"
+  message: |
+    The use of a predictable random value can lead to vulnerabilities when
+    used in certain security critical contexts. A quick fix could be to replace
+    the use of java.util.Random with something stronger, such as java.security.SecureRandom.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-330: Use of Insufficiently Random Values"
+    technology:
+    - "java"
+- id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
+  patterns:
+  - pattern: "(javax.script.ScriptEngine $ENGINE).eval($ARG);"
+  - pattern-not: "(javax.script.ScriptEngine $ENGINE).eval(\"...\");"
+  message: |
+    The software constructs all or part of a code segment using externally-influenced
+    input from an upstream component, but it does not neutralize or incorrectly
+    neutralizes special elements that could modify the syntax or behavior of the
+    intended code segment.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+- id: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
+  patterns:
+  - pattern: "(org.springframework.expression.spel.standard.SpelExpressionParser $P).parseExpression($ARG);"
+  - pattern-not: "(org.springframework.expression.spel.standard.SpelExpressionParser
+      $P).parseExpression(\"...\");"
+  message: |
+    The software constructs all or part of a code segment using externally-influenced
+    input from an upstream component, but it does not neutralize or incorrectly
+    neutralizes special elements that could modify the syntax or behavior of the
+    intended code segment.
+  languages:
+  - "java"
+  severity: "ERROR"
+  metadata:
+    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+- id: "find_sec_bugs.INSECURE_SMTP_SSL-1"
+  patterns:
+  - pattern-either:
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.SimpleEmail(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.Email(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.MultiPartEmail(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.HtmlEmail(...);
+        ...
+    - pattern-inside: |
+        $E = new org.apache.commons.mail.ImageHtmlEmail(...);
+        ...
+  - pattern-not: "$E.setSSLOnConnect(true);\n...\n$E.setSSLCheckServerIdentity(true);\n"
+  message: |
+    Server identity verification is disabled when making SSL connections.
+  metadata:
+    cwe: "CWE-297: Improper Validation of Certificate with Host Mismatch"
+  severity: "ERROR"
+  languages:
+  - "java"
+- id: "find_sec_bugs.SMTP_HEADER_INJECTION-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          $M = new MimeMessage(...);
+          ...
+      - pattern: "$M.setSubject($ARG);"
+      - pattern-not: "$M.setSubject(\"...\")"
+    - patterns:
+      - pattern-inside: |
+          $M = new MimeMessage(...);
+          ...
+      - pattern: "$M.addHeader($ARG1, $ARG2)"
+      - pattern-not: "$M.addHeader(\"...\", \"...\")"
+    - patterns:
+      - pattern-inside: |
+          $M = new MimeMessage(...);
+          ...
+      - pattern: "$M.setDescription($ARG)"
+      - pattern-not: "$M.setDescription(\"...\")"
+    - patterns:
+      - pattern-inside: |
+          $M = new MimeMessage(...);
+          ...
+      - pattern: "$M.setDisposition($ARG)"
+      - pattern-not: "$M.setDisposition(\"...\")"
+  languages:
+  - "java"
+  message: |
+    Simple Mail Transfer Protocol (SMTP) is a the text based protocol used for
+    email delivery. Like with HTTP, headers are separate by new line separator. If
+    kuser input is place in a header line, the application should remove or replace
+    new line characters (CR / LF). You should use a safe wrapper such as Apache
+    Common Email and Simple Java Mail which filter special characters that can lead
+    to header injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-77: Improper Neutralization of Special Elements used in a Command"
+  severity: "ERROR"
+- id: "find_sec_bugs.URLCONNECTION_SSRF_FD-1"
+  pattern-either:
+  - patterns:
+    - pattern: "new URL(...). ... .connect()"
+    - pattern-not: "new URL(\"...\"). ... .connect()"
+  - patterns:
+    - pattern: "new URL(...). ... .GetContent(...)"
+    - pattern-not: "new URL(\"...\"). ... .GetContent(...)"
+  - patterns:
+    - pattern: "new URL(...). ... .openConnection(...)"
+    - pattern-not: "new URL(\"...\"). ... .openConnection(...)"
+  - patterns:
+    - pattern: "new URL(...). ... .openStream(...)"
+    - pattern-not: "new URL(\"...\"). ... .openStream(...)"
+  - patterns:
+    - pattern: "new URL(...). ... .getContent(...)"
+    - pattern-not: "new URL(\"...\"). ... .getContent(...)"
+  languages:
+  - "java"
+  message: |
+    Server-Side Request Forgery occur when a web server executes a request to a
+    user supplied destination parameter that is not validated. Such vulnerabilities
+    could allow an attacker to access internal services or to launch attacks from
+    your web server.
+  metadata:
+    category: "security"
+    cwe: "CWE-918: Server-Side Request Forgery (SSRF)"
+  severity: "ERROR"
+- id: "find_sec_bugs.BAD_HEXA_CONVERSION-1"
+  patterns:
+  - pattern: |
+      $B_ARR = (java.security.MessageDigest $MD).digest(...);
+      ...
+      for(...) {
+        ...
+        Integer.toHexString(...);
+      }
+  languages:
+  - "java"
+  message: |
+    When converting a byte array containing a hash signature to a human readable string, a
+    conversion mistake can be made if the array is read byte by byte.
+  metadata:
+    cwe: "CWE-704: Incorrect Type Conversion or Cast"
+    category: "security"
+    confidence: "HIGH"
+  severity: "WARNING"
+- id: "find_sec_bugs.FORMAT_STRING_MANIPULATION-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          String $INPUT = (HttpServletRequest $REQ).getParameter(...);
+          ...
+      - pattern-inside: |
+          String $FORMAT_STR = ... + $INPUT;
+          ...
+    - patterns:
+      - pattern-inside: |
+          String $INPUT = (HttpServletRequest $REQ).getParameter(...);
+          ...
+      - pattern-inside: |
+          String $FORMAT_STR = ... + $INPUT + ...;
+          ...
+    - pattern-inside: |
+        String $FORMAT_STR = ... + (HttpServletRequest $REQ).getParameter(...) + ...;
+        ...
+    - pattern-inside: |
+        String $FORMAT_STR = ... + (HttpServletRequest $REQ).getParameter(...);
+        ...
+  - pattern-either:
+    - pattern: "String.format($FORMAT_STR, ...);"
+    - pattern: "String.format(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
+    - pattern: "(java.util.Formatter $F).format($FORMAT_STR, ...);"
+    - pattern: "(java.util.Formatter $F).format(java.util.Locale.$LOCALE, $FORMAT_STR,
+        ...);"
+    - pattern: "(java.io.PrintStream $F).printf($FORMAT_STR, ...);"
+    - pattern: "(java.io.PrintStream $F).printf(java.util.Locale.$LOCALE, $FORMAT_STR,
+        ...);"
+    - pattern: "(java.io.PrintStream $F).format($FORMAT_STR, ...);"
+    - pattern: "(java.io.PrintStream $F).format(java.util.Locale.$LOCALE, $FORMAT_STR,
+        ...);"
+    - pattern: "System.out.printf($FORMAT_STR, ...);"
+    - pattern: "System.out.printf(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
+    - pattern: "System.out.format($FORMAT_STR, ...);"
+    - pattern: "System.out.format(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
+  languages:
+  - "java"
+  message: |
+    Allowing user input to control format parameters could enable an attacker to cause exceptions
+    to be thrown or leak information.Attackers may be able to modify the format string argument,
+    such that an exception is thrown. If this exception is left uncaught, it may crash the
+    application. Alternatively, if sensitive information is used within the unused arguments,
+    attackers may change the format string to reveal this information.
+  metadata:
+    cwe: "CWE-134: Use of Externally-Controlled Format String"
+    category: "security"
+    confidence: "HIGH"
+  severity: "ERROR"
+- id: "find_sec_bugs.IMPROPER_UNICODE-1"
+  pattern-either:
+  - patterns:
+    - pattern-either:
+      - pattern: |
+          $S = (String $INPUT).$TRANSFORM(...);
+          ...
+          $S.$METHOD(...);
+      - pattern: "(String $INPUT).$TRANSFORM().$METHOD(...);"
+    - metavariable-regex:
+        metavariable: "$METHOD"
+        regex: "(equals|equalsIgnoreCase|indexOf)"
+    - metavariable-regex:
+        metavariable: "$TRANSFORM"
+        regex: "(toLowerCase|toUpperCase)"
+  - pattern: "java.text.Normalizer.normalize(...);"
+  - pattern: "java.net.IDN.toASCII(...);"
+  - pattern: "(URI $U).toASCIIString();"
+  languages:
+  - "java"
+  message: |
+    Improper Handling of Unicode Encoding
+  metadata:
+    cwe: "CWE-176: Improper Handling of Unicode Encoding"
+    category: "security"
+    confidence: "HIGH"
+  severity: "ERROR"
+- id: "find_sec_bugs.MODIFICATION_AFTER_VALIDATION-1"
+  patterns:
+  - pattern: |
+      (java.util.regex.Pattern $Y).matcher($VAR);
+      ...
+      $VAR.$METHOD(...);
+  - metavariable-regex:
+      metavariable: "$METHOD"
+      regex: "(replace)"
+  languages:
+  - "java"
+  message: |
+    CERT: IDS11-J. Perform any string modifications before validation
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+  severity: "WARNING"
+- id: "find_sec_bugs.NORMALIZATION_AFTER_VALIDATION-1"
+  patterns:
+  - pattern: |
+      $Y = java.util.regex.Pattern.compile("[<>]");
+      ...
+      $Y.matcher($VAR);
+      ...
+      java.text.Normalizer.normalize($VAR, ...);
+  languages:
+  - "java"
+  message: |
+    IDS01-J. Normalize strings before validating them
+  metadata:
+    category: "security"
+    confidence: "HIGH"
+  severity: "WARNING"
+- id: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
+  pattern-either:
+  - patterns:
+    - pattern: "org.apache.velocity.app.Velocity.evaluate(..., $VAR)"
+    - pattern-not: "org.apache.velocity.app.Velocity.evaluate(..., \"...\")"
+  - patterns:
+    - pattern-not-inside: |
+        $C = (freemarker.template.Configuration $CFG).getTemplate("...");
+        ...
+    - pattern-inside: |
+        $C = (freemarker.template.Configuration $CFG).getTemplate($IN);
+        ...
+    - pattern: "$C.process(...)"
+  - patterns:
+    - pattern-inside: |
+        import com.mitchellbosecke.pebble.PebbleEngine;
+        ...
+    - pattern-inside: |
+        $C = $T.getTemplate($IN);
+        ...
+    - pattern-not-inside: |
+        $C = $T.getTemplate("...");
+        ...
+    - pattern: "$C.evaluate(...)"
+  languages:
+  - "java"
+  message: |
+    A malicious user in control of a template can run malicious code on the
+    server-side. Velocity templates should be seen as scripts.
+  metadata:
+    category: "security"
+    cwe: "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+  severity: "ERROR"
+- id: "find_sec_bugs.EXTERNAL_CONFIG_CONTROL-1"
+  patterns:
+  - pattern: |
+      $TAINTED = (HttpServletRequest $REQ).getParameter(...);
+      ...
+      (java.sql.Connection $CONN).setCatalog($TAINTED);
+  message: |
+    Allowing external control of system settings can disrupt service or cause an application to
+    behave in unexpected, and potentially malicious ways. An attacker could cause an error by
+    providing a nonexistent catalog name or connect to an unauthorized portion of the database.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-15: External Control of System or Configuration Setting"
+    technology:
+    - "java"
+- id: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE-1"
+  pattern-either:
+  - pattern: |
+      catch(Throwable $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(Exception $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(Error $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.io.FileNotFoundException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.sql.SQLException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.net.BindException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.util.ConcurrentModificationException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(javax.naming.InsufficientResourcesException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.util.MissingResourceException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.util.jar.JarException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(java.security.acl.NotOwnerException $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(OutOfMemoryError $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  - pattern: |
+      catch(StackOverflowError $E) {
+        ...
+        $E.printStackTrace();
+        ...
+      }
+  message: |
+    The sensitive information may be valuable information on its own (such as a password), or it
+    may be useful for launching other, more deadly attacks. If an attack fails, an attacker may use
+    error information provided by the server to launch another more focused attack. For example, an
+    attempt to exploit a path traversal weakness (CWE-22) might yield the full pathname of the
+    installed application.
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    category: "security"
+    cwe: "CWE-209: Information Exposure Through an Error Message"
+    technology:
+    - "java"
+- id: "find_sec_bugs.RPC_ENABLED_EXTENSIONS-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          XmlRpcServerConfigImpl $VAR = new org.apache.xmlrpc.server.XmlRpcServerConfigImpl();
+          ...
+      - pattern: "$VAR.setEnabledForExtensions(true);"
+    - patterns:
+      - pattern-inside: |
+          XmlRpcClientConfigImpl $VAR = new org.apache.xmlrpc.client.XmlRpcClientConfigImpl();
+          ...
+      - pattern: "$VAR.setEnabledForExtensions(true);"
+  languages:
+  - "java"
+  message: |
+    Enabling extensions in Apache XML RPC server or client can lead to deserialization
+    vulnerability which would allow an attacker to execute arbitrary code.
+  metadata:
+    category: "security"
+    cwe: "CWE-502: Deserialization of Untrusted Data"
+  severity: "WARNING"
+- id: "find_sec_bugs.SAML_IGNORE_COMMENTS-1"
+  pattern: "(BasicParserPool $POOL).setIgnoreComments(false);"
+  languages:
+  - "java"
+  message: |
+    Ignoring XML comments in SAML may lead to authentication bypass
+  metadata:
+    cwe: "CWE-287: Improper Authentication"
+    category: "security"
+  severity: "WARNING"
+- id: "find_sec_bugs.XML_DECODER-1"
+  patterns:
+  - pattern-either:
+    - patterns:
+      - pattern-inside: |
+          $D = new XMLDecoder($IN);
+          ...
+      - pattern-not-inside: |
+          $D = new XMLDecoder("...");
+          ...
+      - pattern: "$D.readObject()"
+  languages:
+  - "java"
+  message: |
+    Avoid using XMLDecoder to parse content from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-502: Deserialization of Untrusted Data"
+  severity: "WARNING"
+- id: "find_sec_bugs.MALICIOUS_XSLT-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-either:
+      - patterns:
+        - pattern-inside: |
+            $FUNC(...,String $VAR, ...) {
+              ...
+            }
+        - pattern-either:
+          - pattern: "new FileInputStream(<... $VAR ...>);"
+          - pattern: "getClass().getResourceAsStream(<... $VAR ...>)"
+      - patterns:
+        - pattern-inside: |
+            class $CLZ {
+              String $X = "...";
+              ...
+            }
+        - pattern-inside: |
+            $FUNC(...,String $Y, ...) {
+              ...
+            }
+        - pattern-either:
+          - pattern: "new FileInputStream($X + $Y);"
+          - pattern: "getClass().getResourceAsStream($X + $Y)"
+  pattern-sinks:
+  - patterns:
+    - pattern-either:
+      - pattern-inside: |-
+          (javax.xml.transform.TransformerFactory $T).newTransformer($SRC, ...)
+      - pattern-inside: |-
+          (javax.xml.transform.Transformer $T).transform($SRC, ...)
+    - pattern: "$SRC"
+  languages:
+  - "java"
+  message: |
+    It is possible to attach malicious behavior to those style sheets. Therefore, if an attacker
+    can control the content or the source of the style sheet, he might be able to trigger remote
+    code execution.
+  metadata:
+    cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path
+      Traversal')"
+    category: "security"
+  severity: "WARNING"
+- id: "find_sec_bugs.XPATH_INJECTION-1"
+  patterns:
+  - pattern-either:
+    - pattern-inside: |-
+        import javax.xml.xpath.*; ...
+    - pattern-inside: |-
+        import javax.xml.xpath.Xpath; ...
+  - pattern-either:
+    - patterns:
+      - pattern: "(XPath $X).compile($ARG)"
+      - pattern-not: "(XPath $X).compile(\"...\")"
+    - patterns:
+      - pattern: "(XPath $X).evaluate($ARG)"
+      - pattern-not: "(XPath $X).evaluate(\"...\")"
+  languages:
+  - "java"
+  message: |
+    The input values included in SQL queries need to be passed in safely. Bind
+    variables in prepared statements can be used to easily mitigate the risk of
+    SQL injection.
+  metadata:
+    category: "security"
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  severity: "ERROR"
+- id: "find_sec_bugs.XSS_REQUEST_WRAPPER-1"
+  patterns:
+  - pattern-inside: |
+      class $CLASS extends HttpServletRequestWrapper {
+      ...
+      }
+  - pattern: "stripXSS(...) { ... }"
+  languages:
+  - "java"
+  message: |
+    Avoid using custom XSS filtering. Please use standard sanitization functions.
+  metadata:
+    category: "security"
+    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
+      Scripting')"
+  severity: "INFO"
+- id: "find_sec_bugs.WICKET_XSS1-1"
+  patterns:
+  - pattern: "(org.apache.wicket.markup.html.basic.Label $X).setEscapeModelStrings(false);"
+  languages:
+  - "java"
+  message: |
+    Disabling HTML escaping put the application at risk for Cross-Site Scripting (XSS).
+  metadata:
+    category: "security"
+    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
+      Scripting')"
+  severity: "WARNING"
+- id: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletRequest $REQ, ...) {...}
+    - pattern: "$REQ.getParameter(...);"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |-
+        org.owasp.encoder.Encode.forHtml($TAINTED);
+    - pattern: "$TAINTED"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletResponse $RES, ...) {...}
+    - pattern-inside: |
+        $WRITER = $RES.getWriter();
+        ...
+    - pattern: "$WRITER.write($DATA,...);"
+    - pattern: "$DATA"
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletResponse $RES, ...) {...}
+    - pattern: "$RES.getWriter().write($DATA,...);"
+    - pattern: "$DATA"
+  message: |
+    Servlet reflected cross site scripting vulnerability
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
+    category: "security"
+    technology:
+    - "java"
+- id: "find_sec_bugs.XSS_SERVLET-1"
+  mode: "taint"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletRequest $REQ, ...) {...}
+    - pattern: "$REQ.getParameter(...);"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |-
+        org.owasp.encoder.Encode.forHtml($TAINTED);
+    - pattern: "$TAINTED"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletResponse $RES, ...) {...}
+    - pattern-inside: |
+        $WRITER = $RES.getWriter();
+        ...
+    - pattern: "$WRITER.write($DATA,...);"
+    - pattern: "$DATA"
+  - patterns:
+    - pattern-inside: |-
+        $FUNC(..., HttpServletResponse $RES, ...) {...}
+    - pattern: "$RES.getWriter().write($DATA,...);"
+    - pattern: "$DATA"
+  message: |
+    A potential XSS was found. It could be used to execute unwanted JavaScript in a
+    client's browser.
+  languages:
+  - "java"
+  metadata:
+    cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site
+      Scripting')"
+    category: "security"
+  severity: "WARNING"
+- id: "find_sec_bugs.XSS_SERVLET-2.XSS_SERVLET_PARAMETER-1"
+  pattern-either:
+  - patterns:
+    - pattern-inside: |-
+        $TYPE $FUNC(..., ServletRequest $REQ, ...) { ... }
+    - pattern-either:
+      - pattern: "$REQ.getParameter(...);"
+      - pattern: "$REQ.getParameterValues();"
+      - pattern: "$REQ.getParameterMap(...);"
+      - pattern: "$REQ.getParameterNames();"
+  - patterns:
+    - pattern-inside: |-
+        $TYPE $FUNC(..., HttpServletRequest $SREQ, ...) { ... }
+    - pattern-either:
+      - pattern: "$SREQ.getRequestedSessionId();"
+      - pattern: "$SREQ.getQueryString();"
+      - pattern: "$SREQ.getParameter(...);"
+      - pattern: "$SREQ.getParameterValues();"
+      - pattern: "$SREQ.getParameterMap(...);"
+      - pattern: "$SREQ.getParameterNames();"
+      - patterns:
+        - pattern: "$SREQ.getHeader($HEADER);"
+        - metavariable-regex:
+            metavariable: "$HEADER"
+            regex: "(?i)(Host|Referer|User-Agent)"
+  message: |
+    The Servlet can read GET and POST parameters from various methods. The value obtained should be
+    considered unsafe. You may need to validate or sanitize those values before passing them to
+    sensitive APIs
+  languages:
+  - "java"
+  severity: "WARNING"
+  metadata:
+    cwe: "CWE-20: Improper Input Validation"
+    category: "security"
+    technology:
+    - "java"
+- id: "find_sec_bugs.XXE_SAXPARSER-1"
+  patterns:
+  - pattern-inside: |
+      $SF = SAXParserFactory.newInstance();
+      ...
+  - pattern-not-inside: |
+      $SF.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      ...
+  - pattern-not-inside: |
+      $SF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      ...
+  - pattern-inside: |
+      $P = $SFP.newSAXParser();
+      ...
+  - pattern: "$P.parse(...);"
+  languages:
+  - "java"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
+  patterns:
+  - pattern-inside: |-
+      import javax.xml.transform.*; ...
+  - pattern-inside: |
+      $T = $FACT.newTransformer();
+      ...
+  - pattern-not-inside: |
+      $T.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      ...
+  - pattern-not-inside: |
+      $T.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+      ...
+  - pattern-not-inside: |
+      $T.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      ...
+  - pattern: "$T.transform(...)"
+  languages:
+  - "java"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_XMLREADER-1"
+  patterns:
+  - pattern-inside: |
+      $R = XMLReaderFactory.createXMLReader();
+      ...
+  - pattern-not-inside: |
+      $R.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      ...
+  - pattern: "$R.parse(...);"
+  languages:
+  - "java"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_XMLSTREAMREADER-1"
+  patterns:
+  - pattern-inside: |
+      $SF = XMLInputFactory.newFactory();
+      ...
+  - pattern-not-inside: |
+      $SF.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+      ...
+  - pattern-not-inside: |
+      $SF.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+      ...
+  - pattern: "$SF.createXMLStreamReader(...)"
+  languages:
+  - "java"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  severity: "ERROR"
+- id: "find_sec_bugs.XXE_XPATH-1.XXE_DOCUMENT-1"
+  patterns:
+  - pattern-inside: |
+      $DF = df.newDocumentBuilder();
+      ...
+  - pattern-not-inside: |
+      $DF.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      ...
+  - pattern-not-inside: |
+      $DF.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+      ...
+  - pattern-not-inside: |
+      $DF.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      ...
+  - pattern-not-inside: |
+      $DF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      ...
+  - pattern: "$SF.newDocumentBuilder(...)"
+  languages:
+  - "java"
+  message: |
+    XML External Entity (XXE) attacks can occur when an XML parser supports XML
+    entities while processing XML received from an untrusted source.
+  metadata:
+    category: "security"
+    cwe: "CWE-611: Improper Restriction of XML External Entity Reference ('XXE')"
+  severity: "ERROR"
