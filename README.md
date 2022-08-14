@@ -53,7 +53,7 @@ That's it. You just checked your code for 1,700+ Checks (Defects, Vulnerabilitie
 
 Sample CLI report
 
-![image](https://user-images.githubusercontent.com/20355405/182452683-6005d8f8-480c-4d15-8201-5ab32edfa20a.png)
+![betterscan-results-cli](https://user-images.githubusercontent.com/20355405/184548807-a13f5943-96ed-4c64-bf73-c4afdabd86d5.png)
 
 
 Sample HTML report
