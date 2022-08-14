@@ -1,0 +1,980 @@
+# yamllint disable
+# rule-set version: v1.0.16
+# yamllint enable
+---
+rules:
+- id: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
+  languages:
+  - "c"
+  message: |
+    Make sure the return value is checked, and do not continue if a failure is reported.
+  metadata:
+    cwe: "CWE-250: If this call fails, the program could fail to drop heightened privileges
+      (CWE-250)"
+  pattern-either:
+  - pattern: "RpcImpersonateClient(...)"
+  - pattern: "ImpersonateLoggedOnUser(...)"
+  - pattern: "CoImpersonateClient(...)"
+  - pattern: "ImpersonateNamedPipeClient(...)"
+  - pattern: "ImpersonateDdeClientWindow(...)"
+  - pattern: "ImpersonateSecurityContext(...)"
+  - pattern: "SetThreadToken(...)"
+  severity: "ERROR"
+- id: "flawfinder.umask-1"
+  languages:
+  - "c"
+  message: |
+    Ensure that umask is given most restrictive possible setting (e.g.,
+    066 or 077)
+  metadata:
+    cwe: "CWE-732: Ensure that umask is given most restrictive possible setting (e.g.,
+      066 or 077) (CWE-732)"
+  pattern: "umask(...)"
+  severity: "INFO"
+- id: "flawfinder.MultiByteToWideChar-1"
+  languages:
+  - "c"
+  message: |
+    The software does not properly handle when an input contains Unicode encoding.
+  metadata:
+    cwe: "CWE-120: Requires maximum length in CHARACTERS, not bytes (CWE-120)"
+  pattern: "MultiByteToWideChar(...)"
+  severity: "INFO"
+- id: "flawfinder.StrCat-1.StrCatA-1.StrcatW-1.lstrcatA-1.lstrcatW-1.strCatBuff-1.StrCatBuffA-1.StrCatBuffW-1.StrCatChainW-1._tccat-1._mbccat-1._ftcscat-1.StrCatN-1.StrCatNA-1.StrCatNW-1.StrNCat-1.StrNCatA-1.StrNCatW-1.lstrncat-1.lstrcatnA-1.lstrcatnW-1"
+  languages:
+  - "c"
+  message: |
+    Buffer overflow is not checked.
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
+      [MS-banned] (CWE-120)"
+  pattern-either:
+  - pattern: "StrCat(...)"
+  - pattern: "StrCatA(...)"
+  - pattern: "StrcatW(...)"
+  - pattern: "lstrcatA(...)"
+  - pattern: "lstrcatW(...)"
+  - pattern: "strCatBuff(...)"
+  - pattern: "StrCatBuffA(...)"
+  - pattern: "StrCatBuffW(...)"
+  - pattern: "StrCatChainW(...)"
+  - pattern: "_tccat(...)"
+  - pattern: "_mbccat(...)"
+  - pattern: "_ftcscat(...)"
+  - pattern: "StrCatN(...)"
+  - pattern: "StrCatNA(...)"
+  - pattern: "StrCatNW(...)"
+  - pattern: "StrNCat(...)"
+  - pattern: "StrNCatA(...)"
+  - pattern: "StrNCatW(...)"
+  - pattern: "lstrncat(...)"
+  - pattern: "lstrcatnA(...)"
+  - pattern: "lstrcatnW(...)"
+  severity: "ERROR"
+- id: "flawfinder.char-1.TCHAR-1.wchar_t-1"
+  languages:
+  - "c"
+  message: |
+    Perform bounds checking, use functions that limit length, or ensure that the size is larger
+    than the maximum possible length.
+  metadata:
+    cwe: "CWE-120: Statically-sized arrays can be improperly restricted, leading to
+      potential overflows or other issues (CWE-119!/CWE-120)"
+  pattern-either:
+  - patterns:
+    - pattern-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[.*\\]"
+    - pattern-not-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
+  - patterns:
+    - pattern-regex: "(char) *[a-zA-Z0-9_]+\\[.*\\]"
+    - pattern-not-regex: "(char) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
+  - patterns:
+    - pattern-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[.*\\]"
+    - pattern-not-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
+  - patterns:
+    - pattern-regex: "static *(const)? *(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+ *\\[.*\\]\\*(={.*})?"
+  - patterns:
+    - pattern-regex: "(.*|)(\\s|)\\=(\\s|)\\((char.*) (malloc)\\(.*\\[[0-9]+\\].*\\)"
+  severity: "INFO"
+- id: "flawfinder.equal-1.mismatch-1.is_permutation-1"
+  languages:
+  - "c"
+  message: |
+    This function is often discouraged by most C++ coding standards in favor of its safer
+    alternatives provided since C++14. Consider using a form of this function that checks the
+    second iterator before potentially overflowing it.
+  metadata:
+    cwe: "CWE-126: Function does not check the second iterator for over-read conditions
+      (CWE-126)"
+  pattern-either:
+  - pattern: "equal(...)"
+  - pattern: "mismatch(...)"
+  - pattern: "is_permutation(...)"
+  severity: "INFO"
+- id: "flawfinder.fscanf-1.sscanf-1.vsscanf-1.vfscanf-1._ftscanf-1.fwscanf-1.vfwscanf-1.vswscanf-1"
+  languages:
+  - "c"
+  message: |
+    Specify a limit to %s, or use a different input function.
+  metadata:
+    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
+      permits buffer overflows (CWE-120, CWE-20)"
+  pattern-either:
+  - pattern: "fscanf(...)"
+  - pattern: "sscanf(...)"
+  - pattern: "vsscanf(...)"
+  - pattern: "vfscanf(...)"
+  - pattern: "_ftscanf(...)"
+  - pattern: "fwscanf(...)"
+  - pattern: "vfwscanf(...)"
+  - pattern: "vswscanf(...)"
+  severity: "ERROR"
+- id: "flawfinder.g_get_home_dir-1"
+  languages:
+  - "c"
+  message: |
+    Check environment variables carefully before using them.
+  metadata:
+    cwe: "CWE-20: This function is synonymous with 'getenv(\"HOME\")';it returns untrustable
+      input if the environment can beset by an attacker.  It can have any content
+      and length, and the same variable can be set more than once (CWE-807, CWE-20)"
+  pattern: "g_get_home_dir(...)"
+  severity: "WARNING"
+- id: "flawfinder.g_get_tmp_dir-1"
+  languages:
+  - "c"
+  message: |
+    Check environment variables carefully before using them.
+  metadata:
+    cwe: "CWE-20: This function is synonymous with 'getenv(\"TMP\")';it returns untrustable
+      input if the environment can beset by an attacker.  It can have any content
+      and length, and the same variable can be set more than once (CWE-807, CWE-20)"
+  pattern: "g_get_tmp_dir(...)"
+  severity: "WARNING"
+- id: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
+  languages:
+  - "c"
+  message: |
+    CWE-20: Check buffer boundaries if used in a loop including recursive loops
+  metadata:
+    cwe: "CWE-20: Check buffer boundaries if used in a loop including recursive loops
+      (CWE-120, CWE-20)"
+  pattern-either:
+  - pattern: "getchar(...)"
+  - pattern: "fgetc(...)"
+  - pattern: "getc(...)"
+  - pattern: "read(...)"
+  - pattern: "_gettc(...)"
+  severity: "INFO"
+- id: "flawfinder.getenv-1.curl_getenv-1"
+  languages:
+  - "c"
+  message: |
+    Check environment variables carefully before using them.
+  metadata:
+    cwe: "CWE-20: Environment variables are untrustable input if they can be set by
+      an attacker.  They can have any content and length, and the same variable can
+      be set more than once (CWE-807, CWE-20)"
+  pattern-either:
+  - pattern: "getenv(...)"
+  - pattern: "curl_getenv(...)"
+  severity: "WARNING"
+- id: "flawfinder.getopt-1.getopt_long-1"
+  languages:
+  - "c"
+  message: |
+    Check implementation on installation, or limit the size of all string inputs.
+  metadata:
+    cwe: "CWE-120: Some older implementations do not protect against internal buffer
+      overflows (CWE-120, CWE-20)"
+  pattern-either:
+  - pattern: "getopt(...)"
+  - pattern: "getopt_long(...)"
+  severity: "WARNING"
+- id: "flawfinder.getpw-1"
+  languages:
+  - "c"
+  message: |
+    Use getpwuid() instead.
+  metadata:
+    cwe: "CWE-120: This function is dangerous; it may overflow the provided buffer.
+      It extracts data from a 'protected' area, but most systems have many commands
+      to let users modify the protected area, and it's not always clear what their
+      limits are.  Best to avoid using this function altogether (CWE-676, CWE-120)"
+  pattern: "getpw(...)"
+  severity: "ERROR"
+- id: "flawfinder.gets-1._getts-1"
+  languages:
+  - "c"
+  message: |
+    Use fgets() instead.
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows (CWE-120, CWE-20)"
+  pattern-either:
+  - pattern: "gets(...)"
+  - pattern: "_getts(...)"
+  severity: "ERROR"
+- id: "flawfinder.getwd-1"
+  languages:
+  - "c"
+  message: |
+    Use getcwd instead.
+  metadata:
+    cwe: "CWE-120: This does not protect against buffer overflows by itself, so use
+      with caution (CWE-120, CWE-20)"
+  pattern: "getwd(...)"
+  severity: "WARNING"
+- id: "flawfinder.lstrcat-1.wcscat-1._tcscat-1._mbscat-1"
+  languages:
+  - "c"
+  message: |
+    Buffer overflows is not checked
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
+      [MS-banned] (CWE-120)"
+  pattern-either:
+  - pattern: "lstrcat(...)"
+  - pattern: "wcscat(...)"
+  - pattern: "_tcscat(...)"
+  - pattern: "_mbscat(...)"
+  severity: "ERROR"
+- id: "flawfinder.lstrcatn-1.wcsncat-1._tcsncat-1._mbsnbcat-1"
+  languages:
+  - "c"
+  message: |
+    Consider strcat_s, strlcat, or automatically resizing strings.
+  metadata:
+    cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
+      maximum size to add) [MS-banned] (CWE-120)"
+  pattern-either:
+  - pattern: "lstrcatn(...)"
+  - pattern: "wcsncat(...)"
+  - pattern: "_tcsncat(...)"
+  - pattern: "_mbsnbcat(...)"
+  severity: "INFO"
+- id: "flawfinder.lstrcpy-1.wcscpy-1._tcscpy-1._mbscpy-1"
+  languages:
+  - "c"
+  message: |
+    Consider using a function version that stops copying at the end of the buffer.
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
+      [MS-banned] (CWE-120)"
+  pattern-either:
+  - pattern: "lstrcpy(...)"
+  - pattern: "wcscpy(...)"
+  - pattern: "_tcscpy(...)"
+  - pattern: "_mbscpy(...)"
+  severity: "ERROR"
+- id: "flawfinder.lstrcpyn-1.wcsncpy-1._tcsncpy-1._mbsnbcpy-1"
+  languages:
+  - "c"
+  message: |
+    Easily used incorrectly
+  metadata:
+    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
+      (CWE-120)"
+  pattern-either:
+  - pattern: "lstrcpyn(...)"
+  - pattern: "wcsncpy(...)"
+  - pattern: "_tcsncpy(...)"
+  - pattern: "_mbsnbcpy(...)"
+  severity: "INFO"
+- id: "flawfinder.memcpy-1.CopyMemory-1.bcopy-1"
+  languages:
+  - "c"
+  message: |
+    Make sure destination can always hold the source data.
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
+      (CWE-120)"
+  pattern-either:
+  - pattern: "memcpy(...)"
+  - pattern: "CopyMemory(...)"
+  - pattern: "bcopy(...)"
+  severity: "INFO"
+- id: "flawfinder.realpath-1"
+  languages:
+  - "c"
+  message: |
+    Ensure that the destination buffer is at least of size MAXPATHLEN, andto protect against
+    implementation problems, the input argument should also be checked to ensure it is no larger
+    than MAXPATHLEN.
+  metadata:
+    cwe: "CWE-120: This function does not protect against buffer overflows, and some
+      implementations can overflow internally (CWE-120/CWE-785!)"
+  pattern: "realpath(...)"
+  severity: "WARNING"
+- id: "flawfinder.scanf-1.vscanf-1.wscanf-1._tscanf-1.vwscanf-1"
+  languages:
+  - "c"
+  message: |
+    Specify a limit to %s, or use a different input function.
+  metadata:
+    cwe: "CWE-120: The scanf() family's %s operation, without a limit specification,
+      permits buffer overflows (CWE-120, CWE-20)"
+  pattern-either:
+  - patterns:
+    - pattern: "scanf($FMT, ...)"
+    - pattern-not: "scanf(\"...\", ...)"
+  - patterns:
+    - pattern: "vscanf($FMT, ...)"
+    - pattern-not: "vscanf(\"...\", ...)"
+  - patterns:
+    - pattern: "wscanf($FMT, ...)"
+    - pattern-not: "wscanf(\"...\", ...)"
+  - patterns:
+    - pattern: "_tscanf($FMT, ...)"
+    - pattern-not: "_tscanf(\"...\", ...)"
+  - patterns:
+    - pattern: "vwscanf(FMT, ...)"
+    - pattern-not: "vwscanf(\"...\", ...)"
+  severity: "ERROR"
+- id: "flawfinder.sprintf-1.vsprintf-1.swprintf-1.vswprintf-1._stprintf-1._vstprintf-1"
+  languages:
+  - "c"
+  message: |
+    Use sprintf_s, snprintf, or vsnprintf.
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows (CWE-120)"
+  pattern-either:
+  - pattern: "sprintf(...)"
+  - pattern: "vsprintf(...)"
+  - pattern: "swprintf(...)"
+  - pattern: "vswprintf(...)"
+  - pattern: "_stprintf(...)"
+  - pattern: "_vstprintf(...)"
+  severity: "ERROR"
+- id: "flawfinder.strcat-1"
+  languages:
+  - "c"
+  message: |
+    Consider using strcat_s, strncat, strlcat, or snprintf (warning: strncat is easily misused).
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when concatenating to destination
+      [MS-banned] (CWE-120)"
+  pattern: "strcat(...)"
+  severity: "ERROR"
+- id: "flawfinder.strccpy-1.strcadd-1"
+  languages:
+  - "c"
+  message: |
+    Ensure that destination buffer is sufficiently large.
+  metadata:
+    cwe: "CWE-120: Subject to buffer overflow if buffer is not as big as claimed (CWE-120)"
+  pattern-either:
+  - pattern: "strccpy(...)"
+  - pattern: "strcadd(...)"
+  severity: "INFO"
+- id: "flawfinder.strcpy-1"
+  languages:
+  - "c"
+  message: |
+    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
+      [MS-banned] (CWE-120)"
+  pattern: "strcpy(...)"
+  severity: "ERROR"
+- id: "flawfinder.strcpyA-1.strcpyW-1.StrCpy-1.StrCpyA-1.lstrcpyA-1.lstrcpyW-1._tccpy-1._mbccpy-1._ftcscpy-1._mbsncpy-1.StrCpyN-1.StrCpyNA-1.StrCpyNW-1.StrNCpy-1.strcpynA-1.StrNCpyA-1.StrNCpyW-1.lstrcpynA-1.lstrcpynW-1"
+  languages:
+  - "c"
+  message: |
+    Consider using snprintf, strcpy_s, or strlcpy (warning: strncpy easily misused).
+  metadata:
+    cwe: "CWE-120: Does not check for buffer overflows when copying to destination
+      [MS-banned] (CWE-120)"
+  pattern-either:
+  - pattern: "strcpyA(...)"
+  - pattern: "strcpyW(...)"
+  - pattern: "StrCpy(...)"
+  - pattern: "StrCpyA(...)"
+  - pattern: "lstrcpyA(...)"
+  - pattern: "lstrcpyW(...)"
+  - pattern: "_tccpy(...)"
+  - pattern: "_mbccpy(...)"
+  - pattern: "_ftcscpy(...)"
+  - pattern: "_mbsncpy(...)"
+  - pattern: "StrCpyN(...)"
+  - pattern: "StrCpyNA(...)"
+  - pattern: "StrCpyNW(...)"
+  - pattern: "StrNCpy(...)"
+  - pattern: "strcpynA(...)"
+  - pattern: "StrNCpyA(...)"
+  - pattern: "StrNCpyW(...)"
+  - pattern: "lstrcpynA(...)"
+  - pattern: "lstrcpynW(...)"
+  severity: "ERROR"
+- id: "flawfinder.streadd-1.strecpy-1"
+  languages:
+  - "c"
+  message: |
+    Ensure the destination has 4 times the size of the source, to leave room for expansion.
+  metadata:
+    cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+  pattern-either:
+  - pattern: "streadd(...)"
+  - pattern: "strecpy(...)"
+  severity: "ERROR"
+- id: "flawfinder.strlen-1.wcslen-1._tcslen-1._mbslen-1"
+  languages:
+  - "c"
+  message: |
+    Does not handle strings that are not \\0-terminated.
+  metadata:
+    cwe: "CWE-126: Does not handle strings that are not \\0-terminated; if given one
+      it may perform an over-read (it could cause a crash if unprotected) (CWE-126)"
+  pattern-either:
+  - pattern: "strlen(...)"
+  - pattern: "wcslen(...)"
+  - pattern: "_tcslen(...)"
+  - pattern: "_mbslen(...)"
+  severity: "INFO"
+- id: "flawfinder.strncat-1"
+  languages:
+  - "c"
+  message: |
+    Consider strcat_s, strlcat, snprintf, or automatically resizing strings.
+  metadata:
+    cwe: "CWE-120: Easily used incorrectly (e.g., incorrectly computing the correct
+      maximum size to add) [MS-banned] (CWE-120)"
+  pattern: "strncat(...)"
+  severity: "INFO"
+- id: "flawfinder.strncpy-1"
+  languages:
+  - "c"
+  message: |
+    Easily used incorrectly
+  metadata:
+    cwe: "CWE-120: Doesn't always \\0-terminate or check for invalid pointers [MS-banned]
+      (CWE-120)"
+  pattern: "strncpy(...)"
+  severity: "INFO"
+- id: "flawfinder.strtrns-1"
+  languages:
+  - "c"
+  message: |
+    Ensure that destination is at least as long as the source.
+  metadata:
+    cwe: "CWE-120: This function does not protect against buffer overflows (CWE-120)"
+  pattern: "strtrns(...)"
+  severity: "WARNING"
+- id: "flawfinder.EVP_des_ecb-1.EVP_des_cbc-1.EVP_des_cfb-1.EVP_des_ofb-1.EVP_desx_cbc-1"
+  languages:
+  - "c"
+  message: |
+    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
+  metadata:
+    cwe: "CWE-327: DES only supports a 56-bit keysize, which is too small given today's
+      computers (CWE-327)"
+  pattern-either:
+  - pattern: "EVP_des_ecb(...)"
+  - pattern: "EVP_des_cbc(...)"
+  - pattern: "EVP_des_cfb(...)"
+  - pattern: "EVP_des_ofb(...)"
+  - pattern: "EVP_desx_cbc(...)"
+  severity: "ERROR"
+- id: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
+  languages:
+  - "c"
+  message: |
+    Use a different patent-free encryption algorithm with a larger keysize, such as 3DES or AES.
+  metadata:
+    cwe: "CWE-327: These keysizes are too small given today's computers (CWE-327)"
+  pattern-either:
+  - pattern: "EVP_rc4_40(...)"
+  - pattern: "EVP_rc2_40_cbc(...)"
+  - pattern: "EVP_rc2_64_cbc(...)"
+  severity: "ERROR"
+- id: "flawfinder.crypt-1.crypt_r-1"
+  languages:
+  - "c"
+  message: |
+    Use a different algorithm, such as SHA-256, with a larger, non-repeating salt.
+  metadata:
+    cwe: "CWE-327: The crypt functions use a poor one-way hashing algorithm; since
+      they only accept passwords of 8 characters or fewer and only a two-byte salt,
+      they are excessively vulnerable to dictionary attacks given today's faster computing
+      equipment (CWE-327)"
+  pattern-either:
+  - pattern: "crypt(...)"
+  - pattern: "crypt_r(...)"
+  severity: "ERROR"
+- id: "flawfinder.fprintf-1.vfprintf-1._ftprintf-1._vftprintf-1.fwprintf-1.fvwprintf-1"
+  languages:
+  - "c"
+  message: |
+    Use a constant for the format specification.
+  metadata:
+    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
+      exploited (CWE-134)"
+  pattern-either:
+  - patterns:
+    - pattern: "fprintf($FD, $FMT, ...)"
+    - pattern-not: "fprintf($FD, \"...\", ...)"
+  - patterns:
+    - pattern: "vfprintf($FMT, $ARGS, ...)"
+    - pattern-not: "vfprintf(\"...\", $ARGS, ...)"
+  - patterns:
+    - pattern: "_ftprintf($FD, $FMT, ...)"
+    - pattern-not: "_ftprintf($FD, \"...\", ...)"
+  - patterns:
+    - pattern: "fwprintf($FD, $FMT, ...)"
+    - pattern-not: "fwprintf($FD, \"...\", ...)"
+  - patterns:
+    - pattern: "fvwprintf($FD, $FMT, ...)"
+    - pattern-not: "fvwprintf($FD, \"...\", ...)"
+  severity: "ERROR"
+- id: "flawfinder.printf-1.vprintf-1.vwprintf-1.vfwprintf-1._vtprintf-1.wprintf-1"
+  languages:
+  - "c"
+  message: |
+    Use a constant for the format specification.
+  metadata:
+    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
+      exploited (CWE-134)"
+  pattern-either:
+  - patterns:
+    - pattern: "printf(...)"
+    - pattern-not: "printf(\"...\",...)"
+  - patterns:
+    - pattern: "vprintf($FMT, ...)"
+    - pattern-not: "vprintf(\"...\", ...)"
+  - patterns:
+    - pattern: "vwprintf($FMT, ...)"
+    - pattern-not: "vwprintf(\"...\", ...)"
+  - patterns:
+    - pattern: "vfwprintf($FILE, $FMT, ...)"
+    - pattern-not: "vfwprintf($FILE, \"...\", ...)"
+  - patterns:
+    - pattern: "_vtprintf($FILE, $FMT, ...)"
+    - pattern-not: "_vtprintf($FILE, \"...\", ...)"
+  - patterns:
+    - pattern: "wprintf($FMT, ...)"
+    - pattern-not: "wprintf(\"...\", ...)"
+  severity: "ERROR"
+- id: "flawfinder.snprintf-1.vsnprintf-1._snprintf-1._sntprintf-1._vsntprintf-1"
+  languages:
+  - "c"
+  message: |
+    Use a constant for the format specification.
+  metadata:
+    cwe: "CWE-134: If format strings can be influenced by an attacker, they can be
+      exploited, and note that sprintf variations do not always \\0-terminate (CWE-134)"
+  pattern-either:
+  - patterns:
+    - pattern: "snprintf($BUF,$SIZ,$FMT,...)"
+    - pattern-not: "snprintf($BUF,$SIZ,\"...\",...)"
+  - patterns:
+    - pattern: "vsnprintf($BUF,$SIZ,$FMT)"
+    - pattern-not: "vsnprintf($BUF,$SIZ,\"...\",...)"
+  - patterns:
+    - pattern: "_snprintf($BUF,$SIZ,$FMT,...)"
+    - pattern-not: "_snprintf($BUF,$SIZ,$FMT,\"...\",...)"
+  - patterns:
+    - pattern: "_sntprintf($VAR,$FMT,...)"
+    - pattern-not: "sntprintf($VAR,\"...\",...)"
+  - patterns:
+    - pattern: "_vsntprintf($VAR,$FMT,...)"
+    - pattern-not: "_vsntprintf($VAR,\"...\",...)"
+  severity: "ERROR"
+- id: "flawfinder.syslog-1"
+  languages:
+  - "c"
+  message: |
+    Use a constant format string for syslog.
+  metadata:
+    cwe: "CWE-134: If syslog's format strings can be influenced by an attacker, they
+      can be exploited (CWE-134)"
+  pattern-either:
+  - patterns:
+    - pattern: "syslog($FUNC,...)"
+    - pattern-not: "syslog($FUNC,\"...\",...)"
+  severity: "ERROR"
+- id: "flawfinder.memalign-1"
+  languages:
+  - "c"
+  message: |
+    Use posix_memalign instead (defined in POSIX's 1003.1d).  Don't switch to valloc(); it is
+    marked as obsolete in BSD 4.3, as legacy in SUSv2, and is no longer defined in SUSv3.  In some
+    cases, malloc()'s alignment may be sufficient.
+  metadata:
+    cwe: "CWE-676: On some systems (though not Linux-based systems) an attempt to
+      free() results from memalign() may fail. This may, on a few systems, be exploitable.
+      \ Also note that memalign() may not check that the boundary parameter is correct
+      (CWE-676)"
+  pattern-either:
+  - pattern: "memalign(...)"
+  - pattern-regex: "(void)\\s\\*(\\s|)(memalign)\\;"
+  severity: "INFO"
+- id: "flawfinder.atoi-1.atol-1._wtoi-1._wtoi64-1"
+  languages:
+  - "c"
+  message: |
+    If source untrusted, check both minimum and maximum, even if the input had no minus sign (large
+    numbers can roll over into negative number; consider saving to an unsigned value if that is
+    intended).
+  metadata:
+    cwe: "CWE-190: Unless checked, the resulting number can exceed the expected range
+      (CWE-190)"
+  pattern-either:
+  - pattern: "atoi(...)"
+  - pattern: "atol(...)"
+  - pattern: "_wtoi(...)"
+  - pattern: "_wtoi64(...)"
+  severity: "INFO"
+- id: "flawfinder.AddAccessAllowedAce-1"
+  languages:
+  - "c"
+  message: |
+    Make sure that you set inheritance by hand if you wish it to inherit.
+  metadata:
+    cwe: "CWE-732: This doesn't set the inheritance bits in the access control entry
+      (ACE) header (CWE-732)"
+  pattern: "AddAccessAllowedAce(...)"
+  severity: "WARNING"
+- id: "flawfinder.InitializeCriticalSection-1"
+  languages:
+  - "c"
+  message: |
+    Use InitializeCriticalSectionAndSpinCount instead.
+  metadata:
+    cwe: "CWE-754: Exceptions can be thrown in low-memory situations"
+  pattern: "InitializeCriticalSection(...)"
+  severity: "WARNING"
+- id: "flawfinder.LoadLibrary-1"
+  languages:
+  - "c"
+  message: |
+    Use LoadLibraryEx with one of the search flags, or call SetSearchPathMode to use a safe search
+    path, or pass a full path to the library.
+  metadata:
+    cwe: "CWE-20: Ensure that the full path to the library is specified, or current
+      directory may be used (CWE-829, CWE-20)"
+  pattern: "LoadLibrary(...)"
+  severity: "WARNING"
+- id: "flawfinder.LoadLibraryEx-1"
+  languages:
+  - "c"
+  message: |
+    Use a flag like LOAD_LIBRARY_SEARCH_SYSTEM32 or LOAD_LIBRARY_SEARCH_APPLICATION_DIR to search
+    only desired folders.
+  metadata:
+    cwe: "CWE-20: Ensure that the full path to the library is specified, or current
+      directory may be used (CWE-829, CWE-20)"
+  pattern: "LoadLibraryEx(...)"
+  severity: "WARNING"
+- id: "flawfinder.SetSecurityDescriptorDacl-1"
+  languages:
+  - "c"
+  message: |
+    Never create NULL ACLs; an attacker can set it to Everyone (Deny
+    All Access)
+  metadata:
+    cwe: "CWE-732: Never create NULL ACLs; an attacker can set it to Everyone (Deny
+      All Access), which would even forbid administrator access (CWE-732)"
+  pattern: "SetSecurityDescriptorDacl(...)"
+  severity: "ERROR"
+- id: "flawfinder.chroot-1"
+  languages:
+  - "c"
+  message: |
+    Make sure the program immediately chdir("/"), closes file descriptors, and drops root
+    privileges, and that all necessary files (and no more!) are in the new root.
+  metadata:
+    cwe: "CWE-22: chroot can be very helpful, but is hard to use correctly (CWE-250,
+      CWE-22)"
+  pattern: "chroot(...)"
+  severity: "WARNING"
+- id: "flawfinder.cuserid-1"
+  languages:
+  - "c"
+  message: |
+    Use getpwuid(geteuid()) and extract the desired information instead.
+  metadata:
+    cwe: "CWE-120: Exactly what cuserid() does is poorly defined (e.g., some systems
+      use the effective uid, like Linux, while others like System V use the real uid).
+      Thus, you can't trust what it does. It's certainly not portable (The cuserid
+      function was included in the 1988 version of POSIX, but removed from the 1990
+      version).  Also, if passed a non-null parameter, there's a risk of a buffer
+      overflow if the passed-in buffer is not at least L_cuserid characters long (CWE-120)"
+  pattern: "cuserid(...)"
+  severity: "ERROR"
+- id: "flawfinder.fopen-1.open-1"
+  languages:
+  - "c"
+  message: |
+    Check when opening files - can an attacker redirect it (via symlinks).
+  metadata:
+    cwe: "CWE-362: Check when opening files - can an attacker redirect it (via symlinks),
+      force the opening of special file type (e.g., device files), move things around
+      to create a race condition, control its ancestors, or change its contents? (CWE-362)"
+  pattern-either:
+  - pattern: "fopen(...)"
+  - pattern: "open(...)"
+  severity: "INFO"
+- id: "flawfinder.getlogin-1"
+  languages:
+  - "c"
+  message: |
+    Use getpwuid(geteuid()) and extract the desired information instead.
+  metadata:
+    cwe: "CWE-807: It's often easy to fool getlogin.  Sometimes it does not work at
+      all, because some program messed up the utmp file.  Often, it gives only the
+      first 8 characters of the login name. The user currently logged in on the controlling
+      tty of our program need not be the user who started it.  Avoid getlogin() for
+      security-related purposes (CWE-807)"
+  pattern: "getlogin(...)"
+  severity: "ERROR"
+- id: "flawfinder.getpass-1"
+  languages:
+  - "c"
+  message: |
+    Make the specific calls to do exactly what you want.  If you continue to use it, or write your
+    own, be sure to zero the password as soon as possible to avoid leaving the cleartext password
+    visible in the process' address space.
+  metadata:
+    cwe: "CWE-20: This function is obsolete and not portable. It was in SUSv2 but
+      removed by POSIX.2.  What it does exactly varies considerably between systems,
+      particularly in where its prompt is displayed and where it gets its data (e.g.,
+      /dev/tty, stdin, stderr, etc.). In addition, some implementations overflow buffers.
+      (CWE-676, CWE-120, CWE-20)"
+  pattern: "getpass(...)"
+  severity: "ERROR"
+- id: "flawfinder.gsignal-1.ssignal-1"
+  languages:
+  - "c"
+  message: |
+    Switch to raise/signal, or some other signalling approach.
+  metadata:
+    cwe: "CWE-676: These functions are considered obsolete on most systems, and very
+      non-portable (Linux-based systems handle them radically different, basically
+      if gsignal/ssignal were the same as raise/signal respectively, while System
+      V considers them a separate set and obsolete) (CWE-676)"
+  pattern-either:
+  - pattern: "gsignal(...)"
+  - pattern: "ssignal(...)"
+  severity: "INFO"
+- id: "flawfinder.ulimit-1"
+  languages:
+  - "c"
+  message: |
+    Use getrlimit(2), setrlimit(2), and sysconf(3) instead.
+  metadata:
+    cwe: "CWE-676: This C routine is considered obsolete (as opposed to the shell
+      command by the same name, which is NOT obsolete) (CWE-676)"
+  pattern: "ulimit(...)"
+  severity: "INFO"
+- id: "flawfinder.usleep-1"
+  languages:
+  - "c"
+  message: |
+    Use nanosleep(2) or setitimer(2) instead.
+  metadata:
+    cwe: "CWE-676: This C routine is considered obsolete (as opposed to the shell
+      command by the same name).   The interaction of this function with SIGALRM and
+      other timer functions such as sleep(), alarm(), setitimer(), and nanosleep()
+      is unspecified (CWE-676)"
+  pattern: "usleep(...)"
+  severity: "INFO"
+- id: "flawfinder.access-1"
+  languages:
+  - "c"
+  message: |
+    Set up the correct permissions (e.g., using setuid()) and try to open the file directly.
+  metadata:
+    cwe: "CWE-362: This usually indicates a security flaw.  If an attacker can change
+      anything along the path between the call to access() and the file's actual use
+      (e.g., by moving files), the attacker can exploit the race condition (CWE-362/CWE-367!)"
+  pattern: "access(...)"
+  severity: "ERROR"
+- id: "flawfinder.chgrp-1"
+  languages:
+  - "c"
+  message: |
+    Use fchgrp( ) instead.
+  metadata:
+    cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
+      files, a race condition results. (CWE-362)"
+  pattern: "chgrp(...)"
+  severity: "ERROR"
+- id: "flawfinder.chmod-1"
+  languages:
+  - "c"
+  message: |
+    Use fchmod( ) instead.
+  metadata:
+    cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
+      files, a race condition results. (CWE-362)"
+  pattern: "chmod(...)"
+  severity: "ERROR"
+- id: "flawfinder.chown-1"
+  languages:
+  - "c"
+  message: |
+    Use fchown( ) instead.
+  metadata:
+    cwe: "CWE-362: This accepts filename arguments; if an attacker can move those
+      files, a race condition results. (CWE-362)"
+  pattern: "chown(...)"
+  severity: "ERROR"
+- id: "flawfinder.readlink-1"
+  languages:
+  - "c"
+  message: |
+    Reconsider approach.
+  metadata:
+    cwe: "CWE-20: This accepts filename arguments; if an attacker can move those files
+      or change the link content, a race condition results.  Also, it does not terminate
+      with ASCII NUL. (CWE-362, CWE-20)"
+  pattern: "readlink(...)"
+  severity: "ERROR"
+- id: "flawfinder.vfork-1"
+  languages:
+  - "c"
+  message: |
+    Use fork() instead.
+  metadata:
+    cwe: "CWE-362: On some old systems, vfork() permits race conditions, and it's
+      very difficult to use correctly (CWE-362)"
+  pattern: "vfork(...)"
+  severity: "INFO"
+- id: "flawfinder.drand48-1.erand48-1.jrand48-1.lcong48-1.lrand48-1.mrand48-1.nrand48-1.random-1.seed48-1.setstate-1.srand-1.strfry-1.srandom-1.g_rand_boolean-1.g_rand_int-1.g_rand_int_range-1.g_rand_double-1.g_rand_double_range-1.g_random_boolean-1.g_random_int-1.g_random_int_range-1.g_random_double-1.g_random_double_range-1"
+  languages:
+  - "c"
+  message: |
+    Use a more secure technique for acquiring random values.
+  metadata:
+    cwe: "CWE-327: This function is not sufficiently random for security-related functions
+      such as key and nonce creation (CWE-327)"
+  pattern-either:
+  - pattern: "drand48(...)"
+  - pattern: "erand48(...)"
+  - pattern: "jrand48(...)"
+  - pattern: "lcong48(...)"
+  - pattern: "lrand48(...)"
+  - pattern: "mrand48(...)"
+  - pattern: "nrand48(...)"
+  - pattern: "random(...)"
+  - pattern: "seed48(...)"
+  - pattern: "setstate(...)"
+  - pattern: "srand(...)"
+  - pattern: "strfry(...)"
+  - pattern: "srandom(...)"
+  - pattern: "g_rand_boolean(...)"
+  - pattern: "g_rand_int(...)"
+  - pattern: "g_rand_int_range(...)"
+  - pattern: "g_rand_double(...)"
+  - pattern: "g_rand_double_range(...)"
+  - pattern: "g_random_boolean(...)"
+  - pattern: "g_random_int(...)"
+  - pattern: "g_random_int_range(...)"
+  - pattern: "g_random_double(...)"
+  - pattern: "g_random_double_range(...)"
+  - pattern-regex: "(long|short|double|int|float|void)\\s(\\*|)(\\s|)(seed48|lcong48)(\\(.*\\))\\;"
+  severity: "WARNING"
+- id: "flawfinder.CreateProcess-1"
+  languages:
+  - "c"
+  message: |
+    Specify the application path in the first argument, NOT as part of the second, or embedded
+    spaces could allow an attacker to force a different program to run.
+  metadata:
+    cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
+      (CWE-78)"
+  pattern: "CreateProcess(...)"
+  severity: "WARNING"
+- id: "flawfinder.CreateProcessAsUser-1.CreateProcessWithLogon-1"
+  languages:
+  - "c"
+  message: |
+    Especially watch out for embedded spaces.
+  metadata:
+    cwe: "CWE-78: This causes a new process to execute and is difficult to use safely
+      (CWE-78)"
+  pattern-either:
+  - pattern: "CreateProcessAsUser(...)"
+  - pattern: "CreateProcessWithLogon(...)"
+  severity: "WARNING"
+- id: "flawfinder.execl-1.execlp-1.execle-1.execv-1.execvp-1.popen-1.WinExec-1.ShellExecute-1"
+  languages:
+  - "c"
+  message: |
+    try using a library call that implements the same functionality if available.
+  metadata:
+    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
+      (CWE-78)"
+  pattern-either:
+  - pattern: "execl(...)"
+  - pattern: "execlp(...)"
+  - pattern: "execle(...)"
+  - pattern: "execv(...)"
+  - pattern: "execvp(...)"
+  - pattern: "popen(...)"
+  - pattern: "WinExec(...)"
+  - pattern: "ShellExecute(...)"
+  severity: "ERROR"
+- id: "flawfinder.system-1"
+  languages:
+  - "c"
+  message: |
+    try using a library call that implements the same functionality if available.
+  metadata:
+    cwe: "CWE-78: This causes a new program to execute and is difficult to use safely
+      (CWE-78)"
+  pattern: "system(...)"
+  severity: "ERROR"
+- id: "flawfinder.GetTempFileName-1"
+  languages:
+  - "c"
+  message: |
+    Temporary file race condition in certain cases.
+  metadata:
+    cwe: "CWE-377: Temporary file race condition in certain cases (e.g., if run as
+      SYSTEM in many versions of Windows) (CWE-377)"
+  pattern: "GetTempFileName(...)"
+  severity: "WARNING"
+- id: "flawfinder.mkstemp-1"
+  languages:
+  - "c"
+  message: |
+    Some older Unix-like systems create temp files with permission to write by
+    all by default, so be sure to set the umask to override this. Also, some older
+    Unix systems might fail to use O_EXCL when opening the file, so make sure that
+    O_EXCL is used by the library.
+  metadata:
+    cwe: "CWE-377: Potential for temporary file vulnerability in some circumstances."
+  pattern: "mkstemp(...)"
+  severity: "INFO"
+- id: "flawfinder.mktemp-1"
+  languages:
+  - "c"
+  message: |
+    Creating and using insecure temporary files can leave application and system data vulnerable to
+    attack (CWE-377).
+  metadata:
+    cwe: "CWE-377: Temporary file race condition (CWE-377)"
+  pattern: "mktemp(...)"
+  severity: "ERROR"
+- id: "flawfinder.tmpfile-1"
+  languages:
+  - "c"
+  message: |
+    Creating and using insecure temporary files can leave application and system data vulnerable to
+    attack
+  metadata:
+    cwe: "CWE-377: Function tmpfile() has a security flaw on some systems (e.g., older
+      System V systems) (CWE-377)"
+  pattern: "tmpfile(...)"
+  severity: "INFO"
+- id: "flawfinder.tmpnam-1.tempnam-1"
+  languages:
+  - "c"
+  message: |
+    Creating and using insecure temporary files can leave application and system data vulnerable to
+    attack.
+  metadata:
+    cwe: "CWE-377: Temporary file race condition (CWE-377)"
+  pattern-either:
+  - pattern: "tmpnam(...)"
+  - pattern: "tempnam(...)"
+  severity: "WARNING"
