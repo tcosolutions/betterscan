@@ -53,7 +53,7 @@ That's it. You just checked your code for 1,700+ Checks (Defects, Vulnerabilitie
 
 Sample CLI report
 
-![image](https://user-images.githubusercontent.com/20355405/182452683-6005d8f8-480c-4d15-8201-5ab32edfa20a.png)
+![betterscan-results-cli](https://user-images.githubusercontent.com/20355405/184548807-a13f5943-96ed-4c64-bf73-c4afdabd86d5.png)
 
 
 Sample HTML report
@@ -311,6 +311,10 @@ Loading plugin: kubescape
 Loading plugin: insidersecswift
 Loading plugin: insiderseckotlin
 Loading plugin: insiderseccsharp
+Loading plugin: pmdapex
+Loading plugin: semgrepccpp
+Loading plugin: semgrepjava
+Loading plugin: semgrepeslint
 semgrepjs	ExpressLfrWarning	
 semgrepjs	CookieSessionNoDomain	
 semgrepjs	CookieSessionNoPath	
@@ -347,6 +351,10 @@ Loading plugin: kubescape
 Loading plugin: insidersecswift
 Loading plugin: insiderseckotlin
 Loading plugin: insiderseccsharp
+Loading plugin: pmdapex
+Loading plugin: semgrepccpp
+Loading plugin: semgrepjava
+Loading plugin: semgrepeslint
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
@@ -420,7 +428,7 @@ The application consists of several parts:
 * A backend, realized as a Flask app, that exposes a REST API consumed by the frontend
 * A background worker, realized using Celery, that performs the code analysis
 
-Currently supports: PHP, Java, Scala, Python, Ruby, .NET Full Framework, C#, Swift, Kotlin,  Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1,700+ checks) 
+Currently supports: PHP, Java, Scala, Python, Ruby, .NET Full Framework, C#, C, C++, Swift, Kotlin, Apex (Salesforce), Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infractructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 1,700+ checks) 
 
 Advantages:
 * Many tools, one report (unification) 
