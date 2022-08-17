@@ -15,7 +15,7 @@ from .validators import GitUrl,GitKey
 class EditProjectForm(Form):
 
     url = StringField("URL", [validators.DataRequired(), GitUrl()])
-    private_key = StringField("PRIVATEKEY", [validators.DataRequired(), GitKey()])
+    private_key = StringField("PRIVATEKEY", [validators.Optional(), GitKey()])
 
 
 
