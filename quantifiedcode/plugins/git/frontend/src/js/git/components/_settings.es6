@@ -137,7 +137,7 @@ var GitSettings = React.createClass({
                                     {key_input}
                                 </div>
                               </div>
-                              <button disabled={this.state.disabled} className="btn btn-large btn-primary pull-right" onClick={this.submitForm}>
+                              <button disabled={this.state.disabled} className="btn btn-primary" onClick={this.submitForm}>
                                 Update {this.state.disabled ? <i className="fa fa-refresh fa-spin"/>: ''}
                               </button>
                             </form>
