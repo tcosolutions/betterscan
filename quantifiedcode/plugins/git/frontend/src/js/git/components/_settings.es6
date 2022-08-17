@@ -17,7 +17,8 @@ var GitSettings = React.createClass({
 
     getInitialState: function(){
         var state = {fetchRemoteFailed: false};
-          state['url'] = this.props.project.git.url
+          state['url'] = this.props.project.git.url,
+          state['privatekey'] = this.props.project.git.private_key
         return state;
     },
 
@@ -27,7 +28,14 @@ var GitSettings = React.createClass({
 
     setURL: function(e){
         this.setState({url: e.target.value});
+
+        
     },
+    setSSHKEY: function(e){
+        this.setState({privatekey: e.target.value});
+    },
+
+
 
     submitForm: function(e){
         e.preventDefault();
@@ -48,7 +56,7 @@ var GitSettings = React.createClass({
 
         this.disable();
 
-        ProjectApi.update(this.props.project.pk,{overwrite : true,fetch : true,name : 'origin',url : this.state.url},onSuccess,onError);
+        ProjectApi.update(this.props.project.pk,{overwrite : true,fetch : true,name : 'origin',url : this.state.url, private_key: this.state.privatekey},onSuccess,onError);
     },
 
     render : function(){
@@ -62,7 +70,14 @@ var GitSettings = React.createClass({
                               autofocus="true"
                               onChange={this.setter('url')}
                               disabled={this.state.disabled}/>
+        var key_input = <textarea className="form-control"
+                              id="privatekey" 
+                              defaultValue={git.private_key || ''}
+                              onChange={this.setSSHKEY}
+                              disabled={this.state.disabled}/>
+       
 
+    
         var fetchStatus = <div className="col-xs-12"><p className="alert alert-info">It seems that we have not fetched this repository yet...</p></div>;
 
         if (project.fetched_at !== undefined){
@@ -105,6 +120,8 @@ var GitSettings = React.createClass({
                         <div className="col-xs-12">
                              <form ref="form" id="remote_form" className="form-horizontal" role="form">
                                 {this.formatErrorMessage('url')}
+                                {this.formatErrorMessage('key')}
+                                
                               <div className="form-group">
                                 <div className="col-xs-12">
                                   <label htmlFor="url">URL</label>
@@ -115,6 +132,9 @@ var GitSettings = React.createClass({
                                 <div className="col-xs-12">
                                     <p>If you use SSH to access your repository, please add the following public key:</p>
                                     <pre><code>{git.public_key}</code></pre>
+                                    <label htmlFor="privatekey">PRIVATEKEY</label>
+                                    {this.formatFieldError('key')}
+                                    {key_input}
                                 </div>
                               </div>
                               <button disabled={this.state.disabled} className="btn btn-large btn-primary pull-right" onClick={this.submitForm}>

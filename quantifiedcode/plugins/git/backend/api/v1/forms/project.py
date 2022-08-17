@@ -10,11 +10,14 @@
 
 
 from wtforms import Form, BooleanField, TextAreaField, StringField, validators
-from .validators import GitUrl
+from .validators import GitUrl,GitKey
 
 class EditProjectForm(Form):
 
     url = StringField("URL", [validators.DataRequired(), GitUrl()])
+    private_key = StringField("PRIVATEKEY", [validators.DataRequired(), GitKey()])
+
+
 
 class NewProjectForm(Form):
 
@@ -24,4 +27,5 @@ class NewProjectForm(Form):
     public = BooleanField("Public", [validators.InputRequired()])
     description = StringField("Description", [validators.Optional()])
     url = StringField("URL", [validators.DataRequired(), GitUrl()])
+    private_key = StringField("PRIVATEKEY", [validators.DataRequired(), GitKey()])
     name = StringField("Name", [validators.Length(min=NAME_LENGTH_MIN, max=NAME_LENGTH_MAX)])

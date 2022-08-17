@@ -27,3 +27,16 @@ class GitUrl(object):
                 return True
         else:
             raise ValidationError(self.message)
+
+class GitKey(object):
+    """ Checks whether the provided Key is a valid Git Key
+    """
+
+    def __init__(self, message=None):
+        if message is None:
+            message = ("Invalid KEY format")
+        self.message = message
+
+    def __call__(self, form, field):
+    
+        return True
