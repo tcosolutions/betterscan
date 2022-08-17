@@ -15,6 +15,7 @@ import shutil
 import tempfile
 import re
 import datetime
+from os import environ
 
 from checkmate.contrib.plugins.git.lib.repository import Repository
 

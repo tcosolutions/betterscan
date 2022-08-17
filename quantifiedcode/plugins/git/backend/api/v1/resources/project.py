@@ -51,6 +51,7 @@ class ProjectDetails(Resource):
 
         with backend.transaction():
             backend.update(project.git, form.data)
+         
 
         return {'message' : 'success'}, 200
 
@@ -76,7 +77,8 @@ class ProjectDetails(Resource):
 
         git_data = {
             'default_branch' : 'origin/master',
-            'url' : form.url.data
+            'url' : form.url.data,
+            'private_key' : form.private_key.data
         }
 
         try:
