@@ -27,5 +27,5 @@ class NewProjectForm(Form):
     public = BooleanField("Public", [validators.InputRequired()])
     description = StringField("Description", [validators.Optional()])
     url = StringField("URL", [validators.DataRequired(), GitUrl()])
-    private_key = StringField("PRIVATEKEY", [validators.DataRequired(), GitKey()])
+    private_key = StringField("PRIVATEKEY", [validators.Optional(), GitKey()])
     name = StringField("Name", [validators.Length(min=NAME_LENGTH_MIN, max=NAME_LENGTH_MAX)])
