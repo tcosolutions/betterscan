@@ -4,9 +4,34 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 
+If you want to scan your Code and Infrastructure
+
+Install docker and run this in your Git code directory:
+
+HTML output (result report.html)
+
+`sh <(curl https://betterscan.io/cli-html.sh)`
+
+CLI output
+
+`sh <(curl https://betterscan.io/cli.sh)`
+
+If you need CI/CD and Webinterface, you need docker-compose installed as well.
+
+Run this:
+
+```
+git clone https://github.com/marcinguy/betterscan-ce.git
+cd betterscan-ce/dockerhub
+./start.sh
+```
+
+That's it.
+
+Click below on triangle to read more.
 
 
-(Above is Chat for core developers, end users, supporters - click on the badge to join) 
+<details><summary>All other infomation</summary>
 
 
 # What it does
@@ -539,3 +564,7 @@ See docker folder. You can spin up everything using one command.
 ## Ansible-Based Installation
 
 Coming Soon!
+
+
+
+</details>
