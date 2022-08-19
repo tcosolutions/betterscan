@@ -28,7 +28,7 @@ cd betterscan-ce/dockerhub
 
 That's it.
 
-Click below on triangle to read more.
+Click below on triangle to read more (GitHub/GitLab integration, PR scanning, GitHub Action etc)
 
 
 <details><summary>All other infomation</summary>
