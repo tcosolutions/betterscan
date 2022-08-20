@@ -58,10 +58,22 @@ var ProjectForm = React.createClass({
         var props = this.props,
             state = this.state;
 
+        var input_url = this.state.url;
+        input_url = input_url.replace('ssh://','');
+        if(input_url.indexOf('@') !== -1)
+        {
+          var git_url = input_url.replace(':','/');
+          var git_str = "ssh://";
+          var git_url = git_str.concat(git_url);
+          input_url = git_url;
+        }
+
+
         var formData = {name: this.state.name,
-                        url : this.state.url,
+                        url : input_url,
                         public : this.state.public,
                         description : this.state.description};
+
 
         if (this.state.name !== undefined && !this.validateName()) {
             this.addFieldError("name", 'A slash "/" is not allowed within the project name.');
