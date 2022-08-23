@@ -19,7 +19,7 @@ services:
 
   postgres:
     image: postgres:13.2
-    restart: unless-stopped
+    restart: always
     environment:
       POSTGRES_DB: qc
       POSTGRES_USER: qc
@@ -31,9 +31,8 @@ services:
       - db-data:/var/lib/postgresql/data
   worker_1:
     image: scanmycode/scanmycode3-ce:worker
-    restart: unless-stopped
+    restart: always
     hostname: worker_1
-    restart: on-failure
     depends_on:
       - rabbitmq3
       - postgres

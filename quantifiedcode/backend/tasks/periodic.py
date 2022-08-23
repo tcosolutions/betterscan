@@ -52,7 +52,7 @@ def reset_pending_project():
         backend.update(pending_project, {'reset_requested_at': datetime.datetime.now()})
     return reset_project(pending_project.pk, task_id=reset_pending_project.request.id)
 
-@celery.task(time_limit=60*60*4, queue="analysis")
+@celery.task(time_limit=60*60*120, queue="analysis")
 def analyze_pending_project():
     """ Get all projects that are marked for analysis and sort them by priority and request date.
     Then go through the list and check if the project has been recently analyzed, if not, analyze the first project.
