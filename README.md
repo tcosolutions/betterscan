@@ -6,9 +6,9 @@
 
 If you want to scan your Code and Infrastructure
 
-Install docker and run this in your Git code directory:
+Install  Docker Enginer [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory:
 
-HTML output (result report.html)
+HTML output (result will be in the current directory in  "report.html" file)
 
 `sh <(curl https://betterscan.io/cli-html.sh)`
 
@@ -16,7 +16,7 @@ CLI output
 
 `sh <(curl https://betterscan.io/cli.sh)`
 
-If you need CI/CD and Webinterface, you need docker-compose installed as well.
+If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
 Run this:
 
