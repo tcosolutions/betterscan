@@ -1,5 +1,5 @@
 FROM python:3.7
-RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv
+RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv rsync
 WORKDIR /
 RUN mkdir -p /srv
 RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
