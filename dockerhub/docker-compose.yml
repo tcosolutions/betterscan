@@ -7,7 +7,7 @@ services:
       - postgres
     working_dir: /srv/scanmycode/
     entrypoint: sh
-    command: -c "if [ -f /srv/scanmycode/setup_state/setup_done ]; then python /srv/scanmycode/manage.py runserver; curl --silent --output /dev/null https://betterscan.io/run-dockerhub.html; else python /srv/scanmycode/manage.py setup && mkdir -p /srv/scanmycode/setup_state && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://betterscan.io/installation-dockerhub.html; fi"
+    command: -c "if [ -f /srv/scanmycode/setup_state/setup_done ]; then curl --silent --output /dev/null https://betterscan.io/run-dockerhub.html; python /srv/scanmycode/manage.py runserver; else python /srv/scanmycode/manage.py setup && mkdir -p /srv/scanmycode/setup_state && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://betterscan.io/installation-dockerhub.html; fi"
     ports:
       - 5000:5000
     volumes:
