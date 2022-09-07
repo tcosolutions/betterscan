@@ -6,7 +6,7 @@
 
 If you want to scan your Code and Infrastructure
 
-Install  Docker Enginer [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory:
+Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory:
 
 HTML output (result will be in the current directory in  "report.html" file)
 
