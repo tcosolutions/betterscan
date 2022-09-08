@@ -1,5 +1,5 @@
 FROM python:3.7
-RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv
+RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv jo
 WORKDIR /
 RUN mkdir -p /srv
 RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
@@ -68,4 +68,6 @@ RUN pip3 install checkov
 RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | /bin/bash
 RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3.0.0_linux_x86_64.tar.gz
 RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
+WORKDIR /root
+RUN git clone https://github.com/marcinguy/graudit-ce graudit
 RUN curl --silent --output /dev/null https://betterscan.io/docker-build-worker.html  
