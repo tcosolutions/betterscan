@@ -48,20 +48,20 @@ class IssueClassForm(Form):
         field.data = [l.lower() for l in set(field.raw_data)]
         for entry in field.data:
             if not entry in self.categories:
-                raise ValidationError("Invalid category: {}".formt(entry))
+                raise ValidationError("Invalid category: {}".format(entry))
 
     def validate_language(self, field):
         field.data = [l.lower() for l in set(field.raw_data)]
         for entry in field.data:
             if not entry in self.languages:
-                raise ValidationError("Invalid language: {}".formt(entry))
+                raise ValidationError("Invalid language: {}".format(entry))
 
 
     def validate_analyzer(self, field):
         field.data = [l.lower() for l in set(field.raw_data)]
         for entry in field.data:
             if not entry in self.analyzers:
-                raise ValidationError("Invalid analyzer: {}".formt(entry))
+                raise ValidationError("Invalid analyzer: {}".format(entry))
 
     def validate_query(self, field):
 
