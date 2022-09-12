@@ -98,24 +98,7 @@ def _analyze_project(project):
 
         logger.info("Analysis of project {p.name} ({p.pk}) complete!".format(p=project))
         update_analysis_status(project, project.AnalysisStatus.succeeded)
-         
-       
-        '''         
-        if(project.public==True):  
-          for item in project['stats']['contributors']:
-            toemail = item['email']
-            pprint.pprint(toemail)
-       
-            #  email
-            send_mail(
-                email_to=toemail,
-                template="project_analyzed",
-                template_context={
-                    "project_name_short": project.name,
-                    "project_url": "https://app.scanmycode.today/project/"+project.pk
-                }
-            )
-        '''
+        
 
     except Exception as e:
         logger.error("Analysis of project {p.name} ({p.pk}) failed!".format(p=project))
