@@ -74,7 +74,7 @@ or for an HTML report:
 
 `sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli-html.sh)`
 
-That's it. You just checked your code for 1,700+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks)
+That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks)
 
 Sample CLI report
 
@@ -399,7 +399,7 @@ docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:wo
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule, checkov, kubescape and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint and other(s). Some were modified. 
 
 # Recorded DEMO
 
@@ -423,7 +423,7 @@ Above are the biggest differences.
 
 - Betterscan is open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
 - Betterscan supports scanning only changed files (differential analysis), SonarQube does not
-- Betterscan uses many tools adding up to 1,700+ checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
+- Betterscan uses many tools adding up to 2,300+ checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
 
 
 
@@ -459,7 +459,7 @@ Advantages:
 * Many tools, one report (unification) 
 * Dismiss, collaborate on findings. Mark false-positives
 * Enable/disable each individual check in Checkers
-* ca. 1,700+ checks now (Linters, Static Code Analysis/Code Scanning) 
+* ca. 2,300+ checks now (Linters, Static Code Analysis/Code Scanning) 
 * any tool outputting JSON can be added
 * fast (checks only new code on recheck)
 * Git support (HTTPS/TLS and SSH). For private repositories only SSH. 
