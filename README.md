@@ -207,7 +207,9 @@ Flow:
 4) make changes, commits, push to PR
 5) repeat 2)
 
-If you cannot afford GitHub Enterprise with Code Scannint, use GitHub Teams with CLI output.
+If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with CLI output.
+
+It is also possible to use Database Server (i.e PostgreSQL) to store state (no need to commit .checmate folder to code).
 
 
 ## GitLab Integration
