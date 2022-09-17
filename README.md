@@ -209,7 +209,7 @@ Flow:
 
 If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with CLI output.
 
-It is also possible to use Database Server (i.e PostgreSQL) to store state (no need to commit .checmate folder to code).
+It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS Sql Server) to store state (no need to commit .checmate folder to code).
 
 
 ## GitLab Integration
@@ -424,7 +424,8 @@ Both use static analysis to find bugs and defects, but there are a few differenc
 Above are the biggest differences. 
 
 - Betterscan is open Source, SonarQube also offers an open-source version, but it is missing features (For example, 12 of the supported languages are not available in the open-source offering, and more powerful dataflow features are only available in the paid versions) 
-- Betterscan supports scanning only changed files (differential analysis), SonarQube does not
+- Betterscan supports scanning only changed files (differential analysis), SonarQube does not. You can store state in Database (PostgreSQL, MySQL/MariaDB, Oracle, Microsoft SQL Server) or in you Git repo. 
+- Outputs in CLI, HTML, SARIF, JSON. This works nicely with GitHub Codescanning, GitLab Security and Compliance and Azure DevOps Server
 - Betterscan uses many tools adding up to 2,300+ checks which also semgrep as one of the tools (without semgrep community rules, only Betterscan's custom rules) 
 
 
@@ -463,7 +464,9 @@ Advantages:
 * Enable/disable each individual check in Checkers
 * ca. 2,300+ checks now (Linters, Static Code Analysis/Code Scanning) 
 * any tool outputting JSON can be added
-* fast (checks only new code on recheck)
+* fast (checks only new code on recheck) 
+* you can store state in Database (PostgreSQL, MySQL/MariaDB, Oracle, Microsoft SQL Server) or in you Git repo.
+* Outputs in CLI, HTML, SARIF, JSON. This works nicely with GitHub Codescanning, GitLab Security and Compliance and Azure DevOps Server
 * Git support (HTTPS/TLS and SSH). For private repositories only SSH. 
 * all REST API callable (CI/CD integrateable)
 * Swiss army knife tool/SIEM for Code Scanning
