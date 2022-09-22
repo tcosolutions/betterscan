@@ -257,7 +257,7 @@ To integrate BetterScan with Azure DevOps, you can do the following:
     - script: |
         git add .checkmate/db.sqlite
         git commit -m '[no ci] update checkmate db'
-        git push origin $(Build.SourceBranch)
+        git push origin $(Build.SourceBranchName):$(Build.SourceBranch)
       displayName: Commit and Push checkmate db
 ```
 > Warning: 
