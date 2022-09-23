@@ -216,6 +216,52 @@ It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Orac
 
 It is possible to integrate results also in GitLab's Security & Compliance Dashboad. We can convert SARIF to GitLab format. GitLab Ultimate is required. 
 
+## Azure DevOps Integration
+
+To integrate BetterScan with Azure DevOps, you can do the following:
+1. Install the Azure DevOps [SARIF SAST Scans Tab](https://marketplace.visualstudio.com/items?itemName=sariftools.scans) extension.
+2. Add this job to your azure-pipelines.yml:
+```yml
+  - job: SAST
+    displayName: Static Application Security Test (SAST)
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: 'scanmycode/scanmycode3-ce:worker-cli'
+    steps:
+    - script: |
+        sudo apt-get update
+        sudo apt-get install git-lfs
+      displayName: Install git LFS
+      
+    - checkout: self
+      persistCredentials: true
+
+    - script: |
+        set -e
+        git config --global user.email "azuredevops@microsoft.com"
+        git config --global user.name "Azure DevOps" 
+        git checkout -b $(Build.SourceBranchName)
+        sudo CODE_DIR=$(Build.SourcesDirectory) checkmate git analyze --branch $(Build.SourceBranchName)
+        checkmate issues html
+      displayName: Static Application Security Test (SAST)
+      env:
+        CODE_DIR: '$(Build.SourcesDirectory)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: Publish SAST report
+      inputs:
+        PathtoPublish: $(Build.SourcesDirectory)
+        ArtifactName: CodeAnalysisLogs
+
+    - script: |
+        git add .checkmate/db.sqlite
+        git commit -m '[no ci] update checkmate db'
+        git push origin $(Build.SourceBranchName):$(Build.SourceBranch)
+      displayName: Commit and Push checkmate db
+```
+> Warning: 
+
 ## Platforms & OS'es
 
 It is platform independent (Python). Checkers are also mostly available on different platforms. The "Master" branch is for Linux x86_64, however there is also a "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
