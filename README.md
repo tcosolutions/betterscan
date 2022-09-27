@@ -4,27 +4,41 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 
-If you want to scan your Code and Infrastructure
+If you want to scan your Code and Infrastructure (including Secrets)
 
-Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory:
+Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory
 
-HTML output (result will be in the current directory in  "report.html" file)
+**2 options** are available:
+
+1. HTML output (result will be in the current directory in  "report.html" file)
+
+Run in command prompt:
 
 `sh <(curl https://betterscan.io/cli-html.sh)`
 
-CLI output
+2. CLI output
+
+Run in command prompt:
 
 `sh <(curl https://betterscan.io/cli.sh)`
 
 If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
-Run this:
+Run in command prompt:
 
 ```
 git clone https://github.com/marcinguy/betterscan-ce.git
 cd betterscan-ce/dockerhub
 ./start.sh
 ```
+
+
+Open up the Browser to:
+
+`http://localhost:5000`
+
+Sign up locally (and login in when needed)
+
 
 That's it.
 
@@ -95,6 +109,7 @@ If you want to use the Platform, follow below:
 ## Local
 
 <h4>To install it, first:</h4>
+
 Install `docker` and `docker-compose`  
  
 <h5>then:</h5>
