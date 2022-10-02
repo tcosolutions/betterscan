@@ -45,7 +45,7 @@ That's it.
 Click below on triangle to read more (GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action etc)
 
 
-<details><summary>All other infomation</summary>
+<details><summary>All other information</summary>
 
 
 # What it does
