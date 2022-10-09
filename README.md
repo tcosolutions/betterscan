@@ -82,11 +82,11 @@ If you also want to support this project, head over to our [Github sponsors page
 
 Run this command in your code directory (checkout from Git - .git folder needs to be there, if you work with the normal directory, make the Git repo out of it `git init && git add . && git commit` etc):
 
-`sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli.sh)`
+`sh <(curl https://dl.betterscan.io/cli.sh)`
 
 or for an HTML report:
 
-`sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli-html.sh)`
+`sh <(curl https://dl.betterscan.io/cli-html.sh)`
 
 That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks)
 
@@ -325,7 +325,7 @@ You can put it under Quality Gates.
 Just run this command (it will take care of everything):
 
 
-`sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli.sh)`
+`sh <(curl https://dl.betterscan.io/cli.sh)`
 
 Corresponds to running these:
 
@@ -342,7 +342,7 @@ docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-c
 
 Just run this command (it will take care of everything):
 
-`sh <(curl https://raw.githubusercontent.com/marcinguy/betterscan-ce/master/cli-html.sh)`
+`sh <(curl https://dl.betterscan.io/cli-html.sh)`
 
 report will be in the directory under `report.html`
 
