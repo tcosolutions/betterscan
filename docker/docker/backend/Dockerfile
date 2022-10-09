@@ -43,4 +43,4 @@ WORKDIR /srv/scanmycode/quantifiedcode/plugins/git/frontend
 RUN sudo -u user make
 RUN pip3 install email_validator
 RUN pip3 install celery==4.4.6
-RUN curl --silent --output /dev/null https://betterscan.io/docker-build-backend.html
+RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-backend.html

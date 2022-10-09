@@ -71,4 +71,4 @@ RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3
 RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
 WORKDIR /root
 RUN git clone https://github.com/marcinguy/graudit-ce graudit
-RUN curl --silent --output /dev/null https://betterscan.io/docker-build-worker-cli.html  
+RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-worker-cli.html  
