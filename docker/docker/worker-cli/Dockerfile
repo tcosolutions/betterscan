@@ -13,7 +13,6 @@ RUN pipenv install --system
 RUN pip install Rich
 WORKDIR /
 RUN git clone -b checkmate3-cli https://github.com/marcinguy/checkmate-ce /checkmate
-RUN sleep 10
 WORKDIR /checkmate
 RUN git checkout checkmate3-cli
 RUN git pull
