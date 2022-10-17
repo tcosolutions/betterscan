@@ -13,16 +13,17 @@ RUN pipenv install --system
 RUN pip install Rich
 WORKDIR /
 RUN git clone -b checkmate3-cli https://github.com/marcinguy/checkmate-ce /checkmate
+RUN sleep 10
 WORKDIR /checkmate
 RUN git checkout checkmate3-cli
 RUN git pull
 RUN python3 setup.py install
 WORKDIR /
-RUN pip uninstall -y blitzdb3
-RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
-WORKDIR /blitzdb3-ce
-RUN git pull
-RUN python3 setup.py install
+#RUN pip uninstall -y blitzdb3
+#RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
+#WORKDIR /blitzdb3-ce
+#RUN git pull
+#RUN python3 setup.py install
 WORKDIR /
 RUN pip install psycopg2 --upgrade
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml

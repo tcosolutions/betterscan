@@ -16,11 +16,11 @@ WORKDIR /checkmate
 RUN tree /checkmate
 RUN python3 setup.py install
 WORKDIR /
-RUN pip uninstall -y blitzdb3
-RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
-WORKDIR /blitzdb3-ce
-RUN git pull
-RUN python3 setup.py install
+#RUN pip uninstall -y blitzdb3
+#RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
+#WORKDIR /blitzdb3-ce
+#RUN git pull
+#RUN python3 setup.py install
 WORKDIR /
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 RUN pip3 install psycopg2 --upgrade
