@@ -1,0 +1,20 @@
+rules:
+  - id: spring-controller-exists
+    patterns:
+      - pattern-either:
+          - pattern: import org.springframework.web.bind.annotation.RestController;
+          - pattern: import
+              org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+    message: |
+      Found a Spring RestController
+
+      Make sure you are not vulnerable or have the possible mitigations
+      https://www.praetorian.com/blog/spring-core-jdk9-rce/
+    languages:
+      - java
+    severity: INFO
+    metadata:
+      references:
+        - https://www.praetorian.com/blog/spring-core-jdk9-rce/
+        - https://www.cyberkendra.com/2022/03/spring4shell-details-and-exploit-code.html
+      category: security
