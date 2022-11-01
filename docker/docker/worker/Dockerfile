@@ -71,4 +71,6 @@ RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
 WORKDIR /root
 RUN git clone https://github.com/marcinguy/graudit-ce graudit
 RUN git clone https://github.com/marcinguy/text4shell-ce text4shell-ce
+RUN pip install yara-scanner
+RUN cp -pr /srv/scanmycode/analyzers/yara/* /root
 RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-worker.html  
