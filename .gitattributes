@@ -3,3 +3,4 @@
 *.es6 linguist-detectable=false
 *.jsx linguist-detectable=false
 *.scss linguist-detectable=false
+*.yar linguist-detectable=false
