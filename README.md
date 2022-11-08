@@ -42,7 +42,7 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Click below on triangle to read more (GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action etc)
+Click below on triangle to read more (GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App etc)
 
 
 <details><summary>All other information</summary>
@@ -225,6 +225,14 @@ Flow:
 If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with CLI output.
 
 It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS Sql Server) to store state (no need to commit .checmate folder to code).
+
+## GitHub App
+
+You can also intall it as a GitHub App
+
+https://github.com/apps/betterscan
+
+![image](https://user-images.githubusercontent.com/20355405/200638861-063aca62-9b0d-430f-9773-aa840fedec09.png)
 
 
 ## GitLab Integration
