@@ -232,7 +232,8 @@ You can also intall it as a GitHub App
 
 https://github.com/apps/betterscan
 
-![image](https://user-images.githubusercontent.com/20355405/200638861-063aca62-9b0d-430f-9773-aa840fedec09.png)
+![image](https://user-images.githubusercontent.com/20355405/200639346-fb815dcc-c86e-4d7c-b332-8495311b223d.png)
+
 
 
 ## GitLab Integration
