@@ -236,6 +236,10 @@ https://github.com/apps/betterscan
 
 Results will be integrated in GitHub interface (Security->Code Scanning alerts). GitHub Enterprise Cloud and a license for GitHub Advanced Security is required for private repositories, for public repositories not.
 
+Scanning is triggered on Push/PR merge to makn branch (master or main etc). Results could be there within minutes or hours, depending on project size.
+
+Scan state will be preserved between scans. With new scan only changes will be rescanned.
+
 ## GitLab Integration
 
 It is possible to integrate results also in GitLab's Security & Compliance Dashboad. We can convert SARIF to GitLab format. GitLab Ultimate is required. 
