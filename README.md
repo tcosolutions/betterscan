@@ -228,7 +228,7 @@ It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Orac
 
 ## GitHub App
 
-You can also intall it as a GitHub App
+You can also install it as a GitHub App
 
 https://github.com/apps/betterscan
 
