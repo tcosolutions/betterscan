@@ -234,7 +234,7 @@ https://github.com/apps/betterscan
 
 ![image](https://user-images.githubusercontent.com/20355405/200639346-fb815dcc-c86e-4d7c-b332-8495311b223d.png)
 
-
+Results will be integrated in GitHub interface (Security->Code Scanning alerts). GitHub Enterprise Cloud and a license for GitHub Advanced Security is required for private repositories, for public repositories not.
 
 ## GitLab Integration
 
