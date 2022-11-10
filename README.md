@@ -230,9 +230,10 @@ It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Orac
 
 You can also install it as a GitHub App
 
-https://github.com/apps/betterscan
+https://github.com/apps/betterscan-code-scan
 
-![image](https://user-images.githubusercontent.com/20355405/200639346-fb815dcc-c86e-4d7c-b332-8495311b223d.png)
+![image](https://user-images.githubusercontent.com/20355405/201154860-4eac4a2b-8fea-4ba3-b38b-728a5bac5588.png)
+
 
 Results will be integrated in GitHub interface (Security->Code Scanning alerts). GitHub Enterprise Cloud and a license for GitHub Advanced Security is required for private repositories, for public repositories not.
 
