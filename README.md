@@ -54,7 +54,8 @@ Scanmycode is now called Betterscan (both references will work)
 
 It is a Code and Infrastructure (IaC) and Cloudnative Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different.
 
-![scanmycoode-concept](https://user-images.githubusercontent.com/20355405/155940853-04cb916d-658b-48e1-bae9-959af96fd2ba.png)
+![betterscan-concept](https://user-images.githubusercontent.com/20355405/201513479-fda1db4d-ce99-4063-9f55-329885c6f809.png)
+
 
 *Fig. 1 Betterscan concept diagram*
 
