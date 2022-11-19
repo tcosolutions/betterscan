@@ -42,13 +42,13 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Read more bellw for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App etc
+Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App etc.
 
 # What it does
 
 Scanmycode is now called Betterscan (both references will work)
 
-It is a Code and Infrastructure (IaC) and Cloudnative Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different
+It is a Code and Infrastructure (IaC) and Cloudnative Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different.
 
 
 ![betterscan-concept](https://user-images.githubusercontent.com/20355405/201513479-fda1db4d-ce99-4063-9f55-329885c6f809.png)
