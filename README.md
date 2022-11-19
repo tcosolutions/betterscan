@@ -319,9 +319,9 @@ https://github.com/marcinguy/betterscan-ce/wiki
 
 You can plug it anywhere on your CI/CD pipeline as a command.
 
-With SMC one command, you add 2,300+ checks using different scanners (SMC is Meta scanner in that sense, with supporting smart snapshots and other goodies. It is not just running tools always on full code) 
+With Betterscan one command, you add 6,300+ checks using different scanners (Betterscan is a "Meta" scanner in that sense, with supporting smart snapshots and other goodies. It is not just running tools always on full code) 
 
-SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
+Betterscan supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
 
 ![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
 
