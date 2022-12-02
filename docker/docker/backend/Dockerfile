@@ -30,6 +30,8 @@ RUN pip3 install psycopg2 --upgrade
 #RUN tar -xJvf node-v16.14.0-linux-x64.tar.xz -C /usr/local/lib/nodejs 
 #ENV PATH "/usr/local/lib/nodejs/node-v16.14.0-linux-x64/bin:${PATH}"
 WORKDIR /srv/scanmycode/quantifiedcode/frontend
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+RUN apt -y install nodejs
 RUN npm install
 RUN chmod -R ugo+rw /srv/scanmycode/quantifiedcode/frontend
 WORKDIR /srv/scanmycode/quantifiedcode/frontend
