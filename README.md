@@ -42,11 +42,7 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Click below on triangle to read more (GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action etc)
-
-
-<details><summary>All other information</summary>
-
+Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App etc.
 
 # What it does
 
@@ -54,7 +50,9 @@ Scanmycode is now called Betterscan (both references will work)
 
 It is a Code and Infrastructure (IaC) and Cloudnative Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different.
 
-![scanmycoode-concept](https://user-images.githubusercontent.com/20355405/155940853-04cb916d-658b-48e1-bae9-959af96fd2ba.png)
+
+![betterscan-concept](https://user-images.githubusercontent.com/20355405/201513479-fda1db4d-ce99-4063-9f55-329885c6f809.png)
+
 
 *Fig. 1 Betterscan concept diagram*
 
@@ -226,6 +224,20 @@ If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with
 
 It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS Sql Server) to store state (no need to commit .checmate folder to code).
 
+## GitHub App
+
+You can also install it as a GitHub App
+
+https://github.com/apps/betterscan-code-scan
+
+![image](https://user-images.githubusercontent.com/20355405/201154860-4eac4a2b-8fea-4ba3-b38b-728a5bac5588.png)
+
+
+Results will be integrated in GitHub interface (Security->Code Scanning alerts). GitHub Enterprise Cloud and a license for GitHub Advanced Security is required for private repositories, for public repositories not.
+
+Scanning is triggered on Push/PR merge to main branch (master or main etc). Results could be there within minutes or hours, depending on project size.
+
+Scan state will be preserved between scans. With new scan only changes will be rescanned.
 
 ## GitLab Integration
 
@@ -307,9 +319,9 @@ https://github.com/marcinguy/betterscan-ce/wiki
 
 You can plug it anywhere on your CI/CD pipeline as a command.
 
-With SMC one command, you add 2,300+ checks using different scanners (SMC is Meta scanner in that sense, with supporting smart snapshots and other goodies. It is not just running tools always on full code) 
+With Betterscan one command, you add 6,300+ checks using different scanners (Betterscan is a "Meta" scanner in that sense, with supporting smart snapshots and other goodies. It is not just running tools always on full code) 
 
-SMC supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
+Betterscan supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
 
 ![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
 
@@ -634,4 +646,4 @@ Coming Soon!
 
 
 
-</details>
+
