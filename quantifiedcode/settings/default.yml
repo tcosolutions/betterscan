@@ -22,7 +22,7 @@ backend:
       enable_utc: true
       worker_hijack_root_logger: false
       broker_url: 'amqp://qc:qc@rabbitmq:5672'
-      result_backend: 'amqp://qc:qc@rabbitmq:5672'
+      result_backend: 'rpc://qc:qc@rabbitmq:5672'
       task_default_queue: tasks
       task_queues:
         - {name: tasks, routing_key: 'task'}

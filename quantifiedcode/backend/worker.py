@@ -13,7 +13,8 @@ import logging
 import datetime
 import importlib
 
-from celery import Celery, __version__ as celery_version
+#from celery import Celery, __version__ as celery_version
+from celery import Celery
 from celery.schedules import crontab
 from celery.signals import worker_init
 from kombu import Queue
@@ -65,11 +66,11 @@ def make_celery():
     celery_config['beat_schedule'] = new_schedule
 
     #if we use Celery 3, we map the config parameter names to the old format
-    if celery_version.startswith('3.'):
-        for key, value in list(celery_config.items()):
-            if key in config_mapping_3_4:
-                del celery_config[key]
-                celery_config[config_mapping_3_4[key]] = value
+    #if celery_version.startswith('3.'):
+    #    for key, value in list(celery_config.items()):
+    #        if key in config_mapping_3_4:
+    #            del celery_config[key]
+    #            celery_config[config_mapping_3_4[key]] = value
 
     celery_obj.conf.update(**celery_config)
 
