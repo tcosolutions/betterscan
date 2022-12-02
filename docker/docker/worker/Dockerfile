@@ -27,12 +27,13 @@ RUN pip install psycopg2 --upgrade
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 WORKDIR /root
 #RUN wget https://golang.org/dl/go1.17.6.linux-amd64.tar.gz
+ENV SHELL /bin/bash
 RUN curl -LO https://get.golang.org/$(uname)/go_installer
 RUN chmod +x go_installer
 RUN ./go_installer
 RUN rm go_installer
-RUN sudo tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
-RUN /usr/local/go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest
+#RUN sudo tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+RUN /root/.go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest
 RUN mkdir /root/bin
 RUN cp /root/go/bin/gosec /root/bin/gosec
 RUN gem install brakeman
@@ -48,8 +49,8 @@ RUN mkdir /root/confused/
 RUN git clone https://gitlab.com/marcinguy/confused-oss.git /root/confused
 RUN tree
 WORKDIR /root/confused
-RUN /usr/local/go/bin/go mod init confused
-RUN /usr/local/go/bin/go build confused
+RUN /root/.go/bin/go mod init confused
+RUN /root/.go/bin/go build confused
 RUN tree
 #RUN cp /srv/scanmycode/analyzers/confused /root/confused/ #source https://gitlab.com/marcinguy/confused-oss
 WORKDIR /root
@@ -66,7 +67,7 @@ RUN cp /srv/scanmycode/sshfeature/ssh /usr/local/lib/python3.7/site-packages/che
 RUN mkdir -p /usr/local/lib/python3.7/site-packages/checkmate3-0.2.0-py3.7.egg/checkmate/contrib/plugins/javascript/jshint/js
 RUN cp /srv/scanmycode/analyzers/json_reporter.js /usr/local/lib/python3.7/site-packages/checkmate3-0.2.0-py3.7.egg/checkmate/contrib/plugins/javascript/jshint/js/
 RUN pip3 install email_validator
-RUN pip3 install celery==4.4.6
+#RUN pip3 install celery==4.4.6
 RUN pip3 install testresources
 RUN pip3 install checkov
 RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | /bin/bash
