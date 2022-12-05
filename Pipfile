@@ -20,7 +20,7 @@ pyOpenSSL = "*"
 python-dateutil = "*"
 requirements-parser = "*"
 Werkzeug = "*"
-importlib-metadata = "==4.13.0"
+importlib-metadata = "==5.1.0"
 
 [dev-packages]
 
