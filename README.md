@@ -243,6 +243,13 @@ Scan state will be preserved between scans. With new scan only changes will be r
 
 It is possible to integrate results also in GitLab's Security & Compliance Dashboad. We can convert SARIF to GitLab format. GitLab Ultimate is required. 
 
+## Backstage Integration (BETA)
+
+You can see Security posture of scanned repos by installing Betterscan platform and below in Backstage:
+
+https://github.com/marcinguy/backstage-plugin-betterscan
+
+
 ## Azure DevOps Integration
 
 To integrate BetterScan with Azure DevOps, you can do the following:
