@@ -269,8 +269,10 @@ To integrate BetterScan with Azure DevOps, you can do the following:
         git config --global user.email "azuredevops@microsoft.com"
         git config --global user.name "Azure DevOps" 
         git checkout -b $(Build.SourceBranchName)
+        sudo CODE_DIR=$(Build.SourcesDirectory) checkmate init
+        sudo CODE_DIR=$(Build.SourcesDirectory) checkmate git init
         sudo CODE_DIR=$(Build.SourcesDirectory) checkmate git analyze --branch $(Build.SourceBranchName)
-        checkmate issues html
+        sudo CODE_DIR=$(Build.SourcesDirectory) checkmate issues html
       displayName: Static Application Security Test (SAST)
       env:
         CODE_DIR: '$(Build.SourcesDirectory)'
