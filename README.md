@@ -4,7 +4,7 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 
-If you want to scan your Code and Infrastructure (including Secrets)
+If you want to scan your Code and Infrastructure (including Secrets, SBOMs, dependencies)
 
 Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory
 
@@ -484,7 +484,7 @@ docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:wo
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, osv-scanner and other(s). Some were modified. 
 
 # Recorded DEMO
 
