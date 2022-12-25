@@ -36,6 +36,8 @@ RUN rm go_installer
 RUN /root/.go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest
 RUN mkdir /root/bin
 RUN cp /root/go/bin/gosec /root/bin/gosec
+RUN /root/.go/bin/go  install github.com/google/osv-scanner/cmd/osv-scanner@v1
+RUN cp /root/go/bin/osv-scanner /root/bin/osv-scanner
 RUN gem install brakeman
 RUN python3 -m pip install bandit
 RUN python3 -m pip install semgrep
