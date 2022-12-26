@@ -86,7 +86,7 @@ or for an HTML report:
 
 `sh <(curl https://dl.betterscan.io/cli-html.sh)`
 
-That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks) and 4,000+ YARA rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware, Webshells, APTs.
+That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks, SBOM, dependencies vulnerabilities) and 4,000+ YARA rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware, Webshells, APTs.
 
 Sample CLI report
 
