@@ -7,7 +7,6 @@
 
 
 
-
 from flask import request
 
 from quantifiedcode.settings import backend
@@ -88,7 +87,6 @@ class FileRevisionDetails(Resource):
         'fr_pk',
         'language',
     )
-
     @valid_user(anon_ok=True)
     @valid_project(public_ok=True)
     @valid_file_revision

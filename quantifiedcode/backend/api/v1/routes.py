@@ -108,8 +108,8 @@ routes = [
     # Diff details
     {'/project/<project_id>/diff/<snapshot_a_id>/<snapshot_b_id>': [DiffDetails, {'methods': ["GET"]}]},
     {'/project/<project_id>/diff/<snapshot_a_id>/<snapshot_b_id>/issues_summary': [DiffIssuesSummary, {'methods': ["GET"]}]},
-    {'/project/<project_id>/diff/<snapshot_a_id>/<snapshot_b_id>/file_revision_issues': [DiffFileRevisionIssues, {'methods': ["GET"]}]},
-    {'/project/<project_id>/diff/<snapshot_a_id>/<snapshot_b_id>/file_revision_issues/<regex(".*$"):path>': [DiffFileRevisionIssues, {'methods': ["GET"]}]},
+    #{'/project/<project_id>/diff/<snapshot_a_id>/<snapshot_b_id>/file_revision_issues': [DiffFileRevisionIssues, {'methods': ["GET"]}]},
+    #{'/project/<project_id>/diff/<snapshot_a_id>/<snapshot_b_id>/file_revision_issues/<regex(".*$"):path>': [DiffFileRevisionIssues, {'methods': ["GET"]}]},
     # Snapshot Summary
 
     {'/project/<project_id>/snapshot/<snapshot_id>/summary': [SnapshotSummary, {'methods': ["GET"]}]},
@@ -118,8 +118,10 @@ routes = [
     # Snapshot details & issues
 
     {'/project/<project_id>/snapshot/<snapshot_id>/file_revision_issues': [SnapshotFileRevisionIssues, {'methods': ["GET"]}]},
-    {'/project/<project_id>/snapshot/<snapshot_id>/file_revision_issues/<regex(".*$"):path>': [SnapshotFileRevisionIssues, {'methods': ["GET"]}]},
+    {'/project/<project_id>/snapshot/<snapshot_id>/file_revision_issues/<path>': [SnapshotFileRevisionIssues, {'methods': ["GET"]}]},
     {'/project/<project_id>/snapshot/<snapshot_id>/code/<regex(".*$"):path>': [SnapshotFileRevisionContent, {'methods': ["GET"]}]},
+    #{'/project/<project_id>/snapshot/<snapshot_id>/file/<regex(".*$"):path>': [SnapshotFileRevisionContent, {'methods': ["GET"]}]},
+    
     {'/project/<project_id>/snapshot/<snapshot_id>': [SnapshotDetails, {'methods': ["GET"]}]},
 
     # File Revision Details

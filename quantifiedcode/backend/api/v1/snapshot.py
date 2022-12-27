@@ -43,6 +43,8 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
     @valid_project(raw=False, public_ok=True)
     @valid_snapshot(only=['pk', 'sha', 'snapshot'])
     def get(self, project_id, snapshot_id, path=None):
+        if path is not None:
+          path = path.replace("-sep-","/");
 
         form = SnapshotFileRevisionIssuesForm(request.args)
 

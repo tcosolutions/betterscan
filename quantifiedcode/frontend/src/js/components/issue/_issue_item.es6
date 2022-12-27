@@ -89,6 +89,11 @@ var IssueItem = createReactClass({
                 console.log(activeOccurrence.issue.description)
             }
             var fileViewerHref = props.fileViewerHref(props.fileRevision)
+            var index = fileViewerHref.lastIndexOf('/file/');
+            var new_href = fileViewerHref.substring(index+6); 
+            new_href = new_href.replaceAll("/","-sep-");
+            var path = fileViewerHref.substring(0,index)
+            fileViewerHref = path + "/file/" + new_href
 
             var codePreview
             var lineNumber

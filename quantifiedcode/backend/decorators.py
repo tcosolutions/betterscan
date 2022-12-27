@@ -10,6 +10,7 @@
 
 
 import re
+import pprint
 
 from functools import wraps
 from flask import request, jsonify
@@ -286,20 +287,22 @@ def valid_file_revision(f=None, snapshot_id_key='snapshot_id', file_revision_id_
                 path_key in kwargs and
                 kwargs[snapshot_id_key] is not None and
                 kwargs[path_key] is not None):
+
+            str1 = kwargs[path_key]
+            if str1 is not None:
+              str2 = str1.replace("-sep-","/");
+            else:
+              str2 = str1
             try:
                 snapshot = get_snapshot(request.project, kwargs[snapshot_id_key], raw=False)
             except Snapshot.DoesNotExist:
                 return {'message': 'invalid snapshot'}, 404
 
-            try:
-                file_revision = backend.get(FileRevision, {
+            file_revision = backend.get(FileRevision, {
                     'snapshots': snapshot,
-                    'path': kwargs[path_key],
+                    'path': str2,
                 })
-                request.file_revision = file_revision
-            except (FileRevision.DoesNotExist, FileRevision.MultipleDocumentsReturned):
-                    # TODO is multipledocumentsreturned a 404?
-                    return {'message': 'invalid file revision'}, 404
+            request.file_revision = file_revision
 
         elif file_revision_id_key in kwargs:
             try:
