@@ -103,7 +103,7 @@ FYI Above will maintain state via (.checkmate folder), only new commits will be 
 
 If you want to use the Platform, follow below:
 
-#Installation
+# Installation
 
 ## Local
 
@@ -340,11 +340,6 @@ With Betterscan one command, you add 6,300+ checks using different scanners (Bet
 
 Betterscan supports also CLI only mode, no Web Interface, worker etc. Run a binary in Docker in your own CI/CD pipeline (whatever it is) in Quality Gates that will output line by line (scanner and findings) on checkout code from Git (folder) 
 
-![photo_2022-05-10_19-16-07](https://user-images.githubusercontent.com/20355405/167685447-84ba2b50-26fc-4143-9bb2-987ccd5e3a92.jpg)
-
-*Fig 4. Sample CI/CD Pipeline (Photo courtesy of Viking from THC Telegram Channel)*
-
-You can put it under Quality Gates.
 
 ### Quick Install
 
