@@ -42,7 +42,7 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App etc.
+Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo etc.
 
 # What it does
 
@@ -103,6 +103,7 @@ FYI Above will maintain state via (.checkmate folder), only new commits will be 
 
 If you want to use the Platform, follow below:
 
+#Installation
 
 ## Local
 
@@ -248,6 +249,12 @@ It is possible to integrate results also in GitLab's Security & Compliance Dashb
 You can see Security posture of scanned repos by installing Betterscan platform and below in Backstage:
 
 https://github.com/marcinguy/backstage-plugin-betterscan
+
+## DefectDojo Integration
+
+You can import via SARIF vulnerabilities and setup pipeline in DefectDojo to manage vulnerabilities
+
+![image](https://user-images.githubusercontent.com/20355405/210390155-f5602cf4-1095-4552-b14a-2c26dcf7869b.png)
 
 
 ## Azure DevOps Integration
@@ -503,6 +510,7 @@ Both use static analysis to find bugs and defects, but there are a few differenc
 - Betterscan supports Cloudnative and Infrastructure Scanning
 - Betterscan supports secrets Scanning (166+ secret types - including GitLeaks) 
 - Betterscan scans for 4,000 rules for  Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware and Webshells, APTs
+- Betterscan scans SBOM and Dependencies vulnerabilities
 - Betterscan can be extended with any tool producing JSON output (any binary, in any technology/language/product)
 
 Above are the biggest differences. 
@@ -548,6 +556,7 @@ Advantages:
 * Enable/disable each individual check in Checkers
 * ca. 6,300+ checks now (Linters, Static Code Analysis/Code Scanning, YARA Ca. 4000 YARA binary matching/textual matching rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware and Webshells, APTs ) 
 * any tool outputting JSON can be added
+* SBOM and Dependencies vulnerabilities
 * fast (checks only new code on recheck) 
 * you can store state in Database (PostgreSQL, MySQL/MariaDB, Oracle, Microsoft SQL Server) or in you Git repo.
 * Outputs in CLI, HTML, SARIF, JSON. This works nicely with GitHub Codescanning, GitLab Security and Compliance and Azure DevOps Server
