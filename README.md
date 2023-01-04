@@ -486,7 +486,7 @@ docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:wo
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, osv-scanner and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme) and other(s). Some were modified. 
 
 # Recorded DEMO
 
