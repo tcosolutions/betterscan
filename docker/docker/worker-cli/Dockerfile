@@ -82,4 +82,8 @@ RUN git clone https://github.com/marcinguy/text4shell-ce text4shell-ce
 RUN pip install yara-scanner
 RUN mkdir /root/yara
 RUN cp -pr /srv/scanmycode/analyzers/yara/* /root/yara
+ADD https://nixos.org/nix/install /tmp
+RUN bash -c "bash /tmp/install --daemon"
+RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz"
+RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
 RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-worker-cli.html  
