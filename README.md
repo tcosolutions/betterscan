@@ -4,6 +4,8 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 
+Betterscan uses many tools for Code, Cloud, secrets, dependencies and also precise Graph based SAST analysis for Code. This takes time. Please be patient with your analyses. For commercial use PRO version is recommended (several times faster, many other features)
+
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, dependencies)
 
 Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory
@@ -543,7 +545,7 @@ The application consists of several parts:
 * A backend, realized as a Flask app, that exposes a REST API consumed by the frontend
 * A background worker, realized using Celery, that performs the code analysis
 
-Currently supports: PHP, Java, Scala, Python, PERL, Ruby, .NET Full Framework, C#, C, C++, Swift, Kotlin, Apex (Salesforce), Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infrastructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 2,300+ checks) 
+Currently supports: PHP, Java, Scala, Python, PERL, Ruby, .NET Full Framework, C#, C, C++, Swift, Kotlin, Apex (Salesforce), Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infrastructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 6,000+ checks) 
 
 Advantages:
 * Many tools, one report (unification) 
