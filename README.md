@@ -314,6 +314,7 @@ To integrate BetterScan with Azure DevOps, you can do the following:
 
 [Betterscan Visual Studio Code plugin](https://marketplace.visualstudio.com/items?itemName=Betterscan.Betterscan&ssr=false#overview)
 
+Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your Workfolder. Please install the file [cli-html.sh](https://github.com/marcinguy/betterscan-vscode/blob/master/cli-html.sh) there
 
 ## Platforms & OS'es
 
