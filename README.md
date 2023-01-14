@@ -308,14 +308,6 @@ To integrate BetterScan with Azure DevOps, you can do the following:
 ```
 > Warning: 
 
-## Local IDE 
-
-### Visual Studio Code plugin (BETA/WIP)
-
-[Betterscan Visual Studio Code plugin](https://marketplace.visualstudio.com/items?itemName=Betterscan.Betterscan&ssr=false#overview)
-
-Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your Workfolder. Please install the file [cli-html.sh](https://github.com/marcinguy/betterscan-vscode/blob/master/cli-html.sh) there
-
 ## Platforms & OS'es
 
 It is platform independent (Python). Checkers are also mostly available on different platforms. The "Master" branch is for Linux x86_64, however there is also a "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
@@ -335,6 +327,15 @@ Install Windows 10, version 1903 or higher or Windows 11.
 https://docs.docker.com/desktop/windows/wsl/
 
 Linux images should work
+
+## Local IDE 
+
+### Visual Studio Code plugin (BETA/WIP)
+
+[Betterscan Visual Studio Code plugin](https://marketplace.visualstudio.com/items?itemName=Betterscan.Betterscan&ssr=false#overview)
+
+Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your Workfolder. Please install the file [cli-html.sh](https://github.com/marcinguy/betterscan-vscode/blob/master/cli-html.sh) there
+
 
 ## Usage
 
