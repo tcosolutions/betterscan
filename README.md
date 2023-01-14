@@ -336,6 +336,9 @@ Linux images should work
 
 Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your Workfolder. Please install the file [cli-html.sh](https://github.com/marcinguy/betterscan-vscode/blob/master/cli-html.sh) there
 
+After scan is complete, you can view `report.sarif` in directory using VS Code SARIF plugin.
+
+
 
 ## Usage
 
