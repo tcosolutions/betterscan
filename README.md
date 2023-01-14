@@ -332,12 +332,15 @@ Linux images should work
 
 ### Visual Studio Code plugin (BETA/WIP)
 
-[Betterscan Visual Studio Code plugin](https://marketplace.visualstudio.com/items?itemName=Betterscan.Betterscan&ssr=false#overview)
+[Betterscan Visual Studio Code plugin](https://marketplace.visualstudio.com/items?itemName=Betterscan.Betterscan)
 
-Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your Workfolder. Please install the file [cli-html.sh](https://github.com/marcinguy/betterscan-vscode/blob/master/cli-html.sh) there
+Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your Workfolder. Please install/copy the file [cli-html.sh](https://github.com/marcinguy/betterscan-vscode/blob/master/cli-html.sh) in the workfolder.
 
-After scan is complete, you can view `report.sarif` in directory using VS Code SARIF plugin.
 
+After scan is complete, you can view `report.sarif` in directory using VS Code [SARIF Viewer plugin](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer).
+
+
+![image](https://user-images.githubusercontent.com/20355405/212480081-7a0279de-a9ca-43b2-b7eb-9c25583cad4a.png)
 
 
 ## Usage
