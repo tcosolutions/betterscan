@@ -310,7 +310,7 @@ To integrate BetterScan with Azure DevOps, you can do the following:
 
 ## Local IDE 
 
-### Betterscan Visual Studio Code plugin (BETA/WIP)
+### Visual Studio Code plugin (BETA/WIP)
 
 [Betterscan Visual Studio Code plugin](https://marketplace.visualstudio.com/items?itemName=Betterscan.Betterscan&ssr=false#overview)
 
