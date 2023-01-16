@@ -338,6 +338,11 @@ Extension source repo: [extension source](https://github.com/marcinguy/bettersca
 
 Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your opened Workfolder. 
 
+You will see a message in IDE:
+
+`Betterscan Scan init` on start
+`Betterscan Scan complete` on finish
+
 After scan is complete, you can view `report.sarif` in directory using VS Code [SARIF Viewer plugin](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer).
 
 
