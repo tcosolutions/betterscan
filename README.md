@@ -336,18 +336,6 @@ Linux images should work
 
 Extension source repo: [extension source](https://github.com/marcinguy/betterscan-vscode)
 
-Download [cli-html.sh](https://raw.githubusercontent.com/marcinguy/betterscan-vscode/master/cli-html.sh)
-
-`curl https://raw.githubusercontent.com/marcinguy/betterscan-vscode/master/cli-html.sh --output cli-html.sh`
-
-Make it executable (`chmod a+x cli-html.sh`)
-
-Set environmental variable `BETTERSCAN_HOME` to folder you saved the file
-
-`export BETTERSCAN_HOME=/home/user`
-
-That's it
-
 Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your opened Workfolder. 
 
 After scan is complete, you can view `report.sarif` in directory using VS Code [SARIF Viewer plugin](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer).
