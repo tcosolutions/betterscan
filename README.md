@@ -92,9 +92,7 @@ That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilitie
 
 Sample CLI report
 
-![image](https://user-images.githubusercontent.com/20355405/213869100-30667046-b86e-4038-a467-79e997b5cbd7.png)
-
-
+![image](https://user-images.githubusercontent.com/20355405/213869272-b360c1d1-6696-4adc-9ab2-c36c0230ef7a.png)
 
 Sample HTML report
 
