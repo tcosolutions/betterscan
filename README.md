@@ -92,7 +92,8 @@ That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilitie
 
 Sample CLI report
 
-![betterscan-results-cli](https://user-images.githubusercontent.com/20355405/184548807-a13f5943-96ed-4c64-bf73-c4afdabd86d5.png)
+![image](https://user-images.githubusercontent.com/20355405/213869100-30667046-b86e-4038-a467-79e997b5cbd7.png)
+
 
 
 Sample HTML report
@@ -425,9 +426,6 @@ Run `checkmate issues`
 
 This will be shown
 ```
-/root
-/tmp/test
-/tmp/test
 Loading plugin: git
 Loading plugin: trufflehog3
 Loading plugin: trojansource
@@ -450,12 +448,12 @@ Loading plugin: pmdapex
 Loading plugin: semgrepccpp
 Loading plugin: semgrepjava
 Loading plugin: semgrepeslint
-semgrepjs	ExpressLfrWarning	
-semgrepjs	CookieSessionNoDomain	
-semgrepjs	CookieSessionNoPath	
-semgrepjs	CookieSessionNoSecure	
-semgrepjs	CookieSessionDefault	
-semgrepjs	CookieSessionNoSamesite
+Loading plugin: graudit
+Loading plugin: text4shell
+Loading plugin: yara
+Loading plugin: osvscanner
+Loading plugin: fluidattacksscanner
+
 ```
 
 There is a DockerHub image also for it ready.
@@ -466,8 +464,6 @@ You can run the Commands with docker as below:
 
 ```
 $ docker run -ti  scanmycode/scanmycode3-ce:worker-cli checkmate
-/root
-/root
 Loading plugin: git
 Loading plugin: trufflehog3
 Loading plugin: trojansource
@@ -490,6 +486,11 @@ Loading plugin: pmdapex
 Loading plugin: semgrepccpp
 Loading plugin: semgrepjava
 Loading plugin: semgrepeslint
+Loading plugin: graudit
+Loading plugin: text4shell
+Loading plugin: yara
+Loading plugin: osvscanner
+Loading plugin: fluidattacksscanner
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
