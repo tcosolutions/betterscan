@@ -96,7 +96,8 @@ Sample CLI report
 
 Sample HTML report
 
-![image](https://user-images.githubusercontent.com/20355405/173091087-1edf7609-5006-4724-b46b-bab2502bc251.png)
+![image](https://user-images.githubusercontent.com/20355405/213869590-89034c1b-ffe1-474e-b7f5-66abb86b9745.png)
+
 
 *Fig 2. Sample Report using CLI HTML output*
 
