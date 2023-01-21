@@ -4,7 +4,7 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 
-Betterscan uses many tools for Code, Cloud, secrets, dependencies and also precise Graph based SAST analysis for Code. This takes time. Please be patient with your analyses. For commercial use PRO version is recommended (several times faster, many other features)
+Betterscan uses many tools for Code, Cloud, secrets, dependencies and also precise Graph based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, many other features)**
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, dependencies)
 
