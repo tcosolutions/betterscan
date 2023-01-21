@@ -94,12 +94,13 @@ Sample CLI report
 
 ![image](https://user-images.githubusercontent.com/20355405/213869272-b360c1d1-6696-4adc-9ab2-c36c0230ef7a.png)
 
+*Fig. 2 Sample Report using CLI output*
+
 Sample HTML report
 
 ![image](https://user-images.githubusercontent.com/20355405/213869590-89034c1b-ffe1-474e-b7f5-66abb86b9745.png)
 
-
-*Fig 2. Sample Report using CLI HTML output*
+*Fig 3. Sample Report using CLI HTML output*
 
 FYI Above will maintain state via (.checkmate folder), only new commits will be checked.
 
@@ -182,7 +183,7 @@ See sample integration below:
 
 ![image](https://user-images.githubusercontent.com/20355405/180461548-8fbb6c47-0314-4f37-90f1-4292f788caf3.png)
 
-*Fig 3. Sample integration with GitHub Action in Code Scanning tab*
+*Fig 4. Sample integration with GitHub Action in Code Scanning tab*
 
 If you want to scan on PR to main, use this:
 
