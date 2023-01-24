@@ -4,15 +4,15 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 
-Betterscan uses many tools for Code, Cloud, secrets, dependencies and also precise Graph based SAST analysis for Code. This takes time. Please be patient with your analyses. For commercial use PRO version is recommended (several times faster, many other features)
+Betterscan uses many tools for Code, Cloud, secrets, dependencies, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, and many other features)**
 
-If you want to scan your Code and Infrastructure (including Secrets, SBOMs, dependencies)
+If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
 Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory
 
 **2 options** are available:
 
-1. HTML output (result will be in the current directory in  "report.html" file)
+1. HTML output (the result will be in the current directory in  "report.html" file)
 
 Run in command prompt:
 
@@ -50,7 +50,7 @@ Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, 
 
 Scanmycode is now called Betterscan (both references will work)
 
-It is a Code and Infrastructure (IaC) and Cloudnative Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different.
+It is a Code and Infrastructure (IaC) and Cloud-native Scanning/SAST/Static Analysis/Linting solution using many tools/Scanners with One Report. You can also add any tool to it. Currently, it supports many languages and tech stacks. Similar to SonarQube, but it is different.
 
 
 ![betterscan-concept](https://user-images.githubusercontent.com/20355405/201513479-fda1db4d-ce99-4063-9f55-329885c6f809.png)
@@ -60,7 +60,7 @@ It is a Code and Infrastructure (IaC) and Cloudnative Scanning/SAST/Static Analy
 
 [How is Betterscan different than SonarQube?](#how-is-betterscan-different-than-sonarqube)
 
-If you like it, please give it a GitHub star/fork/watch/contribute. This will ensure continous development :star:
+If you like it, please give it a GitHub star/fork/watch/contribute. This will ensure continuous development :star:
 
 ## Sponsors
 
@@ -88,20 +88,21 @@ or for an HTML report:
 
 `sh <(curl https://dl.betterscan.io/cli-html.sh)`
 
-That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks, SBOM, dependencies vulnerabilities) and 4,000+ YARA rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware, Webshells, APTs.
+That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks, SBOM, and dependencies vulnerabilities) and 4,000+ YARA rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware, Web shells, and APTs.
 
 Sample CLI report
 
-![betterscan-results-cli](https://user-images.githubusercontent.com/20355405/184548807-a13f5943-96ed-4c64-bf73-c4afdabd86d5.png)
+![image](https://user-images.githubusercontent.com/20355405/213869272-b360c1d1-6696-4adc-9ab2-c36c0230ef7a.png)
 
+*Fig. 2 Sample Report using CLI output*
 
 Sample HTML report
 
-![image](https://user-images.githubusercontent.com/20355405/173091087-1edf7609-5006-4724-b46b-bab2502bc251.png)
+![image](https://user-images.githubusercontent.com/20355405/213869590-89034c1b-ffe1-474e-b7f5-66abb86b9745.png)
 
-*Fig 2. Sample Report using CLI HTML output*
+*Fig 3. Sample Report using CLI HTML output*
 
-FYI Above will maintain state via (.checkmate folder), only new commits will be checked.
+FYI Above will maintain state via (.checkmate folder). Only new commits will be checked.
 
 If you want to use the Platform, follow below:
 
@@ -182,7 +183,7 @@ See sample integration below:
 
 ![image](https://user-images.githubusercontent.com/20355405/180461548-8fbb6c47-0314-4f37-90f1-4292f788caf3.png)
 
-*Fig 3. Sample integration with GitHub Action in Code Scanning tab*
+*Fig 4. Sample integration with GitHub Action in Code Scanning tab*
 
 If you want to scan on PR to main, use this:
 
@@ -225,7 +226,7 @@ Flow:
 
 If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with CLI output.
 
-It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS Sql Server) to store state (no need to commit .checmate folder to code).
+It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS SQL Server) to store state (no need to commit .checmate folder to code).
 
 ## GitHub App
 
@@ -236,7 +237,7 @@ https://github.com/apps/betterscan-code-scan
 ![image](https://user-images.githubusercontent.com/20355405/201154860-4eac4a2b-8fea-4ba3-b38b-728a5bac5588.png)
 
 
-Results will be integrated in GitHub interface (Security->Code Scanning alerts). GitHub Enterprise Cloud and a license for GitHub Advanced Security is required for private repositories, for public repositories not.
+Results will be integrated in GitHub interface (Security->Code Scanning alerts). GitHub Enterprise Cloud and a license for GitHub Advanced Security are required for private repositories, not public repositories.
 
 Scanning is triggered on Push/PR merge to main branch (master or main etc). Results could be there within minutes or hours, depending on project size.
 
@@ -248,13 +249,13 @@ It is possible to integrate results also in GitLab's Security & Compliance Dashb
 
 ## Backstage Integration (BETA)
 
-You can see Security posture of scanned repos by installing Betterscan platform and below in Backstage:
+You can see the Security posture of scanned repositories by installing Betterscan platform and below in Backstage:
 
 https://github.com/marcinguy/backstage-plugin-betterscan
 
 ## DefectDojo Integration
 
-You can import via SARIF vulnerabilities and setup pipeline in DefectDojo to manage vulnerabilities
+You can import via SARIF vulnerabilities and setup a pipeline in DefectDojo to manage vulnerabilities.
 
 ![image](https://user-images.githubusercontent.com/20355405/210390155-f5602cf4-1095-4552-b14a-2c26dcf7869b.png)
 
@@ -310,7 +311,7 @@ To integrate BetterScan with Azure DevOps, you can do the following:
 
 ## Platforms & OS'es
 
-It is platform independent (Python). Checkers are also mostly available on different platforms. The "Master" branch is for Linux x86_64, however there is also a "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
+It is platform independent (Python). Checkers are also primarily available on different platforms. The "Master" branch is for Linux x86_64 however, there is also a "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
 
 ### Linux (amd64)
 
@@ -326,7 +327,7 @@ Install Windows 10, version 1903 or higher or Windows 11.
 
 https://docs.docker.com/desktop/windows/wsl/
 
-Linux images should work
+Linux images should work.
 
 ## Local IDE 
 
@@ -341,9 +342,9 @@ Usage: Ctrl-P and then `> Betterscan scan` will trigger the scan in your opened 
 You will see a message in IDE:
 
 `Betterscan Scan init` on start
-`Betterscan Scan complete` on finish
+`Betterscan Scan complete` on the finish
 
-After scan is complete, you can view `report.sarif` in directory using VS Code [SARIF Viewer plugin](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer).
+After the scan is complete, you can view `report.sarif` in a directory using VS Code [SARIF Viewer plugin](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer).
 
 
 ![image](https://user-images.githubusercontent.com/20355405/212480081-7a0279de-a9ca-43b2-b7eb-9c25583cad4a.png)
@@ -408,7 +409,7 @@ docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-c
 ### Detailed explanation
 
 
-Build Docker image Worker-CLI and run `checkmate` from there. Below is sample flow:
+Build Docker image Worker-CLI and run `checkmate` from there. Below is a sample flow:
 
 
 CLI Mode only
@@ -425,9 +426,6 @@ Run `checkmate issues`
 
 This will be shown
 ```
-/root
-/tmp/test
-/tmp/test
 Loading plugin: git
 Loading plugin: trufflehog3
 Loading plugin: trojansource
@@ -450,12 +448,12 @@ Loading plugin: pmdapex
 Loading plugin: semgrepccpp
 Loading plugin: semgrepjava
 Loading plugin: semgrepeslint
-semgrepjs	ExpressLfrWarning	
-semgrepjs	CookieSessionNoDomain	
-semgrepjs	CookieSessionNoPath	
-semgrepjs	CookieSessionNoSecure	
-semgrepjs	CookieSessionDefault	
-semgrepjs	CookieSessionNoSamesite
+Loading plugin: graudit
+Loading plugin: text4shell
+Loading plugin: yara
+Loading plugin: osvscanner
+Loading plugin: fluidattacksscanner
+
 ```
 
 There is a DockerHub image also for it ready.
@@ -466,8 +464,6 @@ You can run the Commands with docker as below:
 
 ```
 $ docker run -ti  scanmycode/scanmycode3-ce:worker-cli checkmate
-/root
-/root
 Loading plugin: git
 Loading plugin: trufflehog3
 Loading plugin: trojansource
@@ -490,6 +486,11 @@ Loading plugin: pmdapex
 Loading plugin: semgrepccpp
 Loading plugin: semgrepjava
 Loading plugin: semgrepeslint
+Loading plugin: graudit
+Loading plugin: text4shell
+Loading plugin: yara
+Loading plugin: osvscanner
+Loading plugin: fluidattacksscanner
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
@@ -525,9 +526,9 @@ or Check the:
 
 Both use static analysis to find bugs and defects, but there are a few differences. 
 
-- Betterscan supports Cloudnative and Infrastructure Scanning
+- Betterscan supports Cloud-native and Infrastructure Scanning
 - Betterscan supports secrets Scanning (166+ secret types - including GitLeaks) 
-- Betterscan scans for 4,000 rules for  Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware and Webshells, APTs
+- Betterscan scans for 4,000 rules for  Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware and Web shells, APTs
 - Betterscan scans SBOM and Dependencies vulnerabilities
 - Betterscan can be extended with any tool producing JSON output (any binary, in any technology/language/product)
 
@@ -570,7 +571,7 @@ Currently supports: PHP, Java, Scala, Python, PERL, Ruby, .NET Full Framework, C
 
 Advantages:
 * Many tools, one report (unification) 
-* Dismiss, collaborate on findings. Mark false-positives
+* Dismiss, and collaborate on findings. Mark false-positives
 * Enable/disable each individual check in Checkers
 * ca. 6,300+ checks now (Linters, Static Code Analysis/Code Scanning, YARA Ca. 4000 YARA binary matching/textual matching rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware and Webshells, APTs ) 
 * any tool outputting JSON can be added
@@ -586,7 +587,7 @@ Advantages:
 
 Cloud version and more at https://www.betterscan.io
 
-Cloud version has also many other plugins, also other plugins are commercially available for licensing (GitHub, GitHub organizations, Slack)
+Cloud version also has many other plugins. Also other plugins are commercially available for licensing (GitHub, GitHub organizations, Slack)
 
 # Contribute
 
@@ -614,8 +615,7 @@ depends on your use case.
 * The **Docker-based installation** is probably the easiest way to try Betterscan without much work
 * The **Ansible-based installation** is the most suitable way if you want to run Betterscan in a professional infrastructure (possibly with multiple servers)
 
-The following section will only discuss the manual installation process, for the other options please
-check their corresponding repositories.
+The following section will only discuss the manual installation process. for the other options, please check their corresponding repositories.
 
 ## Manual Installation
 
@@ -680,7 +680,3 @@ See docker folder. You can spin up everything using one command.
 ## Ansible-Based Installation
 
 Coming Soon!
-
-
-
-
