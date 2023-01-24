@@ -85,4 +85,6 @@ ADD https://nixos.org/nix/install /tmp
 RUN bash -c "bash /tmp/install --daemon"
 RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz"
 RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
+RUN /root/.go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
+RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
 RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-worker.html  
