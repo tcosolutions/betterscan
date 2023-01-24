@@ -453,6 +453,7 @@ Loading plugin: text4shell
 Loading plugin: yara
 Loading plugin: osvscanner
 Loading plugin: fluidattacksscanner
+Loading plugin: gostaticcheck
 
 ```
 
@@ -491,6 +492,7 @@ Loading plugin: text4shell
 Loading plugin: yara
 Loading plugin: osvscanner
 Loading plugin: fluidattacksscanner
+Loading plugin: gostaticcheck
 Usage: checkmate [command] [command] [...] [args]
 
 Type "checkmate help" for help
@@ -510,7 +512,7 @@ docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:wo
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme), fluidattacks scanner and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, gostaticcheck, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme), fluidattacks scanner and other(s). Some were modified. 
 
 # Recorded DEMO
 
