@@ -3,6 +3,7 @@
 ![GitHub watchers](https://badgen.net/github/watchers/marcinguy/scanmycode-ce)
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 
 Betterscan uses many tools for Code, Cloud, secrets, dependencies, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, and many other features)**
 
@@ -593,14 +594,48 @@ Cloud version also has many other plugins. Also other plugins are commercially a
 
 # Contribute
 
+## **Contributing**
+
+Feel free to use, recommend improvements, or contribute to new implementations.
+
+Check out our [**contributing guide**](CONTRIBUTING.md) to learn about our development process, how to suggest bugfixes and improvements. 
+
+## **Developer Certificate of Origin - DCO**
+
+ This is a security layer for the project and for the developers. It is mandatory.
+ 
+Follow one of these two methods to add DCO to your commits:
+ 
+**1. Command line**
+
+Follow the steps: 
+ 
+**Step 1:** Configure your local git environment adding the same name and e-mail configured at your GitHub account. It helps to sign commits manually during reviews and suggestions.
+
+ ```
+git config --global user.name “Name”
+git config --global user.email “email@domain.com”
+```
+
+**Step 2:** Add the Signed-off-by line with the `'-s'` flag in the git commit command:
+
+```
+$ git commit -s -m "This is my commit message"
+```
+**2. GitHub website**
+
+You can also manually sign your commits during GitHub reviews and suggestions, follow the steps below: 
+
+**Step 1:** When the commit changes box opens, manually type or paste your signature in the comment box, see the example:
+
+```
+Signed-off-by: Name < e-mail address >
+```
+
+For this method, your name and e-mail must be the same registered on your GitHub account.
+
 Looking for contributing individuals and organizations. Feel free to contact me at marcinguy@gmail.com
 
-TODO
-
-* update Dependencies (Backend & Frontend - done)
-* update to latest React
-* update to Python3 (see scanmycode3 branch - done)
-* update/add new Checkers (if you wish)
 
 # Licensing
 
