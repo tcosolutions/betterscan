@@ -35,7 +35,7 @@ class Badge(Resource):
             snapshot = get_snapshot(project, snapshot_id, raw=False, include=('project',))
             issues_summary = snapshot.summarize_issues()
             issues = issues_summary.get('', {})
-        except (Snapshot.DoesNotExist, KeyError):
+        except:
             # no issues, return empty badge
             return Response(jinja_env.get_template('badge_empty.svg').render(), mimetype="image/svg+xml")
 
