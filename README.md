@@ -45,7 +45,9 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo etc.
+Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo.
+
+Sample integrations for BitBucket Pipelines, GitLab CI, Google CloudBuild, CircleCI, Jenkins, TravisCI are also provided.
 
 # What it does
 
@@ -309,6 +311,120 @@ To integrate BetterScan with Azure DevOps, you can do the following:
       displayName: Commit and Push checkmate db
 ```
 > Warning: 
+
+## Sample integrations for BitBucket Pipelines, GitLab CI, Google CloudBuild, CircleCI, Jenkins, TravisCI
+
+## BitBucket Pipelines
+
+
+bitbucket-pipelines.yml
+
+
+Docker based step
+```
+image: scanmycode/scanmycode3-ce:worker-cli
+
+pipelines:
+  default:
+    - step:
+        script:
+         - sh <(curl https://dl.betterscan.io/cli.sh)
+```          
+
+AppImage based step
+```
+pipelines:
+  default:
+    - step:
+        script:
+          - sh <(curl https://dl.betterscan.io/cli.sh)
+```          
+## GitLab CI
+
+
+.gitlab-ci.yml
+
+```
+variables:
+  GITHUB_TOKEN: $GITHUB_TOKEN
+scan:
+  stage: test
+  image:
+    name: scanmycode/scanmycode3-ce:worker-cli
+  script:
+    - sh <(curl https://dl.betterscan.io/cli.sh)
+  rules:
+    - when: always
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    paths:
+      - $CI_PROJECT_DIR/reports/
+    when: always
+```
+
+## Google CloudBuild
+
+```
+steps:
+  - name: scanmycode/scanmycode3-ce:worker-cli
+    entrypoint: sh <(curl https://dl.betterscan.io/cli.sh)
+    env:
+      - "WORKSPACE=https://github.com/$REPO_NAME/blob/$COMMIT_SHA"
+      - "GITHUB_TOKEN=${_GITHUB_TOKEN}"
+
+substitutions:
+  _GITHUB_TOKEN: Token with read:packages scope
+```
+
+## CircleCI
+```
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: scanmycode/scanmycode3-ce:worker-cli
+        environment:
+          GITHUB_TOKEN: $GITHUB_TOKEN
+          WORKSPACE: ${CIRCLE_REPOSITORY_URL}/blob/${CIRCLE_SHA1}
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Perform Scan
+          command: |
+            sh <(curl https://dl.betterscan.io/cli.sh)
+      - store_artifacts:
+          path: reports
+          destination: sast-scan-reports
+```
+
+## Jenkins
+
+Jenkinsfile
+```
+stages {
+    stage('Scan') {
+        agent {
+            docker { image 'scanmycode/scanmycode3-ce:worker-cli' }
+        }
+        steps {
+            sh 'sh <(curl https://dl.betterscan.io/cli.sh)'
+        }
+    }
+}
+```
+
+## TravisCI
+
+```
+services:
+  - docker
+
+script:
+  - docker run -v $PWD:/app scanmycode/scanmycode3-ce:worker-cli sh <(curl https://dl.betterscan.io/cli.sh)
+```
+
 
 ## Platforms & OS'es
 
