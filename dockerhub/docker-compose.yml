@@ -7,7 +7,7 @@ services:
       - postgres
     working_dir: /srv/scanmycode/
     entrypoint: sh
-    command: -c "if [ -f /srv/scanmycode/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-dockerhub.html; python /srv/scanmycode/manage.py runserver; else python /srv/scanmycode/manage.py setup && mkdir -p /srv/scanmycode/setup_state && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-dockerhub.html; fi"
+    command: -c "if [ -f /srv/scanmycode/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-dockerhub.html; python3.8 /srv/scanmycode/manage.py runserver; else python3.8 /srv/scanmycode/manage.py setup && mkdir -p /srv/scanmycode/setup_state && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-dockerhub.html; fi"
     ports:
       - 5000:5000
     volumes:
@@ -31,6 +31,8 @@ services:
       - db-data:/var/lib/postgresql/data
   worker_1:
     image: scanmycode/scanmycode3-ce:worker
+    ulimits:
+      stack: -1
     restart: always
     hostname: worker_1
     depends_on:
@@ -38,8 +40,8 @@ services:
       - postgres
       - server
     working_dir: /srv/scanmycode/
-    entrypoint: python
-    command: /srv/scanmycode/manage.py runworker
+    entrypoint: sh
+    command: "python3.8 /srv/scanmycode/manage.py runworker"
     volumes:
       - ./data1:/srv/scanmycode/quantifiedcode/data/
       - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
