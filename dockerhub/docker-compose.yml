@@ -41,7 +41,7 @@ services:
       - server
     working_dir: /srv/scanmycode/
     entrypoint: sh
-    command: "python3.8 /srv/scanmycode/manage.py runworker"
+    command: -c "python3.8 /srv/scanmycode/manage.py runworker"
     volumes:
       - ./data1:/srv/scanmycode/quantifiedcode/data/
       - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
