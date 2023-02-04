@@ -1,6 +1,4 @@
-# FROM python:3.7
 ARG DEBIAN_FRONTEND=noninteractive
-#FROM debian:11
 FROM python:3.8
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
 RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv rsync jo libpq-dev curl
@@ -12,12 +10,8 @@ RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
 WORKDIR /srv/scanmycode
 RUN git pull
 WORKDIR /srv/scanmycode
-#RUN pip install -r requirements.txt
-#RUN pipenv install --python=/usr/bin/python3.9
 RUN pip install pipenv
 RUN python3 -m pipenv install --python=/usr/local/bin/python3.8 --system
-#RUN pip install pylint===1.9.2
-#RUN pip install stripe
 WORKDIR /
 RUN git clone -b checkmate3 https://github.com/marcinguy/checkmate-ce /checkmate
 WORKDIR /checkmate
@@ -25,22 +19,12 @@ RUN git checkout checkmate3
 RUN git pull
 RUN python3.8 setup.py install
 WORKDIR /
-#RUN pip uninstall -y blitzdb3
-#RUN git clone https://github.com/marcinguy/blitzdb3-ce.git /blitzdb3-ce
-#WORKDIR /blitzdb3-ce
-#RUN git pull
-#RUN python3 setup.py install
 WORKDIR /
 RUN python3.8 -m pip install psycopg2 --upgrade
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 WORKDIR /root
 RUN apt install -y wget
-RUN wget https://golang.org/dl/go1.18.linux-amd64.tar.gz
-#ENV SHELL /bin/bash
-#RUN curl -LO https://get.golang.org/$(uname)/go_installer
-#RUN chmod +x go_installer
-#RUN ./go_installer
-#RUN rm go_installer
+RUN wget https://golang.org/dl/go1.19.linux-amd64.tar.gz
 RUN sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
 RUN /usr/local/go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest
 RUN mkdir /root/bin
@@ -63,7 +47,6 @@ WORKDIR /root/confused
 RUN /usr/local/go/bin/go mod init confused
 RUN /usr/local/go/bin/go build confused
 RUN tree
-#RUN cp /srv/scanmycode/analyzers/confused /root/confused/ #source https://gitlab.com/marcinguy/confused-oss
 WORKDIR /root
 RUN git clone https://github.com/Raz0r/semgrep-smart-contracts.git
 RUN git clone https://github.com/marcinguy/smc-semgrep-js.git semgrepjs
