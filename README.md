@@ -188,7 +188,7 @@ See sample integration below:
 
 *Fig 4. Sample integration with GitHub Action in Code Scanning tab*
 
-Make sure in your GitHub Repository under Settings->Actions->General the "Workflow permissions" are set to "Read and write persmissions"
+Make sure in your GitHub Repository under Settings->Actions->General the "Workflow permissions" are set to "Read and write permissions"
 
 If you want to scan on PR to main, use this:
 
@@ -231,7 +231,7 @@ Flow:
 
 If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with CLI output.
 
-It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS SQL Server) to store state (no need to commit .checmate folder to code).
+It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS SQL Server) to store state (no need to commit .checkmate folder to code).
 
 ## GitHub App
 
