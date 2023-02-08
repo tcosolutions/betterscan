@@ -188,6 +188,8 @@ See sample integration below:
 
 *Fig 4. Sample integration with GitHub Action in Code Scanning tab*
 
+Make sure in your GitHub Repository under Settings->Actions->General the "Workflow permissions" are set to "Read and write persmissions"
+
 If you want to scan on PR to main, use this:
 
 ```
