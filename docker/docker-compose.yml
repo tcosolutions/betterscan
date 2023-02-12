@@ -9,12 +9,13 @@ services:
       - postgres
     working_dir: /srv/scanmycode/
     entrypoint: sh
-    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/scanmycode/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-docker.html; python3.8 /srv/scanmycode/manage.py runserver; else python3.8 /srv/scanmycode/manage.py setup && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-docker.html; fi"
+    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/scanmycode/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-docker.html; python3.8 /srv/scanmycode/manage.py runserver; else python3.8 /srv/scanmycode/manage.py setup  && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-docker.html; fi"
+
     ports:
       - 5000:5000
     volumes:
       - ./data1:/srv/scanmycode/quantifiedcode/data/
-      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/tasks
       - ./setup_state:/srv/scanmycode/setup_state
     links:
       - "postgres"
@@ -48,7 +49,7 @@ services:
     command: -c "python3.8 /srv/scanmycode/manage.py runworker"
     volumes:
       - ./data1:/srv/scanmycode/quantifiedcode/data/
-      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/
+      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/tasks
     links:
       - "rabbitmq3"
       - "server"
