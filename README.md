@@ -297,6 +297,7 @@ To integrate BetterScan with Azure DevOps, you can do the following:
 
     - script: |
         set -e
+        git config --global --add safe.directory $(Build.SourcesDirectory)
         git config --global user.email "azuredevops@microsoft.com"
         git config --global user.name "Azure DevOps" 
         git checkout -b $(Build.SourceBranchName)
