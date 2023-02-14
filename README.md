@@ -27,7 +27,7 @@ Run in command prompt:
 
 If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
-Run in command prompt (or ```docker-compose up```):
+Run in command prompt (or ```docker-compose up``` or ```docker compose up``` ):
 
 ```
 git clone https://github.com/marcinguy/betterscan-ce.git
@@ -131,7 +131,7 @@ cd betterscan-ce/dockerhub
 
 or 
 
-Run in command prompt ```docker-compose up```
+Run in command prompt ```docker-compose up``` or ```docker compose up```
 
 2) Slower method (build everything)
 
@@ -143,7 +143,7 @@ cd betterscan-ce/docker
 
 or 
 
-Run in command prompt ```docker-compose up```
+Run in command prompt ```docker-compose up``` or ```docker compose up```
 
 
 Open up the Browser to:
