@@ -509,10 +509,10 @@ Corresponds to running these:
 ```
 export CODE_DIR=${PWD}
 cd $CODE_DIR
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues'
 ```
 
 #### HTML CLI output
@@ -529,10 +529,10 @@ Corresponds to running these:
 ```
 export CODE_DIR=${PWD}
 cd $CODE_DIR
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues html'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues html'
 ```
 
 ### Detailed explanation
@@ -544,7 +544,7 @@ Build Docker image Worker-CLI and run `checkmate` from there. Below is a sample 
 CLI Mode only
 
 1) Clone the repo i.e into `/tmp/test`
-2) set env var CODE_DIR i.e `export CODE_DIR=/tmp/test`. This env var should point to your Git cloned repo dir. 
+2) set env var CODE_DIR i.e `export CODE_DIR=/tmp/test`. This env var should point to your Git cloned repo dir. Set LIC env var. 
 3) Cd into it (this is important!)
 4) Run `checkmate init`
 5) Run `checkmate git init`
@@ -632,10 +632,10 @@ Same workflow as above, but using Docker binary:
 ```
 export CODE_DIR=/tmp/test
 cd /tmp/test
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate init'
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
-docker run -e CODE_DIR -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
+docker run -e CODE_DIR -e LIC -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate init'
+docker run -e CODE_DIR -e LIC -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
+docker run -e CODE_DIR -e LIC -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
+docker run -e CODE_DIR -e LIC -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
 ```
 
 
