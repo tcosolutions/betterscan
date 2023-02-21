@@ -11,6 +11,9 @@
 import re
 import subprocess
 
+import requests
+import os
+
 from collections import defaultdict
 from flask import request
 from sqlalchemy.sql import text
@@ -158,6 +161,20 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
 
         #we process the results
         results = self.process_file_revisions(request.project, rows)
+
+        r = requests.get("https://dl.betterscan.io/auth.php?licence="+os.getenv('LIC'))
+        if(r.content.decode("utf-8")=="OK"):
+          valid=1
+        else:
+          valid=0
+
+        if not valid:
+           newresults = []
+           for val in results:
+               val["path"] = "Please upgrade to PRO"
+               newresults.append(val)
+           results = newresults
+
 
         return {'file_revisions': results,
                 'count': count
