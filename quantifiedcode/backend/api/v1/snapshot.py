@@ -162,11 +162,16 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
         #we process the results
         results = self.process_file_revisions(request.project, rows)
 
-        r = requests.get("https://dl.betterscan.io/auth.php?licence="+os.getenv('LIC'))
-        if(r.content.decode("utf-8")=="OK"):
-          valid=1
-        else:
+         
+        try:
+          r = requests.get("https://dl.betterscan.io/auth.php?licence="+os.getenv('LIC'))
+          if(r.content.decode("utf-8")=="OK"):
+            valid=1
+          else:
+            valid=0
+        except:
           valid=0
+          pass
 
         if not valid:
            newresults = []
