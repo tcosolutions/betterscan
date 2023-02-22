@@ -5,6 +5,7 @@
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 
+
 Betterscan uses many tools for Code, Cloud, secrets, dependencies, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, and many other features)**
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
