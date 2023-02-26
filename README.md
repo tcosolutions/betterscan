@@ -10,7 +10,7 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies, and also prec
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
-Install  Docker Engine [(Instructions for Ubuntu)](https://docs.docker.com/engine/install/ubuntu/), if you don't already have it, and run this in your Git code directory
+Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or or Ubuntu via one command via snap `sudo snap install docker`), if you don't already have it, and run this in your Git code directory
 
 **2 options** are available:
 
