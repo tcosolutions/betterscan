@@ -565,6 +565,7 @@ Loading plugin: brakeman
 Loading plugin: phpanalyzer
 Loading plugin: gosec
 Loading plugin: confused
+Loading plugin: snyk
 Loading plugin: pmd
 Loading plugin: semgrep
 Loading plugin: semgrepdefi
@@ -604,6 +605,7 @@ Loading plugin: brakeman
 Loading plugin: phpanalyzer
 Loading plugin: gosec
 Loading plugin: confused
+Loading plugin: snyk
 Loading plugin: pmd
 Loading plugin: semgrep
 Loading plugin: semgrepdefi
@@ -642,7 +644,7 @@ docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v /tmp/test:/tmp/test  -ti  scanmyc
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, gostaticcheck, confused, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme), fluidattacks scanner and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, gostaticcheck, confused, snyk, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme), fluidattacks scanner and other(s). Some were modified. 
 
 # Recorded DEMO
 
