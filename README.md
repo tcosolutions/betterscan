@@ -1,3 +1,13 @@
+<div align="center">
+  <a href="https://github.com/marcinguy/betterscan-ce">
+    <img alt="Betterscan" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/633a1643dcb06d3029867161_g4.svg">
+  </a>
+</div>
+
+<h2 align="center">
+  Betterscan - Secure Code and Cloud
+</h2>
+
 [<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/marcinguy/scanmycode-ce)
 ![GitHub forks](https://badgen.net/github/forks/marcinguy/scanmycode-ce)
 ![GitHub watchers](https://badgen.net/github/watchers/marcinguy/scanmycode-ce)
