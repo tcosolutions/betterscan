@@ -274,7 +274,7 @@ https://github.com/apps/reviewdog
 
 ![image](https://user-images.githubusercontent.com/20355405/223476599-6c92cc66-4198-4044-ad87-862dbfd8f90f.png)
 
-Please follow instructions at Reviewdog
+Please follow instructions at Reviewdog (https://github.com/haya14busa/reviewdog)
 
 Sample run it like this:
 
