@@ -56,7 +56,7 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo.
+Read more below for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo, Reviewdog
 
 Sample integrations for BitBucket Pipelines, GitLab CI, Google CloudBuild, CircleCI, Jenkins, TravisCI are also provided.
 
@@ -267,6 +267,49 @@ Results will be integrated in GitHub interface (Security->Code Scanning alerts).
 Scanning is triggered on Push/PR merge to main branch (master or main etc). Results could be there within minutes or hours, depending on project size.
 
 Scan state will be preserved between scans. With new scan only changes will be rescanned.
+
+# Reviewdog
+
+https://github.com/apps/reviewdog
+
+![image](https://user-images.githubusercontent.com/20355405/223476599-6c92cc66-4198-4044-ad87-862dbfd8f90f.png)
+
+Please follow instructions at Reviewdog
+
+Sample run it like this:
+
+```
+cat report.json| jq -f to-rdjson.jq | $HOME/bin/reviewdog -f=rdjson -reporter=github-check
+```
+
+
+to-rdjson.jq file:
+```
+{
+  source: {
+    name: "betterscan",
+    url: "https://github.com/marcinguy/betterscan-ce"
+  },
+  diagnostics: . | map({
+    message: .description,
+    code: {
+      value: .hash,
+      url: "https://github.com/marcinguy/betterscan-ce",
+    } ,
+    location: {
+      path: .file,
+      range: {
+        start: {
+          line: .line,
+          column: 1
+        }
+      }
+    },
+    severity: ((.severity|ascii_upcase|select(match("ERROR|WARNING|INFO")))//null)
+  })
+}
+```
+
 
 ## GitLab Integration
 
