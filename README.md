@@ -16,7 +16,7 @@
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 
 
-Betterscan uses many tools for Code, Cloud, secrets, dependencies, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, and many other features)**
+Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, and many other features)**
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
@@ -102,7 +102,7 @@ or for an HTML report:
 
 `sh <(curl https://dl.betterscan.io/cli-html.sh)`
 
-That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks, SBOM, and dependencies vulnerabilities) and 4,000+ YARA rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware, Web shells, and APTs.
+That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilities, Best Practices, Secrets - 166+ secret types - including GitLeaks, SBOM, and dependencies vulnerabilities - SCA (software composition analysis) and Supply Chain Risks) and 4,000+ YARA rules for Antidebug, Antivm, Crypto, CVE, Exploits Kits, Malware, Web shells, and APTs.
 
 Sample CLI report
 
