@@ -314,7 +314,7 @@ Make sure in your GitHub Repository under Settings->Actions->General the "Workfl
 
 If you want to scan on PR to main, use this
 
-Create file under .github/worlflows/reviewgog.yml
+Create file under .github/worlflows/reviewdog.yml
 
 ```
 name: Reviewdog
