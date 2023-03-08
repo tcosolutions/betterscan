@@ -183,6 +183,11 @@ Add this to your workflow (in your GitHub repo under .github/workflows/bettersca
 
 
 ```
+env:
+  LIC: ${{secrets.LIC}}
+  SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+  
+
 name: Betterscan Scan
 on: [push]
 jobs:
@@ -213,6 +218,11 @@ Make sure in your GitHub Repository under Settings->Actions->General the "Workfl
 If you want to scan on PR to main, use this:
 
 ```
+env:
+  LIC: ${{secrets.LIC}}
+  SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+  
+
 name: Betterscan Scan
 on: 
  pull_request:
@@ -319,6 +329,10 @@ If you want to scan on PR to main, use this
 Create file under .github/worlflows/reviewdog.yml
 
 ```
+env:
+  LIC: ${{secrets.LIC}}
+  SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+
 name: Reviewdog
 on: 
  pull_request:
