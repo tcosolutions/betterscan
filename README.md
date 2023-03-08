@@ -270,9 +270,9 @@ Scan state will be preserved between scans. With new scan only changes will be r
 
 # Reviewdog
 
-https://github.com/apps/reviewdog
 
-![image](https://user-images.githubusercontent.com/20355405/223476599-6c92cc66-4198-4044-ad87-862dbfd8f90f.png)
+
+
 
 Please follow instructions at Reviewdog (https://github.com/haya14busa/reviewdog)
 
@@ -309,6 +309,8 @@ to-rdjson.jq file:
   })
 }
 ```
+
+If you wish to run Reviewdog as GitHub Action.
 
 Make sure in your GitHub Repository under Settings->Actions->General the "Workflow permissions" are set to "Read and write permissions"
 
