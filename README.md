@@ -281,9 +281,6 @@ Scan state will be preserved between scans. With new scan only changes will be r
 # Reviewdog
 
 
-
-
-
 Please follow instructions at Reviewdog (https://github.com/haya14busa/reviewdog)
 
 Sample run it like this:
@@ -324,7 +321,7 @@ If you wish to run Reviewdog as GitHub Action.
 
 Make sure in your GitHub Repository under Settings->Actions->General the "Workflow permissions" are set to "Read and write permissions"
 
-If you want to scan on PR to main, use this
+If you want to scan on PR to main, use this. This will scan commit or PR.
 
 Create file under .github/worlflows/reviewdog.yml
 
@@ -363,6 +360,44 @@ jobs:
         run: |
           cat report.json| jq -f to-rdjson.jq | reviewdog -f=rdjson -reporter=github-check
 ```
+
+If you want a PR review with comments, use this:
+
+```
+env:
+  LIC: ${{secrets.LIC}}
+  SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+  REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.REVIEWDOG_GITHUB_API_TOKEN}}
+
+name: Review
+on: 
+ pull_request:
+   types: [opened, edited, reopened, review_requested, synchronize]
+   branches:
+      - 'main'
+jobs:
+  Betterscan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Betterscan Scan
+        uses: topcodersonline/betterscancustom@v1
+        with:
+         branch: ${{ github.head_ref || github.ref_name }}   
+      - uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "to-rdjson.jq"
+          FILE_BASE64: "ewogIHNvdXJjZTogewogICAgbmFtZTogImJldHRlcnNjYW4iLAogICAgdXJsOiAiaHR0cHM6Ly9naXRodWIuY29tL21hcmNpbmd1eS9iZXR0ZXJzY2FuLWNlIgogIH0sCiAgZGlhZ25vc3RpY3M6IC4gfCBtYXAoewogICAgbWVzc2FnZTogLmRlc2NyaXB0aW9uLAogICAgY29kZTogewogICAgICB2YWx1ZTogLmhhc2gsCiAgICAgIHVybDogImh0dHBzOi8vZ2l0aHViLmNvbS9tYXJjaW5ndXkvYmV0dGVyc2Nhbi1jZSIsCiAgICB9ICwKICAgIGxvY2F0aW9uOiB7CiAgICAgIHBhdGg6IC5maWxlLAogICAgICByYW5nZTogewogICAgICAgIHN0YXJ0OiB7CiAgICAgICAgICBsaW5lOiAubGluZSwKICAgICAgICAgIGNvbHVtbjogMQogICAgICAgIH0KICAgICAgfQogICAgfSwKICAgIHNldmVyaXR5OiAoKC5zZXZlcml0eXxhc2NpaV91cGNhc2V8c2VsZWN0KG1hdGNoKCJFUlJPUnxXQVJOSU5HfElORk8iKSkpLy9udWxsKQogIH0pCn0="
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest # Optional. [latest,nightly,v.X.Y.Z]
+      - name: Run reviewdog
+        run: |
+          cat report.json| jq -f to-rdjson.jq | reviewdog -f=rdjson -reporter=github-pr-review -filter-mode=nofilter -level=error -tee
+```
+
 
 ## GitLab Integration
 
