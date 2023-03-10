@@ -361,6 +361,12 @@ jobs:
           cat report.json| jq -f to-rdjson.jq | reviewdog -f=rdjson -reporter=github-check
 ```
 
+Sample screenshot:
+
+![image](https://user-images.githubusercontent.com/20355405/224292458-a8bd5d24-cdc8-4877-8812-0e648de9bb8d.png)
+
+
+
 If you want a PR review with comments, use this:
 
 ```
@@ -397,6 +403,10 @@ jobs:
         run: |
           cat report.json| jq -f to-rdjson.jq | reviewdog -f=rdjson -reporter=github-pr-review -filter-mode=nofilter -level=error -tee
 ```
+
+Sample screenshot:
+
+![image](https://user-images.githubusercontent.com/20355405/224292328-d7238b6c-5867-45f3-b76d-0de2c24eadc1.png)
 
 
 ## GitLab Integration
