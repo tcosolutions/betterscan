@@ -5,4 +5,3 @@ then
 else
     docker-compose down
 fi
-~

@@ -1,8 +1,11 @@
 version: '3'
 services:
   server:
-    image: scanmycode/scanmycode3-ce:server 
+    image: scanmycode/scanmycode3-ce:server
     restart: always
+    environment:
+      LIC:
+      SNYK_TOKEN:
     depends_on:
       - postgres
     working_dir: /srv/scanmycode/
@@ -34,6 +37,9 @@ services:
     ulimits:
       stack: -1
     restart: always
+    environment:
+      LIC: 
+      SNYK_TOKEN:
     hostname: worker_1
     depends_on:
       - rabbitmq3
@@ -68,4 +74,3 @@ services:
 volumes:
   db-data:
     driver: local
-
