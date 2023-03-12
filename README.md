@@ -278,7 +278,9 @@ Scanning is triggered on Push/PR merge to main branch (master or main etc). Resu
 
 Scan state will be preserved between scans. With new scan only changes will be rescanned.
 
-# Reviewdog
+## Reviewdog Integration
+
+Supports: GitHub, GitHub Actions,  GitLab, BitBucket, Circle CI, Travis, Common (Jenkins, local, etc) 
 
 
 Please follow instructions at Reviewdog (https://github.com/haya14busa/reviewdog)
@@ -407,6 +409,14 @@ jobs:
 Sample screenshot:
 
 ![image](https://user-images.githubusercontent.com/20355405/224292328-d7238b6c-5867-45f3-b76d-0de2c24eadc1.png)
+
+Flow:
+1) Make PR
+2) It will scan
+3) make git pull to get state (.checkmate folder) on your PR
+4) make changes, commits, push to PR
+5) repeat 2)
+
 
 
 ## GitLab Integration
