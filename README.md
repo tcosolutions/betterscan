@@ -28,13 +28,13 @@ Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine
 
 Run in command prompt:
 
-`sh <(curl https://dl.betterscan.io/cli-html.sh)`
+`sh <(curl https://dl.betterscan.io/cli.sh)`
 
-2. CLI output
+2. HTML, JSON, SARIF output
 
 Run in command prompt:
 
-`sh <(curl https://dl.betterscan.io/cli.sh)`
+`sh <(curl https://dl.betterscan.io/cli-html.sh)`
 
 If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
