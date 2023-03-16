@@ -24,13 +24,13 @@ Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine
 
 **2 options** are available:
 
-1. HTML output (the result will be in the current directory in  "report.html" file)
+1. CLI output
 
 Run in command prompt:
 
 `sh <(curl https://dl.betterscan.io/cli.sh)`
 
-2. HTML, JSON, SARIF output
+2. HTML, JSON, SARIF output (the result will be in the current directory in "report.html", "report.json" and "report.sarif" file)
 
 Run in command prompt:
 
