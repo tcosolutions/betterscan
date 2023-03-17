@@ -58,7 +58,6 @@ config = {
         'ProjectDetails' : (
             {
                 'git' : ('public_key',
-                         'private_key',
                          'url'
                         )},
             {
