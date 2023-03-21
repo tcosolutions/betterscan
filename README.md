@@ -16,7 +16,7 @@
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 
 
-Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (several times faster, and many other features)**
+Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (all features available)**
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
