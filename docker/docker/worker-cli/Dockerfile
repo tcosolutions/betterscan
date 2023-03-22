@@ -55,7 +55,7 @@ RUN git clone https://github.com/marcinguy/semgrep-csharp-dotnet.git semgrepcsha
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.41.0/pmd-bin-6.41.0.zip
 RUN unzip pmd-bin-6.41.0.zip
 RUN mkdir /root/phpscan/
-RUN cp /srv/scanmycode/analyzers/progpilot_dev20180720-215434.phar /root/phpscan/
+RUN cp /srv/scanmycode/analyzers/progpilot.phar /root/phpscan/
 RUN cp /srv/scanmycode/analyzers/find_unicode_control2.py /usr/local/bin/
 RUN cp -pr /srv/scanmycode/analyzers/custom-semgrep /root
 RUN cp /srv/scanmycode/analyzers/*.yml /root/
