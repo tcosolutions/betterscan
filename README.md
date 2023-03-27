@@ -629,7 +629,7 @@ Linux images should work.
 
 If you want to use WSL Docker, follow this:
 
-```wsl -- update```
+```wsl --update```
 
 Check if you are running the Microsoft Store version of WSL version 0.67.6 and higher from the command prompt or the Powershell.
 
