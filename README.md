@@ -602,23 +602,125 @@ script:
 
 ## Platforms & OS'es
 
-It is platform independent (Python). Checkers are also primarily available on different platforms. The "Master" branch is for Linux x86_64 however, there is also a "macos" branch with Dockerfiles for arm64 (including arm64 checkers). M1 mac has arm64 architecture (30% cheaper and 30% faster than alternatives) 
+It is platform independent (Python). Checkers are also primarily available on different platforms. The "Master" branch is for Linux x86_64
 
 ### Linux (amd64)
 
 Yes, by default 
 
-### MacOs (Intel and arm64)
-
-macos branch
-
 ### Windows (amd64)
+
+#### Docker Desktop
 
 Install Windows 10, version 1903 or higher or Windows 11.
 
 https://docs.docker.com/desktop/windows/wsl/
 
 Linux images should work.
+
+#### WSL Docker
+
+If you want to use WSL Docker, follow this:
+
+```wsl -- update```
+
+Check if you are running the Microsoft Store version of WSL version 0.67.6 and higher from the command prompt or the Powershell.
+
+```wsl --version```
+
+Steps
+
+Here are the steps to install Docker and run Docker in WSL distro.
+
+1) Enable systemd
+
+From the WSL distro (e.g., Ubuntu 22.04.1 LTS) terminal, edit /etc/wsl.conf file.
+
+```sudo nano /etc/wsl.conf```
+
+and add
+
+```
+[boot]
+systemd=true
+```
+
+And close out of the nano editor using CTRL+O to save and CTRL+X to exit. Exit the WSL distro (e.g., Ubuntu 22.04.1 LTS) terminal.
+
+2) Install docker
+
+From the WSL distro (e.g., Ubuntu 22.04.1 LTS) terminal, update the local repository.
+```
+sudo apt update
+```
+Install Docker.
+
+```
+sudo apt install docker.io -y
+```
+
+Add the user to the docker group.
+
+```
+sudo usermod -aG docker $USER
+```
+
+Check Docker installation.
+
+```
+docker --version
+```
+
+
+4. Validate Docker installation
+
+Exit out of the terminal.
+
+```
+exit
+```
+
+From either the command prompt or PowerShell, shutdown WSL.
+
+```
+wsl --shutdown
+```
+
+Enter the WSL distro (e.g., Ubuntu 22.04.1 LTS) via Windows terminal and validate the docker installation.
+
+```
+docker run hello-world
+```
+
+It should display Hellow from Docker message.
+
+
+You have completed the installation of Docker! You are able to run docker in WSL without Docker Desktop.
+
+
+Run this in Powershell
+
+cli.ps1
+
+```
+set CODE_DIR=$PWD.Path
+cd $CODE_DIR
+docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
+docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
+docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+```
+
+or this in WSL Bash (like you would do with typical Linux)
+
+```
+export CODE_DIR=${PWD}
+cd $CODE_DIR
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+```
 
 ## Local IDE 
 
