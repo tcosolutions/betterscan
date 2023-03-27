@@ -20,6 +20,9 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (softwar
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
+Below setup if for Linux (Ubuntu), you can also run it on Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
+
+
 Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or on Ubuntu via one command via snap `sudo snap install docker`), if you don't already have it, and run this in your Git code directory
 
 **2 options** are available:
@@ -705,10 +708,10 @@ cli.ps1
 ```
 set CODE_DIR=$PWD.Path
 cd $CODE_DIR
-docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e $CODE_DIR -e $LIC -e $SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
 ```
 
 or this in WSL Bash (like you would do with typical Linux)
