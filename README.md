@@ -20,7 +20,7 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (softwar
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
-Below setup if for Linux (Ubuntu), you can also run it on Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
+Below setup if for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
 
 
 Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or on Ubuntu via one command via snap `sudo snap install docker`), if you don't already have it, and run this in your Git code directory
@@ -608,6 +608,10 @@ script:
 It is platform independent (Python). Checkers are also primarily available on different platforms. The "Master" branch is for Linux x86_64
 
 ### Linux (amd64)
+
+Yes, by default 
+
+### MacOS
 
 Yes, by default 
 
