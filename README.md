@@ -710,7 +710,16 @@ It should display Hello world from Docker message.
 You have completed the installation of Docker! You are able to run docker in WSL without Docker Desktop.
 
 
-Run this in Powershell
+Run this in Powershell (powershell.exe)
+
+```
+set-ExecutionPolicy RemoteSigned -Scope CurrentUse
+$cli = Invoke-WebRequest -Uri https://dl.betterscan.io/cli-win.txt
+$cli.Content > cli.ps1
+./cli.ps1
+```
+
+or this:
 
 cli.ps1
 
