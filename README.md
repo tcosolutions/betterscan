@@ -25,7 +25,9 @@ If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and 
 Below setup if for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
 
 
-![linux-win-mac-small](https://user-images.githubusercontent.com/20355405/228212726-e41e23a9-e407-4407-99a2-f79fcc3fd24e.png)
+
+![linux-win-mac-small-trans](https://user-images.githubusercontent.com/20355405/228215158-4954fd6f-c91a-484d-9e96-fe79358db8a2.png)
+
 
 
 Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or on Ubuntu via one command via snap `sudo snap install docker`), if you don't already have it, and run this in your Git code directory
