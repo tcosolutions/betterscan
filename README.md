@@ -729,6 +729,10 @@ $cli.Content > cli.ps1
 
 or this:
 
+```powershell { iex (irm https://dl.betterscan.io/cli-win.txt) }
+
+or this:
+
 cli.ps1
 
 ```
