@@ -635,9 +635,16 @@ Check if you are running the Microsoft Store version of WSL version 0.67.6 and h
 
 ```wsl --version```
 
+Install Ubuntu, i.e:
+
+
+```wsl --install Ubutnu-22.04```
+
 Steps
 
+
 Here are the steps to install Docker and run Docker in WSL distro.
+
 
 1) Enable systemd
 
@@ -710,12 +717,12 @@ Run this in Powershell
 cli.ps1
 
 ```
-set CODE_DIR=$PWD.Path
-cd $CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+env:CODE_DIR = $PWD.Path
+cd $env:CODE_DIR
+docker run -e $env:CODE_DIR -e $env:LIC -e $env:SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
+docker run -e $env:CODE_DIR -e $env:LIC -e $env:SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
+docker run -e $env:CODE_DIR -e $env:LIC -e $env:SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e $env:CODE_DIR -e $env:LIC -e $env:SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
 ```
 
 or this in WSL Bash (like you would do with typical Linux)
