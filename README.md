@@ -639,7 +639,7 @@ Check if you are running the Microsoft Store version of WSL version 0.67.6 and h
 
 Install Ubuntu, i.e:
 
-```wsl --install Ubutnu-22.04```
+```wsl --install Ubuntu-22.04```
 
 Here are the steps to install Docker and run Docker in WSL distro.
 
