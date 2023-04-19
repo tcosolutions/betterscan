@@ -18,7 +18,9 @@
 
 
 
-Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code. Please be patient with your analyses. **For commercial use PRO version is recommended (all features available)**
+Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code and AI/OpenAI GPT. Please be patient with your analyses. **For commercial use PRO version is recommended (all features available)**
+
+OpenAI GPT plugin is available only in PRO version and requires paid OpenAPI plan (billed per usage, ca. 20 files = few cents)
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
