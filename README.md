@@ -20,7 +20,7 @@
 
 Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code and AI/OpenAI GPT. Please be patient with your analyses. **For commercial use PRO version is recommended (all features available)**
 
-OpenAI GPT plugin is available only in PRO version and requires paid OpenAPI plan (billed per usage, ca. 20 files = few cents)
+OpenAI GPT plugin is available only in PRO version and requires paid OpenAI plan (billed per usage, ca. 20 files = few cents)
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
@@ -199,6 +199,8 @@ Add this to your workflow (in your GitHub repo under .github/workflows/bettersca
 env:
   LIC: ${{secrets.LIC}}
   SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+  OPENAI_GPT_API: ${{secrets.OPENAI_GPT_API}}
+  
   
 
 name: Betterscan Scan
@@ -234,6 +236,7 @@ If you want to scan on PR to main, use this:
 env:
   LIC: ${{secrets.LIC}}
   SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+  OPENAI_GPT_API: ${{secrets.OPENAI_GPT_API}}
   
 
 name: Betterscan Scan
@@ -344,6 +347,7 @@ Create file under .github/worlflows/reviewdog.yml
 env:
   LIC: ${{secrets.LIC}}
   SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+  OPENAI_GPT_API: ${{secrets.OPENAI_GPT_API}}
 
 name: Reviewdog
 on: 
@@ -389,6 +393,7 @@ env:
   LIC: ${{secrets.LIC}}
   SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
   REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.REVIEWDOG_GITHUB_API_TOKEN}}
+  OPENAI_GPT_API: ${{secrets.OPENAI_GPT_API}}
 
 name: Review
 on: 
@@ -740,10 +745,10 @@ cli.ps1
 ```
 $env:CODE_DIR = $PWD.Path
 cd $env:CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
 ```
 
 or this in WSL Bash (like you would do with typical Linux)
@@ -751,10 +756,10 @@ or this in WSL Bash (like you would do with typical Linux)
 ```
 export CODE_DIR=${PWD}
 cd $CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
 ```
 
 ## Local IDE 
@@ -808,10 +813,10 @@ Corresponds to running these:
 ```
 export CODE_DIR=${PWD}
 cd $CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues'
 ```
 
 #### HTML CLI output
@@ -828,10 +833,10 @@ Corresponds to running these:
 ```
 export CODE_DIR=${PWD}
 cd $CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues html'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && checkmate issues html'
 ```
 
 ### Detailed explanation
@@ -933,10 +938,10 @@ Same workflow as above, but using Docker binary:
 ```
 export CODE_DIR=/tmp/test
 cd /tmp/test
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git init'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate git analyze'
+docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v /tmp/test:/tmp/test  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd /tmp/test && checkmate issues'
 ```
 
 
