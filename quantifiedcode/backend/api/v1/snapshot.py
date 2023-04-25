@@ -1,4 +1,3 @@
- 
 # -*- coding: utf-8 -*-
 
 """
@@ -331,6 +330,11 @@ class SnapshotIssuesSummary(Resource):
 
         finds2=[]
 
+        out2=str(out);
+        out2=out2.replace("'': {","")
+        out2=out2[1:]
+        out2=","+out2
+
         for i, item in enumerate(finds):
           if(i==0):
             item=item[1:-1]
@@ -342,7 +346,7 @@ class SnapshotIssuesSummary(Resource):
         jstr=','.join(mylist)
         jstr= jstr[:-1]
 
-        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}}}}"
+        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}"+out2+"}"
         fi = fi.replace("'","\"")
         response = Response(
         response=fi,
@@ -385,4 +389,3 @@ class SnapshotFileRevisionContent(FileRevisionContent):
 
         file_revision = self.get_file_revision(query)
         return self.get_and_process_content(file_revision), 200
-
