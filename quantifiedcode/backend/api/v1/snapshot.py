@@ -1,3 +1,4 @@
+ 
 # -*- coding: utf-8 -*-
 
 """
@@ -35,8 +36,10 @@ from sqlalchemy.sql import (select,
                             func,
                             and_,
                             desc)
-
-
+import json
+import copy
+import pprint
+from flask import Response
 class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
     """
     Returns a list of file revisions with their issues.
@@ -180,7 +183,11 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                newresults.append(val)
            results = newresults
 
-
+        newr = []
+        for val in results:
+            val["language"] = "all"
+            newr.append(val)
+        results = newr
         return {'file_revisions': results,
                 'count': count
                 }, 200
@@ -223,12 +230,11 @@ class SnapshotIssuesSummary(Resource):
     """
     Source: Project Backend
     """
-
     @valid_user(anon_ok=True)
     @valid_project(public_ok=True)
     @valid_snapshot(only=('pk',),include=('project',),raw=False)
     def get(self, project_id, snapshot_id):
-
+    
         form = SnapshotIssuesSummaryForm(request.args)
 
         if not form.validate():
@@ -236,7 +242,119 @@ class SnapshotIssuesSummary(Resource):
 
         data = form.data
 
-        return {'summary': request.snapshot.summarize_issues(include_filename=data['with_files'], ignore=data['ignore'])}, 200
+        out = request.snapshot.summarize_issues(include_filename=data['with_files'],ignore=data['ignore'])
+        outc = copy.deepcopy(out)
+        str1 = str(out)
+        #str1 = str1.replace("''","'key'")
+        str1 = str1.replace("'","\"");
+        finds = []
+        try:
+          finds.append(str(out[''].pop('apex')))
+          out['']['apex']=outc['']['apex']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('ccpp')))
+          out['']['ccpp']=outc['']['ccpp']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('csharp')))
+          out['']['csharp']=outc['']['csharp']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('kotlin')))
+          out['']['kotlin']=outc['']['kotlin']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('perl')))
+          out['']['perl']=outc['']['perl']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('swift')))
+          out['']['swift']=outc['']['swift']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('python')))
+          out['']['python']=outc['']['python']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('javascript')))
+          out['']['javascript']=outc['']['javascript']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('java')))
+          out['']['java']=outc['']['java']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('supply')))
+          out['']['supply']=outc['']['supply']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('php')))
+          out['']['php']=outc['']['php']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('ruby')))
+          out['']['ruby']=outc['']['ruby']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('golang')))
+          out['']['golang']=outc['']['golang']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('iac')))
+          out['']['iac']=outc['']['iac']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('solidity')))
+          out['']['solidity']=outc['']['solidity']
+        except:
+          pass
+        try:
+          finds.append(str(out[''].pop('ruby')))
+          out['']['ruby']=outc['']['ruby']
+        except:
+          pass
+
+        finds2=[]
+
+        for i, item in enumerate(finds):
+          if(i==0):
+            item=item[1:-1]
+          else:
+            item=item[1:-1]
+          finds2.append(item)
+        mylist = list(dict.fromkeys(finds2))
+
+        jstr=','.join(mylist)
+        jstr= jstr[:-1]
+
+        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}}}}"
+        fi = fi.replace("'","\"")
+        response = Response(
+        response=fi,
+        status=200,
+        mimetype='application/json'
+        )
+        return response
+
+
+
+
+          
 
 
 class SnapshotDetails(Resource):
@@ -267,3 +385,4 @@ class SnapshotFileRevisionContent(FileRevisionContent):
 
         file_revision = self.get_file_revision(query)
         return self.get_and_process_content(file_revision), 200
+
