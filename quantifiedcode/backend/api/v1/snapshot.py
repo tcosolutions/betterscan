@@ -1,4 +1,3 @@
- 
 # -*- coding: utf-8 -*-
 
 """
@@ -38,8 +37,8 @@ from sqlalchemy.sql import (select,
                             desc)
 import json
 import copy
-
 from flask import Response
+
 class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
     """
     Returns a list of file revisions with their issues.
@@ -182,21 +181,78 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                val["path"] = "Please upgrade to PRO"
                newresults.append(val)
            results = newresults
-        
-        newr = []
-    
+
+        newresults = []
         for val in results:
-            for val1 in results:
-                for val2 in val1["issues"]:
-                  if val2["analyzer"]=="pmd":
-                    val["language"] = "java"
-                    newr.append(val)
-                    results = newr
+          val.update({"language": "all"})
+          newresults.append(val)
+          
+        for val in newresults:
+            for val1 in val["issues"]:
+                if(val1["analyzer"]=="bandit"):
+                    val.update({"language": "python"})
+                if(val1["analyzer"]=="brakeman"):
+                    val.update({"language": "ruby"})
+                if(val1["analyzer"]=="phpanalyzer"):
+                    val.update({"language": "php"})
+                if(val1["analyzer"]=="gosec"):
+                    val.update({"language": "goland"})
+                if(val1["analyzer"]=="confused"):
+                    val.update({"language": "supply"})
+                if(val1["analyzer"]=="snyk"):
+                    val.update({"language": "supply"})
+                if(val1["analyzer"]=="pmd"):
+                    val.update({"language": "java"})
+                if(val1["analyzer"]=="apex"):
+                    val.update({"language": "apex"})
+                if(val1["analyzer"]=="semgrep"):
+                    val.update({"language": "java"})
+                if(val1["analyzer"]=="semgrepdefi"):
+                    val.update({"language": "solidity"})
+                if(val1["analyzer"]=="semgrepjs"):
+                    val.update({"language": "javascript"})
+                if(val1["analyzer"]=="checkov"):
+                    val.update({"language": "iac"})
+                if(val1["analyzer"]=="kubescape"):
+                    val.update({"language": "iac"})
+                if(val1["analyzer"]=="insidersecswift"):
+                    val.update({"language": "swift"})
+                if(val1["analyzer"]=="insideseckotlin"):
+                    val.update({"language": "kotlin"})
+                if(val1["analyzer"]=="insiderseccsharp"):
+                    val.update({"language": "csharp"})
+                if(val1["analyzer"]=="pmdapex"):
+                    val.update({"language": "apex"})
+                if(val1["analyzer"]=="semgrepccpp"):
+                    val.update({"language": "ccpp"})
+                if(val1["analyzer"]=="semgrepeslint"):
+                    val.update({"language": "javascript"})
+                if(val1["analyzer"]=="graudit"):
+                    val.update({"language": "perl"})
+                if(val1["analyzer"]=="text4shell"):
+                    val.update({"language": "cve"})
+                if(val1["analyzer"]=="osvscanner"):
+                    val.update({"language": "supply"})
+                if(val1["analyzer"]=="fluidattacksscannercsharp"):
+                    val.update({"language": "csharp"})
+                if(val1["analyzer"]=="fluidattacksscannergolang"):
+                    val.update({"language": "goland"})
+                if(val1["analyzer"]=="fluidattacksscannerjava"):
+                    val.update({"language": "java"})
+                if(val1["analyzer"]=="fluidattacksscannerjavascript"):
+                    val.update({"language": "javascript"})
+                if(val1["analyzer"]=="gostaticcheck"):
+                    val.update({"language": "goland"})
+                if(val1["analyzer"]=="semgrepcsharpdotnet"):
+                    val.update({"language": "csharp"})
+
+                 
+                 
+        results = newresults
+
         return {'file_revisions': results,
                 'count': count
                 }, 200
-
-
 
 class SnapshotSummary(Resource):
     """
@@ -336,11 +392,21 @@ class SnapshotIssuesSummary(Resource):
           pass
 
         finds2=[]
+        out=str(out)
+        #out=out.replace("'': {","")
+        #out=out[1:]
+        #out=","+out
 
-        out2=str(out);
-        out2=out2.replace("'': {","")
-        out2=out2[1:]
-        out2=","+out2
+        
+        out=out.replace("'","\"")
+        json2 = json.loads(out)
+        for key, value in json2.items():
+          value.pop('all', None)
+
+        json2=str(json2)
+        json2=json2.replace("'': {","")
+        json2=json2[1:]
+        json2=","+json2
 
         for i, item in enumerate(finds):
           if(i==0):
@@ -353,7 +419,7 @@ class SnapshotIssuesSummary(Resource):
         jstr=','.join(mylist)
         jstr= jstr[:-1]
 
-        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}"+out2+"}"
+        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}"+json2+"}"
         fi = fi.replace("'","\"")
         response = Response(
         response=fi,
