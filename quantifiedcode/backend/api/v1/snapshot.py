@@ -1,3 +1,4 @@
+ 
 # -*- coding: utf-8 -*-
 
 """
@@ -37,8 +38,8 @@ from sqlalchemy.sql import (select,
                             desc)
 import json
 import copy
-from flask import Response
 
+from flask import Response
 class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
     """
     Returns a list of file revisions with their issues.
@@ -181,15 +182,23 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                val["path"] = "Please upgrade to PRO"
                newresults.append(val)
            results = newresults
-
+        
         newr = []
+    
         for val in results:
-            val["language"] = "all"
-            newr.append(val)
-        results = newr
+            for val1 in results:
+                for val2 in val1["issues"]:
+                  print(val2)
+                  print(val2["analyzer"])
+                  if val2["analyzer"]=="pmd":
+                    val["language"] = "java"
+                    newr.append(val)
+                    results = newr
         return {'file_revisions': results,
                 'count': count
                 }, 200
+
+
 
 class SnapshotSummary(Resource):
     """
@@ -329,22 +338,11 @@ class SnapshotIssuesSummary(Resource):
           pass
 
         finds2=[]
-        out=str(out)
-        #out=out.replace("'': {","")
-        #out=out[1:]
-        #out=","+out
 
-        
-        out=out.replace("'","\"")
-        print(out)
-        json2 = json.loads(out)
-        for key, value in json2.items():
-          value.pop('all', None)
-
-        json2=str(json2)
-        json2=json2.replace("'': {","")
-        json2=json2[1:]
-        json2=","+json2
+        out2=str(out);
+        out2=out2.replace("'': {","")
+        out2=out2[1:]
+        out2=","+out2
 
         for i, item in enumerate(finds):
           if(i==0):
@@ -357,7 +355,7 @@ class SnapshotIssuesSummary(Resource):
         jstr=','.join(mylist)
         jstr= jstr[:-1]
 
-        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}"+json2+"}"
+        fi = "{'summary':{\"\":{ \"all\":{"+jstr+"}}"+out2+"}"
         fi = fi.replace("'","\"")
         response = Response(
         response=fi,
