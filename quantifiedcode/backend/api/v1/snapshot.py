@@ -193,10 +193,10 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "python"})
                 if(val1["analyzer"]=="brakeman"):
                     val.update({"language": "ruby"})
-                if(val1["analyzer"]=="phpanalyzer"):
+                if(val1["analyzer"]=="phpanlyzer"):
                     val.update({"language": "php"})
                 if(val1["analyzer"]=="gosec"):
-                    val.update({"language": "goland"})
+                    val.update({"language": "golang"})
                 if(val1["analyzer"]=="confused"):
                     val.update({"language": "supply"})
                 if(val1["analyzer"]=="snyk"):
@@ -236,13 +236,13 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                 if(val1["analyzer"]=="fluidattacksscannercsharp"):
                     val.update({"language": "csharp"})
                 if(val1["analyzer"]=="fluidattacksscannergolang"):
-                    val.update({"language": "goland"})
+                    val.update({"language": "golang"})
                 if(val1["analyzer"]=="fluidattacksscannerjava"):
                     val.update({"language": "java"})
                 if(val1["analyzer"]=="fluidattacksscannerjavascript"):
                     val.update({"language": "javascript"})
                 if(val1["analyzer"]=="gostaticcheck"):
-                    val.update({"language": "goland"})
+                    val.update({"language": "golang"})
                 if(val1["analyzer"]=="semgrepcsharpdotnet"):
                     val.update({"language": "csharp"})
 
