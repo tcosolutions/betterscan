@@ -188,8 +188,6 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
         for val in results:
             for val1 in results:
                 for val2 in val1["issues"]:
-                  print(val2)
-                  print(val2["analyzer"])
                   if val2["analyzer"]=="pmd":
                     val["language"] = "java"
                     newr.append(val)
