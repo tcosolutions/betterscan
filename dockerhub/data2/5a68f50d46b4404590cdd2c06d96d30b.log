@@ -1,0 +1,51 @@
+[INFO / 2023-05-03 05:49:04] Running pre-analysis hooks for project tessssssssss (743f6d09521146cc8eb88647e5227ebe).
+[INFO / 2023-05-03 05:49:04] Fetching data for project tessssssssss (743f6d09521146cc8eb88647e5227ebe).
+[INFO / 2023-05-03 05:49:05] Adding 5656 issue_classes to project 743f6d09521146cc8eb88647e5227ebe
+[INFO / 2023-05-03 05:49:17] Running analysis for project tessssssssss (743f6d09521146cc8eb88647e5227ebe).
+[INFO / 2023-05-03 05:49:17] Error: Can't get requirements file from origin/master
+[INFO / 2023-05-03 05:49:17] Found 1 branches: origin/master
+[INFO / 2023-05-03 05:49:17] Last commit date: 2023-03-22 12:56:30
+[INFO / 2023-05-03 05:49:17] {'origin/master': datetime.datetime(2023, 3, 22, 12, 56, 30)}
+[INFO / 2023-05-03 05:49:17] Recently active branches: 
+[INFO / 2023-05-03 05:49:17] Analyzing branch: origin/master
+[INFO / 2023-05-03 05:49:17] Analyzing the 2 most recent commits in branch origin/master (offset: 0)
+[INFO / 2023-05-03 05:49:17] No state for package databases - always scanning package database for vulnerabilities  Gemfile.lock
+[INFO / 2023-05-03 05:49:17] No state for package databases - always scanning package database for vulnerabilities  Pipfile.lock
+[INFO / 2023-05-03 05:49:17] No state for package databases - always scanning package database for vulnerabilities  package-lock.json
+[INFO / 2023-05-03 05:49:17] No state for package databases - always scanning package database for vulnerabilities  Gemfile.lock
+[INFO / 2023-05-03 05:49:17] No state for package databases - always scanning package database for vulnerabilities  Pipfile.lock
+[INFO / 2023-05-03 05:49:17] No state for package databases - always scanning package database for vulnerabilities  package-lock.json
+[INFO / 2023-05-03 05:49:17] Excluding 0 file revisions
+[INFO / 2023-05-03 05:49:17] Analyzing 11 new file revisions (0 are already analyzed)
+[INFO / 2023-05-03 05:49:17] Analyzing and saving: 0 - 10 (11 remaining)
+[INFO / 2023-05-03 05:49:17] Analyzing file revision Gemfile
+[INFO / 2023-05-03 05:49:21] Analyzing file revision Gemfile.lock
+[INFO / 2023-05-03 05:49:28] Analyzing file revision Pipfile.lock
+[INFO / 2023-05-03 05:49:32] Analyzing file revision csharp.cs
+[INFO / 2023-05-03 05:49:44] Analyzing file revision gosample.go
+[INFO / 2023-05-03 05:49:50] Analyzing file revision javasample.java
+[INFO / 2023-05-03 05:50:07] Analyzing file revision javascript.js
+[ERROR / 2023-05-03 05:50:45] Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/lib/code/environment.py", line 577, in analyze_file_revision
+    analyzer_results = analyzer.analyze(file_revision)
+  File "/usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/fluidattacksscanner/analyzer.py", line 91, in analyze
+    line = int(line)
+ValueError: invalid literal for int() with base 10: 'https://docs.fluidattacks.com  /criteria/vulnerabilities/066'
+
+[INFO / 2023-05-03 05:50:55] Analyzing file revision package-lock.json
+[INFO / 2023-05-03 05:51:02] Analyzing file revision package.json
+[INFO / 2023-05-03 05:51:25] Analyzing file revision phpsample.php
+[INFO / 2023-05-03 05:51:40] Annotating and saving file revisions...
+[INFO / 2023-05-03 05:51:40] Analyzing and saving: 10 - 11 (1 remaining)
+[INFO / 2023-05-03 05:51:40] Analyzing file revision python.py
+[INFO / 2023-05-03 05:51:55] Annotating and saving file revisions...
+[INFO / 2023-05-03 05:51:55] Summarizing file revisions...
+[INFO / 2023-05-03 05:52:01] Saving snapshot...
+[INFO / 2023-05-03 05:52:01] Done analyzing snapshot 2d7ede7a522845a8a4b02de64aaa03ea
+[INFO / 2023-05-03 05:52:01] Analyzing the 2 most recent commits in branch origin/master (offset: 1)
+[INFO / 2023-05-03 05:52:01] Analyzing 2 daily commits in branch origin/master (offset: 0)
+[INFO / 2023-05-03 05:52:01] Analyzing 2 daily commits in branch origin/master (offset: 1)
+[INFO / 2023-05-03 05:52:01] Analyzing 2 weekly commits in branch origin/master (offset: 0)
+[INFO / 2023-05-03 05:52:01] Analyzing 2 weekly commits in branch origin/master (offset: 1)
+[INFO / 2023-05-03 05:52:01] Running post-analysis hooks for project tessssssssss (743f6d09521146cc8eb88647e5227ebe).
+[INFO / 2023-05-03 05:52:01] Analysis of project tessssssssss (743f6d09521146cc8eb88647e5227ebe) complete!

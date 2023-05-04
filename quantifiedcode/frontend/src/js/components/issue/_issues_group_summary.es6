@@ -15,7 +15,7 @@ var IssuesGroupSummary = createReactClass({
         var filesCount = IssueHelpers.countFor(props.issues)[0],
             issuesCount = IssueHelpers.countFor(props.issues)[1]
 
-        return <span className=""></span>
+        return <span className={"files-affected"} >{issuesCount} {Utils.pluralize(issuesCount,"issue")} in {filesCount} {Utils.pluralize(filesCount, "file")}.</span>
     }
 
 })
