@@ -4,9 +4,9 @@ services:
     image: scanmycode/scanmycode3-ce:server
     restart: always
     environment:
-      LIC: 52c475f4-b232-11ed-afa1-0242ac120002
-      SNYK_TOKEN: 313bf6b9-0d85-4dae-b8d6-28ca8531ba34
-      OPENAI_GPT_API: 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
+      LIC:
+      SNYK_TOKEN:
+      OPENAI_GPT_API:
     depends_on:
       - postgres
     working_dir: /srv/scanmycode/
@@ -39,9 +39,9 @@ services:
       stack: -1
     restart: always
     environment:
-      LIC: 52c475f4-b232-11ed-afa1-0242ac120002
-      SNYK_TOKEN: 313bf6b9-0d85-4dae-b8d6-28ca8531ba34
-      OPENAI_GPT_API: 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
+      LIC:
+      SNYK_TOKEN:
+      OPENAI_GPT_API:
     hostname: worker_1
     depends_on:
       - rabbitmq3
