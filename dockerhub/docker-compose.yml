@@ -39,7 +39,7 @@ services:
       stack: -1
     restart: always
     environment:
-      LIC:
+      LIC: 
       SNYK_TOKEN:
       OPENAI_GPT_API:
     hostname: worker_1
@@ -76,4 +76,3 @@ services:
 volumes:
   db-data:
     driver: local
-
