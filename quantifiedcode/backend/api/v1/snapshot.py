@@ -217,7 +217,7 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "iac"})
                 if(val1["analyzer"]=="insidersecswift"):
                     val.update({"language": "swift"})
-                if(val1["analyzer"]=="insideseckotlin"):
+                if(val1["analyzer"]=="insiderseckotlin"):
                     val.update({"language": "kotlin"})
                 if(val1["analyzer"]=="insiderseccsharp"):
                     val.update({"language": "csharp"})
