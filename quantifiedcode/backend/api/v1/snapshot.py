@@ -233,14 +233,18 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "cve"})
                 if(val1["analyzer"]=="osvscanner"):
                     val.update({"language": "supply"})
-                if(val1["analyzer"]=="fluidattacks"):
+                if(val1["analyzer"]=="fluidattackscsharp"):
                     val.update({"language": "csharp"})
-                if(val1["analyzer"]=="fluidattacks"):
+                if(val1["analyzer"]=="fluidattacksgolang"):
                     val.update({"language": "golang"})
-                if(val1["analyzer"]=="fluidattacks"):
+                if(val1["analyzer"]=="fluidattacksjava"):
                     val.update({"language": "java"})
-                if(val1["analyzer"]=="fluidattacks"):
+                if(val1["analyzer"]=="fluidattacksjavascript"):
                     val.update({"language": "javascript"})
+                if(val1["analyzer"]=="fluidattacksswift"):
+                    val.update({"language": "swift"})
+                if(val1["analyzer"]=="fluidattackskotlin"):
+                    val.update({"language": "kotlin"})
                 if(val1["analyzer"]=="gostaticcheck"):
                     val.update({"language": "golang"})
                 if(val1["analyzer"]=="semgrepcsharpdotnet"):

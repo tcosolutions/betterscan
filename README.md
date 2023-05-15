@@ -24,7 +24,7 @@ OpenAI GPT plugin is available only in PRO version and requires paid OpenAI plan
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
-Below setup if for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
+Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
 
 
 ![linux-win-mac-small-trans3](https://user-images.githubusercontent.com/20355405/228216738-b0551f1b-c99a-410e-b645-df796f0e3f59.png)
