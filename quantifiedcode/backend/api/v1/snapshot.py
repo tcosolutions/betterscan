@@ -241,6 +241,8 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "java"})
                 if(val1["analyzer"]=="fluidattacksjavascript"):
                     val.update({"language": "javascript"})
+                if(val1["analyzer"]=="fluidattackspython"):
+                    val.update({"language": "python"})
                 if(val1["analyzer"]=="fluidattacksswift"):
                     val.update({"language": "swift"})
                 if(val1["analyzer"]=="fluidattackskotlin"):
