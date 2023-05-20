@@ -277,7 +277,8 @@ Flow:
 
 If you cannot afford GitHub Enterprise with Code Scanning, use GitHub Teams with CLI output.
 
-It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS SQL Server) to store state (no need to commit .checkmate folder to code).
+**Important**
+It is also possible to use Database Server (i.e PostgreSQL, MySql, MariaDB, Oracle, MS SQL Server) to store state (no need to commit .checkmate folder to code). This will make workflow easy, no need to git pull the state.
 
 ## GitHub App
 
