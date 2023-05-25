@@ -132,6 +132,15 @@ var ProjectForm = React.createClass({
           </button>
         );
 
+
+       var urlHelp = <Helper>
+            <p>
+                More information on adding Projects (Public/Private) in <a href="https://github.com/marcinguy/betterscan-ce/wiki/Repo-Cloning">Wiki</a>
+            </p>
+        </Helper>;
+
+
+
         var newFields;
 
         var warning;
@@ -153,7 +162,7 @@ var ProjectForm = React.createClass({
                             value={this.state.name}
                             onChange={this.setter('name')} />
                       </div><div className="form-group">
-                        <h4><label htmlFor="url">URL</label></h4>
+                        <h4><label htmlFor="url">URL {urlHelp}</label></h4>
                         {this.formatFieldError('url')}
                         <input id="url"
                             className="form-control"
@@ -170,6 +179,8 @@ var ProjectForm = React.createClass({
                 <strong>Public</strong> project on the other hand, will be open to the public.
             </p>
         </Helper>;
+
+
 
         var onPublicChange = function(value){
             this.setState({public : value});
