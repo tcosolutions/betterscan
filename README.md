@@ -295,6 +295,20 @@ Scanning is triggered on Push/PR merge to main branch (master or main etc). Resu
 
 Scan state will be preserved between scans. With new scan only changes will be rescanned.
 
+## Vanta App
+
+![image](https://github.com/marcinguy/betterscan-ce/assets/20355405/a61ec4ee-acb8-48f4-b646-72de1d0fd006)
+
+
+You can install Betterscan in your Vanta account. It will use on premise Betterscan scan (no need to upload your code). You will need to register and get Oauth2 Client_ID and Client_Secret from vanta.com
+
+https://github.com/marcinguy/betterscan-vanta
+
+More here: https://developer.vanta.com/docs/creating-an-application
+
+
+
+
 ## Reviewdog Integration
 
 Supports: GitHub, GitHub Actions,  GitLab, BitBucket, Circle CI, Travis, Common (Jenkins, local, etc) 
