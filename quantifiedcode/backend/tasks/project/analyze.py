@@ -42,7 +42,7 @@ def hook_step(project, hook, message):
         settings.hooks.call(hook, project)
     except Exception as e:
         logger.error("{} for project {p.name} ({p.pk}) failed!".format(message, p=project))
-        logger.error("Exception {} {}.".format(e.__class__.__name__, e.message))
+        logger.error("Exception {} {}.".format(e.__class__.__name__, e.strerror))
         raise
 
 class AnalysisFailedException(Exception):
