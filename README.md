@@ -647,6 +647,8 @@ Yes, by default
 
 ### Windows (amd64)
 
+Preferred is WSL with Docker.
+
 #### Docker Desktop
 
 Install Windows 10, version 1903 or higher or Windows 11.
@@ -739,43 +741,20 @@ It should display Hello world from Docker message.
 
 You have completed the installation of Docker! You are able to run docker in WSL without Docker Desktop.
 
-
-Run this in Powershell (powershell.exe)
-
+Run
 ```
-set-ExecutionPolicy RemoteSigned -Scope CurrentUse
-$cli = Invoke-WebRequest -Uri https://dl.betterscan.io/cli-win.txt
-$cli.Content > cli.ps1
-./cli.ps1
+wsl
 ```
 
-or this:
-
-```powershell { iex (irm https://dl.betterscan.io/cli-win.txt) }```
-
-or this:
-
-cli.ps1
+and then this:
 
 ```
-$env:CODE_DIR = $PWD.Path
-cd $env:CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR  && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v $PWD.Path:$PWD.Path -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
+sh <(curl https://dl.betterscan.io/cli.sh)
 ```
 
-or this in WSL Bash (like you would do with typical Linux)
 
-```
-export CODE_DIR=${PWD}
-cd $CODE_DIR
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti  scanmycode/scanmycode3-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues'
-```
+
+
 
 ## Local IDE 
 
