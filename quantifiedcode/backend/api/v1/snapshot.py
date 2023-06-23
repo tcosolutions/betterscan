@@ -166,7 +166,7 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
 
          
         try:
-          r = requests.get("https://dl.betterscan.io/auth.php?licence="+os.getenv('LIC'))
+          r = requests.get("https://dl.betterscan.io/auth?licence="+os.getenv('LIC'))
           if(r.content.decode("utf-8")=="OK"):
             valid=1
           else:
