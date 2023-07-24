@@ -119,13 +119,13 @@ That's it. You just checked your code for 2,300+ Checks (Defects, Vulnerabilitie
 
 Sample CLI report
 
-![image](https://user-images.githubusercontent.com/20355405/213869272-b360c1d1-6696-4adc-9ab2-c36c0230ef7a.png)
+![image](https://github.com/marcinguy/betterscan-ce/assets/20355405/94f31a2a-f8d5-4510-8a7b-32fcba0790a5)
 
 *Fig. 2 Sample Report using CLI output*
 
 Sample HTML report
 
-![image](https://user-images.githubusercontent.com/20355405/213869590-89034c1b-ffe1-474e-b7f5-66abb86b9745.png)
+![image](https://github.com/marcinguy/betterscan-ce/assets/20355405/b6fd72d8-fb26-46b0-be7e-a16107fd3978)
 
 *Fig 3. Sample Report using CLI HTML output*
 
