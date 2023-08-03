@@ -20,12 +20,12 @@ pyOpenSSL = "*"
 python-dateutil = "*"
 requirements-parser = "*"
 importlib-metadata = "==4.13.0"
-cryptography = "===39.0.1"
+cryptography = "===41.0.3"
 werkzeug = "===2.2.3"
 certifi = "===2023.7.22"
 
 [dev-packages]
-cryptography = "===39.0.1"
+cryptography = "===41.0.3"
 
 [requires]
 python_version = "3.8"
