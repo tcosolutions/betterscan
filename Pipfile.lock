@@ -1,34 +1,3 @@
-[[source]]
-url = "https://pypi.python.org/simple"
-verify_ssl = true
-name = "pypi"
-
-[packages]
-passlib = "*"
-alembic = "*"
-click = "*"
-Flask = "==2.0.3"
-psycopg2 = "*"
-chardet = "*"
-SQLAlchemy = "*"
-PyYAML = "*"
-WTForms = "*"
-celery = "==5.2.7"
-six = "*"
-requests = "*"
-pyOpenSSL = "*"
-python-dateutil = "*"
-requirements-parser = "*"
-importlib-metadata = "==4.13.0"
-cryptography = "===39.0.1"
-werkzeug = "===2.2.3"
-
-[dev-packages]
-cryptography = "===39.0.1"
-
-[requires]
-python_version = "3.8"
-root@9a0859f35033:/srv/scanmycode# cat Pipfile.lock 
 {
     "_meta": {
         "hash": {
