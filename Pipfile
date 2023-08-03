@@ -19,10 +19,12 @@ requests = "*"
 pyOpenSSL = "*"
 python-dateutil = "*"
 requirements-parser = "*"
-Werkzeug = "*"
 importlib-metadata = "==4.13.0"
+cryptography = "===39.0.1"
+werkzeug = "===2.2.3"
 
 [dev-packages]
+cryptography = "===39.0.1"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
