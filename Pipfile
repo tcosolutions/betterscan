@@ -21,7 +21,7 @@ python-dateutil = "*"
 requirements-parser = "*"
 importlib-metadata = "==4.13.0"
 cryptography = "===41.0.3"
-werkzeug = "===2.2.3"
+werkzeug = "===2.3.6"
 certifi = "===2023.7.22"
 
 [dev-packages]
