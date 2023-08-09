@@ -131,6 +131,39 @@ Sample HTML report
 
 FYI Above will maintain state via (.checkmate folder). Only new commits will be checked.
 
+# Use cases for you
+
+This solutions should be part of DevOps/DevSecOps efforts. You can "shift left" your security efforts using below
+
+## Integration via Reviewdog on PR with comments
+
+See [here](https://github.com/marcinguy/betterscan-ce#reviewdog-integration)
+
+## Asynchronous installation of the whole platform (Web Interface, workers etc)
+
+That way you can setup asynchronous DevSecOps feedback for the repositories you set up to scan (daily, on commit etc.)
+```
+git clone https://github.com/marcinguy/betterscan-ce.git
+cd betterscan-ce/dockerhub
+./start.sh
+```
+
+## Local installation on your laptop
+
+Just run for CLI:
+
+`sh <(curl https://dl.betterscan.io/cli.sh)`
+
+or for an HTML report:
+
+`sh <(curl https://dl.betterscan.io/cli-html.sh)`
+
+It will maintain state in `.checkmate` folder. First run can be longer, next should be very fast. Just re-run the same command on the next iteration.
+
+# Many other possibilities
+
+Let me know your setup.
+
 If you want to use the Platform, follow below:
 
 # Installation
