@@ -133,7 +133,7 @@ FYI Above will maintain state via (.checkmate folder). Only new commits will be 
 
 # Use cases for you
 
-This solutions should be part of DevOps/DevSecOps efforts. You can "shift left" your security efforts using below
+This solutions should be part of DevOps/DevSecOps/Platform Engineering efforts. You can "shift left" your security efforts using below and providing tools to developers.
 
 ## Integration via Reviewdog on PR with comments
 
