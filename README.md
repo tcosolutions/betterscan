@@ -5,7 +5,7 @@
 </div>
 
 <h2 align="center">
-  Betterscan - Secure Code and Cloud
+  Open DevSecOps Orchestration Toolchain
 </h2>
 
 [<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/marcinguy/scanmycode-ce)
