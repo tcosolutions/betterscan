@@ -87,4 +87,5 @@ RUN git clone https://github.com/marcinguy/ptpt.git ptpt
 WORKDIR /root/ptpt
 RUN /usr/local/go/bin/go build
 RUN cp /root/ptpt/ptpt /root/bin/ptpt
+RUN curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-worker-cli.html  

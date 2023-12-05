@@ -213,6 +213,8 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "javascript"})
                 if(val1["analyzer"]=="checkov"):
                     val.update({"language": "iac"})
+                if(val1["analyzer"]=="tfsec"):
+                    val.update({"language": "iac"})
                 if(val1["analyzer"]=="kubescape"):
                     val.update({"language": "iac"})
                 if(val1["analyzer"]=="insidersecswift"):
