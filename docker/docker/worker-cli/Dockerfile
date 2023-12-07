@@ -24,8 +24,8 @@ WORKDIR /
 RUN python3.8 -m pip install psycopg2 --upgrade
 RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
 WORKDIR /root
-RUN wget https://golang.org/dl/go1.19.linux-amd64.tar.gz
-RUN sudo tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz
+RUN wget https://golang.org/dl/go1.21.5.linux-amd64.tar.gz
+RUN sudo tar -C /usr/local -xzf go1.21.5.linux-amd64.tar.gz
 ENV SHELL /bin/bash
 RUN /usr/local/go/bin/go install github.com/securego/gosec/v2/cmd/gosec@latest
 RUN mkdir /root/bin
