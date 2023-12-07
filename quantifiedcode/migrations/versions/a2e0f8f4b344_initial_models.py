@@ -203,7 +203,7 @@ def upgrade():
     sa.Column('configuration', sa.String(length=64), nullable=True),
     sa.ForeignKeyConstraint(['project'], ['project.pk'], name='issue_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
-    sa.UniqueConstraint('project', 'fingerprint', 'analyzer', 'code', 'file', 'line' name='unique_together_issue_project_fingerprint_analyzer_code_f_l')
+    sa.UniqueConstraint('project', 'fingerprint', 'analyzer', 'code', 'file', 'line', name='unique_together_issue_project_fingerprint_analyzer_code_f_l')
     )
     op.create_index(op.f('ix_issue_analyzer'), 'issue', ['analyzer'], unique=False)
     op.create_index(op.f('ix_issue_code'), 'issue', ['code'], unique=False)
