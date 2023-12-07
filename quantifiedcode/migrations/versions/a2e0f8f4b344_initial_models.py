@@ -1,7 +1,7 @@
 """Initial models.
 
 Revision ID: a2e0f8f4b344
-Revises: 
+Revises:
 Create Date: 2016-11-20 23:02:51.424015
 
 """
@@ -34,6 +34,8 @@ def upgrade():
     op.create_table('issueclass',
     sa.Column('data', sa.LargeBinary(), nullable=True),
     sa.Column('code', sa.String(length=50), nullable=True),
+    sa.Column('file', sa.String(length=50), nullable=True),
+    sa.Column('line', sa.String(length=50), nullable=True),
     sa.Column('hash', sa.String(length=64), nullable=True),
     sa.Column('severity', sa.Integer(), nullable=True),
     sa.Column('language', sa.String(length=50), nullable=True),
@@ -195,11 +197,13 @@ def upgrade():
     sa.Column('analyzer', sa.String(length=100), nullable=False),
     sa.Column('project', sa.String(length=32), nullable=False),
     sa.Column('fingerprint', sa.String(length=255), nullable=False),
+    sa.Column('file', sa.String(length=100), nullable=False),
+    sa.Column('line', sa.String(length=100), nullable=False),
     sa.Column('pk', sa.String(length=32), nullable=False),
     sa.Column('configuration', sa.String(length=64), nullable=True),
     sa.ForeignKeyConstraint(['project'], ['project.pk'], name='issue_project_project', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pk'),
-    sa.UniqueConstraint('project', 'fingerprint', 'analyzer', 'code', name='unique_together_issue_project_fingerprint_analyzer_code')
+    sa.UniqueConstraint('project', 'fingerprint', 'analyzer', 'code', 'file', 'line' name='unique_together_issue_project_fingerprint_analyzer_code_f_l')
     )
     op.create_index(op.f('ix_issue_analyzer'), 'issue', ['analyzer'], unique=False)
     op.create_index(op.f('ix_issue_code'), 'issue', ['code'], unique=False)
@@ -597,3 +601,4 @@ def downgrade():
     op.drop_index(op.f('ix_issuecategory_created_at'), table_name='issuecategory')
     op.drop_table('issuecategory')
     ### end Alembic commands ###
+

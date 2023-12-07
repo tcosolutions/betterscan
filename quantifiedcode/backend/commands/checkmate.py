@@ -21,7 +21,7 @@ def import_issue_classes():
 
 def _import_issue_classes():
 
-    issue_update_keys = ('severity', 'description', 'title')
+    issue_update_keys = ('severity', 'description', 'title', 'file', 'line')
     analyzer_update_keys = ('language',)
 
     logger.info("Importing issue classes from checkmate...")

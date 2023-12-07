@@ -19,6 +19,37 @@ from .forms.issue_status import IssueStatusForm
 import pdb
 import pprint
 
+def remove_duplicate_issues(data):
+    """
+    Removes duplicate entries where 'file' and 'line' key repeats in both 'checkov' and 'tfsec' analyzers.
+
+    :param data: The input data, expected to be a dictionary with nested structure containing 'analyzers'.
+    :return: A dictionary with duplicates removed for 'checkov' and 'tfsec' analyzers.
+    """
+    # Extract analyzers data
+    analyzers = data.get('all', {}).get('analyzers', {})
+
+    # Collect seen file-line pairs
+    seen = set()
+
+    # Function to process each analyzer's codes
+    def process_codes(codes):
+        unique_codes = {}
+        for code, details in codes.items():
+            file_line_pair = (details.get('file'), details.get('line'))
+            if file_line_pair not in seen:
+                seen.add(file_line_pair)
+                unique_codes[code] = details
+        return unique_codes
+
+    # Process each analyzer
+    for analyzer, analyzer_data in analyzers.items():
+        codes = analyzer_data.get('codes', {})
+        analyzers[analyzer]['codes'] = process_codes(codes)
+
+    return data
+
+
 
 class IssuesData(Resource):
 
@@ -36,6 +67,8 @@ class IssuesData(Resource):
                             'description',
                             'categories',
                             'autofix_name',
+                            'file',
+                            'line'
                         )}
                     },
                 )}
@@ -46,7 +79,13 @@ class IssuesData(Resource):
     @valid_user(anon_ok=True)
     @valid_project(public_ok=True)
     def get(self, project_id=None):
-        project_issues_data = request.project.get_issues_data()
+        project_issues_data = remove_duplicate_issues(request.project.get_issues_data())
+        
+        # project_issues_data = request.project.get_issues_data()
+        #pprint.pprint(project_issues_data)
+
+
+
         return {'issues_data': self.export(project_issues_data)}, 200
 
 class IssueStatus(Resource):
@@ -72,3 +111,4 @@ class IssueStatus(Resource):
             backend.update(request.issue,form.data)
 
         return {'message' : 'success'}, 200
+
