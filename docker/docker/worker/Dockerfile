@@ -77,7 +77,7 @@ RUN cp -pr /srv/scanmycode/analyzers/yara/* /root/yara
 ADD https://nixos.org/nix/install /tmp
 RUN bash -c "bash /tmp/install --daemon"
 RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz"
-RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@2061c6097d66adf4e2f9feb1e4df43447ee51984 /skims"
+RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
 RUN /usr/local/go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
 RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
 RUN python3.8 -m pip install sqlalchemy===1.4.46
