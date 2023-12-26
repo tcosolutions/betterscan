@@ -148,6 +148,12 @@ cd betterscan-ce/dockerhub
 ./start.sh
 ```
 
+## Break the Build
+
+Break the build if a critical issue is found during the deployment. You can specify what alerts (file, id, severity etc) also in revisions, to ignore and any new will break the build.
+
+It’s like when a quality control issue forces someone to stop the assembly line. If you don’t stop the line, faulty products can result. In a security context, that means some critical vulnerabilities will be much more expensive to fix later (and impact your organization)
+
 ## Local installation on your laptop
 
 Just run for CLI:
@@ -901,6 +907,7 @@ Loading plugin: semgrep
 Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
 Loading plugin: checkov
+Loading plugin: tfsec
 Loading plugin: kubescape
 Loading plugin: insidersecswift
 Loading plugin: insiderseckotlin
@@ -941,6 +948,7 @@ Loading plugin: semgrep
 Loading plugin: semgrepdefi
 Loading plugin: semgrepjs
 Loading plugin: checkov
+Loading plugin: tfsec
 Loading plugin: kubescape
 Loading plugin: insidersecswift
 Loading plugin: insiderseckotlin
@@ -974,7 +982,7 @@ docker run -e CODE_DIR -e LIC -e SNYK_TOKEN -e OPENAI_GPT_API -v /tmp/test:/tmp/
 
 # Under the hood
 
-Progpilot, PMD, Bandit, Brakeman, Gosec, gostaticcheck, confused, snyk, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme), fluidattacks scanner and other(s). Some were modified. 
+Progpilot, PMD, Bandit, Brakeman, Gosec, gostaticcheck, confused, snyk, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, [osv-scanner](https://github.com/google/osv-scanner#readme), fluidattacks scanner, tfsec and other(s). Some were modified. 
 
 # Recorded DEMO
 
@@ -1031,7 +1039,7 @@ The application consists of several parts:
 * A backend, realized as a Flask app, that exposes a REST API consumed by the frontend
 * A background worker, realized using Celery, that performs the code analysis
 
-Currently supports: PHP, Java, Scala, Python, PERL, Ruby, .NET Full Framework, C#, C, C++, Swift, Kotlin, Apex (Salesforce), Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infrastructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 6,000+ checks) 
+Currently supports: PHP, Java, Scala, Python, PERL, Ruby, .NET Full Framework, C#, C, C++, Swift, Kotlin, Apex (Salesforce), Javascript, Typescript, GO, Solidity, DeFi Security (DeFi exploits), Infrastructure as a Code (IaC) Security and Best Practices (Docker, Kubernetes (k8s), Terraform AWS, GCP, Azure), Secret Scanning (166+ secret types), Dependency Confusion, Trojan Source, Open Source and Proprietary Checks (total ca. 6,000+ checks). Checks for misconfigurations across all major (and some minor) cloud providers (AWS Checks, Azure Checks, GCP Checks, CloudStack Checks, DigitalOcean Checks, GitHub Checks, Kubernetes Checks, OpenStack Checks, Oracle Checks)
 
 Advantages:
 * Many tools, one report (unification) 
