@@ -76,7 +76,7 @@ RUN mkdir /root/yara
 RUN cp -pr /srv/scanmycode/analyzers/yara/* /root/yara
 ADD https://nixos.org/nix/install /tmp
 RUN bash -c "bash /tmp/install --daemon"
-RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz"
+RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/24.01.tar.gz"
 RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
 RUN /usr/local/go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
 RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
