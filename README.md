@@ -25,7 +25,7 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (softwar
   <img width="600" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/659fdb0bc81d97288ac27868_betterscan.svg">
 </p>
 
-Above is sample engine run powering everything (CLI, Web Platform, CI/CD Actions, GitHub App, DefectDojo, Reviewdog)
+Above is sample engine (Binary runtime) run powering everything (CLI, Web Platform, CI/CD Actions, GitHub App, DefectDojo, Reviewdog)
 
 OpenAI GPT plugin is available only in PRO version and requires paid OpenAI plan (billed per usage)
 
@@ -51,7 +51,9 @@ Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine
 
 ## **2 options** are available:
 
-### CLI output
+### 1. Binary runtime
+
+#### CLI output
 
 Run in command prompt in your Git repository folder:
 
@@ -64,7 +66,8 @@ The result will be in the current directory in "report.html", "report.json" and 
 Run in command prompt in your Git repository folder:
   
 `sh <(curl https://dl.betterscan.io/cli-html.sh)`
-    
+
+### 2. Platform with Webinterface and workers
 
 If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
