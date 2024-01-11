@@ -9,6 +9,7 @@
 </h2>
 
 [<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/marcinguy/scanmycode-ce)
+![Release](https://img.shields.io/github/v/release/marcinguy/betterscan-ce?sort=semver)
 ![GitHub forks](https://badgen.net/github/forks/marcinguy/scanmycode-ce)
 ![GitHub watchers](https://badgen.net/github/watchers/marcinguy/scanmycode-ce)
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
@@ -19,6 +20,12 @@
 
 
 Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code and AI/OpenAI GPT. Please be patient with your analyses. **For commercial use PRO version is recommended (all features available)**
+
+<p align="center">
+  <img width="600" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/659fdb0bc81d97288ac27868_betterscan.svg">
+</p>
+
+Above is sample engine run powering everything (CLI, Web Platform, CI/CD Actions, GitHub App, DefectDojo, Reviewdog)
 
 OpenAI GPT plugin is available only in PRO version and requires paid OpenAI plan (billed per usage)
 
@@ -35,7 +42,12 @@ Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windo
 
 Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or on Ubuntu via one command via snap `sudo snap install docker`), if you don't already have it, and run this in your Git code directory
 
-### Running
+
+
+
+# Quickstart
+
+
 
 ## **2 options** are available:
 
