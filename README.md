@@ -17,7 +17,18 @@
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 
 
+Scan your source code and infra IaC against top **security** risks
 
+Betterscan is a orchestration toolchain that uses state of the art tools to scan your source code and infrastructure IaC and analyzes your security and compliance risks.
+
+Currently supports: **PHP**, **Java**, **Scala**, **Python**, **PERL**, **Ruby**, **.NET Full Framework**, **C#**, **C**, **C++**, **Swift**, **Kotlin**, **Apex (Salesforce)**, **Javascript**, **Typescript**, **GO**, Infrastructure as a Code (IaC) Security and Best Practices (**Docker**, **Kubernetes (k8s)**, **Terraform AWS, GCP, Azure**), Secret Scanning (**166+ secret types**), Dependency Confusion, Trojan Source, 
+
+Open Source and Proprietary Checks (total ca. **6,000+ checks**). 
+
+Checks for misconfigurations across all major (and some minor) cloud providers (AWS Checks, Azure Checks, GCP Checks, CloudStack Checks, DigitalOcean Checks, GitHub Checks, Kubernetes Checks, OpenStack Checks, Oracle Checks)
+
+
+## Open and Developer friendly DevSecOps toolchain
 
 Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code and AI/OpenAI GPT. Please be patient with your analyses. **For commercial use PRO version is recommended (all features available)**
 
@@ -47,6 +58,7 @@ Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine
 
 # Quickstart
 
+Sigstore cosign images are available.
 
 
 ## **2 options** are available:
@@ -57,7 +69,7 @@ Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine
 
 Run in command prompt in your Git repository folder:
 
-`sh <(curl https://dl.betterscan.io/cli.sh)`
+`curl -sfL https://dl.betterscan.io/cli.sh | sh`
 
 ### HTML, JSON, SARIF output
 
@@ -65,7 +77,7 @@ The result will be in the current directory in "report.html", "report.json" and 
 
 Run in command prompt in your Git repository folder:
   
-`sh <(curl https://dl.betterscan.io/cli-html.sh)`
+`curl -sfL https://dl.betterscan.io/cli-html.sh | sh`
 
 ### 2. Platform with Webinterface and workers
 
