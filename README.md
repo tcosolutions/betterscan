@@ -15,6 +15,7 @@
 ![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/betterscan)](https://artifacthub.io/packages/search?repo=betterscan)
 
 
 Scan your source code and infra IaC against top **security** risks
@@ -81,6 +82,8 @@ Run in command prompt in your Git repository folder:
 
 ### 2. Platform with Webinterface and workers
 
+#### Docker
+
 If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
 Run in command prompt (or ```docker-compose up``` or ```docker compose up``` ):
@@ -97,6 +100,18 @@ Open up the Browser to:
 `http://localhost:5000`
 
 Sign up locally (and login in when needed)
+
+#### Kubernetes
+
+For Kubernetes Platform (also minikube)
+
+It is available via Helm package manager
+
+```
+helm repo add betterscan-repo https://marcinguy.github.io/betterscan-chart
+helm repo update
+helm install betterscan betterscan-repo/betterscan
+```
 
 
 That's it.
