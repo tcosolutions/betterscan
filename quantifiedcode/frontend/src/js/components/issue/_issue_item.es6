@@ -167,14 +167,31 @@ var IssueItem = createReactClass({
             </li>;
         }
 
-        if (props.fileRevision)
-            filename = <h4>
-                            <A href={this.props.href}>
+     if (props.fileRevision)
+            var message; 
+            message = Utils.truncateInMiddle(props.fileRevision.path,60)
+            console.log(props.fileRevision); 
+
+            if(props.fileRevision.path==="Please upgrade to PRO")
+            {
+              filename = <h4>
+                            <A href="https://buy.betterscan.io">
                                 <span className="file-name main truncate-xs">
-                                    {Utils.truncateInMiddle(props.fileRevision.path,60)}
+                                Please upgrade to PRO. Limited Lifetime deal
                                 </span>
                             </A>
                         </h4>;
+
+            }else{
+              filename = <h4>
+                            <A href={this.props.href}>
+                                <span className="file-name main truncate-xs">
+                                    {message}
+                                </span>
+                            </A>
+                        </h4>;
+           }
+           
 
         return <li>
             {filename}
@@ -184,5 +201,6 @@ var IssueItem = createReactClass({
         </li>;
     }
 });
+
 
 export default IssueItem
