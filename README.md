@@ -39,6 +39,15 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (softwar
 
 Above is sample engine (Binary runtime) run powering everything (CLI, Web Platform, CI/CD Actions, GitHub App, DefectDojo, Reviewdog)
 
+
+<p align="center">
+  <img width="600" src="https://assets-global.website-files.com/6339e3b81867539b5fe2498d/6339e4ff689e383aa9acb1f9_mainscreen-p-800.png">
+</p>
+
+Above is Web Interface.
+
+Even more screenshots and integrations in **[Wiki](https://github.com/marcinguy/betterscan-ce/wiki)**
+
 OpenAI GPT plugin is available only in PRO version and requires paid OpenAI plan (billed per usage)
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
