@@ -1,3 +1,6 @@
+**Notice:** For commercial use PRO version is recommended (all features available). The CE (Community Edition) **WILL NOT** show the findings location(s). Serves as a DEMO to check Betterscan capabilities. If you work on Open Source project or you are a Nonprofit, free licenses are available for PRO version.
+
+
 <div align="center">
   <a href="https://github.com/marcinguy/betterscan-ce">
     <img alt="Betterscan" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/633a1643dcb06d3029867161_g4.svg">
