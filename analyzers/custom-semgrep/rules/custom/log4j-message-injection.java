@@ -1,3 +1,6 @@
+/*
+ * See the original LICENSE in analyzers/custom-semgrep/LICENSE file for details.
+*/
 package rules.custom.main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

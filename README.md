@@ -1,6 +1,3 @@
-**Notice:** For commercial use PRO version is recommended (all features available). The CE (Community Edition) **WILL NOT** show the findings location(s). Serves as a DEMO to check Betterscan capabilities. If you work on Open Source project or you are a Nonprofit, free licenses are available for PRO version.
-
-
 <div align="center">
   <a href="https://github.com/marcinguy/betterscan-ce">
     <img alt="Betterscan" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/633a1643dcb06d3029867161_g4.svg">
@@ -34,7 +31,7 @@ Checks for misconfigurations across all major (and some minor) cloud providers (
 
 ## Open and Developer friendly DevSecOps toolchain
 
-Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code and AI/OpenAI GPT. All the best Tools, researched, setup, ran together, unifed and de-duplicated results, **so you don't have to do it**. Added our own checkers also. Continuous Security. Fit for purpose and results. **For commercial use PRO version is recommended (all features available)**
+Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (software composition analysis) and Supply Chain Risks, and also precise Graph-based SAST analysis for Code and AI/OpenAI GPT. All the best Tools, researched, setup, ran together, unifed and de-duplicated results, **so you don't have to do it**. Added our own checkers also. Continuous Security. Fit for purpose and results.
 
 <p align="center">
   <img width="600" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/659fdb0bc81d97288ac27868_betterscan.svg">
@@ -51,7 +48,6 @@ Above is Web Interface.
 
 Even more screenshots and integrations in **[Wiki](https://github.com/marcinguy/betterscan-ce/wiki)**
 
-OpenAI GPT plugin is available only in PRO version and requires paid OpenAI plan (billed per usage)
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 

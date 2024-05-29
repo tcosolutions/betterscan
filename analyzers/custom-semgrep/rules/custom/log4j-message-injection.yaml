@@ -1,3 +1,6 @@
+/*
+ * See the original LICENSE in analyzers/custom-semgrep/LICENSE file for details.
+*/
 rules:
 - id: log4j-message-injection
   metadata:
