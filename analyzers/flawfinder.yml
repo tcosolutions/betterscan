@@ -16,7 +16,8 @@
  *
  * Originally licensed under the BSD-3-Clause license with parts changed under
  * LGPL v2.1 with Commons Clause.
- * See the original LICENSE file for details.
+ * See the original LICENSE file for details and LICENSE in this directory.
+ *
 */
 # yamllint disable
 # rule-set version: v1.0.16
