@@ -48,6 +48,17 @@ Above is Web Interface.
 
 Even more screenshots and integrations in **[Wiki](https://github.com/marcinguy/betterscan-ce/wiki)**
 
+## License Information
+
+## Debian Base Image
+
+Docker images includes software from the Debian GNU/Linux distribution. Debian is made available under various open-source licenses. See below for details:
+
+The full text of the licenses for software included in Debian can be found in /usr/share/common-licenses/ within the Debian system.
+
+## Additional Software Licenses
+
+Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/scanmycode/LICENSE`.
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
