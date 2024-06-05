@@ -697,3 +697,32 @@ This project also include several Open Source project with effort made to respec
 This project uses several Open Source programs and code with effort made to respect licensing requirements
 
 Progpilot, PMD, Bandit, Brakeman, Gosec, gostaticcheck, confused, snyk, semgrep, trufflehog3, jshint, njsscan, log4shell via custom semgrep rule, checkov, kubescape, graudit, insidersec, flawfinder, find sec bugs, eslint, YARA, osv-scanner, fluidattacks scanner, tfsec and other(s). Please refer to licensing for each project (as they are named)
+
+
+License links (LICENSE or .md or .txt or similar file in repository) and source code for each. Feel free to contact me for link to the source code and LICENSE file when needed.
+
+progpilot - https://github.com/designsecurity/progpilot
+pmd - https://github.com/pmd/pmd 
+bandit - https://github.com/PyCQA/bandit 
+brakeman - https://github.com/presidentbeef/brakeman 
+gosec - https://github.com/securego/gosec
+gostaticcheck - https://github.com/dominikh/go-tools
+confused - https://github.com/visma-prodsec/confused and https://gitlab.com/marcinguy/confused-oss
+snyk - https://github.com/snyk/cli
+semgrep - https://github.com/semgrep/semgrep
+trufflehog3 - https://gitlab.com/marcinguy/trufflehog3-oss
+jshint - https://github.com/jshint/jshint
+njsscan - https://github.com/ajinabraham/njsscan
+checkov - https://github.com/bridgecrewio/checkov
+kubescape - https://github.com/kubescape/kubescape
+graudit - https://github.com/marcinguy/graudit-ce
+insidersec - https://github.com/insidersec/insider
+flawfinder - https://github.com/david-a-wheeler/flawfinder
+find sec bugs - https://github.com/find-sec-bugs/find-sec-bugs
+eslint - https://github.com/eslint/eslint
+yara - https://github.com/VirusTotal/yara
+osv-scanner - https://github.com/google/osv-scanner
+fluidattack scanner - https://gitlab.com/fluidattacks/universe
+tfsec - https://github.com/aquasecurity/tfsec
+
+
