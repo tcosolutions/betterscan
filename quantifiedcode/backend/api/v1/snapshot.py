@@ -226,10 +226,6 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "apex"})
                 if(val1["analyzer"]=="semgrep"):
                     val.update({"language": "java"})
-                if(val1["analyzer"]=="semgrepdefi"):
-                    val.update({"language": "solidity"})
-                if(val1["analyzer"]=="semgrepjs"):
-                    val.update({"language": "javascript"})
                 if(val1["analyzer"]=="checkov"):
                     val.update({"language": "iac"})
                 if(val1["analyzer"]=="tfsec"):
@@ -270,8 +266,6 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "kotlin"})
                 if(val1["analyzer"]=="gostaticcheck"):
                     val.update({"language": "golang"})
-                if(val1["analyzer"]=="semgrepcsharpdotnet"):
-                    val.update({"language": "csharp"})
 
                  
                  
