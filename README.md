@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/marcinguy/betterscan-ce">
-    <img alt="Betterscan" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/633a1643dcb06d3029867161_g4.svg">
+    <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/6662b3cba2059f268d0ada99_cloud%20(Website).svg">
   </a>
 </div>
 
