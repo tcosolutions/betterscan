@@ -21,7 +21,7 @@ https://www.okteto.com/docs/getting-started/#installing-okteto-cli
 Clone Repository
 
 ```
-git clone https://github.com/marcinguy/scanmycode-ce
+git clone https://github.com/topcodersonline-solutions/betterscan-ce
 cd okteto
 ```
 

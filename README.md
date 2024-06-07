@@ -8,12 +8,12 @@
   Open DevSecOps Orchestration Toolchain
 </h2>
 
-[<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/marcinguy/scanmycode-ce)
+[<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/topcodersonline-solutions/betterscan-ce)
 ![Release](https://img.shields.io/github/v/release/marcinguy/betterscan-ce?sort=semver)
-![GitHub forks](https://badgen.net/github/forks/marcinguy/scanmycode-ce)
-![GitHub watchers](https://badgen.net/github/watchers/marcinguy/scanmycode-ce)
-![GitHub issues](https://badgen.net/github/issues/marcinguy/scanmycode-ce)
-![Docker Pulls](https://badgen.net/docker/pulls/scanmycode/scanmycode3-ce?icon=docker&label=pulls)
+![GitHub forks](https://badgen.net/github/forks/topcodersonline-solutions/betterscan-ce)
+![GitHub watchers](https://badgen.net/github/watchers/topcodersonline-solutions/betterscan-ce)
+![GitHub issues](https://badgen.net/github/issues/topcodersonline-solutions/betterscan-ce)
+![Docker Pulls](https://badgen.net/docker/pulls/betterscan/betterscan-ce?icon=docker&label=pulls)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/betterscan)](https://artifacthub.io/packages/search?repo=betterscan)
 
@@ -58,7 +58,7 @@ The full text of the licenses for software included in Debian can be found in /u
 
 ## Additional Software Licenses
 
-Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/scanmycode/LICENSE`.
+Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/betterscan/LICENSE`.
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 

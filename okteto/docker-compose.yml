@@ -21,17 +21,17 @@
 version: '3'
 services:
   server:
-    image: scanmycode/scanmycode3-ce:server 
+    image: betterscan/betterscan-ce:server 
     restart: always
     depends_on:
       - postgres
-    working_dir: /srv/scanmycode/
-    command: /bin/sh -c "python /srv/scanmycode/manage.py setup && python /srv/scanmycode/manage.py runserver"
+    working_dir: /srv/betterscan/
+    command: /bin/sh -c "python /srv/betterscan/manage.py setup && python /srv/betterscan/manage.py runserver"
     ports:
       - 5000:5000
     volumes:
-      - server1:/srv/scanmycode/quantifiedcode/data/repositories/
-      - server2:/srv/scanmycode/quantifiedcode/backend/data/tasks/
+      - server1:/srv/betterscan/quantifiedcode/data/repositories/
+      - server2:/srv/betterscan/quantifiedcode/backend/data/tasks/
 
   postgres:
     image: postgres:13.2
@@ -46,17 +46,17 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   worker:
-    image: scanmycode/scanmycode3-ce:worker
+    image: betterscan/betterscan-ce:worker
     restart: unless-stopped
     depends_on:
       - rabbitmq
       - postgres
       - server
-    working_dir: /srv/scanmycode/
-    command: /bin/sh -c "python /srv/scanmycode/manage.py runworker"
+    working_dir: /srv/betterscan/
+    command: /bin/sh -c "python /srv/betterscan/manage.py runworker"
     volumes:
-      - server1:/srv/scanmycode/quantifiedcode/data/repositories/
-      - server2:/srv/scanmycode/quantifiedcode/backend/data/tasks/
+      - server1:/srv/betterscan/quantifiedcode/data/repositories/
+      - server2:/srv/betterscan/quantifiedcode/backend/data/tasks/
 
   rabbitmq:
     container_name: "rabbitmq"

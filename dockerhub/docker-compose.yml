@@ -21,7 +21,7 @@
 version: '3'
 services:
   server:
-    image: scanmycode/scanmycode3-ce:server
+    image: betterscan/betterscan-ce:server
     restart: always
     environment:
       LIC: 
@@ -29,15 +29,15 @@ services:
       OPENAI_GPT_API:
     depends_on:
       - postgres
-    working_dir: /srv/scanmycode/
+    working_dir: /srv/betterscan/
     entrypoint: sh
-    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/scanmycode/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-dockerhub.html; python3.8 /srv/scanmycode/manage.py runserver; else python3.8 /srv/scanmycode/manage.py setup  && touch /srv/scanmycode/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-dockerhub.html; fi"
+    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-dockerhub.html; python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup  && touch /srv/betterscan/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-dockerhub.html; fi"
     ports:
       - 5000:5000
     volumes:
-      - ./data1:/srv/scanmycode/quantifiedcode/data/
-      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/tasks
-      - ./setup_state:/srv/scanmycode/setup_state
+      - ./data1:/srv/betterscan/quantifiedcode/data/
+      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
+      - ./setup_state:/srv/betterscan/setup_state
     links:
       - "postgres"
 
@@ -54,7 +54,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   worker_1:
-    image: scanmycode/scanmycode3-ce:worker
+    image: betterscan/betterscan-ce:worker
     ulimits:
       stack: -1
     restart: always
@@ -67,12 +67,12 @@ services:
       - rabbitmq3
       - postgres
       - server
-    working_dir: /srv/scanmycode/
+    working_dir: /srv/betterscan/
     entrypoint: sh
-    command: -c "python3.8 /srv/scanmycode/manage.py runworker"
+    command: -c "python3.8 /srv/betterscan/manage.py runworker"
     volumes:
-      - ./data1:/srv/scanmycode/quantifiedcode/data/
-      - ./data2:/srv/scanmycode/quantifiedcode/backend/data/tasks
+      - ./data1:/srv/betterscan/quantifiedcode/data/
+      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
     links:
       - "rabbitmq3"
       - "server"

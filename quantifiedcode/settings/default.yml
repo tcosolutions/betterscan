@@ -79,8 +79,8 @@ backend:
             seconds: 30
    
 email:
-  from_email: "info@scanmycode.today"
-  from_name: "Scanmycode"
+  from_email: "info@betterscan.io"
+  from_name: "Betterscan"
 
 apis:
   github:
@@ -96,7 +96,6 @@ apis:
 frontend:
   # changing this URL currently requires us to change the
   # corresponding baseURL in /frontend/src/js/config.js as well
-  #url: "https://app.scanmycode.today"
   url: ''
   static_url: &static_url /static
   template_folder: templates
@@ -113,8 +112,8 @@ frontend:
     github:
       authorize_url: "https://github.com/login/oauth/authorize"
       client_id: 1234
-      #client_secret: 1234
-      redirect_uri: "https://app.scanmycode.today/api/v1/authorize/github"
+      client_secret: 1234
+      redirect_uri: 
       scope: *github_scope
       public_scope: *github_public_scope
 

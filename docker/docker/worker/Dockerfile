@@ -6,14 +6,14 @@ WORKDIR /
 RUN mkdir -p /srv
 RUN rm /usr/bin/python3
 RUN ln -s /usr/local/bin/python3.8 /usr/bin/python3
-RUN git clone https://github.com/marcinguy/scanmycode-ce.git /srv/scanmycode
-WORKDIR /srv/scanmycode
+RUN git clone https://github.com/topcodersonline-solutions/betterscan-ce /srv/betterscan
+WORKDIR /srv/betterscan
 RUN git pull
-WORKDIR /srv/scanmycode
+WORKDIR /srv/betterscan
 RUN pip install pipenv
 RUN python3 -m pipenv install --python=/usr/local/bin/python3.8 --system
 WORKDIR /
-RUN git clone -b checkmate3 https://github.com/marcinguy/checkmate-ce /checkmate
+RUN git clone -b checkmate3 https://github.com/topcodersonline-solutions/checkmate-ce /checkmate
 WORKDIR /checkmate
 RUN git checkout checkmate3
 RUN git pull
@@ -21,7 +21,7 @@ RUN python3.8 setup.py install
 WORKDIR /
 WORKDIR /
 RUN python3.8 -m pip install psycopg2 --upgrade
-RUN ln -s /srv/scanmycode/quantifiedcode/settings/default.yml /srv/scanmycode/settings.yml
+RUN ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml
 WORKDIR /root
 RUN apt install -y wget
 RUN wget https://golang.org/dl/go1.21.5.linux-amd64.tar.gz
@@ -39,7 +39,7 @@ WORKDIR /root
 RUN git clone https://gitlab.com/marcinguy/trufflehog3-oss.git
 RUN cd trufflehog3-oss && python3.8 setup.py install
 RUN python3.8 -m pip install markupsafe==2.0.1
-WORKDIR /srv/scanmycode
+WORKDIR /srv/betterscan
 RUN mkdir /root/confused/
 RUN git clone https://gitlab.com/marcinguy/confused-oss.git /root/confused
 RUN tree
@@ -48,19 +48,16 @@ RUN /usr/local/go/bin/go mod init confused
 RUN /usr/local/go/bin/go build confused
 RUN tree
 WORKDIR /root
-RUN git clone https://github.com/Raz0r/semgrep-smart-contracts.git
-RUN git clone https://github.com/marcinguy/smc-semgrep-js.git semgrepjs
-RUN git clone https://github.com/marcinguy/semgrep-csharp-dotnet.git semgrepcsharpdotnet
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.41.0/pmd-bin-6.41.0.zip
 RUN unzip pmd-bin-6.41.0.zip
 RUN mkdir /root/phpscan/
-RUN cp /srv/scanmycode/analyzers/progpilot.phar /root/phpscan/
-RUN cp /srv/scanmycode/analyzers/find_unicode_control2.py /usr/local/bin/
-RUN cp -pr /srv/scanmycode/analyzers/custom-semgrep /root
-RUN cp /srv/scanmycode/analyzers/*.yml /root/
-RUN cp /srv/scanmycode/sshfeature/ssh /usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/git/lib
+RUN cp /srv/betterscan/analyzers/progpilot.phar /root/phpscan/
+RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/
+RUN cp -pr /srv/betterscan/analyzers/custom-semgrep /root
+RUN cp /srv/betterscan/analyzers/*.yml /root/
+RUN cp /srv/betterscan/sshfeature/ssh /usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/git/lib
 RUN mkdir -p /usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js
-RUN cp /srv/scanmycode/analyzers/json_reporter.js /usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js/
+RUN cp /srv/betterscan/analyzers/json_reporter.js /usr/local/lib/python3.8/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js/
 RUN python3.8 -m pip install email_validator
 #RUN pip3 install celery==4.4.6
 RUN python3.8 -m pip install testresources
@@ -73,7 +70,7 @@ RUN git clone https://github.com/marcinguy/graudit-ce graudit
 RUN git clone https://github.com/marcinguy/text4shell-ce text4shell-ce
 RUN python3.8 -m pip install yara-scanner
 RUN mkdir /root/yara
-RUN cp -pr /srv/scanmycode/analyzers/yara/* /root/yara
+RUN cp -pr /srv/betterscan/analyzers/yara/* /root/yara
 ADD https://nixos.org/nix/install /tmp
 RUN bash -c "bash /tmp/install --daemon"
 RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/24.01.tar.gz"

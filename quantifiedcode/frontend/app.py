@@ -143,7 +143,7 @@ def get_app(settings):
           with open(filename,'r') as input_file:
             return input_file.read()
       
-        content = read_file('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
+        content = read_file('/srv/betterscan/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
         
         response = make_response(content)
         response.mimetype = 'application/javascript'
@@ -155,7 +155,7 @@ def get_app(settings):
           with open(filename,'r') as input_file:
             return input_file.read()
 
-        content = read_file('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
+        content = read_file('/srv/betterscan/quantifiedcode/plugins/git/frontend/build/static/js/git/settings.js')
 
         response = make_response(content)
         response.mimetype = 'application/javascript'
@@ -164,18 +164,18 @@ def get_app(settings):
 
     @app.route('/project/git/<path:path>')
     def send_js1(path):
-      return send_from_directory('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git', path)
+      return send_from_directory('/srv/betterscan/quantifiedcode/plugins/git/frontend/build/static/js/git', path)
 
     @app.route('/user/git/<path:path>')
     def send_js2(path):
-      return send_from_directory('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git', path)
+      return send_from_directory('/srv/betterscan/quantifiedcode/plugins/git/frontend/build/static/js/git', path)
 
 
 
 
     @app.route('/git/<path:path>')
     def send_js(path):
-      return send_from_directory('/srv/scanmycode/quantifiedcode/plugins/git/frontend/build/static/js/git', path)
+      return send_from_directory('/srv/betterscan/quantifiedcode/plugins/git/frontend/build/static/js/git', path)
     
 
     @app.route('/',defaults = {'path' : ''})
