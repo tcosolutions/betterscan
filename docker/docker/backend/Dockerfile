@@ -45,4 +45,3 @@ RUN python3.8 -m pip install email_validator
 RUN python3.8 -m pip install sqlalchemy===1.4.46
 RUN python3.8 -m pip install importlib_resources
 RUN python3.8 -m pip install importlib_metadata
-RUN curl --silent --output /dev/null https://dl.betterscan.io/docker-build-backend.html
