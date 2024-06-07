@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/marcinguy/betterscan-ce">
+  <a href="https://github.com/topcodersonline-solutions/betterscan-ce">
     <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/6662b3cba2059f268d0ada99_cloud%20(Website).svg">
   </a>
 </div>
@@ -9,11 +9,11 @@
 </h2>
 
 [<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/topcodersonline-solutions/betterscan-ce)
-![Release](https://img.shields.io/github/v/release/marcinguy/betterscan-ce?sort=semver)
+![Release](https://img.shields.io/github/v/release/topcodersonline-solutions/betterscan-ce?sort=semver)
 ![GitHub forks](https://badgen.net/github/forks/topcodersonline-solutions/betterscan-ce)
 ![GitHub watchers](https://badgen.net/github/watchers/topcodersonline-solutions/betterscan-ce)
 ![GitHub issues](https://badgen.net/github/issues/topcodersonline-solutions/betterscan-ce)
-![Docker Pulls](https://badgen.net/docker/pulls/betterscan/betterscan-ce?icon=docker&label=pulls)
+![Docker Pulls](https://badgen.net/docker/pulls/tcosolutions/betterscan-ce?icon=docker&label=pulls)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/betterscan)](https://artifacthub.io/packages/search?repo=betterscan)
 
@@ -46,7 +46,7 @@ Above is sample engine (Binary runtime) run powering everything (CLI, Web Platfo
 
 Above is Web Interface.
 
-Even more screenshots and integrations in **[Wiki](https://github.com/marcinguy/betterscan-ce/wiki)**
+Even more screenshots and integrations in **[Wiki](https://github.com/topcodersonline-solutions/betterscan-ce/wiki)**
 
 ## License Information
 
@@ -62,7 +62,7 @@ Docker images includes software licensed under various licenses. The full licens
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
-Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/marcinguy/betterscan-ce#platforms--oses))
+Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/topcodersonline-solutions/betterscan-ce#platforms--oses))
 
 
 
@@ -103,7 +103,7 @@ If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for 
 Run in command prompt (or ```docker-compose up``` or ```docker compose up``` ):
 
 ```
-git clone https://github.com/marcinguy/betterscan-ce.git
+git clone https://github.com/topcodersonline-solutions/betterscan-ce.git
 cd betterscan-ce/dockerhub
 ./start.sh
 ```
@@ -130,6 +130,6 @@ helm install betterscan betterscan-repo/betterscan
 
 That's it.
 
-Read more in the **[Wiki](https://github.com/marcinguy/betterscan-ce/wiki)**, also for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo, Reviewdog
+Read more in the **[Wiki](https://github.com/topcodersonline-solutions/betterscan-ce/wiki)**, also for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo, Reviewdog
 
 Sample integrations for BitBucket Pipelines, GitLab CI, Google CloudBuild, CircleCI, Jenkins, TravisCI are also provided.
