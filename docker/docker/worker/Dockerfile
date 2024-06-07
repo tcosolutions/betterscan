@@ -78,7 +78,6 @@ RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
 RUN /usr/local/go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
 RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
 RUN python3.8 -m pip install sqlalchemy===1.4.46
-RUN npm install snyk@latest -g
 RUN git clone https://github.com/marcinguy/ptpt.git ptpt
 WORKDIR /root/ptpt
 RUN /usr/local/go/bin/go build

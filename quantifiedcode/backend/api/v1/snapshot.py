@@ -220,8 +220,6 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "golang"})
                 if(val1["analyzer"]=="confused"):
                     val.update({"language": "supply"})
-                if(val1["analyzer"]=="snyk"):
-                    val.update({"language": "supply"})
                 if(val1["analyzer"]=="pmd"):
                     val.update({"language": "java"})
                 if(val1["analyzer"]=="apex"):
