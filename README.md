@@ -115,18 +115,6 @@ Open up the Browser to:
 
 Sign up locally (and login in when needed)
 
-#### Kubernetes
-
-For Kubernetes Platform (also minikube)
-
-It is available via Helm package manager
-
-```
-helm repo add betterscan-repo https://marcinguy.github.io/betterscan-chart
-helm repo update
-helm install betterscan betterscan-repo/betterscan
-```
-
 
 That's it.
 
