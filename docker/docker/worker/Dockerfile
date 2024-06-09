@@ -1,5 +1,8 @@
 ARG DEBIAN_FRONTEND=noninteractive
 FROM python:3.8
+RUN ssh-keyscan github.com > /etc/ssh/known_hosts
+RUN sed /^StrictHostKeyChecking/d /etc/ssh/ssh_config; \
+  echo StrictHostKeyChecking no >> /etc/ssh/ssh_config
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
 RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv rsync jo libpq-dev curl
 WORKDIR /
