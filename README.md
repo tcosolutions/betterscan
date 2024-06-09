@@ -103,7 +103,7 @@ If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for 
 Run in command prompt (or ```docker-compose up``` or ```docker compose up``` ):
 
 ```
-git clone https://github.com/topcodersonline-solutions/betterscan-ce.git
+git clone git@github.com:topcodersonline-solutions/betterscan-ce.git
 cd betterscan-ce/dockerhub
 ./start.sh
 ```
