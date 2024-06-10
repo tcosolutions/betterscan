@@ -1,6 +1,20 @@
 export CODE_DIR=${PWD}
 cd $CODE_DIR
-docker run -e CODE_DIR -e LIC -e OPENAI_GPT_API -v ${PWD}:${PWD} -ti tcosolutions/betterscan-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate init'
-docker run -e CODE_DIR -e LIC -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti tcosolutions/betterscan-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git init'
-docker run -e CODE_DIR -e LIC -e OPENAI_GPT_API -v ${PWD}:${PWD} -ti tcosolutions/betterscan-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate git analyze --branch `git rev-parse --abbrev-ref HEAD`'
-docker run -e CODE_DIR -e LIC -e OPENAI_GPT_API -v ${PWD}:${PWD}  -ti tcosolutions/betterscan-ce:worker-cli /bin/sh -c 'cd $CODE_DIR && git config --global --add safe.directory $CODE_DIR && checkmate issues html'
+
+# Set environment variables for Docker
+ENV_VARS="-e CODE_DIR -e LIC -e OPENAI_GPT_API"
+VOLUME_MOUNT="-v ${PWD}:${PWD}"
+DOCKER_IMAGE="tcosolutions/betterscan-ce:worker-cli"
+SAFE_DIR_CMD="git config --global --add safe.directory $CODE_DIR"
+GIT_BRANCH_CMD="git rev-parse --abbrev-ref HEAD"
+
+# Define a function to run Docker commands
+run_docker() {
+  docker run $ENV_VARS $VOLUME_MOUNT -ti $DOCKER_IMAGE /bin/sh -c "cd $CODE_DIR && $SAFE_DIR_CMD && $1"
+}
+
+# Initialize checkmate and analyze the git repository
+run_docker "checkmate init"
+run_docker "checkmate git init"
+run_docker "checkmate git analyze --branch \`$GIT_BRANCH_CMD\`"
+run_docker "checkmate issues html"
