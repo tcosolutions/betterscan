@@ -105,7 +105,7 @@ Run in command prompt (or ```docker-compose up``` or ```docker compose up``` ):
 ```
 git clone git@github.com:topcodersonline-solutions/betterscan-ce.git
 cd betterscan-ce/dockerhub
-./start.sh
+docker compose up
 ```
 
 
