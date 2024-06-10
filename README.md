@@ -15,8 +15,6 @@
 ![GitHub issues](https://badgen.net/github/issues/topcodersonline-solutions/betterscan-ce)
 ![Docker Pulls](https://badgen.net/docker/pulls/tcosolutions/betterscan-ce?icon=docker&label=pulls)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/betterscan)](https://artifacthub.io/packages/search?repo=betterscan)
-
 
 Scan your source code and infra IaC against top **security** risks
 
