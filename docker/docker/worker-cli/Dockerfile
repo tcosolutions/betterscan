@@ -31,7 +31,7 @@ RUN python3 -m pip install bandit
 RUN python3 -m pip install semgrep
 RUN npm install -g jshint
 WORKDIR /root
-RUN git clone git@gitlab.com:marcinguy/trufflehog3-oss.git
+RUN git clone git@github.com:topcodersonline-solutions/trufflehog3-oss.git
 RUN cd trufflehog3-oss && python3 setup.py install
 RUN python3 -m pip install markupsafe==2.0.1
 WORKDIR /srv/betterscan
@@ -56,7 +56,7 @@ RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3
 RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
 WORKDIR /root
 RUN git clone git@github.com:topcodersonline-solutions/graudit-ce.git graudit
-RUN git clone git@github.com:marcinguy/text4shell-ce.git text4shell-ce
+RUN git clone git@github.com:topcodersonline-solutions/text4shell-ce.git text4shell-ce
 RUN python3 -m pip install yara-scanner
 RUN mkdir /root/yara
 RUN cp -pr /srv/betterscan/analyzers/yara/* /root/yara
@@ -68,7 +68,7 @@ RUN /usr/local/go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
 RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
 RUN python3 -m pip install sqlalchemy===1.4.46
 RUN python3 -m pip install rich
-RUN git clone git@github.com:marcinguy/ptpt.git ptpt
+RUN git clone git@github.com:topcodersonline-solutions/ptpt.git ptpt
 WORKDIR /root/ptpt
 RUN /usr/local/go/bin/go build
 RUN cp /root/ptpt/ptpt /root/bin/ptpt
