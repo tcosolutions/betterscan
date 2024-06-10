@@ -8,7 +8,7 @@
   Open DevSecOps Orchestration Toolchain
 </h2>
 
-[<img src="https://img.shields.io/discord/953265912302141460?label=Discord%20Chat">](https://discord.gg/3pvz7Tx9Zz) ![GitHub stars](https://badgen.net/github/stars/topcodersonline-solutions/betterscan-ce)
+![GitHub stars](https://badgen.net/github/stars/topcodersonline-solutions/betterscan-ce)
 ![Release](https://img.shields.io/github/v/release/topcodersonline-solutions/betterscan-ce?sort=semver)
 ![GitHub forks](https://badgen.net/github/forks/topcodersonline-solutions/betterscan-ce)
 ![GitHub watchers](https://badgen.net/github/watchers/topcodersonline-solutions/betterscan-ce)
