@@ -135,7 +135,7 @@ var ProjectForm = React.createClass({
 
        var urlHelp = <Helper>
             <p>
-                More information on adding Projects (Public/Private) in <a href="https://github.com/topcodersonline-solutions/betterscan-ce/wiki/Repo-Cloning">Wiki</a>
+                More information on adding Projects (Public/Private) in <a href="https://github.com/topcodersonline-solutions/betterscan-ce/wiki">Wiki</a>
             </p>
         </Helper>;
 
