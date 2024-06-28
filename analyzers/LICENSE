@@ -1,6 +1,6 @@
-The rules this repository are partially sourced from the sources listed below:
+The rules in this repository are partially sourced from the sources listed below:
 
-Used from https://gitlab.com/gitlab-org/security-products/sast-rules released under MIT Expat License
+https://gitlab.com/gitlab-org/security-products/sast-rules released under MIT Expat License
 
  * Copyright (c) 2011-present GitLab B.V.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
