@@ -1,37 +1,16 @@
-/*
- * This file is part of Betterscan CE (Community Edition).
- *
- * Betterscan is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Betterscan is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Betterscan. If not, see <https://www.gnu.org/licenses/>.
- *
- * Originally licensed under the BSD-3-Clause license with parts changed under
- * LGPL v2.1 with Commons Clause.
- * See the original LICENSE file for details.
-*/
 version: '3'
 services:
   server:
-    image: betterscan/betterscan-ce:server
+    image: tcosolutions/betterscan-ce:server
     restart: always
     environment:
       LIC: 
-      SNYK_TOKEN: 
       OPENAI_GPT_API:
     depends_on:
       - postgres
     working_dir: /srv/betterscan/
     entrypoint: sh
-    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-dockerhub.html; python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup  && touch /srv/betterscan/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-dockerhub.html; fi"
+    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan/setup_state/setup_done ]; python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup  && touch /srv/betterscan/setup_state/setup_done; fi"
     ports:
       - 5000:5000
     volumes:
@@ -54,7 +33,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   worker_1:
-    image: betterscan/betterscan-ce:worker
+    image: tcosolutions/betterscan-ce:worker
     ulimits:
       stack: -1
     restart: always
