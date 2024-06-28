@@ -1,6 +1,6 @@
 Setup
 
-Run ./start.sh
+docker compose up
 
 Go in the Bowser to:
 
