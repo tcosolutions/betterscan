@@ -10,7 +10,7 @@ services:
       - postgres
     working_dir: /srv/betterscan/
     entrypoint: sh
-    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan/setup_state/setup_done ]; python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup  && touch /srv/betterscan/setup_state/setup_done; fi"
+    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan/setup_state/setup_done ]; python3.8 /srv/betterscan/manage.py runserver else python3.8 /srv/betterscan/manage.py setup && touch /srv/betterscan/setup_state/setup_done; fi"
     ports:
       - 5000:5000
     volumes:
