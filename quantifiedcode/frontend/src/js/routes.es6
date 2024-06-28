@@ -6,7 +6,6 @@ import ProjectDetails from "components/project/details"
 import LoginSignup from "components/user/login_signup"
 import Logout from "components/user/logout"
 import UserSettings from "components/user/settings"
-import UserSubscription from "components/subscription/settings"
 import Validate from "components/user/validate"
 import PasswordReset from "components/user/password_reset"
 import PasswordResetRequest from "components/user/password_reset_request"
@@ -39,13 +38,7 @@ export default {
                 title : "User Settings",
             }
         },
-        '/subscription':
-            function(){return {
-                data : {},
-                component : UserSubscription,
-                title : "User Subscription",
-            }
-        },
+       
         '/user/validate/:email_auth_code':
             function(email_auth_code){return {
                 data : {email_auth_code : email_auth_code, action : 'validate'},
