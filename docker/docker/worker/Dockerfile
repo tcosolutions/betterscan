@@ -46,7 +46,7 @@ RUN cp /srv/betterscan/analyzers/progpilot.phar /root/phpscan/
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/
 RUN cp -pr /srv/betterscan/analyzers/custom-semgrep /root
 RUN cp /srv/betterscan/analyzers/*.yml /root/
-RUN cp /srv/betterscan/sshfeature/ssh /usr/lib/python3/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/git/lib
+#RUN cp /srv/betterscan/sshfeature/ssh /usr/lib/python3/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/git/lib
 RUN mkdir -p /usr/lib/python3/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js
 RUN cp /srv/betterscan/analyzers/json_reporter.js /usr/lib/python3/site-packages/checkmate3-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js/
 RUN python3 -m pip install email_validator
