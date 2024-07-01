@@ -82,7 +82,7 @@ Sigstore cosign images are available.
 
 Run in command prompt in your Git repository folder:
 
-`sh <(curl https://dl.betterscan.io/cli.sh)`
+`sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan-ce/main/cli.sh)`
 
 ### HTML, JSON, SARIF output
 
@@ -90,7 +90,7 @@ The result will be in the current directory in "report.html", "report.json" and 
 
 Run in command prompt in your Git repository folder:
   
-`sh <(curl https://dl.betterscan.io/cli-html.sh)`
+`sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan-ce/main/cli-html.sh)`
 
 ### 2. Platform with Webinterface and workers
 
