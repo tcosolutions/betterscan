@@ -11,7 +11,7 @@ services:
     entrypoint: sh
     command: -c "mkdir -p data1/repositories data2/tasks setup_state && if [ -f /srv/betterscan/setup_state/setup_done ]; then python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup && touch /srv/betterscan/setup_state/setup_done; fi"
     ports:
-      - 5000:5000
+      - 5001:5000
     volumes:
       - ./data1:/srv/betterscan/quantifiedcode/data/
       - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
