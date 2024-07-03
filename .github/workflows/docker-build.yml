@@ -43,6 +43,7 @@ jobs:
       - name: Build and Push Docker Images
         uses: docker/build-push-action@v2
         with:
+          ssh: default
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
           platforms: linux/amd64,linux/arm64
