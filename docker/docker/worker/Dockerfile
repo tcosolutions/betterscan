@@ -51,18 +51,18 @@ RUN python3 -m pip install email_validator
 RUN python3 -m pip install testresources
 RUN python3 -m pip install checkov
 RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | /bin/bash
-RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3.0.0_linux_x86_64.tar.gz
-RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
+#RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3.0.0_linux_x86_64.tar.gz
+#RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
 WORKDIR /root
 RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/graudit-ce graudit
 RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/text4shell-ce text4shell-ce
 RUN python3 -m pip install yara-scanner
 RUN mkdir /root/yara
 RUN cp -pr /srv/betterscan/analyzers/yara/* /root/yara
-ADD https://nixos.org/nix/install /tmp
-RUN bash -c "bash /tmp/install --daemon"
-RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/24.01.tar.gz"
-RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
+#ADD https://nixos.org/nix/install /tmp
+#RUN bash -c "bash /tmp/install --daemon"
+#RUN bash -c "/root/.nix-profile/bin/nix-env -if https://github.com/fluidattacks/makes/archive/24.01.tar.gz"
+#RUN bash -c "/root/.nix-profile/bin/m gitlab:fluidattacks/universe@trunk /skims"
 RUN /usr/local/go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
 RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
 RUN python3 -m pip install sqlalchemy===1.4.46
