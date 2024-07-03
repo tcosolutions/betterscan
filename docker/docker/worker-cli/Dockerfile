@@ -1,10 +1,13 @@
 FROM python:3.8
 ARG DEBIAN_FRONTEND=noninteractive
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
+RUN ssh-keyscan github.com > /etc/ssh/known_hosts
+RUN sed /^StrictHostKeyChecking/d /etc/ssh/ssh_config; \
+  echo StrictHostKeyChecking no >> /etc/ssh/ssh_config
 RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip npm php default-jdk pipenv rsync jo libpq-dev curl wget
 WORKDIR /
 RUN mkdir -p /srv
-RUN git clone git@github.com:topcodersonline-solutions/betterscan-ce /srv/betterscan
+RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/betterscan-ce /srv/betterscan
 WORKDIR /srv/betterscan
 RUN git pull
 WORKDIR /srv/betterscan
@@ -12,7 +15,7 @@ RUN pip install pipenv
 RUN python3 -m pipenv install --system
 RUN python3 -m pip install Rich
 WORKDIR /
-RUN git clone -b checkmate3-cli git@github.com:topcodersonline-solutions/checkmate-ce /checkmate
+RUN --mount=type=ssh git clone -b checkmate3-cli git@github.com:topcodersonline-solutions/checkmate-ce /checkmate
 WORKDIR /checkmate
 RUN git checkout checkmate3-cli
 RUN git pull
@@ -31,7 +34,7 @@ RUN python3 -m pip install bandit
 RUN python3 -m pip install semgrep
 RUN npm install -g jshint
 WORKDIR /root
-RUN git clone git@github.com:topcodersonline-solutions/trufflehog3-oss.git
+RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/trufflehog3-oss.git
 RUN cd trufflehog3-oss && python3 setup.py install
 RUN python3 -m pip install markupsafe==2.0.1
 WORKDIR /srv/betterscan
@@ -55,8 +58,8 @@ RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.s
 RUN wget https://github.com/insidersec/insider/releases/download/3.0.0/insider_3.0.0_linux_x86_64.tar.gz
 RUN tar -xzf insider_3.0.0_linux_x86_64.tar.gz
 WORKDIR /root
-RUN git clone git@github.com:topcodersonline-solutions/graudit-ce.git graudit
-RUN git clone git@github.com:topcodersonline-solutions/text4shell-ce.git text4shell-ce
+RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/graudit-ce.git graudit
+RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/text4shell-ce.git text4shell-ce
 RUN python3 -m pip install yara-scanner
 RUN mkdir /root/yara
 RUN cp -pr /srv/betterscan/analyzers/yara/* /root/yara
@@ -68,7 +71,7 @@ RUN /usr/local/go/bin/go install honnef.co/go/tools/cmd/staticcheck@latest
 RUN cp /root/go/bin/staticcheck /root/bin/staticcheck
 RUN python3 -m pip install sqlalchemy===1.4.46
 RUN python3 -m pip install rich
-RUN git clone git@github.com:topcodersonline-solutions/ptpt.git ptpt
+RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/ptpt.git ptpt
 WORKDIR /root/ptpt
 RUN /usr/local/go/bin/go build
 RUN cp /root/ptpt/ptpt /root/bin/ptpt
