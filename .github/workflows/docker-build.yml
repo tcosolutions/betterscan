@@ -45,12 +45,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Build and Push Docker Images
-        uses: docker/build-push-action@v2
+      - name: Save ssh private key file
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy-ssh-key
+      - name: Build and push app image
+        uses: docker/build-push-action@v5
         with:
-          ssh: default
+          push: true
+          ssh: |
+            default=deploy-ssh-key
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
           platforms: linux/amd64,linux/arm64
-          push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
