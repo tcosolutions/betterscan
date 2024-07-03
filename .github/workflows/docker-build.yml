@@ -56,8 +56,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            tcosolutions/betterscan-ce-{{ matrix.component }}:latest
-            tcosolutions/betterscan-ce-{{ matrix.component }}:${{ github.sha }}
+            tcosolutions/betterscan-{{ matrix.component }}:latest
+            tcosolutions/betterscan-{{ matrix.component }}:${{ github.sha }}
 
           ssh: |
             default=${{ env.SSH_AUTH_SOCK }}
