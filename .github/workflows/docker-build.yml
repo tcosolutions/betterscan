@@ -1,4 +1,4 @@
-  name: Build and Push Docker Images
+name: Build and Push Docker Images
 
 on:
   push:
@@ -28,29 +28,29 @@ jobs:
       - name: Run latest-tag
         uses: EndBug/latest-tag@latest
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@latest
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@latest
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@latest
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@latest
 
       - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@latest
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Save ssh private key file
         run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy-ssh-key
       - name: Build and push app image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@latest
         with:
           push: true
           ssh: |
