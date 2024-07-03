@@ -40,13 +40,6 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Save ssh private key file
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy-ssh-key && chmod 600 ~/.ssh/deploy-ssh-key
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -56,4 +49,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
-          ssh: default
+          ssh: ${{ secrets.SSH_PRIVATE_KEY }}
