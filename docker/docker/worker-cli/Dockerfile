@@ -9,7 +9,6 @@ WORKDIR /
 RUN mkdir -p /srv
 RUN --mount=type=ssh git clone git@github.com:topcodersonline-solutions/betterscan-ce /srv/betterscan
 WORKDIR /srv/betterscan
-RUN git pull
 WORKDIR /srv/betterscan
 RUN pip install pipenv
 RUN python3 -m pipenv install --system
@@ -18,7 +17,6 @@ WORKDIR /
 RUN --mount=type=ssh git clone -b checkmate3-cli git@github.com:topcodersonline-solutions/checkmate-ce /checkmate
 WORKDIR /checkmate
 RUN git checkout checkmate3-cli
-RUN git pull
 RUN python3 setup.py install
 WORKDIR /
 WORKDIR /
