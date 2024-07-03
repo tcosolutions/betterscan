@@ -29,22 +29,22 @@ jobs:
         uses: EndBug/latest-tag@latest
 
       - name: Checkout code
-        uses: actions/checkout@latest
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@latest
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
-        uses: docker/login-action@latest
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@latest
+        uses: docker/setup-qemu-action@v2
 
       - name: Set up SSH agent
-        uses: webfactory/ssh-agent@latest
+        uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -52,7 +52,7 @@ jobs:
         run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy-ssh-key && chmod 600 ~/.ssh/deploy-ssh-key
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@latest
+        uses: docker/build-push-action@v4
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
