@@ -9,7 +9,6 @@ RUN ln -s /usr/local/bin/python3.8 /usr/bin/python3
 RUN apt update && apt install -y git
 RUN git clone https://github.com/topcodersonline-solutions/betterscan-ce /srv/betterscan
 WORKDIR /srv/betterscan
-RUN git pull
 RUN apt update && apt install -y libcurl4-nss-dev libssl-dev tree sudo git ssh rsync npm ruby-sass pipenv
 RUN tree
 RUN pip install pipenv
