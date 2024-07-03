@@ -27,6 +27,7 @@ jobs:
     steps:
       - name: Run latest-tag
         uses: EndBug/latest-tag@latest
+
       - name: Checkout code
         uses: actions/checkout@latest
 
@@ -48,14 +49,14 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Save ssh private key file
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy-ssh-key
-      - name: Build and push app image
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy-ssh-key && chmod 600 ~/.ssh/deploy-ssh-key
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@latest
         with:
-          push: true
-          ssh: |
-            default=deploy-ssh-key
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
           platforms: linux/amd64,linux/arm64
+          push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
+          ssh: default
