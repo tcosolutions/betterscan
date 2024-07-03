@@ -1,6 +1,6 @@
 services:
   server:
-    image: tcosolutions/betterscan-ce:server
+    image: sunsolution/betterscan-server:latest
     restart: always
     environment:
       LIC: 
@@ -32,7 +32,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   worker_1:
-    image: tcosolutions/betterscan-ce:worker
+    image: sunsolution/betterscan-worker:latest
     ulimits:
       stack: -1
     restart: always
