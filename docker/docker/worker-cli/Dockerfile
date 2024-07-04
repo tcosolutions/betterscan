@@ -22,7 +22,7 @@ RUN wget https://golang.org/dl/go1.22.4.linux-amd64.tar.gz && \
 
 # Install Ruby gem, Python, and Node.js packages
 RUN gem install brakeman && \
-    python3 -m pip install pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
+    python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
     email_validator testresources checkov yara-scanner sqlalchemy===1.4.46 Rich && \
     npm install -g jshint
 
@@ -30,7 +30,7 @@ RUN gem install brakeman && \
 RUN mkdir -p /srv /root && \
     --mount=type=ssh git clone git@github.com:topcodersonline-solutions/betterscan-ce /srv/betterscan && \
     cd /srv/betterscan && \
-    pipenv install --system && \
+    pipenv install --system --use-feature=fast-deps && \
     ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
     --mount=type=ssh git clone -b checkmate3-cli git@github.com:topcodersonline-solutions/checkmate-ce /checkmate && \
     cd /checkmate && \
