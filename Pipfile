@@ -18,6 +18,8 @@ importlib-metadata = "==4.13.0"
 cryptography = "==41.0.3"
 werkzeug = "==2.2.3"
 certifi = "==2023.7.22"
+argcomplete = "==1.12.3"
+attrs = "==20.3.0"
 
 [dev-packages]
 cryptography = "==41.0.3"
