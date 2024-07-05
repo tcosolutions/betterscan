@@ -1,0 +1,63 @@
+steps:
+  # Step to authenticate to Google Cloud Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud auth configure-docker
+
+  # Steps to build and push Docker images for each service
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build server image
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/betterscan-server:latest',
+        '-f',
+        'docker/docker/backend/Dockerfile',
+        'docker/docker/backend'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push server image latest
+    args: ['push', 'gcr.io/$PROJECT_ID/betterscan-server:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build worker image
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/betterscan-worker:latest',
+        '-f',
+        'docker/docker/worker/Dockerfile',
+        'docker/docker/worker'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push worker image latest
+    args: ['push', 'gcr.io/$PROJECT_ID/betterscan-worker:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build worker-cli image
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest',
+        '-f',
+        'docker/docker/worker-cli/Dockerfile',
+        'docker/docker/worker-cli'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push worker-cli image latest
+    args: ['push', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest']
+
+images:
+  - 'gcr.io/$PROJECT_ID/betterscan-server:latest'
+  - 'gcr.io/$PROJECT_ID/betterscan-worker:latest'
+  - 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest'
+
