@@ -1,5 +1,5 @@
 ARG DEBIAN_FRONTEND=noninteractive
-FROM python:3.8
+FROM python:3.8-slim
 
 # Set timezone and environment variables
 ENV CONTAINER_TIMEZONE=UTC

@@ -1,60 +1,58 @@
 steps:
+  # Step to set up Docker Buildx
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['buildx', 'create', '--name', 'mybuilder']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['buildx', 'use', 'mybuilder']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['buildx', 'inspect', '--bootstrap']
+
   # Step to authenticate to Google Cloud Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        gcloud auth configure-docker
+    args: ['gcloud', 'auth', 'configure-docker']
 
   # Steps to build and push Docker images for each service
   - name: 'gcr.io/cloud-builders/docker'
-    id: Build server image
+    id: Build and push server image
     args:
       [
-        'build',
-        '-t',
-        'gcr.io/$PROJECT_ID/betterscan-server:latest',
-        '-f',
-        'docker/docker/backend/Dockerfile',
-        'docker/docker/backend'
+        'buildx', 'build', '.', 
+        '--platform', 'linux/amd64,linux/arm64',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-server:amd64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-server:arm64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-server:latest',
+        '--push',
+        '--file', 'docker/docker/backend/Dockerfile'
       ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    id: Push server image latest
-    args: ['push', 'gcr.io/$PROJECT_ID/betterscan-server:latest']
-
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Build worker image
+    id: Build and push worker image
     args:
       [
-        'build',
-        '-t',
-        'gcr.io/$PROJECT_ID/betterscan-worker:latest',
-        '-f',
-        'docker/docker/worker/Dockerfile',
-        'docker/docker/worker'
+        'buildx', 'build', '.', 
+        '--platform', 'linux/amd64,linux/arm64',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker:amd64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker:arm64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker:latest',
+        '--push',
+        '--file', 'docker/docker/worker/Dockerfile'
       ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    id: Push worker image latest
-    args: ['push', 'gcr.io/$PROJECT_ID/betterscan-worker:latest']
-
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Build worker-cli image
+    id: Build and push worker-cli image
     args:
       [
-        'build',
-        '-t',
-        'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest',
-        '-f',
-        'docker/docker/worker-cli/Dockerfile',
-        'docker/docker/worker-cli'
+        'buildx', 'build', '.', 
+        '--platform', 'linux/amd64,linux/arm64',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:amd64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:arm64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest',
+        '--push',
+        '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
-
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Push worker-cli image latest
-    args: ['push', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest']
 
 images:
   - 'gcr.io/$PROJECT_ID/betterscan-server:latest'

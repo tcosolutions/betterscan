@@ -1,0 +1,85 @@
+version: '3.8'
+
+x-platform: &platform
+  platform: ${PLATFORM:-linux/amd64}
+
+services:
+  server:
+    image: gcr.io/YOUR_PROJECT_ID/betterscan-server:${ARCH:-amd64}-latest
+    restart: always
+    environment:
+      LIC: 
+      OPENAI_GPT_API:
+    depends_on:
+      - postgres
+    working_dir: /srv/betterscan/
+    entrypoint: sh
+    command: -c "mkdir -p data1/repositories data2/tasks setup_state && if [ -f /srv/betterscan/setup_state/setup_done ]; then python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup && touch /srv/betterscan/setup_state/setup_done; fi"
+    ports:
+      - 5001:5000
+    volumes:
+      - ./data1:/srv/betterscan/quantifiedcode/data/
+      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
+      - ./setup_state:/srv/betterscan/setup_state
+    links:
+      - "postgres"
+    <<: *platform
+
+  postgres:
+    image: postgres:13.2
+    restart: always
+    environment:
+      POSTGRES_DB: qc
+      POSTGRES_USER: qc
+      POSTGRES_PASSWORD: qc
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  worker_1:
+    image: gcr.io/YOUR_PROJECT_ID/betterscan-worker:${ARCH:-amd64}-latest
+    ulimits:
+      stack: -1
+    restart: always
+    environment:
+      LIC: 
+      SNYK_TOKEN: 
+      OPENAI_GPT_API:
+    hostname: worker_1
+    depends_on:
+      - rabbitmq3
+      - postgres
+      - server
+    working_dir: /srv/betterscan/
+    entrypoint: sh
+    command: -c "python3.8 /srv/betterscan/manage.py runworker"
+    volumes:
+      - ./data1:/srv/betterscan/quantifiedcode/data/
+      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
+    links:
+      - "rabbitmq3"
+      - "server"
+      - "postgres"
+    <<: *platform
+
+  rabbitmq3:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=qc
+      - RABBITMQ_DEFAULT_PASS=qc
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 5s
+      timeout: 15s
+      retries: 1
+
+volumes:
+  db-data:
+    driver: local
+

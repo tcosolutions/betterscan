@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.8-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV CONTAINER_TIMEZONE=UTC
