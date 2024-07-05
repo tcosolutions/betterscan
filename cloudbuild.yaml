@@ -14,13 +14,20 @@ steps:
     entrypoint: 'bash'
     args: ['gcloud', 'auth', 'configure-docker']
 
-  # Step to authenticate with Azure Container Registry (ACR)
+  # Step to authenticate with Azure Container Registry (ACR) and get access token
   - name: 'mcr.microsoft.com/azure-cli'
     entrypoint: 'sh'
     args:
       - '-c'
       - |
         az login --service-principal -u ${_AZURE_CLIENT_ID} -p ${_AZURE_CLIENT_SECRET} --tenant ${_AZURE_TENANT_ID}
+
+  # Step to log in to ACR using Docker and the access token
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
         docker login ${_AZURE_REGISTRY_NAME}.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password ${_ACCESS_TOKEN}
 
   # Steps to build and push Docker images for each service to GCR
@@ -117,5 +124,3 @@ substitutions:
   _AZURE_CLIENT_SECRET: 'your-client-secret'
   _AZURE_TENANT_ID: 'your-tenant-id'
   _ACCESS_TOKEN: 'access-token'
-
-
