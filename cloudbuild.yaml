@@ -14,9 +14,18 @@ steps:
     entrypoint: 'bash'
     args: ['gcloud', 'auth', 'configure-docker']
 
-  # Steps to build and push Docker images for each service
+  # Step to authenticate with Azure Container Registry (ACR)
+  - name: 'mcr.microsoft.com/azure-cli'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        az login --service-principal -u ${_AZURE_CLIENT_ID} -p ${_AZURE_CLIENT_SECRET} --tenant ${_AZURE_TENANT_ID}
+        docker login ${_AZURE_REGISTRY_NAME}.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password ${_ACCESS_TOKEN}
+
+  # Steps to build and push Docker images for each service to GCR
   - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push server image
+    id: Build and push server image to GCR
     args:
       [
         'buildx', 'build', '.', 
@@ -29,7 +38,7 @@ steps:
       ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push worker image
+    id: Build and push worker image to GCR
     args:
       [
         'buildx', 'build', '.', 
@@ -42,7 +51,7 @@ steps:
       ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push worker-cli image
+    id: Build and push worker-cli image to GCR
     args:
       [
         'buildx', 'build', '.', 
@@ -54,8 +63,59 @@ steps:
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
+  # Steps to build and push Docker images for each service to ACR
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build and push server image to ACR
+    args:
+      [
+        'buildx', 'build', '.', 
+        '--platform', 'linux/amd64,linux/arm64',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:amd64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:arm64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:latest',
+        '--push',
+        '--file', 'docker/docker/backend/Dockerfile'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build and push worker image to ACR
+    args:
+      [
+        'buildx', 'build', '.', 
+        '--platform', 'linux/amd64,linux/arm64',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:amd64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:arm64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:latest',
+        '--push',
+        '--file', 'docker/docker/worker/Dockerfile'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build and push worker-cli image to ACR
+    args:
+      [
+        'buildx', 'build', '.', 
+        '--platform', 'linux/amd64,linux/arm64',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:amd64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:arm64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:latest',
+        '--push',
+        '--file', 'docker/docker/worker-cli/Dockerfile'
+      ]
+
 images:
   - 'gcr.io/$PROJECT_ID/betterscan-server:latest'
   - 'gcr.io/$PROJECT_ID/betterscan-worker:latest'
   - 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest'
+  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:latest'
+  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:latest'
+  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:latest'
+
+substitutions:
+  _AZURE_REGISTRY_NAME: 'your-registry-name'
+  _AZURE_CLIENT_ID: 'your-client-id'
+  _AZURE_CLIENT_SECRET: 'your-client-secret'
+  _AZURE_TENANT_ID: 'your-tenant-id'
+  _ACCESS_TOKEN: 'access-token'
+
 

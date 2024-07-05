@@ -1,10 +1,12 @@
+x-platform: &platform
+  platform: ${PLATFORM:-linux/amd64}
+
 services:
   server:
-    image: sunsolution/betterscan-server:latest
+    image: ${AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:${ARCH:-amd64}-latest
     restart: always
     environment:
-      LIC: 
-      OPENAI_GPT_API:
+      OPENAI_GPT_API: ${OPENAI_GPT_API}
     depends_on:
       - postgres
     working_dir: /srv/betterscan/
@@ -13,11 +15,10 @@ services:
     ports:
       - 5001:5000
     volumes:
-      - ./data1:/srv/betterscan/quantifiedcode/data/
-      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
-      - ./setup_state:/srv/betterscan/setup_state
-    links:
-      - "postgres"
+      - data1:/srv/betterscan/quantifiedcode/data/
+      - data2:/srv/betterscan/quantifiedcode/backend/data/tasks
+      - setup_state:/srv/betterscan/setup_state
+    <<: *platform
 
   postgres:
     image: postgres:13.2
@@ -31,13 +32,14 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
+
   worker_1:
-    image: sunsolution/betterscan-worker:latest
+    image: ${AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:${ARCH:-amd64}-latest
     ulimits:
       stack: -1
     restart: always
     environment:
-      OPENAI_GPT_API:
+      OPENAI_GPT_API: ${OPENAI_GPT_API}
     hostname: worker_1
     depends_on:
       - rabbitmq3
@@ -47,12 +49,9 @@ services:
     entrypoint: sh
     command: -c "python3.8 /srv/betterscan/manage.py runworker"
     volumes:
-      - ./data1:/srv/betterscan/quantifiedcode/data/
-      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
-    links:
-      - "rabbitmq3"
-      - "server"
-      - "postgres"  
+      - data1:/srv/betterscan/quantifiedcode/data/
+      - data2:/srv/betterscan/quantifiedcode/backend/data/tasks
+    <<: *platform
 
   rabbitmq3:
     container_name: "rabbitmq"
@@ -70,5 +69,12 @@ services:
       retries: 1
 
 volumes:
+  data1:
+    driver: local
+  data2:
+    driver: local
+  setup_state:
+    driver: local
   db-data:
     driver: local
+

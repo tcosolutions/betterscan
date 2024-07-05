@@ -1,5 +1,3 @@
-version: '3.8'
-
 x-platform: &platform
   platform: ${PLATFORM:-linux/amd64}
 
@@ -8,8 +6,8 @@ services:
     image: gcr.io/YOUR_PROJECT_ID/betterscan-server:${ARCH:-amd64}-latest
     restart: always
     environment:
-      LIC: 
-      OPENAI_GPT_API:
+      LIC: ${LIC}
+      OPENAI_GPT_API: ${OPENAI_GPT_API}
     depends_on:
       - postgres
     working_dir: /srv/betterscan/
@@ -21,8 +19,6 @@ services:
       - ./data1:/srv/betterscan/quantifiedcode/data/
       - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
       - ./setup_state:/srv/betterscan/setup_state
-    links:
-      - "postgres"
     <<: *platform
 
   postgres:
@@ -44,9 +40,7 @@ services:
       stack: -1
     restart: always
     environment:
-      LIC: 
-      SNYK_TOKEN: 
-      OPENAI_GPT_API:
+      OPENAI_GPT_API: ${OPENAI_GPT_API}
     hostname: worker_1
     depends_on:
       - rabbitmq3
@@ -58,10 +52,6 @@ services:
     volumes:
       - ./data1:/srv/betterscan/quantifiedcode/data/
       - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
-    links:
-      - "rabbitmq3"
-      - "server"
-      - "postgres"
     <<: *platform
 
   rabbitmq3:
