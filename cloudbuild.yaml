@@ -70,6 +70,8 @@ images:
 
 options:
   defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
+
+  
   
 substitutions:
   _AZURE_REGISTRY_NAME: 'your-registry-name'
