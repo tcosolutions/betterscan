@@ -40,21 +40,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ARG GO_VERSION=latest
 
 # Download and install Go based on the architecture
-RUN ARCH=$(dpkg --print-architecture) && \
-    if [ "$ARCH" = "amd64" ]; then \
-        GO_ARCH=amd64; \
-    elif [ "$ARCH" = "arm64" ]; then \
-        GO_ARCH=arm64; \
-    else \
-        echo "Unsupported architecture: $ARCH"; \
-        exit 1; \
-    fi && \
-    if [ "$GO_VERSION" = "latest" ]; then \
-        GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text"); \
-    fi && \
-    curl -sSL "https://golang.org/dl/$GO_VERSION.linux-$GO_ARCH.tar.gz" -o /tmp/go.tar.gz && \
-    tar -C /usr/local -xzf /tmp/go.tar.gz && \
-    rm /tmp/go.tar.gz
+RUN curl -LO https://get.golang.org/$(uname)/go_installer && \
+chmod +x go_installer && \
+./go_installer && \
+rm go_installer
 
 # Set up Go environment variables
 ENV PATH="/usr/local/go/bin:${PATH}"
