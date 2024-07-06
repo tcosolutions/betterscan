@@ -38,13 +38,9 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (softwar
 Above is sample engine (Binary runtime) run powering everything (CLI, Web Platform, CI/CD Actions, GitHub App, DefectDojo, Reviewdog)
 
 
-<p align="center">
-  <img width="600" src="https://assets-global.website-files.com/6339e3b81867539b5fe2498d/6339e4ff689e383aa9acb1f9_mainscreen-p-800.png">
-</p>
 
-Above is Web Interface.
 
-Even more screenshots and integrations in **[Wiki](https://github.com/topcodersonline-solutions/betterscan-ce/wiki)**
+More info in **[Wiki](https://github.com/topcodersonline-solutions/betterscan-ce/wiki)**
 
 ## License Information
 
@@ -116,6 +112,6 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Read more in the **[Wiki](https://github.com/topcodersonline-solutions/betterscan-ce/wiki)**, also for GitHub/GitLab/Azure DevOps Server integration, PR scanning, GitHub Action, GitHub App, DefectDojo, Reviewdog
+Read more in the **[Wiki](https://github.com/topcodersonline-solutions/betterscan-ce/wiki)**
 
-Sample integrations for BitBucket Pipelines, GitLab CI, Google CloudBuild, CircleCI, Jenkins, TravisCI are also provided.
+
