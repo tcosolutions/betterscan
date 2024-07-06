@@ -81,9 +81,9 @@ RUN pip install --upgrade pip && \
 # Clone repositories and set up projects
 
 RUN git clone -b checkmate3-cli git@github.com:topcodersonline-solutions/checkmate-ce /checkmate && git clone git@github.com:topcodersonline-solutions/betterscan-ce /srv/betterscan \
-    cd /checkmate && \
+    && cd /checkmate && \
     python3 setup.py install && \
-    --mount=type=ssh git clone git@github.com:topcodersonline-solutions/trufflehog3-oss.git /root/trufflehog3-oss && \
+    git clone git@github.com:topcodersonline-solutions/trufflehog3-oss.git /root/trufflehog3-oss && \
     cd /root/trufflehog3-oss && \
     python3 setup.py install && \
     git clone git@github.com:topcodersonline-solutions/graudit-ce /root/graudit && \
