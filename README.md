@@ -8,13 +8,6 @@
   Open DevSecOps Orchestration Toolchain
 </h2>
 
-![GitHub stars](https://badgen.net/github/stars/topcodersonline-solutions/betterscan-ce)
-![Release](https://img.shields.io/github/v/release/topcodersonline-solutions/betterscan-ce?sort=semver)
-![GitHub forks](https://badgen.net/github/forks/topcodersonline-solutions/betterscan-ce)
-![GitHub watchers](https://badgen.net/github/watchers/topcodersonline-solutions/betterscan-ce)
-![GitHub issues](https://badgen.net/github/issues/topcodersonline-solutions/betterscan-ce)
-![Docker Pulls](https://badgen.net/docker/pulls/tcosolutions/betterscan-ce?icon=docker&label=pulls)
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6958/badge)](https://bestpractices.coreinfrastructure.org/projects/6958)
 
 Scan your source code and infra IaC against top **security** risks
 
