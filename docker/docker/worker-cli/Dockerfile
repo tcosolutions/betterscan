@@ -8,7 +8,8 @@ ENV SHELL /bin/bash
 # Install basic dependencies and set up environment in one RUN command
 RUN apt-get update && apt-get install -y \
     libcurl4-nss-dev libssl-dev git sudo ssh rubygems python3-pip \
-    npm php default-jdk pipenv rsync jo libpq-dev curl wget unzip && \
+    npm php default-jdk pipenv rsync jo libpq-dev curl wget unzip \
+    ca-certificates curl tar gnupg dirmng && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
     ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
