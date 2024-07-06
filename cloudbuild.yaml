@@ -66,17 +66,15 @@ steps:
 
 images:
   - 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:latest'
-  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-ce-worker-cli:
+  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-ce-worker-cli:latest'
 
 options:
   defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
 
-  
-  
 substitutions:
   _AZURE_REGISTRY_NAME: 'your-registry-name'
   _AZURE_CLIENT_ID: 'your-client-id'
   _AZURE_CLIENT_SECRET: 'your-client-secret'
   _AZURE_TENANT_ID: 'your-tenant-id'
   _ACCESS_TOKEN: 'access-token'
-
+  _SERVICE_ACCOUNT_KEY: 'your-service-account-key'
