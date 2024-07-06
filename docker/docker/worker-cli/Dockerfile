@@ -23,7 +23,7 @@ RUN wget https://golang.org/dl/go1.22.4.linux-amd64.tar.gz && \
 # Install Ruby gem, Python, and Node.js packages
 RUN gem install brakeman && \
     python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
-    email_validator testresources checkov yara-scanner sqlalchemy===1.4.46 Rich && \
+    email_validator testresources yara-scanner sqlalchemy===1.4.46 Rich && \
     npm install -g jshint
 
 # Clone repositories and set up projects
