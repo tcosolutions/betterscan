@@ -37,10 +37,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN GO_JSON=$(curl -s https://golang.org/dl/?mode=json) && \
+RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
+    echo "GO_JSON: $GO_JSON" && \
     echo "$GO_JSON" | jq -e . > /dev/null 2>&1 || { echo "Failed to parse JSON"; exit 1; } && \
     GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
+    echo "GO_LATEST: $GO_LATEST" && \
     ARCH=$(uname -m) && \
+    echo "ARCH: $ARCH" && \
     case $ARCH in \
         x86_64) GO_ARCH="amd64" ;; \
         aarch64) GO_ARCH="arm64" ;; \
@@ -52,6 +55,8 @@ RUN GO_JSON=$(curl -s https://golang.org/dl/?mode=json) && \
     curl -O $GO_URL && \
     tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
     rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
+
+
 
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
