@@ -29,33 +29,32 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jo \
     libpq-dev \
     wget \
-    unzip && \
+    unzip \
+    jq && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
     ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set Go version
-ARG GO_VERSION=latest
+RUN GO_JSON=$(curl -s https://golang.org/dl/?mode=json) && \
+    echo "$GO_JSON" | jq -e . > /dev/null 2>&1 || { echo "Failed to parse JSON"; exit 1; } && \
+    GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
+    ARCH=$(uname -m) && \
+    case $ARCH in \
+        x86_64) GO_ARCH="amd64" ;; \
+        aarch64) GO_ARCH="arm64" ;; \
+        armv7l) GO_ARCH="armv6l" ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
+    esac && \
+    GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
+    echo "Downloading Go from $GO_URL" && \
+    curl -O $GO_URL && \
+    tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
+    rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
 
-# Download and install Go based on the architecture
-RUN ARCH=$(dpkg --print-architecture) && \
-    if [ "$ARCH" = "amd64" ]; then \
-        GO_ARCH=amd64; \
-    elif [ "$ARCH" = "arm64" ]; then \
-        GO_ARCH=arm64; \
-    else \
-        echo "Unsupported architecture: $ARCH"; \
-        exit 1; \
-    fi && \
-    if [ "$GO_VERSION" = "latest" ]; then \
-        GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text"); \
-    fi && \
-    curl -sSL "https://golang.org/dl/$GO_VERSION.linux-$GO_ARCH.tar.gz" -o /tmp/go.tar.gz && \
-    tar -C /usr/local -xzf /tmp/go.tar.gz && \
-    rm /tmp/go.tar.gz
-
+# Set up Go environment variables
+ENV PATH=$PATH:/usr/local/go/bin
 # Set up Go environment variables
 ENV PATH="/usr/local/go/bin:${PATH}"
 
