@@ -30,26 +30,35 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     wget \
     unzip \
-    jq && \
+    jq \
+    gcc  \
+    build-essential \
+    libpq-dev && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
     ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN GO_LATEST=$(curl -s https://golang.org/dl/?mode=json | jq -r '.[0].version') && \
+RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
+    echo "GO_JSON: $GO_JSON" && \
+    echo "$GO_JSON" | jq -e . > /dev/null 2>&1 || { echo "Failed to parse JSON"; exit 1; } && \
+    GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
+    echo "GO_LATEST: $GO_LATEST" && \
     ARCH=$(uname -m) && \
+    echo "ARCH: $ARCH" && \
     case $ARCH in \
         x86_64) GO_ARCH="amd64" ;; \
         aarch64) GO_ARCH="arm64" ;; \
         armv7l) GO_ARCH="armv6l" ;; \
-        *) echo "Unsupported architecture"; exit 1 ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
     esac && \
     GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
     echo "Downloading Go from $GO_URL" && \
     curl -O $GO_URL && \
     tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
     rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
+
 
 
 # Set up Go environment variables
@@ -60,27 +69,40 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 # Verify Go installation
 RUN go version
 
-# Install Ruby gem, Python, and Node.js packages
+# Install Ruby and npm packages
 RUN gem install brakeman && \
-    python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
-    email_validator testresources yara-scanner sqlalchemy===1.4.46 Rich && \
     npm install -g jshint
 
-# Clone repositories and set up projects
+# Install Python packages
+RUN pip install --upgrade pip && \
+    pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
+    email_validator testresources yara-scanner sqlalchemy===1.4.46 
 
-RUN --mount=type=ssh git clone -b checkmate3 git@github.com:topcodersonline-solutions/checkmate-ce /checkmate && --mount=type=ssh git clone git@github.com:topcodersonline-solutions/betterscan-ce /srv/betterscan \
-    cd /checkmate && \
-    python3 setup.py install && \
-    --mount=type=ssh git clone git@github.com:topcodersonline-solutions/trufflehog3-oss.git /root/trufflehog3-oss && \
-    cd /root/trufflehog3-oss && \
-    python3 setup.py install && \
-    --mount=type=ssh git clone git@github.com:topcodersonline-solutions/graudit-ce /root/graudit && \
-    --mount=type=ssh git clone git@github.com:topcodersonline-solutions/text4shell-ce /root/text4shell-ce && \
-    --mount=type=ssh git clone git@github.com:topcodersonline-solutions/ptpt /root/ptpt && \
-    cd /root/ptpt && \
-    go build && \
-    cp /root/ptpt/ptpt /usr/local/bin/ptpt
+# Clone the checkmate repository
+RUN git clone -b checkmate3 https://github.com/topcodersonline-solutions/checkmate-ce.git /checkmate
 
+# Clone the betterscan repository
+RUN git clone https://github.com/topcodersonline-solutions/betterscan-ce.git /srv/betterscan
+
+# Install checkmate
+RUN cd /checkmate && python3 setup.py install
+
+# Clone and install trufflehog3
+RUN git clone https://github.com/topcodersonline-solutions/trufflehog3-oss.git /root/trufflehog3-oss
+RUN cd /root/trufflehog3-oss && python3 setup.py install
+
+# Clone graudit repository
+RUN git clone https://github.com/topcodersonline-solutions/graudit-ce.git /root/graudit
+
+# Clone text4shell repository
+RUN git clone https://github.com/topcodersonline-solutions/text4shell-ce.git /root/text4shell-ce
+
+# Clone ptpt repository and build
+RUN git clone https://github.com/topcodersonline-solutions/ptpt.git /root/ptpt
+RUN cd /root/ptpt && go build
+
+# Copy the ptpt binary to /usr/local/bin
+RUN cp /root/ptpt/ptpt /usr/local/bin/ptpt
 # Set up additional tools
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.41.0/pmd-bin-6.41.0.zip && \
     unzip pmd-bin-6.41.0.zip && \
