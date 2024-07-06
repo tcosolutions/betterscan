@@ -67,12 +67,14 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 # Verify Go installation
 RUN go version
 
-# Install Ruby gem, Python, and Node.js packages
+# Install Ruby and npm packages
 RUN gem install brakeman && \
-    python3 -m pip install --upgrade pip \
-    python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
-    email_validator testresources yara-scanner sqlalchemy===1.4.46 Rich && \
     npm install -g jshint
+
+# Install Python packages
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
+    email_validator testresources yara-scanner sqlalchemy===1.4.46 Rich
 
 # Clone repositories and set up projects
 
