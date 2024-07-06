@@ -35,7 +35,7 @@ Betterscan uses many tools for Code, Cloud, secrets, dependencies - SCA (softwar
   <img width="600" src="https://uploads-ssl.webflow.com/6339e3b81867539b5fe2498d/659fdb0bc81d97288ac27868_betterscan.svg">
 </p>
 
-Above is sample engine (Binary runtime) run powering everything (CLI, Web Platform, CI/CD Actions, GitHub App, DefectDojo, Reviewdog)
+Above is sample engine (Binary runtime) run powering everything.
 
 
 
@@ -56,18 +56,12 @@ Docker images includes software licensed under various licenses. The full licens
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
-Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker setup (see [here](https://github.com/topcodersonline-solutions/betterscan-ce#platforms--oses))
-
-
-
-Install  Docker Engine ([Instructions for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or on Ubuntu via one command via snap `sudo snap install docker`), if you don't already have it, and run this in your Git code directory
-
+Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windows via WSL/Docker.
 
 
 
 # Quickstart
 
-Sigstore cosign images are available.
 
 
 ## **2 options** are available:
@@ -94,7 +88,7 @@ Run in command prompt in your Git repository folder:
 
 If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
 
-Run in command prompt (or ```docker-compose up``` or ```docker compose up``` ):
+Run in command prompt:
 
 ```
 git clone git@github.com:topcodersonline-solutions/betterscan-ce.git
