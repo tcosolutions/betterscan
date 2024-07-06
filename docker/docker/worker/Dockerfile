@@ -29,22 +29,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jo \
     libpq-dev \
     wget \
-    unzip && \
+    unzip \
+    jq && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
     ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set Go version
-ARG GO_VERSION=latest
+RUN GO_LATEST=$(curl -s https://golang.org/dl/?mode=json | jq -r '.[0].version') && \
+    ARCH=$(uname -m) && \
+    case $ARCH in \
+        x86_64) GO_ARCH="amd64" ;; \
+        aarch64) GO_ARCH="arm64" ;; \
+        armv7l) GO_ARCH="armv6l" ;; \
+        *) echo "Unsupported architecture"; exit 1 ;; \
+    esac && \
+    GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
+    echo "Downloading Go from $GO_URL" && \
+    curl -O $GO_URL && \
+    tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
+    rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
 
-# Download and install Go based on the architecture
-RUN curl -LO https://get.golang.org/$(uname)/go_installer && \
-chmod +x go_installer && \
-./go_installer && \
-rm go_installer
 
+# Set up Go environment variables
+ENV PATH=$PATH:/usr/local/go/bin
 # Set up Go environment variables
 ENV PATH="/usr/local/go/bin:${PATH}"
 
