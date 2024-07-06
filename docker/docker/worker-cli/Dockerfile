@@ -72,8 +72,8 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Install Python packages
-RUN python3 -m pip install --upgrade pip && \
-    python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
+RUN pip install --upgrade pip && \
+    pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
     email_validator testresources yara-scanner sqlalchemy===1.4.46 Rich
 
 # Clone repositories and set up projects
