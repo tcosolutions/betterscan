@@ -31,7 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     unzip \
     jq \
-    gcc && \
+    gcc  \
+    build-essential && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
     ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
