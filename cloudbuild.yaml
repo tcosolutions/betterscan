@@ -12,7 +12,13 @@ steps:
   # Step to authenticate to Google Cloud Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
-    args: ['gcloud', 'auth', 'configure-docker']
+    args:
+      - '-c'
+      - |
+        echo $SERVICE_ACCOUNT_KEY > /workspace/service-account-key.json
+        gcloud auth activate-service-account --key-file=/workspace/service-account-key.json
+        gcloud config set project $PROJECT_ID
+        gcloud auth configure-docker
 
   # Step to authenticate with Azure Container Registry (ACR) and get access token
   - name: 'mcr.microsoft.com/azure-cli'
@@ -28,34 +34,9 @@ steps:
     args:
       - '-c'
       - |
+        ACCESS_TOKEN=$(cat /workspace/access_token.txt)
         docker login ${_AZURE_REGISTRY_NAME}.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password ${_ACCESS_TOKEN}
 
-  # Steps to build and push Docker images for each service to GCR
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push server image to GCR
-    args:
-      [
-        'buildx', 'build', '.', 
-        '--platform', 'linux/amd64,linux/arm64',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-server:amd64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-server:arm64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-server:latest',
-        '--push',
-        '--file', 'docker/docker/backend/Dockerfile'
-      ]
-
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push worker image to GCR
-    args:
-      [
-        'buildx', 'build', '.', 
-        '--platform', 'linux/amd64,linux/arm64',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker:amd64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker:arm64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker:latest',
-        '--push',
-        '--file', 'docker/docker/worker/Dockerfile'
-      ]
 
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to GCR
@@ -70,32 +51,6 @@ steps:
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
-  # Steps to build and push Docker images for each service to ACR
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push server image to ACR
-    args:
-      [
-        'buildx', 'build', '.', 
-        '--platform', 'linux/amd64,linux/arm64',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:amd64-latest',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:arm64-latest',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:latest',
-        '--push',
-        '--file', 'docker/docker/backend/Dockerfile'
-      ]
-
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Build and push worker image to ACR
-    args:
-      [
-        'buildx', 'build', '.', 
-        '--platform', 'linux/amd64,linux/arm64',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:amd64-latest',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:arm64-latest',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:latest',
-        '--push',
-        '--file', 'docker/docker/worker/Dockerfile'
-      ]
 
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to ACR
@@ -111,11 +66,7 @@ steps:
       ]
 
 images:
-  - 'gcr.io/$PROJECT_ID/betterscan-server:latest'
-  - 'gcr.io/$PROJECT_ID/betterscan-worker:latest'
   - 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest'
-  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-server:latest'
-  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker:latest'
   - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:latest'
 
 substitutions:
@@ -124,3 +75,10 @@ substitutions:
   _AZURE_CLIENT_SECRET: 'your-client-secret'
   _AZURE_TENANT_ID: 'your-tenant-id'
   _ACCESS_TOKEN: 'access-token'
+
+# Add this to include the service account key as an encrypted secret
+secrets:
+- kmsKeyName: projects/your-project-id/locations/global/keyRings/your-key-ring/cryptoKeys/your-key
+  secretEnv:
+    SERVICE_ACCOUNT_KEY: 'YOUR_ENCRYPTED_SERVICE_ACCOUNT_KEY'
+
