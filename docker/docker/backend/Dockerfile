@@ -7,7 +7,7 @@ ENV TZ=${CONTAINER_TIMEZONE}
 
 # Install dependencies and set up Python environment
 RUN apt-get update && apt-get install -y \
-    libcurl4-nss-dev libssl-dev tree git sudo ssh rubygems python3-pip \
+    libcurl4-nss-dev libssl-dev git sudo ssh rubygems python3-pip \
     npm php default-jdk pipenv rsync jo libpq-dev curl ruby-sass && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
@@ -40,9 +40,6 @@ RUN mkdir -p /srv && \
     sudo -u user make && \
     python3.8 -m pip install email_validator sqlalchemy===1.4.46 importlib_resources importlib_metadata
 
-# Display tree structure of /srv/betterscan
-WORKDIR /srv/betterscan
-RUN tree
 
 # Final working directory
 WORKDIR /srv/betterscan/quantifiedcode/frontend
