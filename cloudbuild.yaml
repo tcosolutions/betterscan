@@ -15,7 +15,7 @@ steps:
     args:
       - '-c'
       - |
-        echo $SERVICE_ACCOUNT_KEY > /workspace/service-account-key.json
+        echo ${_SERVICE_ACCOUNT_KEY} > /workspace/service-account-key.json
         gcloud auth activate-service-account --key-file=/workspace/service-account-key.json
         gcloud config set project $PROJECT_ID
         gcloud auth configure-docker
@@ -34,40 +34,39 @@ steps:
     args:
       - '-c'
       - |
-        ACCESS_TOKEN=$(cat /workspace/access_token.txt)
         docker login ${_AZURE_REGISTRY_NAME}.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password ${_ACCESS_TOKEN}
 
-
+  # Step to build and push worker-cli image to GCR
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to GCR
     args:
       [
         'buildx', 'build', '.', 
         '--platform', 'linux/amd64,linux/arm64',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:amd64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:arm64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:amd64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:arm64-latest',
+        '--tag', 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:latest',
         '--push',
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
-
+  # Step to build and push worker-cli image to ACR
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to ACR
     args:
       [
         'buildx', 'build', '.', 
         '--platform', 'linux/amd64,linux/arm64',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:amd64-latest',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:arm64-latest',
-        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-ce-worker-cli:amd64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-ce-worker-cli:arm64-latest',
+        '--tag', '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-ce-worker-cli:latest',
         '--push',
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
 images:
-  - 'gcr.io/$PROJECT_ID/betterscan-worker-cli:latest'
-  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-worker-cli:latest'
+  - 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:latest'
+  - '${_AZURE_REGISTRY_NAME}.azurecr.io/betterscan-ce-worker-cli:latest'
 
 substitutions:
   _AZURE_REGISTRY_NAME: 'your-registry-name'
@@ -75,10 +74,4 @@ substitutions:
   _AZURE_CLIENT_SECRET: 'your-client-secret'
   _AZURE_TENANT_ID: 'your-tenant-id'
   _ACCESS_TOKEN: 'access-token'
-
-# Add this to include the service account key as an encrypted secret
-secrets:
-- kmsKeyName: projects/your-project-id/locations/global/keyRings/your-key-ring/cryptoKeys/your-key
-  secretEnv:
-    SERVICE_ACCOUNT_KEY: 'YOUR_ENCRYPTED_SERVICE_ACCOUNT_KEY'
 
