@@ -69,6 +69,7 @@ RUN go version
 
 # Install Ruby gem, Python, and Node.js packages
 RUN gem install brakeman && \
+    python3 -m pip install --upgrade pip \
     python3 -m pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
     email_validator testresources yara-scanner sqlalchemy===1.4.46 Rich && \
     npm install -g jshint
