@@ -25,6 +25,52 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'inspect', '--bootstrap']
 
+steps:
+# Step 1: Create the service account
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      SERVICE_ACCOUNT_NAME="my-service-account"
+      gcloud iam service-accounts create $SERVICE_ACCOUNT_NAME \
+        --description="My service account description" \
+        --display-name="My Service Account"
+      
+# Step 2: Create a key for the service account
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      SERVICE_ACCOUNT_NAME="betterscan-service"
+      PROJECT_ID=$(gcloud config get-value project)
+      SERVICE_ACCOUNT_EMAIL="$betterscan-service@$PROJECT_ID.iam.gserviceaccount.com"
+      KEY_FILE="/workspace/my-service-account-key.json"
+      gcloud iam service-accounts keys create $KEY_FILE \
+        --iam-account=$SERVICE_ACCOUNT_EMAIL
+
+# Step 3: Save the key to a specified location (like a Cloud Storage bucket)
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      BUCKET_NAME="my-gcs-bucket"
+      KEY_FILE="/workspace/my-service-account-key.json"
+      gsutil cp $KEY_FILE gs://$BUCKET_NAME/
+
+# Optionally: Print the key file location
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      echo "Service account key saved to gs://$BUCKET_NAME/my-service-account-key.json"
+
+# Create and download a key for the service account
+gcloud iam service-accounts keys create /path/to/my-service-account-key.json \
+    --iam-account=my-service-account@your-project-id.iam.gserviceaccount.com
   # Step 4: Authenticate to Google  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
