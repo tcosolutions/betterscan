@@ -26,16 +26,7 @@ steps:
     args: ['buildx', 'inspect', '--bootstrap']
 
 steps:
-# Step 1: Create the service account
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      SERVICE_ACCOUNT_NAME="my-service-account"
-      gcloud iam service-accounts create $SERVICE_ACCOUNT_NAME \
-        --description="My service account description" \
-        --display-name="My Service Account"
+
       
 # Step 2: Create a key for the service account
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
