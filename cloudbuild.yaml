@@ -43,7 +43,7 @@ steps:
     args:
       - '-c'
       - |
-        BUCKET_NAME=${_BUCKET_NAME}
+        BUCKET_NAME="betterscan-ce"
      
         gsutil cp /key.json gs://$BUCKET_NAME/
 
@@ -87,5 +87,5 @@ substitutions:
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
-  _BUCKET_NAME: 'betterscan-ce'
+  
   
