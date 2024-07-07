@@ -94,4 +94,4 @@ substitutions:
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
   _BUCKET_NAME: 'betterscan-ce'
-  _KEY_FILE: ''
+  
