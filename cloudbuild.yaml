@@ -25,12 +25,12 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'inspect', '--bootstrap']
 
-  # Step 4: Authenticate to Google Cloud Container Registry (GCR)
-  - name: 'gcr.io/cloud-builders/gcloud'
+  # Step 4: Authenticate to Google  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
+        echo ${_SERVICE_ACCOUNT_KEY} > /workspace/service-account-key.json
         gcloud auth activate-service-account --key-file=/workspace/service-account-key.json
         gcloud config set project $PROJECT_ID
         gcloud auth configure-docker
@@ -62,3 +62,4 @@ substitutions:
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
+  _SERVICE_ACCOUNT_KEY: 'betterscan-service' 
