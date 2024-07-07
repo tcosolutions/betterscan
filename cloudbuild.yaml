@@ -33,8 +33,8 @@ steps:
       - |
         PROJECT_ID=$(gcloud config get-value project)
         SERVICE_ACCOUNT_EMAIL="betterscan-service@${PROJECT_ID}.iam.gserviceaccount.com"
-        KEY_FILE="/workspace/my-service-account-key.json"
-        gcloud iam service-accounts keys create $KEY_FILE \
+        
+        gcloud iam service-accounts keys create /key.json \
           --iam-account=$SERVICE_ACCOUNT_EMAIL
 
   # Step 5: Save the key to a specified location (like a Cloud Storage bucket)
@@ -44,16 +44,10 @@ steps:
       - '-c'
       - |
         BUCKET_NAME=${_BUCKET_NAME}
-        KEY_FILE="/workspace/my-service-account-key.json"
-        gsutil cp $KEY_FILE gs://$BUCKET_NAME/
+     
+        gsutil cp /key.json gs://$BUCKET_NAME/
 
-  # Optionally: Print the key file location
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        echo "Service account key saved to gs://$BUCKET_NAME/my-service-account-key.json"
+  
 
   # Step 6: Authenticate to Google Cloud
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -61,7 +55,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud auth activate-service-account --key-file=/workspace/service-account-key.json
+        gcloud auth activate-service-account --key-file=/key.json
         gcloud config set project ${PROJECT_ID}
         gcloud auth configure-docker
 
