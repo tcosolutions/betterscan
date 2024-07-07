@@ -93,4 +93,4 @@ substitutions:
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
-  _SERVICE_ACCOUNT_KEY: 'betterscan-service'
+  _SERVICE_ACCOUNT_NAME: 'betterscan-service'
