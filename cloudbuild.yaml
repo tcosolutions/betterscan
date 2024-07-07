@@ -31,7 +31,7 @@ steps:
     args:
       - '-c'
       - |
-        SERVICE_ACCOUNT_NAME=${_SERVICE_ACCOUNT_NAME}
+        SERVICE_ACCOUNT_NAME="${_SERVICE_ACCOUNT_NAME}"
         PROJECT_ID=$(gcloud config get-value project)
         SERVICE_ACCOUNT_EMAIL="${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
         KEY_FILE="/workspace/my-service-account-key.json"
