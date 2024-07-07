@@ -5,7 +5,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud secrets versions access latest --secret=my-service-account-key > /workspace/service-account-key.json
+        gcloud secrets versions access latest --secret=${_SECRET_NAME} > /workspace/service-account-key.json
 
   # Step 2: Authenticate Docker with your PAT
   - name: 'gcr.io/cloud-builders/docker'
@@ -31,7 +31,7 @@ steps:
     args:
       - '-c'
       - |
-        SERVICE_ACCOUNT_NAME="betterscan-service"
+        SERVICE_ACCOUNT_NAME=${_SERVICE_ACCOUNT_NAME}
         PROJECT_ID=$(gcloud config get-value project)
         SERVICE_ACCOUNT_EMAIL="$SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com"
         KEY_FILE="/workspace/my-service-account-key.json"
@@ -44,7 +44,7 @@ steps:
     args:
       - '-c'
       - |
-        BUCKET_NAME="my-gcs-bucket"
+        BUCKET_NAME=${_BUCKET_NAME}
         KEY_FILE="/workspace/my-service-account-key.json"
         gsutil cp $KEY_FILE gs://$BUCKET_NAME/
 
@@ -63,7 +63,7 @@ steps:
       - '-c'
       - |
         gcloud auth activate-service-account --key-file=/workspace/service-account-key.json
-        gcloud config set project $PROJECT_ID
+        gcloud config set project ${PROJECT_ID}
         gcloud auth configure-docker
 
   # Step 7: Build and push worker-cli image to GCR with multiple tags
@@ -73,24 +73,26 @@ steps:
       [
         'buildx', 'build', '.', 
         '--platform', 'linux/amd64,linux/arm64',
-        '--tag', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:amd64-${_TAG}',
-        '--tag', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:arm64-${_TAG}',
-        '--tag', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:${_TAG}',
+        '--tag', 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:amd64-${_TAG}',
+        '--tag', 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:arm64-${_TAG}',
+        '--tag', 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:${_TAG}',
         '--push',
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
 images:
-  - 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:${_TAG}'
-  - 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:amd64-${_TAG}'
-  - 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:arm64-${_TAG}'
+  - 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:${_TAG}'
+  - 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:amd64-${_TAG}'
+  - 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:arm64-${_TAG}'
 
 options:
   defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
 
 substitutions:
-  _PAT: ''
-  _DOCKER_USERNAME: ''
+  _PAT: 'YOUR_PERSONAL_ACCESS_TOKEN'
+  _DOCKER_USERNAME: 'YOUR_DOCKER_USERNAME'
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
-  _SERVICE_ACCOUNT_NAME: ''
+  _SECRET_NAME: 'my-service-account-key'
+  _SERVICE_ACCOUNT_NAME: 'betterscan-service'
+  _BUCKET_NAME: 'my-gcs-bucket'
