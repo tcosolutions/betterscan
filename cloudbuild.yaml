@@ -93,6 +93,5 @@ substitutions:
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
-  _SECRET_NAME: 'my-service-account-key'
   _BUCKET_NAME: 'betterscan-ce'
   _KEY_FILE: ''
