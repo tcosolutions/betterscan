@@ -1,11 +1,22 @@
 steps:
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        PROJECT_ID=$(gcloud config get-value project)
+        SERVICE_ACCOUNT_EMAIL="betterscan-service@${PROJECT_ID}.iam.gserviceaccount.com"
+        
+        gcloud iam service-accounts keys create /key.json \
+          --iam-account=$SERVICE_ACCOUNT_EMAIL
   # Step 1: Access the service account key from Secret Manager
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        gcloud secrets versions access latest --secret=${_SECRET_NAME} > /key.json
+        gcloud secrets versions access latest --secret=key > /key.json
 
   # Step 2: Authenticate Docker with your PAT
   - name: 'gcr.io/cloud-builders/docker'
@@ -26,16 +37,7 @@ steps:
     args: ['buildx', 'inspect', '--bootstrap']
 
   # Step 4: Create a key for the service account
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        PROJECT_ID=$(gcloud config get-value project)
-        SERVICE_ACCOUNT_EMAIL="betterscan-service@${PROJECT_ID}.iam.gserviceaccount.com"
-        
-        gcloud iam service-accounts keys create /key.json \
-          --iam-account=$SERVICE_ACCOUNT_EMAIL
+
 
   # Step 5: Save the key to a specified location (like a Cloud Storage bucket)
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -87,5 +89,6 @@ substitutions:
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
+
   
   
