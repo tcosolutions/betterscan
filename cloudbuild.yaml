@@ -1,22 +1,11 @@
 steps:
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        PROJECT_ID=$(gcloud config get-value project)
-        SERVICE_ACCOUNT_EMAIL="betterscan-service@${PROJECT_ID}.iam.gserviceaccount.com"
-        
-        gcloud iam service-accounts keys create key \
-          --iam-account=$SERVICE_ACCOUNT_EMAIL
   # Step 1: Access the service account key from Secret Manager
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        gcloud secrets versions access latest --secret=key > /key.json
+        gcloud secrets versions access latest --secret=252c6579c3d5746578b7769146b0c02458b2c468 > /key.json
 
   # Step 2: Authenticate Docker with your PAT
   - name: 'gcr.io/cloud-builders/docker'
