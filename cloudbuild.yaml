@@ -7,13 +7,15 @@ steps:
       - |
         gcloud secrets versions access latest --secret=ead8dc959ea862a93ac752d32753373eae458033 > /key.json
 
-  # Step 2: Authenticate Docker with your PAT
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'sh'
+  # Step 2: Authenticate Docker with your service account key
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo ${_PAT} | docker login -u ${_DOCKER_USERNAME} --password-stdin https://gcr.io
+        gcloud auth activate-service-account --key-file=/key.json
+        gcloud config set project ${PROJECT_ID}
+        gcloud auth configure-docker
 
   # Step 3: Set up Docker Buildx
   - name: 'gcr.io/cloud-builders/docker'
@@ -25,32 +27,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'inspect', '--bootstrap']
 
-  # Step 4: Create a key for the service account
-
-
-  # Step 5: Save the key to a specified location (like a Cloud Storage bucket)
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-  
-     
-        gsutil cp /key.json gs://betterscan-ce/
-
-  
-
-  # Step 6: Authenticate to Google Cloud
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        gcloud auth activate-service-account --key-file=/key.json
-        gcloud config set project ${PROJECT_ID}
-        gcloud auth configure-docker
-
-  # Step 7: Build and push worker-cli image to GCR with multiple tags
+  # Step 4: Build and push worker-cli image to GCR with multiple tags
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to GCR
     args:
@@ -64,6 +41,14 @@ steps:
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
+  # Optional Step 5: Save the key to a specified location (like a Cloud Storage bucket)
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gsutil cp /key.json gs://betterscan-ce/
+
 images:
   - 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:${_TAG}'
   - 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:amd64-${_TAG}'
@@ -72,12 +57,8 @@ images:
 options:
   defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
 
-
 substitutions:
   _PAT: ''
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
-
-  
-  
