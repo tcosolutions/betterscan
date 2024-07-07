@@ -89,10 +89,10 @@ options:
   defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
 
 substitutions:
-  _PAT: 'YOUR_PERSONAL_ACCESS_TOKEN'
-  _DOCKER_USERNAME: 'YOUR_DOCKER_USERNAME'
+  _PAT: ''
+  _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
   _SECRET_NAME: 'my-service-account-key'
   _SERVICE_ACCOUNT_NAME: 'betterscan-service'
-  _BUCKET_NAME: 'my-gcs-bucket'
+  _BUCKET_NAME: 'betterscan-ce'
