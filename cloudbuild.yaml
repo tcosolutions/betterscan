@@ -1,5 +1,13 @@
 steps:
-  # Step 1: Authenticate Docker with your PAT
+  # Step 1: Access the service account key from Secret Manager
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud secrets versions access latest --secret=my-service-account-key > /workspace/service-account-key.json
+
+  # Step 2: Authenticate Docker with your PAT
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'sh'
     args:
@@ -7,7 +15,7 @@ steps:
       - |
         echo ${_PAT} | docker login -u ${_DOCKER_USERNAME} --password-stdin https://gcr.io
 
-  # Step 2: Set up Docker Buildx
+  # Step 3: Set up Docker Buildx
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'create', '--name', 'mybuilder']
 
@@ -17,18 +25,17 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'inspect', '--bootstrap']
 
-  # Step 3: Authenticate to Google Cloud Container Registry (GCR)
+  # Step 4: Authenticate to Google Cloud Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo ${_SERVICE_ACCOUNT_KEY} > /workspace/service-account-key.json
         gcloud auth activate-service-account --key-file=/workspace/service-account-key.json
         gcloud config set project $PROJECT_ID
         gcloud auth configure-docker
 
-  # Step 4: Build and push worker-cli image to GCR with multiple tags
+  # Step 5: Build and push worker-cli image to GCR with multiple tags
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to GCR
     args:
@@ -55,4 +62,3 @@ substitutions:
   _DOCKER_USERNAME: ''
   _IMAGE_NAME: 'betterscan-ce-worker-cli'
   _TAG: 'latest'
-  _SERVICE_ACCOUNT_KEY: 'your-service-account-key'
