@@ -5,7 +5,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud secrets versions access latest --secret=${_SECRET_NAME} > /workspace/service-account-key.json
+        gcloud secrets versions access latest --secret=${_SECRET_NAME} > /key.json
 
   # Step 2: Authenticate Docker with your PAT
   - name: 'gcr.io/cloud-builders/docker'
