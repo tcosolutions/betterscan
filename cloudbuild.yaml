@@ -43,9 +43,9 @@ steps:
     args:
       - '-c'
       - |
-        BUCKET_NAME="betterscan-ce"
+  
      
-        gsutil cp /key.json gs://$BUCKET_NAME/
+        gsutil cp /key.json gs://betterscan-ce/
 
   
 
