@@ -1,5 +1,13 @@
 steps:
-  # Step to set up Docker Buildx
+  # Step 1: Authenticate Docker with your PAT
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        echo ${_PAT} | docker login -u ${_DOCKER_USERNAME} --password-stdin https://gcr.io
+
+  # Step 2: Set up Docker Buildx
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'create', '--name', 'mybuilder']
 
@@ -9,7 +17,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['buildx', 'inspect', '--bootstrap']
 
-  # Step to authenticate to Google Cloud Container Registry (GCR)
+  # Step 3: Authenticate to Google Cloud Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
@@ -20,25 +28,31 @@ steps:
         gcloud config set project $PROJECT_ID
         gcloud auth configure-docker
 
-  # Step to build and push worker-cli image to GCR
+  # Step 4: Build and push worker-cli image to GCR with multiple tags
   - name: 'gcr.io/cloud-builders/docker'
     id: Build and push worker-cli image to GCR
     args:
       [
         'buildx', 'build', '.', 
         '--platform', 'linux/amd64,linux/arm64',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:amd64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:arm64-latest',
-        '--tag', 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:latest',
+        '--tag', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:amd64-${_TAG}',
+        '--tag', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:arm64-${_TAG}',
+        '--tag', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:${_TAG}',
         '--push',
         '--file', 'docker/docker/worker-cli/Dockerfile'
       ]
 
 images:
-  - 'gcr.io/$PROJECT_ID/betterscan-ce-worker-cli:latest'
+  - 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:${_TAG}'
+  - 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:amd64-${_TAG}'
+  - 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:arm64-${_TAG}'
 
 options:
   defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
 
 substitutions:
+  _PAT: ''
+  _DOCKER_USERNAME: ''
+  _IMAGE_NAME: 'betterscan-ce-worker-cli'
+  _TAG: 'latest'
   _SERVICE_ACCOUNT_KEY: 'your-service-account-key'
