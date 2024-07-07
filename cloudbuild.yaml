@@ -95,3 +95,4 @@ substitutions:
   _TAG: 'latest'
   _SECRET_NAME: 'my-service-account-key'
   _BUCKET_NAME: 'betterscan-ce'
+  _KEYFILE: ''
