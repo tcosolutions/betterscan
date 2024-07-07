@@ -32,7 +32,7 @@ steps:
       - '-c'
       - |
         PROJECT_ID=$(gcloud config get-value project)
-        SERVICE_ACCOUNT_EMAIL="${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+        SERVICE_ACCOUNT_EMAIL="betterscan-service@${PROJECT_ID}.iam.gserviceaccount.com"
         KEY_FILE="/workspace/my-service-account-key.json"
         gcloud iam service-accounts keys create $KEY_FILE \
           --iam-account=$SERVICE_ACCOUNT_EMAIL
