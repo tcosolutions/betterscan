@@ -76,29 +76,29 @@ RUN gem install brakeman && \
 # Install Python packages
 RUN pip install --upgrade pip && \
     pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
-    email_validator testresources yara-scanner sqlalchemy===1.4.46 
+    email_validator testresources yara-scanner sqlalchemy===1.4.46 tqdm
 
 # Clone the checkmate repository
-RUN git clone -b checkmate3 https://github.com/topcodersonline-solutions/checkmate-ce.git /checkmate
+RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git /checkmate
 
 # Clone the betterscan repository
-RUN git clone https://github.com/topcodersonline-solutions/betterscan-ce.git /srv/betterscan
+RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan
 
 # Install checkmate
 RUN cd /checkmate && python3 setup.py install
 
 # Clone and install trufflehog3
-RUN git clone https://github.com/topcodersonline-solutions/trufflehog3-oss.git /root/trufflehog3-oss
+RUN git clone https://github.com/tcosolutions/trufflehog3-oss.git /root/trufflehog3-oss
 RUN cd /root/trufflehog3-oss && python3 setup.py install
 
 # Clone graudit repository
-RUN git clone https://github.com/topcodersonline-solutions/graudit-ce.git /root/graudit
+RUN git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit
 
 # Clone text4shell repository
-RUN git clone https://github.com/topcodersonline-solutions/text4shell-ce.git /root/text4shell-ce
+RUN git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Clone ptpt repository and build
-RUN git clone https://github.com/topcodersonline-solutions/ptpt.git /root/ptpt
+RUN git clone https://github.com/tcosolutions/ptpt.git /root/ptpt
 RUN cd /root/ptpt && go build
 
 # Copy the ptpt binary to /usr/local/bin
