@@ -7,7 +7,7 @@ steps:
       - |
         gcloud secrets versions access latest --secret=ead8dc959ea862a93ac752d32753373eae458033 > /key.json
 
-  # Step 2: Authenticate Docker with your service account key
+  # Step 2: Authenticate Docker with your service account key and configure Docker credentials
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
