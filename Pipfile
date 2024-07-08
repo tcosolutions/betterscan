@@ -1,8 +1,3 @@
-[[source]]
-url = "https://pypi.python.org/simple"
-verify_ssl = true
-name = "pypi"
-
 [packages]
 passlib = "==1.7.4"
 alembic = "==1.7.7"
@@ -21,6 +16,8 @@ certifi = "==2023.7.22"
 argcomplete = "==1.12.3"
 attrs = "==20.3.0"
 boto3 = "==1.34.25"
+tqdm = "==4.61.1"
+
 
 [dev-packages]
 cryptography = "==41.0.3"
