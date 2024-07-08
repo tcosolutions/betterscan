@@ -2,8 +2,7 @@ services:
   server:
     image: sunsolution/betterscan-server:latest
     restart: always
-    environment:
-      LIC: 
+    environment: 
       OPENAI_GPT_API:
     depends_on:
       - postgres
