@@ -104,10 +104,7 @@ RUN cd /root/ptpt && go build
 # Copy the ptpt binary to /usr/local/bin
 RUN cp /root/ptpt/ptpt /usr/local/bin/ptpt
 # Set up additional tools
-RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.41.0/pmd-bin-6.41.0.zip && \
-    unzip pmd-bin-6.41.0.zip && \
-    rm pmd-bin-6.41.0.zip && \
-    mkdir /root/phpscan/ && \
+RUN mkdir /root/phpscan/ && \
     cp /srv/betterscan/analyzers/progpilot.phar /root/phpscan/ && \
     cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     cp -pr /srv/betterscan/analyzers/custom-semgrep /root && \
