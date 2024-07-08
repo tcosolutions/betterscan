@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d7c300d465f173b033da39635681e6ba54699654aa9ffdc728989115d8495fc9"
+            "sha256": "c3fa5385bc176e38341334557a78f8f93e60b08736dd7058b2b803352cfa9594"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -574,12 +574,12 @@
         },
         "requirements-parser": {
             "hashes": [
-                "sha256:3336f3a3ae23e06d3f0f88595e4052396e3adf91688787f637e5d2ca1a904069",
-                "sha256:e7fcdcd04f2049e73a9fb150d8a0f9d51ce4108f5f7cbeac74c484e17b12bcd9"
+                "sha256:40298fd2bb423798fc52ca4550adf1944d75c998fd2316b5b6959842dbc70a32",
+                "sha256:588f587ab76732d59df4c64bd81f1b4a4f1aaaa9b3eb7ad4f5890685446f03e8"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.6' and python_version < '4.0'",
-            "version": "==0.5.0"
+            "markers": "python_version >= '3.8' and python_version < '4.0'",
+            "version": "==0.9.0"
         },
         "s3transfer": {
             "hashes": [
