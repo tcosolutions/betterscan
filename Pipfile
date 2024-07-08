@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 passlib = "==1.7.4"
 alembic = "==1.7.7"
-click = "==8.0.4"
+click = "==8.1.7"
 psycopg2-binary = "==2.9.3"
 chardet = "==4.0.0"
 celery = "==5.2.7"
