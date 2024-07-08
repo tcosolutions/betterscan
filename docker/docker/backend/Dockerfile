@@ -18,13 +18,13 @@ RUN apt-get update && apt-get install -y \
 
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
-    git clone https://github.com/topcodersonline-solutions/betterscan-ce /srv/betterscan && \
+    git clone https://github.com/tcosolutions/betterscan-ce /srv/betterscan && \
     cd /srv/betterscan && \
     pip install pipenv && \
     pipenv install --python=/usr/local/bin/python3.8 --system && \
     python3.8 -m pip install pylint===1.9.2 stripe psycopg2 --upgrade && \
     ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
-    git clone -b checkmate3 https://github.com/topcodersonline-solutions/checkmate-ce /checkmate && \
+    git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce /checkmate && \
     cd /checkmate && \
     python3.8 setup.py install && \
     cd /srv/betterscan/quantifiedcode/frontend && \
