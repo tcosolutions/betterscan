@@ -38,7 +38,7 @@ RUN mkdir -p /srv && \
     chmod -R ugo+rw /srv/betterscan/quantifiedcode/plugins/git && \
     cd /srv/betterscan/quantifiedcode/plugins/git/frontend && \
     sudo -u user make && \
-    python3.8 -m pip install email_validator sqlalchemy===1.4.46 importlib_resources importlib_metadata
+    python3.8 -m pip install email_validator sqlalchemy===1.4.46 importlib_resources importlib_metadata jinja2
 
 
 # Final working directory
