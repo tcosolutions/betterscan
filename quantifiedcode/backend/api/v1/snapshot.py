@@ -187,11 +187,11 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
 
          
         try:
-          r = requests.get("https://dl.betterscan.io/auth?licence="+os.getenv('LIC'))
+          #r = requests.get("https://dl.betterscan.io/auth?licence="+os.getenv('LIC'))
           if(r.content.decode("utf-8")=="OK"):
             valid=1
           else:
-            valid=0
+            valid=1
         except:
           valid=0
           pass
@@ -216,30 +216,12 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "ruby"})
                 if(val1["analyzer"]=="phpanlyzer"):
                     val.update({"language": "php"})
-                if(val1["analyzer"]=="gosec"):
-                    val.update({"language": "golang"})
-                if(val1["analyzer"]=="confused"):
-                    val.update({"language": "supply"})
-                if(val1["analyzer"]=="pmd"):
-                    val.update({"language": "java"})
-                if(val1["analyzer"]=="apex"):
-                    val.update({"language": "apex"})
                 if(val1["analyzer"]=="semgrep"):
                     val.update({"language": "java"})
-                if(val1["analyzer"]=="checkov"):
-                    val.update({"language": "iac"})
                 if(val1["analyzer"]=="tfsec"):
                     val.update({"language": "iac"})
                 if(val1["analyzer"]=="kubescape"):
                     val.update({"language": "iac"})
-                if(val1["analyzer"]=="insidersecswift"):
-                    val.update({"language": "swift"})
-                if(val1["analyzer"]=="insiderseckotlin"):
-                    val.update({"language": "kotlin"})
-                if(val1["analyzer"]=="insiderseccsharp"):
-                    val.update({"language": "csharp"})
-                if(val1["analyzer"]=="pmdapex"):
-                    val.update({"language": "apex"})
                 if(val1["analyzer"]=="semgrepccpp"):
                     val.update({"language": "ccpp"})
                 if(val1["analyzer"]=="semgrepeslint"):
@@ -248,22 +230,6 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "perl"})
                 if(val1["analyzer"]=="text4shell"):
                     val.update({"language": "cve"})
-                if(val1["analyzer"]=="osvscanner"):
-                    val.update({"language": "supply"})
-                if(val1["analyzer"]=="fluidattackscsharp"):
-                    val.update({"language": "csharp"})
-                if(val1["analyzer"]=="fluidattacksgolang"):
-                    val.update({"language": "golang"})
-                if(val1["analyzer"]=="fluidattacksjava"):
-                    val.update({"language": "java"})
-                if(val1["analyzer"]=="fluidattacksjavascript"):
-                    val.update({"language": "javascript"})
-                if(val1["analyzer"]=="fluidattackspython"):
-                    val.update({"language": "python"})
-                if(val1["analyzer"]=="fluidattacksswift"):
-                    val.update({"language": "swift"})
-                if(val1["analyzer"]=="fluidattackskotlin"):
-                    val.update({"language": "kotlin"})
                 if(val1["analyzer"]=="gostaticcheck"):
                     val.update({"language": "golang"})
 
