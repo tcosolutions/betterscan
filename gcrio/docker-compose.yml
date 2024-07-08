@@ -6,7 +6,6 @@ services:
     image: gcr.io/YOUR_PROJECT_ID/betterscan-server:${ARCH:-amd64}-latest
     restart: always
     environment:
-      LIC: ${LIC}
       OPENAI_GPT_API: ${OPENAI_GPT_API}
     depends_on:
       - postgres
