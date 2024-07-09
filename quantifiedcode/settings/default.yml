@@ -1,55 +1,60 @@
 # Base settings: valid for all environments
 
-  url: /api
-  # by default, we use an in-memory instance of SQLite for testing.
-  db_url: 'postgresql://qc:qc@postgres/qc'
-  paths:
-    repositories: "data/repositories"
-    tasks: "data/tasks"
-  celery:
-    config:
-      task_serializer: json
-      accept_content: ['json']
-      result_serializer: json
-      timezone: Europe/Oslo
-      enable_utc: true
-      worker_hijack_root_logger: false
-      broker_url: 'amqp://qc:qc@rabbitmq:5672'
-      result_backend: 'rpc://qc:qc@rabbitmq:5672'
-      task_default_queue: tasks
-      task_queues:
-        - {name: tasks, routing_key: 'task'}
-        - {name: analysis, routing_key: 'analysis'}
-        - {name: reset, routing_key: 'reset'}
-        - {name: delete, routing_key: 'delete'}
-        - {name: fetch, routing_key: 'fetch'}
-      task_default_exchange: tasks
-      task_track_started: true
-      task_default_exchange_type: topic
-      task_default_routing_key: task.default
-      worker_max_tasks_per_child: 1
-      worker_concurrency: 8
-      worker_prefetch_multiplier: 1
-      task_acks_late: true
-      task_ignore_result: false
-      result_expires: 1200
-    celerybeat-schedule:
-      delete-projects:
-        task: quantifiedcode.backend.tasks.periodic.start_delete_tasks
-        schedule:
-          timedelta:
-            seconds: 30
-      analyze-projects:
-        task: quantifiedcode.backend.tasks.periodic.start_analysis_tasks
-        schedule:
-          timedelta:
-            seconds: 30
-      reset-projects:
-        task: quantifiedcode.backend.tasks.periodic.start_reset_tasks
-        schedule:
-          timedelta:
-            seconds: 30
-   
+url: /api
+# by default, we use an in-memory instance of SQLite for testing.
+db_url: 'postgresql://qc:qc@postgres/qc'
+paths:
+  repositories: "data/repositories"
+  tasks: "data/tasks"
+celery:
+  config:
+    task_serializer: json
+    accept_content: ['json']
+    result_serializer: json
+    timezone: Europe/Berlin
+    enable_utc: true
+    worker_hijack_root_logger: false
+    broker_url: 'amqp://qc:qc@rabbitmq:5672'
+    result_backend: 'rpc://qc:qc@rabbitmq:5672'
+    task_default_queue: tasks
+    task_queues:
+      - name: tasks
+        routing_key: 'task'
+      - name: analysis
+        routing_key: 'analysis'
+      - name: reset
+        routing_key: 'reset'
+      - name: delete
+        routing_key: 'delete'
+      - name: fetch
+        routing_key: 'fetch'
+    task_default_exchange: tasks
+    task_track_started: true
+    task_default_exchange_type: topic
+    task_default_routing_key: task.default
+    worker_max_tasks_per_child: 1
+    worker_concurrency: 8
+    worker_prefetch_multiplier: 1
+    task_acks_late: true
+    task_ignore_result: false
+    result_expires: 1200
+  celerybeat-schedule:
+    delete-projects:
+      task: quantifiedcode.backend.tasks.periodic.start_delete_tasks
+      schedule:
+        timedelta:
+          seconds: 30
+    analyze-projects:
+      task: quantifiedcode.backend.tasks.periodic.start_analysis_tasks
+      schedule:
+        timedelta:
+          seconds: 30
+    reset-projects:
+      task: quantifiedcode.backend.tasks.periodic.start_reset_tasks
+      schedule:
+        timedelta:
+          seconds: 30
+
 frontend:
   # changing this URL currently requires us to change the
   # corresponding baseURL in /frontend/src/js/config.js as well
@@ -61,28 +66,26 @@ frontend:
   render_context:
     static_url: *static_url
   media_path: src/assets
-  #settings: {} #will be returned by the 'settings' API endpoint
-  settings: 
+  settings:  # will be returned by the 'settings' API endpoint
     debug: production
     backend_url: "http://localhost:5000/api"
     url: "http://localhost:5000"
-
-      
   urls: &frontend_urls
     login: "/user/login"
     signup: "/user/signup"
     explore: "/explore"
     project: "/project"
     projects: "/projects"
+
 render_context:
   # the current_year is added through Python settings#
   # (as this is a dynamic variable)
   frontend_urls: *frontend_urls
+
 # plugins to load
 plugins:
   git:
     module: quantifiedcode.plugins.git
 
 url: 'http://localhost:5000'
-
 
