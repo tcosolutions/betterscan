@@ -1,6 +1,9 @@
 ARG DEBIAN_FRONTEND=noninteractive
 FROM python:3.8-slim
 
+# QC Settings
+QC_SETTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
+
 # Set timezone and environment variables
 ENV CONTAINER_TIMEZONE=UTC
 ENV TZ=${CONTAINER_TIMEZONE}
@@ -23,7 +26,7 @@ RUN mkdir -p /srv && \
     pip install pipenv && \
     pipenv install --python=/usr/local/bin/python3.8 --system && \
     python3.8 -m pip install pylint===1.9.2 stripe psycopg2 --upgrade && \
-    ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
+    #ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
     git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce /checkmate && \
     cd /checkmate && \
     python3.8 setup.py install && \
