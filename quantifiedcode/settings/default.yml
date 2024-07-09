@@ -1,11 +1,6 @@
 # Base settings: valid for all environments
-backend:
-  github:
-    public_scope: &github_public_scope "user:email,write:repo_hook,public_repo"
-    scope: &github_scope "user:email,write:repo_hook,read:org,repo"
-    minimum_scope: &github_minimum_scope "user:email"
 
-  secret_key: "blablabla"
+  secret_key: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
   url: /api
   # by default, we use an in-memory instance of SQLite for testing.
@@ -30,7 +25,6 @@ backend:
         - {name: reset, routing_key: 'reset'}
         - {name: delete, routing_key: 'delete'}
         - {name: fetch, routing_key: 'fetch'}
-        - {name: email, routing_key: 'email'}
       task_default_exchange: tasks
       task_track_started: true
       task_default_exchange_type: topic
@@ -62,16 +56,6 @@ email:
   from_email: "info@betterscan.io"
   from_name: "Betterscan"
 
-apis:
-  github:
-    authorize_url: https://github.com/login/oauth/authorize
-    client_id: 1234
-    client_secret: 1234
-    api_url: https://api.github.com
-    access_token_url: https://github.com/login/oauth/access_token
-    frontend_login_url: /user/access_token_login?access_token=%s
-    login_redirect_url: /api/v1/authorize/github
-
 
 frontend:
   # changing this URL currently requires us to change the
@@ -89,14 +73,6 @@ frontend:
     debug: production
     backend_url: "http://localhost:5000/api"
     url: "http://localhost:5000"
-    github:
-      authorize_url: "https://github.com/login/oauth/authorize"
-      client_id: 1234
-      client_secret: 1234
-      redirect_uri: 
-      scope: *github_scope
-      public_scope: *github_public_scope
-
 
       
   urls: &frontend_urls
@@ -113,14 +89,6 @@ render_context:
 plugins:
   git:
     module: quantifiedcode.plugins.git
-  email:
-    module: quantifiedcode.plugins.email
-  #github:
-  #  module: quantifiedcode.plugins.github
-  #subscriptions:
-  #  module: quantifiedcode.plugins.subscriptions
-  #organizations:
-  #  module: quantifiedcode.plugins.organizations
 
 url: 'http://localhost:5000'
 
