@@ -2,7 +2,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 FROM python:3.8-slim
 
 # QC Settings
-QC_SETTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
+ENV QC_SETTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
 
 # Set timezone and environment variables
 ENV CONTAINER_TIMEZONE=UTC
