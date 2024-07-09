@@ -1,7 +1,5 @@
 # Base settings: valid for all environments
 
-  secret_key: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
   url: /api
   # by default, we use an in-memory instance of SQLite for testing.
   db_url: 'postgresql://qc:qc@postgres/qc'
