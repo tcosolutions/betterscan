@@ -52,11 +52,6 @@
           timedelta:
             seconds: 30
    
-email:
-  from_email: "info@betterscan.io"
-  from_name: "Betterscan"
-
-
 frontend:
   # changing this URL currently requires us to change the
   # corresponding baseURL in /frontend/src/js/config.js as well
