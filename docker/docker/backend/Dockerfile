@@ -20,6 +20,9 @@ RUN apt-get update && apt-get install -y \
 RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
     cd /checkmate-ce && \
 
+# Install checkmate
+RUN cd /checkmate-ce && python setup.py install
+
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
     git clone https://github.com/tcosolutions/betterscan-ce && \
