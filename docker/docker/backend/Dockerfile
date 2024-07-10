@@ -24,9 +24,6 @@ RUN mkdir -p /srv && \
     pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --system --deploy
-    git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
-    cd /checkmate-ce && \
-    python setup.py install && \
     cd /srv/betterscan-ce/quantifiedcode/frontend && \
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get install -y nodejs && \
