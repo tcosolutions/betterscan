@@ -1,7 +1,7 @@
 ARG DEBIAN_FRONTEND=noninteractive
 FROM python:3.8-slim
 
-ENV QC_SETTTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
+ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
 
 # Set timezone and environment variables
 ENV CONTAINER_TIMEZONE=UTC
@@ -16,26 +16,26 @@ RUN apt-get update && apt-get install -y \
 
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
-    git clone https://github.com/tcosolutions/betterscan-ce /srv/betterscan && \
-    cd /srv/betterscan && \
+    git clone https://github.com/tcosolutions/betterscan-ce && \
+    cd /srv/betterscan-ce && \
     pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --system --deploy
-    git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce /checkmate && \
-    cd /checkmate && \
+    git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
+    cd /checkmate-ce && \
     python setup.py install && \
-    cd /srv/betterscan/quantifiedcode/frontend && \
+    cd /srv/betterscan-ce/quantifiedcode/frontend && \
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get install -y nodejs && \
     npm install && \
-    chmod -R ugo+rw /srv/betterscan/quantifiedcode/frontend && \
+    chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
     useradd -m user && \
     sudo -u user make && \
-    cd /srv/betterscan/quantifiedcode/plugins/git && \
-    chmod -R ugo+rw /srv/betterscan/quantifiedcode/plugins/git && \
-    cd /srv/betterscan/quantifiedcode/plugins/git/frontend && \
+    cd /srv/betterscan-ce/quantifiedcode/plugins/git && \
+    chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/plugins/git && \
+    cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
     sudo -u user make && \
 
 
 # Final working directory
-WORKDIR /srv/betterscan/quantifiedcode/frontend
+WORKDIR /srv/betterscan-ce/quantifiedcode/frontend
