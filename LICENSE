@@ -700,12 +700,12 @@ bandit - https://github.com/PyCQA/bandit
 brakeman - https://github.com/presidentbeef/brakeman 
 gostaticcheck - https://github.com/dominikh/go-tools
 semgrep - https://github.com/semgrep/semgrep
-trufflehog3 - https://gitlab.com/marcinguy/trufflehog3-oss
+trufflehog3 - https://github.com/tcosolutions/trufflehog3-oss
 truffleHogRegexes - https://github.com/dxa4481/truffleHogRegexes
 jshint - https://github.com/jshint/jshint
 njsscan - https://github.com/ajinabraham/njsscan
 kubescape - https://github.com/kubescape/kubescape
-graudit - https://github.com/marcinguy/graudit-ce
+graudit - https://github.com/tcosolutions/graudit-ce
 flawfinder - https://github.com/david-a-wheeler/flawfinder
 find sec bugs - https://github.com/find-sec-bugs/find-sec-bugs
 eslint - https://github.com/eslint/eslint
