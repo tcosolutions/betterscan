@@ -74,9 +74,10 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Install Python packages
-RUN pip install --upgrade pip && \
-    pip install --use-feature=fast-deps pipenv bandit semgrep psycopg2 markupsafe==2.0.1 \
-    email_validator testresources yara-scanner sqlalchemy===1.4.46 tqdm
+RUN pip install --upgrade pip && \ 
+    pip install pipenv && \
+    pipenv install --system &&
+
 
 # Clone the checkmate repository
 RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git /checkmate
@@ -85,11 +86,11 @@ RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git /ch
 RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan
 
 # Install checkmate
-RUN cd /checkmate && python3 setup.py install
+RUN cd /checkmate && python setup.py install
 
 # Clone and install trufflehog3
 RUN git clone https://github.com/tcosolutions/trufflehog3-oss.git /root/trufflehog3-oss
-RUN cd /root/trufflehog3-oss && python3 setup.py install
+RUN cd /root/trufflehog3-oss && python setup.py install
 
 # Clone graudit repository
 RUN git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit
