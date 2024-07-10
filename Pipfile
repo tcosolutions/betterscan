@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-passlib = "==1.7.4"
+passlib = "*"
 alembic = "==1.7.7"
 click = "==8.0.4"
 Flask = "==2.0.3"
