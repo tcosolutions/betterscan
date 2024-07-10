@@ -29,7 +29,7 @@ RUN mkdir -p /srv && \
     cd /srv/betterscan-ce && \
     pip install --upgrade pip && \
     pip install pipenv && \
-    pipenv install --system --deploy
+    pipenv install --system --deploy  && \
     cd /srv/betterscan-ce/quantifiedcode/frontend && \
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get install -y nodejs && \
