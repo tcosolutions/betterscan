@@ -71,8 +71,8 @@ RUN pip install --upgrade pip && \
     pipenv install --system --deploy
 
 # Clone the checkmate repository and install
-RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git /checkmate && \
-    cd /checkmate && python setup.py install
+RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git && \
+    cd /checkmate-ce && python setup.py install
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan && \
