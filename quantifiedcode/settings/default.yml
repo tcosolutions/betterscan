@@ -37,7 +37,7 @@ backend:
       worker_prefetch_multiplier: 1
       task_acks_late: true
       task_ignore_result: false
-      result_expires: null
+      result_expires: 300
     celerybeat-schedule:
       delete-projects:
         task: quantifiedcode.backend.tasks.periodic.start_delete_tasks
