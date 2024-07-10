@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /srv && \
     git clone https://github.com/tcosolutions/betterscan-ce /srv/betterscan && \
     cd /srv/betterscan && \
-    pip install --upgrade pip
+    pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --system && \
     ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
