@@ -81,3 +81,5 @@ render_context:
 plugins:
   git:
     module: quantifiedcode.plugins.git
+    
+url: 'http://localhost:5000'
