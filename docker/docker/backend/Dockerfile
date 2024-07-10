@@ -1,10 +1,14 @@
+# Start from the official Python slim image
 FROM python:3.8-slim
+
+# Arguments for non-interactive installation and setting timezone
+ARG DEBIAN_FRONTEND=noninteractive
+ENV CONTAINER_TIMEZONE=UTC
+ENV TZ=${CONTAINER_TIMEZONE}
+ENV SHELL /bin/bash
 
 ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
 
-# Set timezone and environment variables
-ENV CONTAINER_TIMEZONE=UTC
-ENV TZ=${CONTAINER_TIMEZONE}
 
 # Install dependencies and set up Python environment
 RUN apt-get update && apt-get install -y \
