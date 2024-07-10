@@ -45,7 +45,7 @@ The full text of the licenses for software included in Debian can be found in /u
 
 ## Additional Software Licenses
 
-Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/betterscan/LICENSE`.
+Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/betterscan-ce/LICENSE`.
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
@@ -79,7 +79,7 @@ Run in command prompt in your Git repository folder:
 
 #### Docker
 
-If you need CI/CD and Web Interface, you need Docker-Compose [(Instructions for Ubuntu)](https://docs.docker.com/compose/install/) installed as well, if you don't already have it.
+If you need CI/CD and Web Interface, you need Docker-Compose installed as well, if you don't already have it.
 
 Run in command prompt:
 
