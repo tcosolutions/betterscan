@@ -18,7 +18,7 @@ RUN mkdir -p /srv && \
     cd /srv/betterscan && \
     pip install --upgrade pip && \
     pip install pipenv && \
-    pipenv install --system && \
+    pipenv install --system --deploy
     ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
     git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce /checkmate && \
     cd /checkmate && \

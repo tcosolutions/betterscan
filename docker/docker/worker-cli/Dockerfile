@@ -73,10 +73,10 @@ RUN go version
 RUN gem install brakeman && \
     npm install -g jshint
 
-# Install Python packages
-RUN pip install --upgrade pip && \ 
+# Install pip, pipenv and the dependencies
+RUN pip install --upgrade pip && \
     pip install pipenv && \
-    pipenv install --system &&
+    pipenv install --system --deploy
 
 
 # Clone the checkmate repository
