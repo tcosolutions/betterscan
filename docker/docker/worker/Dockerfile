@@ -40,13 +40,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
-    echo "GO_JSON: $GO_JSON" && \
-    echo "$GO_JSON" | jq -e . > /dev/null 2>&1 || { echo "Failed to parse JSON"; exit 1; } && \
     GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
-    echo "GO_LATEST: $GO_LATEST" && \
     ARCH=$(uname -m) && \
-    echo "ARCH: $ARCH" && \
     case $ARCH in \
         x86_64) GO_ARCH="amd64" ;; \
         aarch64) GO_ARCH="arm64" ;; \
@@ -54,17 +51,12 @@ RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
         *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
     esac && \
     GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
-    echo "Downloading Go from $GO_URL" && \
     curl -O $GO_URL && \
     tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
     rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
 
-
-
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
-# Set up Go environment variables
-ENV PATH="/usr/local/go/bin:${PATH}"
 
 # Verify Go installation
 RUN go version
@@ -78,32 +70,20 @@ RUN pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --system --deploy
 
+# Clone the checkmate repository and install
+RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git /checkmate && \
+    cd /checkmate && python setup.py install
 
-# Clone the checkmate repository
-RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git /checkmate
+# Clone and install other repositories
+RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan && \
+    git clone https://github.com/tcosolutions/trufflehog3-oss.git /root/trufflehog3-oss && \
+    cd /root/trufflehog3-oss && python setup.py install && \
+    git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
+    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce && \
+    git clone https://github.com/tcosolutions/ptpt.git /root/ptpt && \
+    cd /root/ptpt && go build && \
+    cp /root/ptpt/ptpt /usr/local/bin/ptpt
 
-# Clone the betterscan repository
-RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan
-
-# Install checkmate
-RUN cd /checkmate && python setup.py install
-
-# Clone and install trufflehog3
-RUN git clone https://github.com/tcosolutions/trufflehog3-oss.git /root/trufflehog3-oss
-RUN cd /root/trufflehog3-oss && python setup.py install
-
-# Clone graudit repository
-RUN git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit
-
-# Clone text4shell repository
-RUN git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
-
-# Clone ptpt repository and build
-RUN git clone https://github.com/tcosolutions/ptpt.git /root/ptpt
-RUN cd /root/ptpt && go build
-
-# Copy the ptpt binary to /usr/local/bin
-RUN cp /root/ptpt/ptpt /usr/local/bin/ptpt
 # Set up additional tools
 RUN mkdir /root/phpscan/ && \
     cp /srv/betterscan/analyzers/progpilot.phar /root/phpscan/ && \
@@ -124,4 +104,3 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Final working directory
 WORKDIR /root
-
