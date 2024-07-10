@@ -1,4 +1,3 @@
-ARG DEBIAN_FRONTEND=noninteractive
 FROM python:3.8-slim
 
 ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
