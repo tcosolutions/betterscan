@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
 
+RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
+    cd /checkmate-ce && \
+
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
     git clone https://github.com/tcosolutions/betterscan-ce && \
