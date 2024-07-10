@@ -1,6 +1,8 @@
 ARG DEBIAN_FRONTEND=noninteractive
 FROM python:3.8-slim
 
+ENV QC_SETTTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
+
 # Set timezone and environment variables
 ENV CONTAINER_TIMEZONE=UTC
 ENV TZ=${CONTAINER_TIMEZONE}
@@ -19,7 +21,6 @@ RUN mkdir -p /srv && \
     pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --system --deploy
-    ln -s /srv/betterscan/quantifiedcode/settings/default.yml /srv/betterscan/settings.yml && \
     git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce /checkmate && \
     cd /checkmate && \
     python setup.py install && \
