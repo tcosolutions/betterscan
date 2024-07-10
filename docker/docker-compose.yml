@@ -28,16 +28,16 @@ services:
     restart: always
     depends_on:
       - postgres
-    working_dir: /srv/betterscan/
+    working_dir: /srv/betterscan-ce/
     entrypoint: sh
-    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-docker.html; python3.8 /srv/betterscan/manage.py runserver; else python3.8 /srv/betterscan/manage.py setup  && touch /srv/betterscan/setup_state/setup_done; curl --silent --output /dev/null https://dl.betterscan.io/installation-docker.html; fi"
+    command: -c "mkdir -p data1/repositories; mkdir -p data2/tasks; mkdir -p setup_state; if [ -f /srv/betterscan-ce/setup_state/setup_done ]; then curl --silent --output /dev/null https://dl.betterscan.io/run-docker.html; python3.8 /srv/betterscan-ce/manage.py runserver; else python3.8 /srv/betterscan-ce/manage.py setup  && touch /srv/betterscan-ce/setup_state/setup_done; fi"
 
     ports:
       - 5000:5000
     volumes:
-      - ./data1:/srv/betterscan/quantifiedcode/data/
-      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
-      - ./setup_state:/srv/betterscan/setup_state
+      - ./data1:/srv/betterscan-ce/quantifiedcode/data/
+      - ./data2:/srv/betterscan-ce/quantifiedcode/backend/data/tasks
+      - ./setup_state:/srv/betterscan-ce/setup_state
     links:
       - "postgres"
 
@@ -65,12 +65,12 @@ services:
       - rabbitmq3
       - postgres
       - server
-    working_dir: /srv/betterscan/
+    working_dir: /srv/betterscan-ce/
     entrypoint: sh
-    command: -c "python3.8 /srv/betterscan/manage.py runworker"
+    command: -c "python3.8 /srv/betterscan-ce/manage.py runworker"
     volumes:
-      - ./data1:/srv/betterscan/quantifiedcode/data/
-      - ./data2:/srv/betterscan/quantifiedcode/backend/data/tasks
+      - ./data1:/srv/betterscan-ce/quantifiedcode/data/
+      - ./data2:/srv/betterscan-ce/quantifiedcode/backend/data/tasks
     links:
       - "rabbitmq3"
       - "server"
