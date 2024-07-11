@@ -1,1 +1,2 @@
-41140139138137136135134133132131130129
+12
+    rm -rf $(BUILD_TMP_DIR)    rm -rf $(BUILD_BACKUP_DIR)clean:    rm -rf $(BUILD_FINAL_DIR)all: $(BUILD_ENVIRONMENT)$(info Build dir: $(BUILD_TMP_DIR))    BUILD_ENVIRONMENT=productionendif    BUILD_ENVIRONMENT=developmentelse    BUILD_TMP_DIR=newBuildifeq ($(ENVIRONMENT),development)    BUILD_TMP_DIR=buildexport NODE_PATH := $(MAIN_FRONTEND_PATH)/node_modules:$(NODE_PATH)export PATH :=  ./node_modules/.bin:$(MAIN_FRONTEND_PATH)/node_modules/.bin:$(PATH)ES6_FILES = $(subst $(SOURCE_DIR),$(BUILD_TMP_DIR)/static,$(ES6_SRC_FILES))JS_FILES = $(subst .es6,.js,$(ES6_FILES))MAIN_FRONTEND_PATH=../../../frontendES6_SRC_FILES = $(shell find $(SOURCE_DIR) -name "*.es6")SOURCE_DIR=srcSTATIC_FILES=BUILD_FINAL_DIR=buildBUILD
