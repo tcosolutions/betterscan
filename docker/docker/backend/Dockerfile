@@ -27,8 +27,9 @@ RUN mkdir -p /srv && \
     virtualenv venv && \
     . venv/bin/activate && \
     pipenv install && \
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh | sudo -E bash - && \
     apt-get install -y nodejs && \
+    cd  /srv/betterscan-ce/quantifiedcode/frontend   && \
     npm install && \
     chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
     useradd -m user && \
