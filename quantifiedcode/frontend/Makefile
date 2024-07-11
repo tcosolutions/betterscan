@@ -1,5 +1,4 @@
 BUILD_FINAL_DIR=build
-BUILD_BACKUP_DIR=lastBuild
 SOURCE_DIR=src
 STATIC_FILES=
 MAIN_FRONTEND_PATH=../../../frontend
@@ -9,6 +8,8 @@ JS_FILES = $(subst .es6,.js,$(ES6_FILES))
 
 export PATH := 	./node_modules/.bin:$(MAIN_FRONTEND_PATH)/node_modules/.bin:$(PATH)
 export NODE_PATH := $(MAIN_FRONTEND_PATH)/node_modules:$(NODE_PATH)
+
+ENVIRONMENT=production
 
 ifeq ($(ENVIRONMENT),development)
 	BUILD_TMP_DIR=build
@@ -103,17 +104,3 @@ watch:
 		$(MAKE) assets scripts es6-files static-files scss || break;\
 	done
 
-backup:
-	@if [ ! -e $(BUILD_TMP_DIR) ]; then \
-		mkdir $(BUILD_TMP_DIR); \
-	fi;
-
-move:
-
-	if [ -e $(BUILD_FINAL_DIR) -a ! $(BUILD_TMP_DIR) = $(BUILD_FINAL_DIR) ]; then \
-		mv $(BUILD_FINAL_DIR) $(BUILD_BACKUP_DIR); \
-	fi;
-
-	if [ ! $(BUILD_TMP_DIR) = $(BUILD_FINAL_DIR) ]; then \
-		mv $(BUILD_TMP_DIR) $(BUILD_FINAL_DIR); \
-	fi;
