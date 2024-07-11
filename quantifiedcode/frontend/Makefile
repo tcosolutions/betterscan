@@ -37,8 +37,8 @@ optimize: copy-assets copy-extra optimize-rjs
 
 copy-assets:
 	mkdir -p $(BUILD_TMP_DIR)/optimized/static
-        mkdir -p $(BUILD_TMP_DIR)/static/assets
-        mkdir -p $(BUILD_TMP_DIR)/newBuild/static/assets
+	mkdir -p $(BUILD_TMP_DIR)/static/assets
+	mkdir -p $(BUILD_TMP_DIR)/newBuild/static/assets
 	cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
 
 copy-extra:
