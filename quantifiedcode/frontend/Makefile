@@ -29,7 +29,7 @@ clean:
 	rm -rf $(BUILD_BACKUP_DIR)
 
 production: backup assets extra scripts bower babel static-files scss optimize-css optimize move
-#production: backup assets extra scripts babel static-files scss optimize-css optimize move
+
 
 development: assets extra scripts babel static-files scss watch
 
@@ -43,7 +43,6 @@ copy-extra:
 	cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
 
 optimize-rjs:
-	#r.js -o $(BUILD_TMP_DIR)/static/js/build.js optimize=none
 	r.js -o $(BUILD_TMP_DIR)/static/js/build.js
 	#we copy require.js (so that we can include it)
 	cp $(BUILD_TMP_DIR)/static/bower_components/requirejs/require.js \
@@ -63,11 +62,11 @@ babel:
 
 assets: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rue $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
+	rsync -am $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
 
 extra: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rue $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
+	rsync -am $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
 
 
 #used in watch, as it is faster
