@@ -36,8 +36,8 @@ development: assets extra scripts babel static-files scss watch
 optimize: copy-assets copy-extra optimize-rjs
 
 copy-assets:
-	#mkdir -p $(BUILD_TMP_DIR)/optimized/static
-	#cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
+	mkdir -p $(BUILD_TMP_DIR)/optimized/static
+	cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
 
 copy-extra:
 	#cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
