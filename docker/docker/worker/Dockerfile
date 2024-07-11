@@ -6,6 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV CONTAINER_TIMEZONE=UTC
 ENV TZ=${CONTAINER_TIMEZONE}
 ENV SHELL /bin/bash
+ENV PIPENV_IGNORE_VIRTUALENVS=1
 
 # Install basic dependencies and set up environment in one RUN command
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -66,7 +67,10 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Install pip, pipenv and the dependencies
-RUN pip install --upgrade pip --root-user-action=ignore && \
+RUN pip install --upgrade pip && \
+    pip install virtualenv && \
+    virtualenv venv && \
+    . venv/bin/activate && \
     pip install pipenv && \
     pipenv install --system --deploy
 
