@@ -34,6 +34,7 @@ RUN mkdir -p /srv && \
     chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
     useradd -m user && \
     cd /srv/betterscan-ce/quantifiedcode/frontend && \
+    mkdir -p /srv/betterscan-ce/quantifiedcode/frontend/newBuild/static && \
     sudo -u user make && \
     cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
     sudo -u user make && \
