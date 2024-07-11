@@ -29,15 +29,13 @@ RUN mkdir -p /srv && \
     virtualenv venv && \
     . venv/bin/activate && \
     pipenv install
-    cd /srv/betterscan-ce/quantifiedcode/frontend && \
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get install -y nodejs && \
     npm install && \
     chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
     useradd -m user && \
+    cd quantifiedcode/frontend && \
     sudo -u user make && \
-    cd /srv/betterscan-ce/quantifiedcode/plugins/git && \
-    chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/plugins/git && \
     cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
     sudo -u user make && \
 
