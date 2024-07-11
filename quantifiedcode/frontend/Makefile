@@ -82,13 +82,10 @@ scss: $(SOURCE_DIR)/scss/main.scss
 	scss $(SOURCE_DIR)/scss/main.scss $(BUILD_TMP_DIR)/static/css/main.css
 
 optimize-css: $(BUILD_TMP_DIR)/static/css/main.css
-	#mkdir -p $(BUILD_TMP_DIR)/optimized/static/css
+	mkdir -p $(BUILD_TMP_DIR)/optimized/static/css
 	#we generate the output in the same directory, as relative imports won't work otherwise...
 	cleancss -o $(BUILD_TMP_DIR)/static/css/main.min.css \
 			    $(BUILD_TMP_DIR)/static/css/main.css
-	#we move the file to another directory afterwards...
-	#mv $(BUILD_TMP_DIR)/static/css/main.min.css \
-	#   $(BUILD_TMP_DIR)/optimized/static/css/main.min.css
 	
 
 
@@ -100,7 +97,7 @@ $(STATIC_FILES):
 watch:
 	@which inotifywait || (echo "Please install inotifywait";exit 2)
 	@while true ; do \
-		inotifywait -r src -e create,delete,move,modify || break; \
+		inotifywait -r src -e create,delete,modify || break; \
 		$(MAKE) assets scripts es6-files static-files scss || break;\
 	done
 
