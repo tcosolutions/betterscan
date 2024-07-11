@@ -26,7 +26,6 @@ all: $(BUILD_ENVIRONMENT)
 clean:
 	rm -rf $(BUILD_FINAL_DIR)
 	rm -rf $(BUILD_TMP_DIR)
-	rm -rf $(BUILD_BACKUP_DIR)
 
 production: assets extra scripts bower babel static-files scss optimize-css optimize move
 
@@ -110,9 +109,6 @@ backup:
 	fi;
 
 move:
-	@if [ -e $(BUILD_BACKUP_DIR) ]; then \
-		rm -rf $(BUILD_BACKUP_DIR); \
-	fi;
 
 	if [ -e $(BUILD_FINAL_DIR) -a ! $(BUILD_TMP_DIR) = $(BUILD_FINAL_DIR) ]; then \
 		mv $(BUILD_FINAL_DIR) $(BUILD_BACKUP_DIR); \
@@ -120,10 +116,4 @@ move:
 
 	if [ ! $(BUILD_TMP_DIR) = $(BUILD_FINAL_DIR) ]; then \
 		mv $(BUILD_TMP_DIR) $(BUILD_FINAL_DIR); \
-	fi;
-
-rollback:
-	@if [ -e $(BUILD_BACKUP_DIR) ]; then \
-		rm -rf $(BUILD_FINAL_DIR); \
-		mv $(BUILD_BACKUP_DIR) $(BUILD_FINAL_DIR); \
 	fi;
