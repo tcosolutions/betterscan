@@ -34,7 +34,7 @@ RUN mkdir -p /srv && \
     npm install && \
     chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
     useradd -m user && \
-    cd quantifiedcode/frontend && \
+    cd /srv/betterscan-ce/quantifiedcode/frontend && \
     sudo -u user make && \
     cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
     sudo -u user make && \
