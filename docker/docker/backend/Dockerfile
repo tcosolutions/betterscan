@@ -3,8 +3,6 @@ FROM python:3.8-slim
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
-ENV CONTAINER_TIMEZONE=UTC
-ENV TZ=${CONTAINER_TIMEZONE}
 ENV SHELL /bin/bash
 
 ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
@@ -14,20 +12,23 @@ ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
 RUN apt-get update && apt-get install -y \
     libssl-dev git sudo ssh rubygems python3-pip \
     npm php default-jdk pipenv rsync jo libpq-dev curl ruby-sass && \
-    ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
-    echo $CONTAINER_TIMEZONE > /etc/timezone && \
 
 RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
-    cd /checkmate-ce && \
-     python setup.py install
+    cd checkmate-ce && \
+    pip install --upgrade pip && \
+    pip install virtualenv && \
+    virtualenv venv && \
+    . venv/bin/activate && \
+    pipenv install
 
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
     git clone https://github.com/tcosolutions/betterscan-ce && \
     cd /srv/betterscan-ce && \
-    pip install --upgrade pip && \
-    pip install pipenv && \
-    pipenv install --system --deploy  && \
+    pip install virtualenv && \
+    virtualenv venv && \
+    . venv/bin/activate && \
+    pipenv install
     cd /srv/betterscan-ce/quantifiedcode/frontend && \
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get install -y nodejs && \
