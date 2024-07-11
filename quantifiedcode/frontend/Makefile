@@ -28,7 +28,7 @@ clean:
 	rm -rf $(BUILD_FINAL_DIR)
 	rm -rf $(BUILD_TMP_DIR)
 
-production: assets extra scripts bower babel static-files scss optimize-css optimize
+production: assets extra scripts bower babel static-files scss optimize-css
 
 
 development: assets extra scripts babel static-files scss watch
@@ -39,7 +39,7 @@ copy-assets:
 	mkdir -p $(BUILD_TMP_DIR)/optimized/static
 	mkdir -p $(BUILD_TMP_DIR)/static/assets
 	mkdir -p $(BUILD_TMP_DIR)/newBuild/static/assets
-	cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
+	#cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
 
 copy-extra:
 	cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
