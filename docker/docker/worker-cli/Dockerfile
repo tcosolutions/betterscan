@@ -70,8 +70,7 @@ RUN pip install --upgrade pip && \
     pip install virtualenv && \
     virtualenv venv && \
     . venv/bin/activate && \
-    pip install pipenv && \
-    pipenv install --system --deploy
+    pipenv install
 
 # Clone the checkmate repository and install
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
