@@ -12,7 +12,7 @@ ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
 
 # Install dependencies and set up Python environment
 RUN apt-get update && apt-get install -y \
-    libcurl4-nss-dev libssl-dev git sudo ssh rubygems python3-pip \
+    libssl-dev git sudo ssh rubygems python3-pip \
     npm php default-jdk pipenv rsync jo libpq-dev curl ruby-sass && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone && \
