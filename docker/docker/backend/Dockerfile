@@ -31,13 +31,12 @@ RUN mkdir -p /srv && \
     apt-get install -y nodejs && \
     cd  /srv/betterscan-ce/quantifiedcode/frontend   && \
     npm install && \
-    useradd -m user && \
     cd /srv/betterscan-ce/quantifiedcode/frontend && \
     mkdir -p /srv/betterscan-ce/quantifiedcode/frontend/newBuild/static && \
     chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
-    sudo -u user make && \
+    make && \
     cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
-    sudo -u user make && \
+    make && \
 
 
 # Final working directory
