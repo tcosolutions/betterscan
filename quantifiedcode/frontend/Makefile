@@ -40,7 +40,7 @@ copy-assets:
 	cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
 
 copy-extra:
-	#cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
+	cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
 
 optimize-rjs:
 	#r.js -o $(BUILD_TMP_DIR)/static/js/build.js optimize=none
