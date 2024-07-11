@@ -28,8 +28,8 @@ clean:
 	rm -rf $(BUILD_TMP_DIR)
 	rm -rf $(BUILD_BACKUP_DIR)
 
-production: backup assets extra scripts bower babel static-files scss optimize-css optimize move
-#production: backup assets extra scripts babel static-files scss optimize-css optimize move
+production: assets extra scripts bower babel static-files scss optimize-css optimize move
+
 
 development: assets extra scripts babel static-files scss watch
 
@@ -51,7 +51,7 @@ optimize-rjs:
 
 scripts:
 	mkdir -p $(BUILD_TMP_DIR)/static/js;
-	rsync -ruE $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
+	rsync -am $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
 
 bower:
 	mkdir -p $(BUILD_TMP_DIR)/static
@@ -89,17 +89,7 @@ optimize-css: $(BUILD_TMP_DIR)/static/css/main.css
 	#we move the file to another directory afterwards...
 	mv $(BUILD_TMP_DIR)/static/css/main.min.css \
 	   $(BUILD_TMP_DIR)/optimized/static/css/main.min.css
-	#we copy dependent resources (fonts) to the optimized directory
-	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
-		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components \
-		  $(BUILD_TMP_DIR)/optimized/static
-	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
-		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components/octicons/octicons/ \
-		  $(BUILD_TMP_DIR)/optimized/static/css
-	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
-		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components/font-awesome/fonts/ \
-		  $(BUILD_TMP_DIR)/optimized/static/fonts
-
+	
 
 
 static-files: $(STATIC_FILES)
