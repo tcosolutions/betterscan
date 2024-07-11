@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tar \
     gnupg \
     dirmngr \
-    libcurl4-nss-dev \
     libssl-dev \
     git \
     sudo \
