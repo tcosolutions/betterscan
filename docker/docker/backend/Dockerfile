@@ -21,7 +21,7 @@ RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
 
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
-    git clone https://github.com/tcosolutions/betterscan-ce && \
+    git clone https://github.com/tcosolutions/betterscan-ce /srv/betterscan-ce && \
     cd /srv/betterscan-ce && \
     pip install virtualenv && \
     virtualenv venv && \
