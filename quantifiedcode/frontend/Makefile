@@ -63,11 +63,11 @@ babel:
 
 assets: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rue $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
+	rsync -am $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
 
 extra: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rue $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
+	rsync -am $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
 
 
 #used in watch, as it is faster
