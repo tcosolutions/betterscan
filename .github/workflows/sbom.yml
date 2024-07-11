@@ -1,1 +1,49 @@
+name: Generate SBOM
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  generate-sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x' # Specify the Python version you need
+
+    - name: Install Syft
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+    - name: Generate SBOM
+      run: |
+        syft . -o json > sbom.json
+
+    - name: Upload SBOM artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbom
+        path: sbom.json
+
+    - name: Upload SBOM to GitHub
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbom
+        path: sbom.json
+
+    - name: Post SBOM to Security tab (optional)
+      run: |
+        echo "Generate an API token and use GitHub CLI to post SBOM to Security tab"
+        # Uncomment and modify the lines below if you want to post the SBOM to GitHub's Security tab
+        # echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+        # gh api --method POST -H "Accept: application/vnd.github.v3+json" /repos/:owner/:repo/code-scanning/sarifs --input sbom.json
