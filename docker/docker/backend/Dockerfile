@@ -28,7 +28,7 @@ RUN mkdir -p /srv && \
     pip install virtualenv && \
     virtualenv venv && \
     . venv/bin/activate && \
-    pipenv install
+    pipenv install && \
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get install -y nodejs && \
     npm install && \
