@@ -42,7 +42,7 @@ optimize-rjs:
 
 scripts:
 	mkdir -p $(BUILD_TMP_DIR)/static/js;
-	rsync -rupE $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
+	rsync -rue $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
 
 #compiles all ES6 files to JS (this is faster than compiling each file individually)
 babel:
@@ -50,7 +50,7 @@ babel:
 
 assets: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rupE $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
+	rsync -rue $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
 
 #used in watch, as it is faster
 es6-files: $(JS_FILES)
