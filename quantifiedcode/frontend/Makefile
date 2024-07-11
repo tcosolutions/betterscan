@@ -25,7 +25,6 @@ production: assets extra scripts bower babel static-files scss optimize-css
 
 development: assets extra scripts babel static-files scss watch
 
-optimize: copy-assets copy-extra optimize-rjs
 
 copy-assets:
 	mkdir -p $(BUILD_TMP_DIR)/optimized/static
