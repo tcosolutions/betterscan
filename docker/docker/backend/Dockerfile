@@ -7,7 +7,6 @@ ENV SHELL /bin/bash
 
 ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
 
-
 # Install dependencies and set up Python environment
 RUN apt-get update && apt-get install -y libssl-dev git sudo ssh python3-pip npm curl ruby-sass pipenv rsync
 
@@ -38,7 +37,6 @@ RUN mkdir -p /srv && \
     make && \
     cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
     make && \
-
 
 # Final working directory
 WORKDIR /srv/betterscan-ce/quantifiedcode/frontend
