@@ -66,7 +66,7 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Install pip, pipenv and the dependencies
-RUN pip install --upgrade pip --root-user-action=sudo && \
+RUN pip install --upgrade pip --root-user-action=ignore && \
     pip install pipenv && \
     pipenv install --system --deploy
 
