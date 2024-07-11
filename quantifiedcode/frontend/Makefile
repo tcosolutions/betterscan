@@ -36,18 +36,18 @@ development: assets extra scripts babel static-files scss watch
 optimize: copy-assets copy-extra optimize-rjs
 
 copy-assets:
-	mkdir -p $(BUILD_TMP_DIR)/optimized/static
-	cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
+	#mkdir -p $(BUILD_TMP_DIR)/optimized/static
+	#cp -rf $(BUILD_TMP_DIR)/static/assets $(BUILD_TMP_DIR)/optimized/static
 
 copy-extra:
-	cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
+	#cp -rf $(BUILD_TMP_DIR)/static/extra/* $(BUILD_TMP_DIR)/static/js
 
 optimize-rjs:
 	#r.js -o $(BUILD_TMP_DIR)/static/js/build.js optimize=none
 	r.js -o $(BUILD_TMP_DIR)/static/js/build.js
 	#we copy require.js (so that we can include it)
-	cp $(BUILD_TMP_DIR)/static/bower_components/requirejs/require.js \
-	   $(BUILD_TMP_DIR)/optimized/static/js/require.min.js
+	#cp $(BUILD_TMP_DIR)/static/bower_components/requirejs/require.js \
+	#   $(BUILD_TMP_DIR)/optimized/static/js/require.min.js
 
 scripts:
 	mkdir -p $(BUILD_TMP_DIR)/static/js;
@@ -82,13 +82,13 @@ scss: $(SOURCE_DIR)/scss/main.scss
 	scss $(SOURCE_DIR)/scss/main.scss $(BUILD_TMP_DIR)/static/css/main.css
 
 optimize-css: $(BUILD_TMP_DIR)/static/css/main.css
-	mkdir -p $(BUILD_TMP_DIR)/optimized/static/css
+	#mkdir -p $(BUILD_TMP_DIR)/optimized/static/css
 	#we generate the output in the same directory, as relative imports won't work otherwise...
 	cleancss -o $(BUILD_TMP_DIR)/static/css/main.min.css \
 			    $(BUILD_TMP_DIR)/static/css/main.css
 	#we move the file to another directory afterwards...
-	mv $(BUILD_TMP_DIR)/static/css/main.min.css \
-	   $(BUILD_TMP_DIR)/optimized/static/css/main.min.css
+	#mv $(BUILD_TMP_DIR)/static/css/main.min.css \
+	#   $(BUILD_TMP_DIR)/optimized/static/css/main.min.css
 	
 
 
