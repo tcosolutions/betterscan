@@ -9,17 +9,9 @@ JS_FILES = $(subst .es6,.js,$(ES6_FILES))
 export PATH := 	./node_modules/.bin:$(MAIN_FRONTEND_PATH)/node_modules/.bin:$(PATH)
 export NODE_PATH := $(MAIN_FRONTEND_PATH)/node_modules:$(NODE_PATH)
 
-ENVIRONMENT=production
 
-ifeq ($(ENVIRONMENT),development)
-	BUILD_TMP_DIR=build
-	BUILD_ENVIRONMENT=development
-else
-	BUILD_TMP_DIR=newBuild
-	BUILD_ENVIRONMENT=production
-endif
-
-$(info Build dir: $(BUILD_TMP_DIR))
+BUILD_TMP_DIR=newBuild
+BUILD_ENVIRONMENT=production
 
 
 all: $(BUILD_ENVIRONMENT)
