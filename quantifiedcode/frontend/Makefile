@@ -34,7 +34,7 @@ optimize: optimize-rjs
 
 
 optimize-rjs:
-	r.js -o $(BUILD_FINAL_DIR)/static/js/build.js
+	#r.js -o $(BUILD_FINAL_DIR)/static/js/build.js
 	#we copy require.js (so that we can include it)
 	cp $(BUILD_FINAL_DIR)/static/bower_components/requirejs/require.js \
 	   $(BUILD_FINAL_DIR)/optimized/static/js/require.min.js
