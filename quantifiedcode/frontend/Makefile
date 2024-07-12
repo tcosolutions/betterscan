@@ -25,18 +25,15 @@ clean:
 	rm -rf $(BUILD_FINAL_DIR)
 	rm -rf $(BUILD_BACKUP_DIR)
 
-production: extra scripts bower babel static-files scss optimize-css optimize move
+production: scripts bower babel static-files scss optimize-css optimize move
 
-development: extra scripts babel static-files scss watch
+development: scripts babel static-files scss watch
 
-optimize: copy-extra optimize-rjs
+optimize: optimize-rjs
 
 
-copy-extra:
-	cp -rf $(BUILD_FINAL_DIR)/static/extra/* $(BUILD_FINAL_DIR)/static/js
 
 optimize-rjs:
-	#r.js -o $(BUILD_FINAL_DIR)/static/js/build.js optimize=none
 	r.js -o $(BUILD_FINAL_DIR)/static/js/build.js
 	#we copy require.js (so that we can include it)
 	cp $(BUILD_FINAL_DIR)/static/bower_components/requirejs/require.js \
@@ -53,14 +50,6 @@ bower:
 #compiles all ES6 files to JS (this is faster than compiling each file individually)
 babel:
 	babel $(SOURCE_DIR)/js -x ".es6" --out-dir $(BUILD_FINAL_DIR)/static/js --source-maps inline
-
-assets: $(BUILD_DIR)
-	mkdir -p $(BUILD_FINAL_DIR)
-	rsync  $(SOURCE_DIR)/assets $(BUILD_FINAL_DIR)/static
-
-extra: $(BUILD_DIR)
-	mkdir -p $(BUILD_FINAL_DIR)
-	rsync  $(SOURCE_DIR)/extra $(BUILD_FINAL_DIR)/static
 
 
 #used in watch, as it is faster
