@@ -21,23 +21,7 @@ $(info Build dir: $(BUILD_FINAL_DIR))
 
 all: $(BUILD_ENVIRONMENT)
 
-clean:
-	rm -rf $(BUILD_FINAL_DIR)
-	rm -rf $(BUILD_BACKUP_DIR)
-
 production: scripts bower babel static-files scss optimize-css optimize move
-
-development: scripts babel static-files scss watch
-
-optimize: optimize-rjs
-
-
-
-optimize-rjs:
-	#r.js -o $(BUILD_FINAL_DIR)/static/js/build.js
-	#we copy require.js (so that we can include it)
-	#cp $(BUILD_FINAL_DIR)/static/bower_components/requirejs/require.js \
-	#   $(BUILD_FINAL_DIR)/optimized/static/js/require.min.js
 
 scripts:
 	mkdir -p $(BUILD_FINAL_DIR)/static/js;
@@ -77,17 +61,6 @@ static-files: $(STATIC_FILES)
 $(STATIC_FILES):
 	cp -p $(SOURCE_DIR)/$@ $(BUILD_FINAL_DIR)/static/$@
 
-watch:
-	@which inotifywait || (echo "Please install inotifywait";exit 2)
-	@while true ; do \
-		inotifywait -r src -e create,delete,move,modify || break; \
-		$(MAKE)  scripts es6-files static-files scss || break;\
-	done
-
-backup:
-	@if [ ! -e $(BUILD_FINAL_DIR) ]; then \
-		mkdir $(BUILD_FINAL_DIR); \
-	fi;
 
 move:
 	@if [ -e $(BUILD_BACKUP_DIR) ]; then \
