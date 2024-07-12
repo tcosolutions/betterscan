@@ -21,7 +21,7 @@ $(info Build dir: $(BUILD_FINAL_DIR))
 
 all: $(BUILD_ENVIRONMENT)
 
-production: scripts bower babel static-files scss optimize-css optimize move
+production: scripts bower babel static-files scss optimize-css move
 
 scripts:
 	mkdir -p $(BUILD_FINAL_DIR)/static/js;
