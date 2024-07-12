@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y libssl-dev git sudo ssh python3-pip npm
 
 RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
     cd checkmate-ce && \
-    pip install --upgrade pip --root-user-action=ignore && \
+    pip install pip && \
     pip install poetry && \
     poetry install
 
