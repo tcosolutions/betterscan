@@ -28,10 +28,9 @@ clean:
 	rm -rf $(BUILD_TMP_DIR)
 	rm -rf $(BUILD_BACKUP_DIR)
 
-production: backup assets extra scripts bower babel static-files scss optimize-css optimize move
-#production: backup assets extra scripts babel static-files scss optimize-css optimize move
+production: extra scripts bower babel static-files scss optimize-css optimize move
 
-development: assets extra scripts babel static-files scss watch
+development: extra scripts babel static-files scss watch
 
 optimize: copy-assets copy-extra optimize-rjs
 
@@ -111,7 +110,7 @@ watch:
 	@which inotifywait || (echo "Please install inotifywait";exit 2)
 	@while true ; do \
 		inotifywait -r src -e create,delete,move,modify || break; \
-		$(MAKE) assets scripts es6-files static-files scss || break;\
+		$(MAKE)  scripts es6-files static-files scss || break;\
 	done
 
 backup:
