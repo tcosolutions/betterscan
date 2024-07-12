@@ -13,9 +13,6 @@ RUN apt-get update && apt-get install -y libssl-dev git sudo ssh python3-pip npm
 RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce && \
     cd checkmate-ce && \
     pip install --upgrade pip && \
-    pip install virtualenv && \
-    virtualenv venv && \
-    . venv/bin/activate && \
     pipenv install
 
 # Clone repositories and set up projects
