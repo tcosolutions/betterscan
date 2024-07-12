@@ -31,8 +31,6 @@ RUN mkdir -p /srv && \
     cd  /srv/betterscan-ce/quantifiedcode/frontend   && \
     npm install && \
     cd /srv/betterscan-ce/quantifiedcode/frontend && \
-    mkdir -p /srv/betterscan-ce/quantifiedcode/frontend/newBuild/static && \
-    mkdir -p /srv/betterscan-ce/quantifiedcode/plugins/git/frontend/newBuild/static && \
     chmod -R ugo+rw /srv/betterscan-ce/quantifiedcode/frontend && \
     make && \
     cd /srv/betterscan-ce/quantifiedcode/plugins/git/frontend && \
