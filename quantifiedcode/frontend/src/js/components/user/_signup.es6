@@ -60,7 +60,7 @@ var SignupComponent = createReactClass({
         },
       },
       terms: {
-        required: true,
+        required: false,
         requiredMessage: "You need to accept our Terms and Privacy Policy.",
         validator: function(value, name, data) {
           if (value !== true)
@@ -102,11 +102,6 @@ var SignupComponent = createReactClass({
     },
 
     setTerms: function(e){
-      var checked = e.target.checked
-      if (!checked)
-        this.addFieldError('terms', 'You need to accept our Terms and Privacy Policy.')
-      else
-        this.clearFieldError('terms')
       this.setState({terms: checked})
     },
 
@@ -181,14 +176,6 @@ var SignupComponent = createReactClass({
                className="form-control password confirm"
                placeholder="Enter your password again" />
         {this.formatFieldError('passwordConfirm')}
-        <div className="accept_terms"
-             ref="acceptTerms">
-          <input id="accept_terms" type="checkbox"
-                 onChange={this.setTerms}
-                 checked={state.terms} />
-          <label htmlFor="accept_terms">Accept <A plain href="/static/assets/html/terms-of-use.html" target="_blank">Terms</A> and <A plain href="/static/assets/html/privacy-policy.html" target="_blank">Privacy Policy</A></label>
-          {this.formatFieldError('terms')}
-        </div>
         <hr />
         <button className="btn btn-primary"
                 type="submit">
