@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     tar \
-    gnupg \
-    dirmngr \
+
+    
     libssl-dev \
     git \
     sudo \
@@ -23,10 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     npm \
     php \
-    default-jdk \
-    pipenv \
-    rsync \
-    jo \
+    pipenv 
     libpq-dev \
     wget \
     unzip \
