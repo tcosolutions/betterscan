@@ -65,13 +65,6 @@ RUN go version
 RUN gem install brakeman && \
     npm install -g jshint
 
-# Install pip, pipenv and the dependencies
-RUN pip install --upgrade pip && \
-    pip install virtualenv && \
-    virtualenv venv && \
-    . venv/bin/activate && \
-    pipenv install
-
 # Clone the checkmate repository and install
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && 
