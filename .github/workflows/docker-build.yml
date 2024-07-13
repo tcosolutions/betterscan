@@ -15,14 +15,6 @@ jobs:
       matrix:
         service: [worker-cli]
         include:
-          - service: server
-            dockerfile: docker/docker/backend/Dockerfile
-            context: docker/docker/backend
-            component: server
-          - service: worker
-            dockerfile: docker/docker/worker/Dockerfile
-            context: docker/docker/worker
-            component: worker
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
