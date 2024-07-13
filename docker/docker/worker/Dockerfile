@@ -74,7 +74,7 @@ RUN pip install --upgrade pip && \
     pipenv install
 
 # Clone the checkmate repository and install
-RUN git clone -b checkmate3 https://github.com/tcosolutions/checkmate-ce.git && \
+RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git && \
     cd /checkmate-ce && python setup.py install
 
 # Clone and install other repositories
