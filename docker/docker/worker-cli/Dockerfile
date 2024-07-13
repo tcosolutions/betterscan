@@ -5,7 +5,7 @@ FROM python:3.8-slim
 ARG DEBIAN_FRONTEND=noninteractive
 ENV CONTAINER_TIMEZONE=UTC
 ENV TZ=${CONTAINER_TIMEZONE}
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 
 # Install basic dependencies and set up environment in one RUN command
