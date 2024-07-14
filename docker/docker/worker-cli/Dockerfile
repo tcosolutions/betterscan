@@ -17,14 +17,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     
     libssl-dev \
     git \
-    sudo \
     ssh \
     rubygems \
     python3-pip \
     npm \
     php \
-    pipenv 
-    libpq-dev \
+    pipenv \
     wget \
     unzip \
     jq \
