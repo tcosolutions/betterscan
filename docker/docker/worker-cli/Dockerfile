@@ -59,29 +59,17 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan && \
-    git clone https://github.com/tcosolutions/trufflehog3-oss.git /root/trufflehog3-oss && \
-    cd /root/trufflehog3-oss && python setup.py install && \
     git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce && \
-    git clone https://github.com/tcosolutions/ptpt.git /root/ptpt && \
-    cd /root/ptpt && go build && \
-    cp /root/ptpt/ptpt /usr/local/bin/ptpt
+    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Set up additional tools
 RUN mkdir /root/phpscan/ && \
     cp /srv/betterscan/analyzers/progpilot.phar /root/phpscan/ && \
     cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
-    cp -pr /srv/betterscan/analyzers/custom-semgrep /root && \
-    cp /srv/betterscan/analyzers/*.yml /root/ && \
-    mkdir /root/yara && \
-    cp -pr /srv/betterscan/analyzers/yara/* /root/yara && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
     curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
-
-# Clean up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Final working directory
 WORKDIR /root
