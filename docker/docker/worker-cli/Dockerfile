@@ -26,9 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc  \
     build-essential && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
-    echo $CONTAINER_TIMEZONE > /etc/timezone && \
-    ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
-    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+    echo $CONTAINER_TIMEZONE > /etc/timezone
 
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
