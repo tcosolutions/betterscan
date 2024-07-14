@@ -13,8 +13,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     tar \
-
-    
     libssl-dev \
     git \
     ssh \
@@ -23,7 +21,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     npm \
     php \
     pipenv \
-    wget \
     unzip \
     jq \
     gcc  \
@@ -50,9 +47,6 @@ RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
 
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
-
-# Verify Go installation
-RUN go version
 
 # Install Ruby and npm packages
 RUN gem install brakeman && \
@@ -81,8 +75,6 @@ RUN mkdir /root/phpscan/ && \
     cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     cp -pr /srv/betterscan/analyzers/custom-semgrep /root && \
     cp /srv/betterscan/analyzers/*.yml /root/ && \
-    mkdir -p /usr/lib/python3.8/site-packages/checkmate-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js && \
-    cp /srv/betterscan/analyzers/json_reporter.js /usr/lib/python3.8/site-packages/checkmate-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js/ && \
     mkdir /root/yara && \
     cp -pr /srv/betterscan/analyzers/yara/* /root/yara && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
