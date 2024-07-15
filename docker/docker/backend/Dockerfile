@@ -3,12 +3,12 @@ FROM python:3.8-slim
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 
 ENV QC_SETTTINGS=/srv/betterscan-ce/quantifiedcode/settings/default.yml
 
 # Install dependencies and set up Python environment
-RUN apt-get update && apt-get install -y libssl-dev git sudo ssh python3-pip npm curl ruby-sass pipenv
+RUN apt-get update && apt-get install -y libssl-dev git ssh python3-pip npm curl ruby-sass pipenv
 
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce && \
     cd checkmate-ce && \
