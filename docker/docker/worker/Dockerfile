@@ -5,7 +5,7 @@ FROM python:3.8-slim
 ARG DEBIAN_FRONTEND=noninteractive
 ENV CONTAINER_TIMEZONE=UTC
 ENV TZ=${CONTAINER_TIMEZONE}
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 
 # Install basic dependencies and set up environment in one RUN command
@@ -13,33 +13,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     tar \
-    gnupg \
-    dirmngr \
-    libcurl4-nss-dev \
     libssl-dev \
     git \
-    sudo \
     ssh \
     rubygems \
     python3-pip \
     npm \
     php \
-    default-jdk \
     pipenv \
-    rsync \
-    jo \
-    libpq-dev \
-    wget \
     unzip \
     jq \
     gcc  \
-    build-essential \
-    libpq-dev && \
+    build-essential && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
-    echo $CONTAINER_TIMEZONE > /etc/timezone && \
-    ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
-    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    echo $CONTAINER_TIMEZONE > /etc/timezone
 
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
@@ -59,51 +46,30 @@ RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Verify Go installation
-RUN go version
-
 # Install Ruby and npm packages
 RUN gem install brakeman && \
     npm install -g jshint
 
-# Install pip, pipenv and the dependencies
-RUN pip install --upgrade pip && \
-    pip install virtualenv && \
-    virtualenv venv && \
-    . venv/bin/activate && \
-    pipenv install
-
 # Clone the checkmate repository and install
-RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git && \
-    cd /checkmate-ce && python setup.py install
+RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
+    cd /checkmate-ce && \
+    pip install pip && \
+    pip install poetry && \
+    poetry install
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan && \
-    git clone https://github.com/tcosolutions/trufflehog3-oss.git /root/trufflehog3-oss && \
-    cd /root/trufflehog3-oss && python setup.py install && \
     git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce && \
-    git clone https://github.com/tcosolutions/ptpt.git /root/ptpt && \
-    cd /root/ptpt && go build && \
-    cp /root/ptpt/ptpt /usr/local/bin/ptpt
+    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Set up additional tools
 RUN mkdir /root/phpscan/ && \
     cp /srv/betterscan/analyzers/progpilot.phar /root/phpscan/ && \
     cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
-    cp -pr /srv/betterscan/analyzers/custom-semgrep /root && \
-    cp /srv/betterscan/analyzers/*.yml /root/ && \
-    mkdir -p /usr/lib/python3.8/site-packages/checkmate-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js && \
-    cp /srv/betterscan/analyzers/json_reporter.js /usr/lib/python3.8/site-packages/checkmate-0.2.0-py3.8.egg/checkmate/contrib/plugins/javascript/jshint/js/ && \
-    mkdir /root/yara && \
-    cp -pr /srv/betterscan/analyzers/yara/* /root/yara && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
     curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
-
-# Clean up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Final working directory
 WORKDIR /root
