@@ -20,27 +20,24 @@ jobs:
             context: docker/docker/worker-cli
             component: worker-cli
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4.1.5
-      
-      - name: Authenticate SSH
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@v2.1.3
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Configure Docker to use the gcloud command-line tool as a credential helper
-        run: gcloud auth configure-docker
-
-      - name: Build Docker image
-        run: |
-          docker build -t gcr.io/betterscan-ce/betterscan-${{ matrix.component }}:latest -t gcr.io/betterscan-ce/betterscan-${{ matrix.component }}:${{ github.sha }} -f ${{ matrix.dockerfile }} ${{ matrix.context }}
-
-      - name: Push Docker image
-        run: |
-          docker push gcr.io/betterscan-ce/betterscan-${{ matrix.component }}:latest
-          docker push gcr.io/betterscan/betterscan-${{ matrix.component }}:${{ github.sha }}
+          version: "lab:latest"
+          driver: cloud
+          endpoint: "sunsolution/builder"
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: "IMAGE"
+          # For pull requests, export results to the build cache.
+          # Otherwise, push to a registry.
+          outputs: ${{ github.event_name == 'pull_request' && 'type=cacheonly' || 'type=registry,push=true' }}
