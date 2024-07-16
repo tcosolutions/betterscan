@@ -28,9 +28,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v6.4.0
-
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v1
         with:
@@ -39,15 +36,11 @@ jobs:
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4.2.0
-        with:
-          context: ${{ matrix.context }}
-          file: ${{ matrix.dockerfile }}
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gcr.io/282808095696/betterscan-${{ matrix.component }}:latest
-            gcr.io/282808095696/betterscan-${{ matrix.component }}:${{ github.sha }}
-          ssh: |
-            default=${{ env.SSH_AUTH_SOCK }}
+      - name: Build Docker image
+        run: |
+          docker build -t gcr.io/282808095696/betterscan-${{ matrix.component }}:latest -t gcr.io/YOUR_PROJECT_ID/betterscan-${{ matrix.component }}:${{ github.sha }} -f ${{ matrix.dockerfile }} ${{ matrix.context }}
+
+      - name: Push Docker image
+        run: |
+          docker push gcr.io/282808095696/betterscan-${{ matrix.component }}:latest
+          docker push gcr.io/282808095696/betterscan-${{ matrix.component }}:${{ github.sha }}
