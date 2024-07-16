@@ -38,7 +38,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/282808095696/betterscan-${{ matrix.component }}:latest -t gcr.io/YOUR_PROJECT_ID/betterscan-${{ matrix.component }}:${{ github.sha }} -f ${{ matrix.dockerfile }} ${{ matrix.context }}
+          docker build -t gcr.io/282808095696/betterscan-${{ matrix.component }}:latest -t gcr.io/282808095696/betterscan-${{ matrix.component }}:${{ github.sha }} -f ${{ matrix.dockerfile }} ${{ matrix.context }}
 
       - name: Push Docker image
         run: |
