@@ -37,16 +37,4 @@ jobs:
       
       - name: Create Docker Buildx builder
         run: |
-          docker buildx create --use --name mybuilder --driver docker-container --buildkitd-flags '--allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host'
-          docker buildx inspect mybuilder --bootstrap
-      
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ matrix.context }}
-          file: ${{ matrix.dockerfile }}
-          platforms: linux/amd64,linux/arm64
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/worker-cli:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/worker-cli:${{ github.sha }}
-          push: ${{ github.event_name != 'pull_request' }}
+          docker buildx create --use --name mybuilder --driver docker-container --buildkitd-flags '--allow-insecure-entitlement security.insecure --allow
