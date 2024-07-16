@@ -19,25 +19,34 @@ jobs:
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          version: "lab:latest"
-          driver: cloud
-          endpoint: "sunsolution/builder"
+          version: "latest"
+      
+      - name: Create Docker Buildx builder
+        run: |
+          docker buildx create --use --name mybuilder --driver docker-container --buildkitd-flags '--allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host'
+          docker buildx inspect mybuilder --bootstrap
+      
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          tags: "IMAGE"
-          # For pull requests, export results to the build cache.
-          # Otherwise, push to a registry.
-          outputs: ${{ github.event_name == 'pull_request' && 'type=cacheonly' || 'type=registry,push=true' }}
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/worker-cli:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/worker-cli:${{ github.sha }}
+          push: ${{ github.event_name != 'pull_request' }}
