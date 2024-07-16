@@ -37,4 +37,4 @@ jobs:
       
       - name: Create Docker Buildx builder
         run: |
-          docker buildx create --use --name mybuilder --driver docker-container --buildkitd-flags '--allow-insecure-entitlement security.insecure --allow
+          docker buildx create --use --name mybuilder --driver docker-container
