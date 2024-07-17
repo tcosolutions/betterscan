@@ -57,7 +57,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=sunsolution/betterscan-${{ matrix.component }}
+          IMAGE_NAME=sunsolution/betterscan${{ matrix.component }}
           TAG=${{ github.sha }}
           docker buildx build \
             --builder cloud-sunsolution-builder \
