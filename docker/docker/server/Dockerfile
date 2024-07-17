@@ -8,7 +8,7 @@ ENV SHELL=/bin/bash
 ENV QC_SETTTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
 
 # Install dependencies and set up Python environment
-RUN apt-get update && apt-get install -y libssl-dev git python3-pip curl ruby-sass pipenv
+RUN apt-get update && apt-get install -y libssl-dev git python3-pip curl ruby-sass pipenv snapd
 
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce && \
     cd checkmate-ce && \
@@ -24,7 +24,7 @@ RUN mkdir -p /srv && \
     virtualenv venv && \
     . venv/bin/activate && \
     pipenv install && \
-    curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh | bash - && \
+    sudo snap install node --classic --channel=14 && \
     apt-get install -y nodejs && \
     cd  /srv/betterscan/quantifiedcode/frontend   && \
     npm install && \
