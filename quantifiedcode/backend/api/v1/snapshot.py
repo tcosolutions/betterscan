@@ -214,16 +214,12 @@ class SnapshotFileRevisionIssues(Resource, FileRevisionIssueListMixin):
                     val.update({"language": "python"})
                 if(val1["analyzer"]=="brakeman"):
                     val.update({"language": "ruby"})
-                if(val1["analyzer"]=="phpanlyzer"):
-                    val.update({"language": "php"})
                 if(val1["analyzer"]=="semgrep"):
                     val.update({"language": "java"})
                 if(val1["analyzer"]=="tfsec"):
                     val.update({"language": "iac"})
                 if(val1["analyzer"]=="kubescape"):
                     val.update({"language": "iac"})
-                if(val1["analyzer"]=="semgrepccpp"):
-                    val.update({"language": "ccpp"})
                 if(val1["analyzer"]=="semgrepeslint"):
                     val.update({"language": "javascript"})
                 if(val1["analyzer"]=="graudit"):
@@ -298,33 +294,8 @@ class SnapshotIssuesSummary(Resource):
         str1 = str1.replace("'","\"");
         finds = []
         try:
-          finds.append(str(out[''].pop('apex')))
-          out['']['apex']=outc['']['apex']
-        except:
-          pass
-        try:
-          finds.append(str(out[''].pop('ccpp')))
-          out['']['ccpp']=outc['']['ccpp']
-        except:
-          pass
-        try:
-          finds.append(str(out[''].pop('csharp')))
-          out['']['csharp']=outc['']['csharp']
-        except:
-          pass
-        try:
-          finds.append(str(out[''].pop('kotlin')))
-          out['']['kotlin']=outc['']['kotlin']
-        except:
-          pass
-        try:
           finds.append(str(out[''].pop('perl')))
           out['']['perl']=outc['']['perl']
-        except:
-          pass
-        try:
-          finds.append(str(out[''].pop('swift')))
-          out['']['swift']=outc['']['swift']
         except:
           pass
         try:
@@ -343,16 +314,6 @@ class SnapshotIssuesSummary(Resource):
         except:
           pass
         try:
-          finds.append(str(out[''].pop('supply')))
-          out['']['supply']=outc['']['supply']
-        except:
-          pass
-        try:
-          finds.append(str(out[''].pop('php')))
-          out['']['php']=outc['']['php']
-        except:
-          pass
-        try:
           finds.append(str(out[''].pop('ruby')))
           out['']['ruby']=outc['']['ruby']
         except:
@@ -365,11 +326,6 @@ class SnapshotIssuesSummary(Resource):
         try:
           finds.append(str(out[''].pop('iac')))
           out['']['iac']=outc['']['iac']
-        except:
-          pass
-        try:
-          finds.append(str(out[''].pop('solidity')))
-          out['']['solidity']=outc['']['solidity']
         except:
           pass
         try:
