@@ -45,7 +45,7 @@ jobs:
 
       - name: Create Docker Buildx builder
         run: |
-          docker buildx create --use --name mybuilder --driver docker-container
+          docker buildx create --use --name cloud-sunsolution-builder --driver docker-container
 
       - name: Cache Docker layers
         uses: actions/cache@v3
