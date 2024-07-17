@@ -8,9 +8,6 @@ export NODE_PATH := $(MAIN_FRONTEND_PATH)/node_modules:$(NODE_PATH)
 
 all: bower move
 
-clean:
-	rm -rf $(BUILD_FINAL_DIR)
-	rm -rf $(BUILD_BACKUP_DIR)
 
 bower:
 	mkdir -p $(BUILD_FINAL_DIR)/static
@@ -29,5 +26,4 @@ move:
 		mv $(BUILD_FINAL_DIR) $(BUILD_FINAL_DIR); \
 	fi;
 
-.PHONY: all clean bower move
 
