@@ -22,7 +22,7 @@ jobs:
           - service: backend
             dockerfile: docker/docker/backend/Dockerfile
             context: docker/docker/backend
-            component: backend#
+            component: backend
           - service: worker
             dockerfile: docker/docker/worker/Dockerfile
             context: docker/docker/worker
