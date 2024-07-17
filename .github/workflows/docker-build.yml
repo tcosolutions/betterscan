@@ -60,7 +60,7 @@ jobs:
           IMAGE_NAME=sunsolution/betterscan-${{ matrix.component }}
           TAG=${{ github.sha }}
           docker buildx build \
-            --builder mybuilder \
+            --builder cloud-sunsolution-builder \
             --file ${{ matrix.dockerfile }} \
             --target build \
             --cache-to=type=inline \
