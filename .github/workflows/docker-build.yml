@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [worker-cli, server-api]
+        service: [worker-cli, backend, worker]
         include:
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
@@ -57,7 +57,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=myusername/${{ matrix.component }}
+          IMAGE_NAME=sunsolution/betterscan-${{ matrix.component }}
           TAG=${{ github.sha }}
           docker buildx build \
             --file ${{ matrix.dockerfile }} \
