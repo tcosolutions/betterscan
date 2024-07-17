@@ -24,7 +24,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: docker/backend/Dockerfile
+      dockerfile: docker/server/Dockerfile
     restart: always
     depends_on:
       - postgres
