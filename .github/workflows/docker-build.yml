@@ -19,46 +19,36 @@ jobs:
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
-          - service: server
-            dockerfile: docker/docker/server/Dockerfile
-            context: docker/server/backend
-            component: server
-          - service: worker
-            dockerfile: docker/docker/worker/Dockerfile
-            context: docker/docker/worker
-            component: worker
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Authenticate SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          version: "latest"
-
-      - name: Create Docker Buildx builder
-        run: |
-          docker buildx create --use --name cloud-sunsolution-builder --driver docker-container
-
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
       - name: Build and push Docker image
-        run: |
-          IMAGE_NAME=sunsolution/betterscan${{ matrix.component }}
-          TAG=${{ github.sha }}
-          docker buildx build \
-            --builder cloud-sunsolution-builder \
-            --file ${{ matrix.dockerfile }} \
-            --target build \
-            --cache-to=type=inline \
-            --cache-from=type=local,src=/tmp/.buildx-cache \
-            --tag $IMAGE_NAME:latest \
-            --tag $IMAGE_NAME:$TAG \
-            --push \
-            ${{ matrix.context }}
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            sunsolution/betterscan-${{ matrix.component }}:latest
+            sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
+          ssh: |
+            default=${{ env.SSH_AUTH_SOCK }}
