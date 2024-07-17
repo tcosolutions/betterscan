@@ -45,7 +45,7 @@ jobs:
 
       - name: Create Docker Buildx builder
         run: |
-          docker buildx create --use --name mybuilder --driver docker-container
+          docker buildx create --use --name cloud-sunsolution-builder --driver cloud-container --buildkitd-flags --debug
 
       - name: Cache Docker layers
         uses: actions/cache@v3
@@ -60,6 +60,7 @@ jobs:
           IMAGE_NAME=sunsolution/betterscan-${{ matrix.component }}
           TAG=${{ github.sha }}
           docker buildx build \
+            --builder cloud-sunsolution-builder \
             --file ${{ matrix.dockerfile }} \
             --target build \
             --cache-to=type=inline \
@@ -68,4 +69,3 @@ jobs:
             --tag $IMAGE_NAME:$TAG \
             --push \
             ${{ matrix.context }}
-
