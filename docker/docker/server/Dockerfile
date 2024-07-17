@@ -24,7 +24,7 @@ RUN mkdir -p /srv && \
     virtualenv venv && \
     . venv/bin/activate && \
     pipenv install && \
-    snap install node --classic --channel=14 && \
+    snap install node --classic && \
     apt-get install -y nodejs && \
     cd  /srv/betterscan/quantifiedcode/frontend   && \
     npm install && \
