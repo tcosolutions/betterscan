@@ -13,28 +13,64 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [worker-cli]
+        service: [worker-cli, server-api]
         include:
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
+          - service: backend
+            dockerfile: docker/docker/backend/Dockerfile
+            context: docker/docker/backend
+            component: backend#
+          - service: worker
+            dockerfile: docker/docker/worker/Dockerfile
+            context: docker/docker/worker
+            component: worker
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
           version: "latest"
-      
+
       - name: Create Docker Buildx builder
         run: |
           docker buildx create --use --name mybuilder --driver docker-container
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE_NAME=myusername/${{ matrix.component }}
+          TAG=${{ github.sha }}
+          docker buildx build \
+            --file ${{ matrix.dockerfile }} \
+            --target build \
+            --cache-to=type=inline \
+            --cache-from=type=local,src=/tmp/.buildx-cache \
+            --tag $IMAGE_NAME:latest \
+            --tag $IMAGE_NAME:$TAG \
+            --push \
+            ${{ matrix.context }}
+
+      - name: Save cache
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
