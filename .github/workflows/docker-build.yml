@@ -47,13 +47,6 @@ jobs:
         run: |
           docker buildx create --use --name cloud-sunsolution-builder --driver docker-container
 
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
 
       - name: Build and push Docker image
         run: |
