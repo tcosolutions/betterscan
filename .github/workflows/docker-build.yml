@@ -19,10 +19,10 @@ jobs:
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
-          - service: backend
+          - service: server
             dockerfile: docker/docker/backend/Dockerfile
             context: docker/docker/backend
-            component: backend
+            component: server
           - service: worker
             dockerfile: docker/docker/worker/Dockerfile
             context: docker/docker/worker
