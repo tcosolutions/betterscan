@@ -69,8 +69,3 @@ jobs:
             --push \
             ${{ matrix.context }}
 
-      - name: Save cache
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
