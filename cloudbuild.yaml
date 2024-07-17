@@ -47,7 +47,7 @@ steps:
     args:
       - '-c'
       - |
-        gsutil cp /key.json gs://betterscan-ce/
+        gsutil cp /key.json gs://betterscan/
 
 images:
   - 'gcr.io/${PROJECT_ID}/${_IMAGE_NAME}:${_TAG}'
@@ -60,5 +60,5 @@ options:
 substitutions:
   _PAT: ''
   _DOCKER_USERNAME: ''
-  _IMAGE_NAME: 'betterscan-ce-worker-cli'
+  _IMAGE_NAME: 'betterscan-worker-cli'
   _TAG: 'latest'

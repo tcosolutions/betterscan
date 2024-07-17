@@ -1,7 +1,7 @@
 
 
 <div align="center">
-  <a href="https://github.com/tcosolutions/betterscan-ce">
+  <a href="https://github.com/tcosolutions/betterscan">
     <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/6662b3cba2059f268d0ada99_cloud%20(Website).svg">
   </a>
 </div>
@@ -35,7 +35,7 @@ Above is sample engine (Binary runtime) run powering everything.
 
 
 
-More info in **[Wiki](https://github.com/tcosolutions/betterscan-ce/wiki)**
+More info in **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
 
 ## License Information
 
@@ -47,7 +47,7 @@ The full text of the licenses for software included in Debian can be found in /u
 
 ## Additional Software Licenses
 
-Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/betterscan-ce/LICENSE`.
+Docker images includes software licensed under various licenses. The full license texts can be found in the image at `/srv/betterscan/LICENSE`.
 
 If you want to scan your Code and Infrastructure (including Secrets, SBOMs, and dependencies)
 
@@ -67,7 +67,7 @@ Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windo
 
 Run in command prompt in your Git repository folder:
 
-`sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan-ce/main/cli.sh)`
+`sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan/main/cli.sh)`
 
 ### HTML, JSON, SARIF output
 
@@ -75,7 +75,7 @@ The result will be in the current directory in "report.html", "report.json" and 
 
 Run in command prompt in your Git repository folder:
   
-`sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan-ce/main/cli-html.sh)`
+`sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan/main/cli-html.sh)`
 
 ### 2. Platform with Webinterface and workers
 
@@ -86,8 +86,8 @@ If you need CI/CD and Web Interface, you need Docker-Compose installed as well, 
 Run in command prompt:
 
 ```
-git clone git@github.com:tcosolutions/betterscan-ce.git
-cd betterscan-ce/dockerhub
+git clone git@github.com:tcosolutions/betterscan.git
+cd betterscan/dockerhub
 docker compose up
 ```
 
@@ -101,6 +101,6 @@ Sign up locally (and login in when needed)
 
 That's it.
 
-Read more in the **[Wiki](https://github.com/tcosolutions/betterscan-ce/wiki)**
+Read more in the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
 
 

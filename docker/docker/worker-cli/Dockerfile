@@ -58,7 +58,7 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
     poetry install
 
 # Clone and install other repositories
-RUN git clone https://github.com/tcosolutions/betterscan-ce.git /srv/betterscan && \
+RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
     git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
     git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
