@@ -90,9 +90,6 @@ optimize-css: $(BUILD_TMP_DIR)/static/css/main.css
 	mv $(BUILD_TMP_DIR)/static/css/main.min.css \
 	   $(BUILD_TMP_DIR)/optimized/static/css/main.min.css
 	#we copy dependent resources (fonts) to the optimized directory
-	rsync -rue --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
-		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components \
-		  $(BUILD_TMP_DIR)/optimized/static
 
 static-files: $(STATIC_FILES)
 
