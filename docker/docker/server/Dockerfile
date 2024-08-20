@@ -28,8 +28,8 @@ RUN mkdir -p /srv && \
     apt-get install -y nodejs && \
     cd  /srv/betterscan/quantifiedcode/frontend   && \
     sudo npm install -g bower \ 
+    npm install && \ 
     npm install --save-dev @babel/core @babel/cli \
-    npm install && \
     cd /srv/betterscan/quantifiedcode/frontend && \
     chmod -R ugo+rw /srv/betterscan/quantifiedcode/frontend && \
     make && \
