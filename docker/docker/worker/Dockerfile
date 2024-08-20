@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     gcc \
     rsync \
+    sudo \
     build-essential && \
     ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone
