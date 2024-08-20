@@ -51,7 +51,7 @@ optimize-rjs:
 
 scripts:
 	mkdir -p $(BUILD_TMP_DIR)/static/js;
-	rsync $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
+	rsync -rue $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
 
 bower:
 	mkdir -p $(BUILD_TMP_DIR)/static
@@ -63,11 +63,11 @@ babel:
 
 assets: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
+	rsync -rue $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
 
 extra: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
+	rsync -rue $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
 
 
 #used in watch, as it is faster
@@ -90,7 +90,7 @@ optimize-css: $(BUILD_TMP_DIR)/static/css/main.css
 	mv $(BUILD_TMP_DIR)/static/css/main.min.css \
 	   $(BUILD_TMP_DIR)/optimized/static/css/main.min.css
 	#we copy dependent resources (fonts) to the optimized directory
-	rsync -am --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
+	rsync -rue --include="*.woff" --include="*.eot" --include="*.woff2" --include="*/" \
 		  --exclude="*" -a $(BUILD_TMP_DIR)/static/bower_components \
 		  $(BUILD_TMP_DIR)/optimized/static
 
