@@ -99,12 +99,7 @@ static-files: $(STATIC_FILES)
 $(STATIC_FILES):
 	cp -p $(SOURCE_DIR)/$@ $(BUILD_TMP_DIR)/static/$@
 
-watch:
-	@which inotifywait || (echo "Please install inotifywait";exit 2)
-	@while true ; do \
-		inotifywait -r src -e create,delete,move,modify || break; \
-		$(MAKE) assets scripts es6-files static-files scss || break;\
-	done
+
 
 backup:
 	@if [ ! -e $(BUILD_TMP_DIR) ]; then \
