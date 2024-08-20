@@ -27,6 +27,7 @@ RUN mkdir -p /srv && \
     curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh | bash - && \
     apt-get install -y nodejs && \
     cd  /srv/betterscan/quantifiedcode/frontend   && \
+    sudo npm install -g bower \ 
     npm install && \
     cd /srv/betterscan/quantifiedcode/frontend && \
     chmod -R ugo+rw /srv/betterscan/quantifiedcode/frontend && \
