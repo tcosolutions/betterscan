@@ -28,10 +28,10 @@ clean:
 	rm -rf $(BUILD_TMP_DIR)
 	rm -rf $(BUILD_BACKUP_DIR)
 
-production: backup assets extra scripts bower babel static-files scss optimize-css optimize move
+production: backup extra scripts bower babel static-files scss optimize-css optimize move
 #production: backup assets extra scripts babel static-files scss optimize-css optimize move
 
-development: assets extra scripts babel static-files scss watch
+development: extra scripts babel static-files scss watch
 
 optimize: copy-assets copy-extra optimize-rjs
 
