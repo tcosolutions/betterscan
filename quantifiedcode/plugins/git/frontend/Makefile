@@ -55,7 +55,7 @@ scripts:
 
 bower:
 	mkdir -p $(BUILD_TMP_DIR)/static
-	bower install --config.directory=$(BUILD_TMP_DIR)/static/bower_components
+	sudo bower --allow-root install --config.directory=$(BUILD_TMP_DIR)/static/bower_components
 
 #compiles all ES6 files to JS (this is faster than compiling each file individually)
 babel:
