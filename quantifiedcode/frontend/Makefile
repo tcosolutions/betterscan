@@ -51,7 +51,7 @@ optimize-rjs:
 
 scripts:
 	mkdir -p $(BUILD_TMP_DIR)/static/js;
-	rsync -rupE $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
+	rsync $(SOURCE_DIR)/js --include="*.js" $(BUILD_TMP_DIR)/static
 
 bower:
 	mkdir -p $(BUILD_TMP_DIR)/static
@@ -63,11 +63,11 @@ babel:
 
 assets: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rupE $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
+	rsync $(SOURCE_DIR)/assets $(BUILD_TMP_DIR)/static
 
 extra: $(BUILD_DIR)
 	mkdir -p $(BUILD_TMP_DIR)
-	rsync -rupE $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
+	rsync $(SOURCE_DIR)/extra $(BUILD_TMP_DIR)/static
 
 
 #used in watch, as it is faster
