@@ -33,7 +33,7 @@ production: scripts bower babel static-files scss optimize-css optimize move
 
 development: extra scripts babel static-files scss watch
 
-optimize: copy-assets copy-extra optimize-rjs
+optimize: optimize-rjs
 
 copy-assets:
 	mkdir -p $(BUILD_TMP_DIR)/optimized/static
