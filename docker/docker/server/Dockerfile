@@ -8,7 +8,7 @@ ENV SHELL=/bin/bash
 ENV QC_SETTTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
 
 # Install dependencies and set up Python environment
-RUN apt-get update && apt-get install -y libssl-dev git python3-pip npm curl ruby-sass rsync pipenv
+RUN apt-get update && apt-get install -y libssl-dev git python3-pip npm curl ruby-sass rsync sudo pipenv
 
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce && \
     cd checkmate-ce && \
