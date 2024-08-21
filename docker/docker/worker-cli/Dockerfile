@@ -7,7 +7,7 @@ ENV CONTAINER_TIMEZONE=UTC
 ENV TZ=${CONTAINER_TIMEZONE}
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
-
+ENV PIP_ROOT_USER_ACTION=ignore
 # Install basic dependencies and set up environment in one RUN command
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -53,7 +53,7 @@ RUN gem install brakeman && \
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     #python3 -m venv venv \
-    pip install --allow-root-action pip && \
+    pip install pip && \
     pip install poetry && \
     poetry install
 
