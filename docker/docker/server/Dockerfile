@@ -34,6 +34,4 @@ RUN mkdir -p /srv && \
     chmod -R ugo+rw /srv/betterscan/quantifiedcode/frontend && \
     make && \
     cd /srv/betterscan/quantifiedcode/plugins/git/frontend && \
-    make && \
-
-
+    make
