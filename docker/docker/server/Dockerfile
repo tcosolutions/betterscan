@@ -36,5 +36,4 @@ RUN mkdir -p /srv && \
     cd /srv/betterscan/quantifiedcode/plugins/git/frontend && \
     make && \
 
-# Final working directory
-WORKDIR /srv/betterscan/quantifiedcode/frontend
+
