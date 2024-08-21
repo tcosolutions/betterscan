@@ -54,8 +54,10 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
     cd /checkmate-ce && \
     pip install pip && \
     pip install --upgrade pip && \
-    pip install poetry && \
-    poetry install
+    #pip install poetry && \
+    #poetry install
+    pip install -r requirements.txt
+    
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
