@@ -28,7 +28,7 @@ clean:
 	rm -rf $(BUILD_TMP_DIR)
 	rm -rf $(BUILD_BACKUP_DIR)
 
-production: scripts bower babel static-files scss move
+production: scripts babel static-files scss move
 #production: scripts babel static-files scss optimize-css optimize move
 
 development: extra scripts babel static-files scss watch
