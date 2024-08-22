@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [worker-cli,server,worker]
+        service: [server,worker]
         include:
           - service: server
             dockerfile: docker/docker/server/Dockerfile
@@ -23,10 +23,7 @@ jobs:
             dockerfile: docker/docker/worker/Dockerfile
             context: docker/docker/worker
             component: worker
-          - service: worker-cli
-            dockerfile: docker/docker/worker-cli/Dockerfile
-            context: docker/docker/worker-cli
-            component: worker-cli
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
