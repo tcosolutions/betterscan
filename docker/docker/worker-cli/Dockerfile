@@ -3,7 +3,7 @@ FROM python:3.8-slim
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
-ENV CONTAINER_TIMEZONE=America/New_York
+ENV CONTAINER_TIMEZONE=Europe/Berlin
 ENV TZ=${CONTAINER_TIMEZONE}
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
@@ -56,7 +56,7 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
     pip install --upgrade pip && \
     pip install poetry && \
     poetry install
-    #pip install -r requirements.txt
+   
     
 
 # Clone and install other repositories
