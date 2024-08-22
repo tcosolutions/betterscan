@@ -55,7 +55,7 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Clone the checkmate repository and install
-RUN git clone -b checkmate3-cli git@github.com:tcosolutions/checkmate-ce.git /checkmate-ce && \
+RUN git clone git@github.com:tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip install pip && \
     pip install --upgrade pip && \
