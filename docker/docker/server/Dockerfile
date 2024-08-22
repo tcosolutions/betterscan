@@ -21,6 +21,9 @@ RUN mkdir -p /srv && \
     git clone https://github.com/tcosolutions/betterscan /srv/betterscan && \
     cd /srv/betterscan && \
     pip install pip && \
+    pip install virtualenv && \
+    virtualenv venv && \
+    . venv/bin/activate && \
     pipenv install && \
     curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh | bash - && \
     apt-get install -y nodejs && \
