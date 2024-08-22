@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     echo $CONTAINER_TIMEZONE > /etc/timezone
 
 RUN ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
-    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
     
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
