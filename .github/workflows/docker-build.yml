@@ -57,3 +57,6 @@ jobs:
             sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
           ssh: |
             default=${{ env.SSH_AUTH_SOCK }}
+
+      - name: Anchore SBOM Action
+        uses: anchore/sbom-action@v0.17.2     
