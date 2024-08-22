@@ -21,7 +21,6 @@ RUN mkdir -p /srv && \
     git clone https://github.com/tcosolutions/betterscan /srv/betterscan && \
     cd /srv/betterscan && \
     pip install pip && \
-    pip install --upgrade pip &&\
     pip install virtualenv && \
     virtualenv venv && \
     . venv/bin/activate && \
