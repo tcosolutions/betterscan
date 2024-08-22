@@ -50,7 +50,7 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Clone the checkmate repository and install
-RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
+RUN git clone -b checkmate3-cli git@github.com:tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip install pip && \
     pip install --upgrade pip && \
@@ -60,9 +60,9 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
     
 
 # Clone and install other repositories
-RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
-    git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
+RUN git clone git@github.com:tcosolutions/betterscan.git /srv/betterscan && \
+    git clone git@github.com:tcosolutions/graudit-ce.git /root/graudit && \
+    git clone git@github.com:tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Set up additional tools
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
