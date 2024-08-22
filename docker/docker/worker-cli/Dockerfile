@@ -56,7 +56,7 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
     pip install --upgrade pip && \
     pip install poetry && \
     poetry install
-    pip install -r requirements.txt
+    #pip install -r requirements.txt
     
 
 # Clone and install other repositories
