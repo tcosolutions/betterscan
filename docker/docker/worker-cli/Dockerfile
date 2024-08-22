@@ -8,6 +8,9 @@ ENV TZ=${CONTAINER_TIMEZONE}
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
+RUN ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
+    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    
 # Install basic dependencies and set up environment in one RUN command
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
