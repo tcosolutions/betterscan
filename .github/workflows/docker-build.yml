@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: auth
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     
 
       - name: Set up Docker Buildx
@@ -45,4 +49,5 @@ jobs:
           tags: |
             sunsolution/betterscan-${{ matrix.component }}:latest
             sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
- 
+          ssh: |
+            default=${{ env.SSH_AUTH_SOCK }}
