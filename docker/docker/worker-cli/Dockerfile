@@ -33,8 +33,8 @@ RUN ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
     
 # Install Go
-RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
-    GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
+RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
+    GO_LATEST=$(echo "$GO" | jq -r '.[0].version') && \
     ARCH=$(uname -m) && \
     case $ARCH in \
         x86_64) GO_ARCH="amd64" ;; \
