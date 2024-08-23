@@ -55,8 +55,8 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Clone the checkmate repository and install
-RUN pip install checkmate3==0.2.0
-    pip install pip && \
+RUN pip install pip && \
+    pip install checkmate3==0.2.0 && \
     pip install --upgrade pip && \
     pip install poetry && \
     poetry install
