@@ -55,8 +55,7 @@ RUN gem install brakeman && \
     npm install -g jshint
 
 # Clone the checkmate repository and install
-RUN git clone https://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@github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
-    cd /checkmate-ce && \
+RUN pip install checkmate3==0.2.0
     pip install pip && \
     pip install --upgrade pip && \
     pip install poetry && \
@@ -65,9 +64,9 @@ RUN git clone https://github_pat_11AE3JSTI0cL4c4zOQ8eJT_UuQLntuCWeLRkBCvT7F9JInc
     
 
 # Clone and install other repositories
-RUN git clone https://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@github.com/tcosolutions/betterscan.git /srv/betterscan && \
-    git clone https://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@github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone https://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@github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
+RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
+    git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
+    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Set up additional tools
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
