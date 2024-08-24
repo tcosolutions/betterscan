@@ -47,10 +47,12 @@ RUN gem install brakeman && \
    
 
 # Clone the checkmate repository and install
-RUN pip install --upgrade pip && \
-    pip install checkmate3 && \
+RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
+    cd /checkmate-ce && \
+    pip install --upgrade pip && \
     pip install poetry && \
     poetry install
+   
    
     
 
