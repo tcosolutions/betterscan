@@ -1,13 +1,11 @@
-# Start from the official Python slim image
-FROM python:3.8-slim
+FROM python:3.8-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
-ENV GO_VERSION=1.18.3  # Example Go version, replace with needed version
+ENV GO_VERSION=1.23
 
-# Install basic dependencies and set up environment
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -27,14 +25,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go
-RUN ARCH=$(uname -m) && \
-    case $ARCH in \
-        x86_64) GO_ARCH="amd64" ;; \
-        aarch64) GO_ARCH="arm64" ;; \
-        armv7l) GO_ARCH="armv6l" ;; \
-        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
-    esac && \
-    curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" -o go.tar.gz && \
+RUN GO_ARCH=$(uname -m)
+RUN curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" -o go.tar.gz && \
     tar -C /usr/local -xzf go.tar.gz && \
     rm go.tar.gz
 
@@ -46,7 +38,7 @@ RUN gem install brakeman && \
     npm install -g some-package && \ # Example, replace with actual packages
     rm -rf /var/lib/apt/lists/*
 
-# Clone the checkmate repository and install dependencies
+# Clone and install checkmate-ce
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip install --upgrade pip && \
@@ -65,5 +57,14 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     curl -fsSL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
-# Final working directory
+# Final image with only the necessary tools and dependencies
+FROM python:3.8-slim AS final
+
+COPY --from=builder /usr/local/go/bin /usr/local/go/bin
+COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
+COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_unicode_control2.py
+COPY --from=builder /srv/betterscan /srv/betterscan
+COPY --from=builder /root/graudit /root/graudit
+COPY --from=builder /root/text4shell-ce /root/text4shell-ce
+
 WORKDIR /root
