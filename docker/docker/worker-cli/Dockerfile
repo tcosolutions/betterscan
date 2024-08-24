@@ -1,65 +1,69 @@
-FROM python:3.9-slim AS builder
+# Start from the official Python slim image
+FROM python:3.8-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
+ENV GO_VERSION=1.18.3  # Example Go version, replace with needed version
 
-# Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install basic dependencies and set up environment
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     tar \
     libssl-dev \
     git \
     ssh \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
     rubygems \
     python3-pip \
     pipenv \
     unzip \
     jq \
     gcc \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Go
-RUN --mount=type=cache,target=/var/cache/apk \
-    apk add --no-cache curl tar && \
-    curl -fsSL "https://dl.google.com/go/go$(curl -fsSL https://golang.org/VERSION?m=text | sed -n 's/.*<h1>go\(.*\)<.*/\1/p').linux-amd64.tar.gz" | tar -C /usr/local -xzf -
+RUN ARCH=$(uname -m) && \
+    case $ARCH in \
+        x86_64) GO_ARCH="amd64" ;; \
+        aarch64) GO_ARCH="arm64" ;; \
+        armv7l) GO_ARCH="armv6l" ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
+    esac && \
+    curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" -o go.tar.gz && \
+    tar -C /usr/local -xzf go.tar.gz && \
+    rm go.tar.gz
 
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby gem
-RUN gem install brakeman
+# Install Ruby and npm packages
+RUN gem install brakeman && \
+    npm install -g some-package && \ # Example, replace with actual packages
+    rm -rf /var/lib/apt/lists/*
 
-# Clone and install repositories
-RUN git clone --depth 1 -b main https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
+# Clone the checkmate repository and install dependencies
+RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip install --upgrade pip && \
     pip install poetry && \
     poetry install
 
-# Clone other repositories
-RUN git clone --depth 1 -b main https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
-    git clone --depth 1 -b main https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone --depth 1 -b main https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
+# Clone and install other repositories
+RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
+    git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
+    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Set up additional tools
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
+    curl -fsSL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
+    curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
-# Final stage for runtime
-FROM python:3.9-slim
-COPY --from=builder /usr/local/go /usr/local/go
-COPY --from=builder /usr/local/bin /usr/local/bin
-COPY --from=builder /checkmate-ce /checkmate-ce
-# Add more COPY commands for necessary files/directories from the builder stage
-
-# Set working directory
-WORKDIR /app
+# Final working directory
+WORKDIR /root
