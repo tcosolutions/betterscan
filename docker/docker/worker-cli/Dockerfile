@@ -38,7 +38,7 @@ RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
     GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
     curl -O $GO_URL && \
     tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
-    rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
+
 
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
