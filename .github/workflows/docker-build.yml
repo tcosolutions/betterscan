@@ -55,4 +55,6 @@ jobs:
           tags: |
             sunsolution/betterscan-${{ matrix.component }}:latest
             sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
-   
+      - name: Anchore SBOM Action
+        uses: anchore/sbom-action@v0.17.2
+            
