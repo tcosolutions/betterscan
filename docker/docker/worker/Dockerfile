@@ -29,8 +29,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 
 # Install Go
-RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
-    GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
+RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
+    GO_LATEST=$(echo "$GO" | jq -r '.[0].version') && \
     ARCH=$(uname -m) && \
     case $ARCH in \
         x86_64) GO_ARCH="amd64" ;; \
