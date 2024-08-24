@@ -22,6 +22,7 @@ RUN apt-get update && \
     gcc \
     build-essential && \
     apt-get clean && \
+    git && \
     rm -rf /var/lib/apt/lists/*
 
 # Detect architecture and set GO_ARCH accordingly
