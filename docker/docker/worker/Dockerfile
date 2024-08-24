@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     rsync \
     sudo \
-    build-essential && \
+    build-essential 
 
 
 # Install Go
