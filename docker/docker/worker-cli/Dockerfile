@@ -25,9 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential && \
 
 
-RUN ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
-    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
-    
 # Install Go
 RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
     GO_LATEST=$(echo "$GO" | jq -r '.[0].version') && \
