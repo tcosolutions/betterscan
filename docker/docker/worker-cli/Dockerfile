@@ -30,6 +30,8 @@ RUN ARCH=$(dpkg --print-architecture) && \
         GO_ARCH="amd64"; \
     elif [ "$ARCH" = "arm64" ]; then \
         GO_ARCH="arm64"; \
+    elif [ "$ARCH" = "armhf" ]; then \
+        GO_ARCH="armv6l"; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
     fi && \
