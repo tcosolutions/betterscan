@@ -20,9 +20,7 @@ RUN apt-get update && \
     unzip \
     jq \
     gcc \
-    build-essential \
-    apt-get clean \
-    rm -rf /var/lib/apt/lists/*
+    build-essential
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
