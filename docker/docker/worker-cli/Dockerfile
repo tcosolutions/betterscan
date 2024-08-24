@@ -20,9 +20,8 @@ RUN apt-get update && \
     unzip \
     jq \
     gcc \
-    build-essential && \
-    apt-get clean && \
-    git && \
+    build-essential \
+    apt-get clean \
     rm -rf /var/lib/apt/lists/*
 
 # Detect architecture and set GO_ARCH accordingly
