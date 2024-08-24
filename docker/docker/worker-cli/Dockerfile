@@ -1,10 +1,7 @@
 # Start from the official Python slim image
 FROM python:3.8-slim
 
-# Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
-ENV CONTAINER_TIMEZONE=UTC
-ENV TZ=${CONTAINER_TIMEZONE}
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
@@ -26,8 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     gcc  \
     build-essential && \
-    ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
-    echo $CONTAINER_TIMEZONE > /etc/timezone
+
 
 RUN ssh-keyscan github.com >> /etc/ssh/ssh_known_hosts && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
