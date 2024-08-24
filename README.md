@@ -77,9 +77,28 @@ Run in command prompt in your Git repository folder:
   
 `sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan/main/cli-html.sh)`
 
+### 2. Platform with Webinterface and workers
+
+#### Docker
+
+If you need CI/CD and Web Interface, you need Docker-Compose installed as well, if you don't already have it.
+
+Run in command prompt:
+
+```
+git clone git@github.com:tcosolutions/betterscan.git
+cd betterscan/dockerhub
+docker compose up
+```
+
+
+Open up the Browser to:
+
+`http://localhost:5000`
+
+Sign up locally (and login in when needed)
 
 
 That's it.
 
 Read more in the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
-
