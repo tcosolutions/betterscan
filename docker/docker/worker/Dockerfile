@@ -1,10 +1,8 @@
 # Start from the official Python slim image
 FROM python:3.8-slim
 
-# Arguments for non-interactive installation and setting timezone
-ARG DEBIAN_FRONTEND=noninteractive
-ENV CONTAINER_TIMEZONE=UTC
-ENV TZ=${CONTAINER_TIMEZONE}
+
+ARG DEBIAN_FRONTEND=noninteractiv
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
@@ -28,8 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
     sudo \
     build-essential && \
-    ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
-    echo $CONTAINER_TIMEZONE > /etc/timezone
+
 
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
