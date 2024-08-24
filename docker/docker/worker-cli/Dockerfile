@@ -34,9 +34,7 @@ RUN curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz
 ENV PATH=$PATH:/usr/local/go/bin
 
 # Install Ruby and npm packages
-RUN gem install brakeman && \
-    npm install -g some-package && \ # Example, replace with actual packages
-    rm -rf /var/lib/apt/lists/*
+RUN gem install brakeman 
 
 # Clone and install checkmate-ce
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
