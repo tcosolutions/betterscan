@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ssh \
     rubygems \
     python3-pip \
-    npm \
     pipenv \
     unzip \
     jq \
@@ -45,7 +44,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 
 # Install Ruby and npm packages
 RUN gem install brakeman && \
-    npm install -g jshint
+   
 
 # Clone the checkmate repository and install
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
