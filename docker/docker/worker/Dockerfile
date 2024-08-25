@@ -9,7 +9,7 @@ ENV PIP_ROOT_USER_ACTION=ignore
 # Install basic dependencies and set up environment in one RUN command
 
 # Install basic dependencies and set up environment in one RUN command
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
     tar \
