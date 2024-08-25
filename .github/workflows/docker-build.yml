@@ -50,5 +50,5 @@ jobs:
       - name: Scan Docker image for vulnerabilities with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: your-image-name:latest
+          image-ref: sunsolution/betterscan-worker-cli:latest
             
