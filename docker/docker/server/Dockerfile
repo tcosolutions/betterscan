@@ -25,6 +25,7 @@ RUN mkdir -p /srv && \
     virtualenv venv && \
     . venv/bin/activate && \
     pipenv install && \
+    pipenv --clear && \
     pipenv install pyyaml && \
     curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh | bash - && \
     apt-get install -y nodejs && \
