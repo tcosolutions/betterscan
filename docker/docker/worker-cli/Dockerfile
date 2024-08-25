@@ -6,7 +6,7 @@ ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
-ENV RUBY_VERSION=3.1.0
+ENV RUBY_VERSION=3.1
 
 # Update and install dependencies
 RUN yum update -y && \
@@ -27,11 +27,14 @@ RUN yum update -y && \
     yum-utils && \
     yum clean all
 
-# Install Ruby 3.x from a third-party repository (as UBI8 comes with Ruby 2.5 by default)
+# Enable the SCL repository and install Ruby 3.x
 RUN yum install -y \
-    http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/ruby-${RUBY_VERSION}-2.el8.x86_64.rpm \
-    http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/ruby-devel-${RUBY_VERSION}-2.el8.x86_64.rpm && \
+    @ruby:$RUBY_VERSION && \
     yum clean all
+
+# Enable Ruby 3.x
+ENV PATH="/opt/rh/rh-ruby${RUBY_VERSION}/root/usr/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/opt/rh/rh-ruby${RUBY_VERSION}/root/usr/lib64:${LD_LIBRARY_PATH}"
 
 # Verify Ruby installation
 RUN ruby -v
