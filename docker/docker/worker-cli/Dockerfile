@@ -18,7 +18,7 @@ RUN yum update -y && \
     openssh-clients \
     ruby \
     ruby-devel \
-    redhat-rpm-config \  # <--- Added this line
+    redhat-rpm-config \ 
     python3 \
     python3-pip \
     python3-virtualenv \
