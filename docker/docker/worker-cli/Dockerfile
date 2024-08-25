@@ -50,7 +50,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN gem install brakeman
 
 # Clone and install checkmate-ce in a virtual environment
-RUN git clone https://github.com/***/checkmate-ce.git /checkmate-ce && \
+RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     python3 -m venv venv && \
     . venv/bin/activate && \
