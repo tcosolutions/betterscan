@@ -13,7 +13,6 @@ RUN apk update && \
     ca-certificates \
     curl \
     tar \
-    libssl1.1 \
     git \
     openssh-client \
     ruby \
