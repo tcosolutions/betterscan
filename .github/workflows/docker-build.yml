@@ -47,8 +47,5 @@ jobs:
           tags: |
             sunsolution/betterscan-${{ matrix.component }}:latest
             sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
-      - name: Scan Docker image for vulnerabilities with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: sunsolution/betterscan-worker-cli:latest
+  
             
