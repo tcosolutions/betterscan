@@ -52,6 +52,10 @@ RUN gem install brakeman
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip3 install --upgrade pip && \
+    pip3 install virtualenv  && \
+    virtualenv myenv && \
+    source myenv/bin/activate && \
+    pip3 install && \
     pip3 install poetry && \
     poetry install
 
