@@ -8,7 +8,7 @@ ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 ENV RUBY_VERSION=3.1
 
-# Update and install dependencies
+# Update and install dependencies, including Python3
 RUN yum update -y && \
     yum install -y \
     ca-certificates \
@@ -24,7 +24,9 @@ RUN yum update -y && \
     bash \
     unzip \
     go-toolset \
-    yum-utils && \
+    yum-utils \
+    python3 \
+    python3-pip && \
     yum clean all
 
 # Enable the SCL repository and install Ruby 3.x and its development package
