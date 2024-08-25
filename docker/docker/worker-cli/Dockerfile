@@ -6,7 +6,7 @@ ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
-ENV RUBY_VERSION=3.1.0  # Specify the Ruby version
+ENV RUBY_VERSION=3.1.0
 
 # Update and install dependencies
 RUN yum update -y && \
