@@ -52,7 +52,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN gem install brakeman
 
 # Clone and install checkmate-ce
-RUN git clone https://github.com/***/checkmate-ce.git /checkmate-ce && \
+RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip3 install --upgrade pip && \
     pip3 install poetry && \
