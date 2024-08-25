@@ -90,7 +90,6 @@ RUN yum update -y && \
 # Copy necessary tools and dependencies from the builder stage
 COPY --from=builder /usr/local/go/bin /usr/local/go/bin
 COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
-COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_unicode_control2.py
 COPY --from=builder /srv/betterscan /srv/betterscan
 COPY --from=builder /root/graudit /root/graudit
 COPY --from=builder /root/text4shell-ce /root/text4shell-ce
