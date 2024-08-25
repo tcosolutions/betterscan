@@ -27,9 +27,10 @@ RUN yum update -y && \
     yum-utils && \
     yum clean all
 
-# Enable the SCL repository and install Ruby 3.x
+# Enable the SCL repository and install Ruby 3.x and its development package
 RUN yum install -y \
-    @ruby:$RUBY_VERSION && \
+    @ruby:$RUBY_VERSION \
+    @ruby:$RUBY_VERSION-devel && \
     yum clean all
 
 # Enable Ruby 3.x
