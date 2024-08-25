@@ -57,6 +57,7 @@ RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git
     virtualenv venv && \
     . venv/bin/activate && \ 
     pip install poetry && \
+    pip install pyyaml && \
     poetry install
 
 # Clone and install other repositories
