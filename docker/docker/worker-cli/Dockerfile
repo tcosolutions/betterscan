@@ -1,11 +1,14 @@
-FROM python:3.8-slim AS builder
+# Use the latest Ubuntu image as the base image
+FROM ubuntu:latest AS builder
 
+# Set non-interactive frontend for apt-get and other environment variables
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
+# Update and install dependencies
 RUN apt-get update && \
     apt-get install -y \
     ca-certificates \
@@ -15,12 +18,14 @@ RUN apt-get update && \
     git \
     ssh \
     rubygems \
+    python3 \
     python3-pip \
     pipenv \
     unzip \
     jq \
     gcc \
-    build-essential
+    build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
@@ -46,8 +51,8 @@ RUN gem install brakeman
 # Clone and install checkmate-ce
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
-    pip install --upgrade pip && \
-    pip install poetry && \
+    pip3 install --upgrade pip && \
+    pip3 install poetry && \
     poetry install
 
 # Clone and install other repositories
@@ -63,8 +68,14 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final image with only the necessary tools and dependencies
-FROM python:3.8-slim AS final
+FROM ubuntu:latest AS final
 
+# Install Python in the final image
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy necessary tools and dependencies from the builder stage
 COPY --from=builder /usr/local/go/bin /usr/local/go/bin
 COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
 COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_unicode_control2.py
