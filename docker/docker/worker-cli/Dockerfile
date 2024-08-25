@@ -1,39 +1,42 @@
-# Use the latest Ubuntu image as the base image
-FROM ubuntu:latest AS builder
+# Use the latest Alpine image as the base image
+FROM alpine:latest AS builder
 
-# Set non-interactive frontend for apt-get and other environment variables
-ARG DEBIAN_FRONTEND=noninteractive
-ENV SHELL=/bin/bash
+# Set non-interactive frontend for apk and other environment variables
+ENV SHELL=/bin/ash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
-# Update and install dependencies
-RUN apt-get update && \
-    apt-get install -y \
+# Install dependencies
+RUN apk update && \
+    apk add --no-cache \
     ca-certificates \
     curl \
     tar \
-    libssl-dev \
+    libssl1.1 \
     git \
-    ssh \
-    rubygems \
+    openssh-client \
+    ruby \
+    ruby-dev \
     python3 \
-    python3-pip \
-    pipenv \
-    unzip \
-    jq \
+    py3-pip \
+    py3-virtualenv \
     gcc \
-    build-essential && \
-    rm -rf /var/lib/apt/lists/*
+    musl-dev \
+    libffi-dev \
+    make \
+    jq \
+    bash \
+    unzip \
+    go
 
 # Detect architecture and set GO_ARCH accordingly
-RUN ARCH=$(dpkg --print-architecture) && \
-    if [ "$ARCH" = "amd64" ]; then \
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then \
         GO_ARCH="amd64"; \
-    elif [ "$ARCH" = "arm64" ]; then \
+    elif [ "$ARCH" = "aarch64" ]; then \
         GO_ARCH="arm64"; \
-    elif [ "$ARCH" = "armhf" ]; then \
+    elif [ "$ARCH" = "armv7l" ]; then \
         GO_ARCH="armv6l"; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
@@ -46,16 +49,13 @@ RUN ARCH=$(dpkg --print-architecture) && \
 ENV PATH=$PATH:/usr/local/go/bin
 
 # Install Ruby and npm packages
-RUN gem install brakeman 
+RUN gem install brakeman
 
 # Clone and install checkmate-ce
 RUN git clone https://github.com/***/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip3 install --upgrade pip && \
-    pip3 install virtualenv && \
-    python3 -m venv myenv && \
-    . myenv/bin/activate && \
-    pip install poetry && \
+    pip3 install poetry && \
     poetry install
 
 # Clone and install other repositories
@@ -71,12 +71,11 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final image with only the necessary tools and dependencies
-FROM ubuntu:latest AS final
+FROM alpine:latest AS final
 
 # Install Python in the final image
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk update && \
+    apk add --no-cache python3 py3-pip
 
 # Copy necessary tools and dependencies from the builder stage
 COPY --from=builder /usr/local/go/bin /usr/local/go/bin
