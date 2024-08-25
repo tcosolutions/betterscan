@@ -6,6 +6,7 @@ ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
+ENV RUBY_VERSION=3.1.0  # Specify the Ruby version
 
 # Update and install dependencies
 RUN yum update -y && \
@@ -16,20 +17,24 @@ RUN yum update -y && \
     openssl-devel \
     git \
     openssh-clients \
-    ruby \
-    ruby-devel \
-    redhat-rpm-config \ 
-    python3 \
-    python3-pip \
-    python3-virtualenv \
     gcc \
     gcc-c++ \
     make \
     jq \
     bash \
     unzip \
-    go-toolset && \
+    go-toolset \
+    yum-utils && \
     yum clean all
+
+# Install Ruby 3.x from a third-party repository (as UBI8 comes with Ruby 2.5 by default)
+RUN yum install -y \
+    http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/ruby-${RUBY_VERSION}-2.el8.x86_64.rpm \
+    http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/ruby-devel-${RUBY_VERSION}-2.el8.x86_64.rpm && \
+    yum clean all
+
+# Verify Ruby installation
+RUN ruby -v
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(uname -m) && \
@@ -47,11 +52,11 @@ RUN ARCH=$(uname -m) && \
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby gems with custom CFLAGS
-RUN CFLAGS="" gem install brakeman
+# Install Ruby gems (with the correct Ruby version)
+RUN gem install brakeman
 
 # Clone and install checkmate-ce in a virtual environment
-RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
+RUN git clone https://github.com/***/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     python3 -m venv venv && \
     . venv/bin/activate && \
