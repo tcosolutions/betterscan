@@ -28,14 +28,11 @@ RUN yum update -y && \
     yum clean all
 
 # Enable the SCL repository and install Ruby 3.x and its development package
-RUN yum install -y \
-    @ruby:$RUBY_VERSION \
-    @ruby:$RUBY_VERSION-devel && \
+RUN yum module enable ruby:$RUBY_VERSION -y && \
+    yum install -y \
+    ruby \
+    ruby-devel && \
     yum clean all
-
-# Enable Ruby 3.x
-ENV PATH="/opt/rh/rh-ruby${RUBY_VERSION}/root/usr/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/opt/rh/rh-ruby${RUBY_VERSION}/root/usr/lib64:${LD_LIBRARY_PATH}"
 
 # Verify Ruby installation
 RUN ruby -v
@@ -56,7 +53,7 @@ RUN ARCH=$(uname -m) && \
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby gems (with the correct Ruby version)
+# Install Ruby gems
 RUN gem install brakeman
 
 # Clone and install checkmate-ce in a virtual environment
