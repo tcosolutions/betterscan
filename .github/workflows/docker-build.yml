@@ -55,4 +55,6 @@ jobs:
           tags: |
             sunsolution/betterscan-${{ matrix.component }}:latest
             sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
+      - name: Aqua Security Trivy
+        uses: aquasecurity/trivy-action@0.24.0
             
