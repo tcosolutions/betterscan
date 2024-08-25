@@ -7,7 +7,7 @@ ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y \
     ca-certificates \
     curl \
     tar \
