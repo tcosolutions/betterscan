@@ -14,6 +14,7 @@ jobs:
     strategy:
      matrix:
         service: [worker-cli] 
+        include:
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
