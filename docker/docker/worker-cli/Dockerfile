@@ -18,6 +18,7 @@ RUN yum update -y && \
     openssh-clients \
     ruby \
     ruby-devel \
+    redhat-rpm-config \  # <--- Added this line
     python3 \
     python3-pip \
     python3-virtualenv \
@@ -46,8 +47,8 @@ RUN ARCH=$(uname -m) && \
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby gems
-RUN gem install brakeman
+# Install Ruby gems with custom CFLAGS
+RUN CFLAGS="" gem install brakeman
 
 # Clone and install checkmate-ce in a virtual environment
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
