@@ -1,4 +1,5 @@
-FROM python:3.8 AS builder
+# Base image from Ubuntu 20.04
+FROM ubuntu:20.04 AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
@@ -6,6 +7,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
+# Install Python, pip, and other dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -15,6 +17,7 @@ RUN apt-get update && \
     git \
     ssh \
     rubygems \
+    python3 \
     python3-pip \
     pipenv \
     unzip \
@@ -41,7 +44,7 @@ RUN ARCH=$(dpkg --print-architecture) && \
 ENV PATH=$PATH:/usr/local/go/bin
 
 # Install Ruby and npm packages
-RUN gem install brakeman 
+RUN gem install brakeman
 
 # Clone and install checkmate-ce
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
@@ -63,7 +66,13 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final image with only the necessary tools and dependencies
-FROM python:3.8-slim AS final
+FROM ubuntu:20.04 AS final
+
+# Install Python
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip
 
 COPY --from=builder /usr/local/go/bin /usr/local/go/bin
 COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
