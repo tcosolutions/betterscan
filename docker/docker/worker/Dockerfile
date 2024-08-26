@@ -1,15 +1,15 @@
-# Start from the official Python slim image
-FROM python:3.8-slim
+# Start from the official Ubuntu 20.04 image
+FROM ubuntu:20.04
 
-
-ARG DEBIAN_FRONTEND=noninteractiv
+# Arguments for non-interactive installation
+ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
-# Install basic dependencies and set up environment in one RUN command
 
-# Install basic dependencies and set up environment in one RUN command
-RUN apt-get update && apt-get install -y \
+# Install basic dependencies and set up environment
+RUN apt-get update && \
+    apt-get install -y \
     ca-certificates \
     curl \
     tar \
@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     git \
     ssh \
     rubygems \
+    python3 \
     python3-pip \
     npm \
     pipenv \
@@ -25,8 +26,8 @@ RUN apt-get update && apt-get install -y \
     gcc \
     rsync \
     sudo \
-    build-essential 
-
+    build-essential \
+    make
 
 # Install Go
 RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
@@ -40,8 +41,9 @@ RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
     esac && \
     GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
     curl -O $GO_URL && \
-    tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
-    
+    tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
+    rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
+
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
@@ -52,13 +54,12 @@ RUN gem install brakeman && \
 # Clone the checkmate repository and install
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
-    pip install pip && \ 
+    pip install --upgrade pip && \
     pip install virtualenv && \
     virtualenv venv && \
-    . venv/bin/activate && \ 
+    . venv/bin/activate && \
     pip install poetry && \
-    pip --no-cache-dir install pyyaml && \
-    pip install pyyaml && \
+    pip install --no-cache-dir pyyaml && \
     poetry install
 
 # Clone and install other repositories
