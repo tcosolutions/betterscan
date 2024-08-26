@@ -7,7 +7,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
-# Install dependencies and add Python 3.8
+# Install basic dependencies and add Python 3.8 from deadsnakes PPA
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -18,13 +18,7 @@ RUN apt-get update && \
     ssh \
     rubygems \
     gnupg \
-    software-properties-common
-
-# Manually add the GPG key for the deadsnakes PPA and add the repository
-RUN curl -fsSL https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/gpgkey | apt-key add - && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
+    software-properties-common \
     python3.8 \
     python3.8-distutils \
     python3-pip \
@@ -32,24 +26,22 @@ RUN curl -fsSL https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/gpgkey | a
     unzip \
     jq \
     gcc \
-    build-essential
-
-# Set Python 3.8 as default
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
+    build-essential && \
+    # Set Python 3.8 as default
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && \
-    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    # Clean up
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
-    if [ "$ARCH" = "amd64" ]; then \
-        GO_ARCH="amd64"; \
-    elif [ "$ARCH" = "arm64" ]; then \
-        GO_ARCH="arm64"; \
-    elif [ "$ARCH" = "armhf" ]; then \
-        GO_ARCH="armv6l"; \
-    else \
-        echo "Unsupported architecture: $ARCH"; exit 1; \
-    fi && \
+    case $ARCH in \
+        amd64) GO_ARCH="amd64" ;; \
+        arm64) GO_ARCH="arm64" ;; \
+        armhf) GO_ARCH="armv6l" ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
+    esac && \
     curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" -o go.tar.gz && \
     tar -C /usr/local -xzf go.tar.gz && \
     rm go.tar.gz
@@ -57,7 +49,7 @@ RUN ARCH=$(dpkg --print-architecture) && \
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby and npm packages
+# Install Ruby packages
 RUN gem install brakeman
 
 # Clone and install checkmate-ce
@@ -86,11 +78,17 @@ FROM ubuntu:20.04 AS final
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3 \
-    python3-pip
+    python3-pip && \
+    # Clean up
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Copy necessary files from the builder stage
 COPY --from=builder /usr/local/go/bin /usr/local/go/bin
 COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
 COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_unicode_control2.py
 COPY --from=builder /srv/betterscan /srv/betterscan
 COPY --from=builder /root/graudit /root/graudit
 COPY --from=builder /root/text4shell-ce /root/text4shell-ce
+
+# Set the working directory
+WORKDIR /root
