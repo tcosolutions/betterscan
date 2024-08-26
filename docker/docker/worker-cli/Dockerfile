@@ -74,8 +74,7 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
 
 # Set up additional tools
 RUN go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
-    curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck 
 
 # Final image with only the necessary tools and dependencies
 FROM registry.access.redhat.com/ubi8/ubi:latest AS final
