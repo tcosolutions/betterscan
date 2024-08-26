@@ -17,7 +17,11 @@ RUN apt-get update && \
     git \
     ssh \
     rubygems \
-    software-properties-common && \
+    gnupg \
+    software-properties-common
+
+# Manually add the GPG key for the deadsnakes PPA and add the repository
+RUN curl -fsSL https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/gpgkey | apt-key add - && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
