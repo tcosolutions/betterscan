@@ -82,9 +82,7 @@ RUN yum update -y && \
     yum install -y python3 python3-pip && \
     yum clean all
 
-# Copy necessary tools and dependencies from the builder stage
-COPY --from=builder /usr/local/go/bin /usr/local/go/bin
-COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
+# Copy necessary tools and dependencies from the builder
 COPY --from=builder /srv/betterscan /srv/betterscan
 COPY --from=builder /root/graudit /root/graudit
 COPY --from=builder /root/text4shell-ce /root/text4shell-ce
