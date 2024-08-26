@@ -1,5 +1,5 @@
 # Start from the official Ubuntu 20.04 image
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # Arguments for non-interactive installation
 ARG DEBIAN_FRONTEND=noninteractive
