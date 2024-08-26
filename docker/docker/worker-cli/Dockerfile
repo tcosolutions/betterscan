@@ -28,19 +28,18 @@ RUN apt-get update && \
     # Clean up
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python 3.8 using deadsnakes PPA manually
-RUN curl -fsSL https://packages.debian.org/debian-archive-keyring.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/debian-archive.gpg && \
-    echo "deb [arch=amd64] http://ppa.launchpad.net/deadsnakes/ppa/ubuntu focal main" | tee /etc/apt/sources.list.d/deadsnakes.list && \
+
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
-    python3.8 \
-    python3.8-distutils && \
-    # Set Python 3.8 as default
+    apt-get install -y python3.8 python3.8-distutils && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    # Clean up
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
