@@ -1,4 +1,4 @@
-# Start from the official Ubuntu 20.04 image
+# Start from the official Ubuntu 22.04 image
 FROM ubuntu:22.04
 
 # Arguments for non-interactive installation
@@ -17,6 +17,8 @@ RUN apt-get update && \
     git \
     ssh \
     rubygems \
+    gnupg \
+    software-properties-common \
     python3 \
     python3-pip \
     npm \
@@ -29,6 +31,18 @@ RUN apt-get update && \
     build-essential \
     make
 
+# Add deadsnakes PPA manually
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://packages.sury.org/php/apt.gpg | tee /etc/apt/keyrings/php-archive.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/php-archive.gpg] http://ppa.launchpad.net/deadsnakes/ppa/ubuntu focal main" | tee /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa.list && \
+    apt-get update && \
+    apt-get install -y python3.8 python3.8-distutils python3-pip
+
+# Set Python 3.8 as default
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+
 # Install Go
 RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
     GO_LATEST=$(echo "$GO" | jq -r '.[0].version') && \
@@ -40,9 +54,9 @@ RUN GO=$(curl -s https://go.dev/dl/?mode=json) && \
         *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
     esac && \
     GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
-    curl -O $GO_URL && \
-    tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
-    rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
+    curl -fsSL $GO_URL -o go.tar.gz && \
+    tar -C /usr/local -xzf go.tar.gz && \
+    rm go.tar.gz
 
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
@@ -71,8 +85,8 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
-    curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+    curl -fsSL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
+    curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final working directory
 WORKDIR /root
