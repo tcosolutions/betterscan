@@ -1,5 +1,5 @@
 # Start from the official Ubuntu 22.04 image
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 # Arguments for non-interactive installation
 ARG DEBIAN_FRONTEND=noninteractive
