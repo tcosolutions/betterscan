@@ -1,50 +1,35 @@
-# Use the latest Red Hat Universal Base Image (UBI) as the base image
-FROM registry.access.redhat.com/ubi8/ubi:latest AS builder
+FROM python:3.8-slim AS builder
 
-# Set non-interactive frontend for yum and other environment variables
+ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
-ENV RUBY_VERSION=3.1
 
-# Update and install dependencies, including Python3
-RUN yum update -y && \
-    yum install -y \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     tar \
-    openssl-devel \
+    libssl-dev \
     git \
-    openssh-clients \
-    gcc \
-    gcc-c++ \
-    make \
-    jq \
-    bash \
+    ssh \
+    rubygems \
+    python3-pip \
+    pipenv \
     unzip \
-    go-toolset \
-    yum-utils \
-    python3 \
-    python3-pip && \
-    yum clean all
-
-# Enable the SCL repository and install Ruby 3.x and its development package
-RUN yum module enable ruby:$RUBY_VERSION -y && \
-    yum install -y \
-    ruby \
-    ruby-devel && \
-    yum clean all
-
-# Verify Ruby installation
-RUN ruby -v
+    jq \
+    gcc \
+    build-essential
 
 # Detect architecture and set GO_ARCH accordingly
-RUN ARCH=$(uname -m) && \
-    if [ "$ARCH" = "x86_64" ]; then \
+RUN ARCH=$(dpkg --print-architecture) && \
+    if [ "$ARCH" = "amd64" ]; then \
         GO_ARCH="amd64"; \
-    elif [ "$ARCH" = "aarch64" ]; then \
+    elif [ "$ARCH" = "arm64" ]; then \
         GO_ARCH="arm64"; \
+    elif [ "$ARCH" = "armhf" ]; then \
+        GO_ARCH="armv6l"; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
     fi && \
@@ -55,14 +40,12 @@ RUN ARCH=$(uname -m) && \
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby gems
-RUN gem install brakeman
+# Install Ruby and npm packages
+RUN gem install brakeman 
 
-# Clone and install checkmate-ce in a virtual environment
+# Clone and install checkmate-ce
 RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
-    python3 -m venv venv && \
-    . venv/bin/activate && \
     pip install --upgrade pip && \
     pip install poetry && \
     poetry install
@@ -72,19 +55,20 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
     git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
     git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
-
+# Set up additional tools
+RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
+    go install honnef.co/go/tools/cmd/staticcheck@latest && \
+    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
+    curl -fsSL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
+    curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final image with only the necessary tools and dependencies
-FROM registry.access.redhat.com/ubi8/ubi:latest AS final
+FROM python:3.8-slim AS final
 
-# Install Python in the final image
-RUN yum update -y && \
-    yum install -y python3 python3-pip && \
-    yum clean all
-
-# Copy necessary tools and dependencies from the builder
+COPY --from=builder /usr/local/go/bin /usr/local/go/bin
+COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
+COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_unicode_control2.py
 COPY --from=builder /srv/betterscan /srv/betterscan
 COPY --from=builder /root/graudit /root/graudit
 COPY --from=builder /root/text4shell-ce /root/text4shell-ce
 
-WORKDIR /root
