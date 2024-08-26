@@ -1,4 +1,4 @@
-# Base image from Ubuntu 20.04
+# Base image from Ubuntu 22.04
 FROM ubuntu:22.04 AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -7,7 +7,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
-# Install Python, pip, and other dependencies
+# Install dependencies and add Python 3.8
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -17,13 +17,23 @@ RUN apt-get update && \
     git \
     ssh \
     rubygems \
-    python3 \
+    software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3.8 \
+    python3.8-distutils \
     python3-pip \
     pipenv \
     unzip \
     jq \
     gcc \
     build-essential
+
+# Set Python 3.8 as default
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
@@ -80,4 +90,3 @@ COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_
 COPY --from=builder /srv/betterscan /srv/betterscan
 COPY --from=builder /root/graudit /root/graudit
 COPY --from=builder /root/text4shell-ce /root/text4shell-ce
-
