@@ -72,9 +72,7 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
     git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
     git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
-# Set up additional tools
-RUN go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck 
+
 
 # Final image with only the necessary tools and dependencies
 FROM registry.access.redhat.com/ubi8/ubi:latest AS final
