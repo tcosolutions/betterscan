@@ -75,7 +75,6 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
 # Set up additional tools
 RUN go install honnef.co/go/tools/cmd/staticcheck@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
-    curl -fsSL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl -fsSL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final image with only the necessary tools and dependencies
