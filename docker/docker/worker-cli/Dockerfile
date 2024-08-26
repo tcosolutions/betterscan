@@ -7,7 +7,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
-# Install basic dependencies and add Python 3.8 from deadsnakes PPA
+# Install basic dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -19,14 +19,22 @@ RUN apt-get update && \
     rubygems \
     gnupg \
     software-properties-common \
-    python3.8 \
-    python3.8-distutils \
+    build-essential \
+    python3.10 \
     python3-pip \
     pipenv \
     unzip \
-    jq \
-    gcc \
-    build-essential && \
+    jq && \
+    # Clean up
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python 3.8 using deadsnakes PPA manually
+RUN curl -fsSL https://packages.debian.org/debian-archive-keyring.gpg | gpg --dearmor > /etc/apt/trusted.gpg.d/debian-archive.gpg && \
+    echo "deb [arch=amd64] http://ppa.launchpad.net/deadsnakes/ppa/ubuntu focal main" | tee /etc/apt/sources.list.d/deadsnakes.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3.8 \
+    python3.8-distutils && \
     # Set Python 3.8 as default
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && \
