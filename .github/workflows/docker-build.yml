@@ -47,7 +47,6 @@ jobs:
           tags: |
             sunsolution/betterscan-${{ matrix.component }}:latest
             sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
-      - name: CycloneDX Python Generate SBOM
-        uses: CycloneDX/gh-python-generate-sbom@v2.0.0
+      
             
             
