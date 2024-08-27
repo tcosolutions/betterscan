@@ -22,6 +22,8 @@ RUN apt-get update && \
     gcc \
     build-essential
 
+RUN apt-get install git
+
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
     if [ "$ARCH" = "amd64" ]; then \
