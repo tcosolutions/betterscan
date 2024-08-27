@@ -66,8 +66,8 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
-    curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+    curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
+    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # Final working directory
 WORKDIR /root
