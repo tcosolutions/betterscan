@@ -46,9 +46,7 @@ RUN gem install brakeman
 
 # Clone and install checkmate-ce
 RUN pip install --upgrade pip && \
-    pip install poetry && \
     pip install checkmate3 && \
-    poetry install
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \

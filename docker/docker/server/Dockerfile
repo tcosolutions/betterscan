@@ -11,9 +11,7 @@ ENV QC_SETTTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
 RUN apt-get update && apt-get install -y libssl-dev git python3-pip npm curl ruby-sass rsync sudo pipenv
 
 RUN pip install pip && \
-    pip install checkmate3 && \
-    pip install poetry && \
-    poetry install
+    pip install checkmate3
 
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
