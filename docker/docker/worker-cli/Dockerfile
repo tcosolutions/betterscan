@@ -50,6 +50,7 @@ RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && 
     cd /checkmate-ce && \
     pip install --upgrade pip && \
     pip install poetry && \
+    pip install checkmate && \
     poetry install
 
 # Clone and install other repositories
