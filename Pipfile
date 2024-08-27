@@ -19,7 +19,7 @@ pyOpenSSL = "*"
 python-dateutil = "==2.8.2"
 requirements-parser = "==0.5.0"
 importlib-metadata = "==4.13.0"
-cryptography = "==41.0.3"
+cryptography = "==43.0.0"
 werkzeug = "==2.2.3"
 certifi = "==2023.7.22"
 argcomplete = "==1.12.3"
@@ -32,7 +32,7 @@ jinja2 = "==3.0.1"
 lock = "*"
 
 [dev-packages]
-cryptography = "==41.0.3"
+cryptography = "==43.0.0"
 
 [requires]
 python_version = "3.8"
