@@ -50,11 +50,8 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN gem install brakeman
 
 # Clone the checkmate repository and install
-RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
-    cd /checkmate-ce && \
-    pip install pip && \
-    pip install pyyaml && \
-    pip install checkmate && \
+RUN pip install pip && \
+    pip install checkmate3 && \
     pip install poetry && \
     poetry install
 
@@ -70,5 +67,4 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
-# Final working directory
-WORKDIR /root
+
