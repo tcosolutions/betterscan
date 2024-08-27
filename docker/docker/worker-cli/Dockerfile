@@ -22,7 +22,6 @@ RUN apt-get update && \
     gcc \
     build-essential
 
-RUN apt-get install git
 
 # Detect architecture and set GO_ARCH accordingly
 RUN ARCH=$(dpkg --print-architecture) && \
@@ -46,11 +45,9 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN gem install brakeman 
 
 # Clone and install checkmate-ce
-RUN git clone https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
-    cd /checkmate-ce && \
-    pip install --upgrade pip && \
+RUN pip install --upgrade pip && \
     pip install poetry && \
-    pip install checkmate && \
+    pip install checkmate3 && \
     poetry install
 
 # Clone and install other repositories
