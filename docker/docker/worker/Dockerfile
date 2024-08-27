@@ -47,13 +47,13 @@ RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
 ENV PATH=$PATH:/usr/local/go/bin
 
 # Install Ruby and npm packages
-RUN gem install brakeman && \
-    npm install -g jshint
+RUN gem install brakeman
 
 # Clone the checkmate repository and install
 RUN git clone -b checkmate3-cli https://github.com/tcosolutions/checkmate-ce.git /checkmate-ce && \
     cd /checkmate-ce && \
     pip install pip && \
+    pip install pyyaml && \
     pip install poetry && \
     poetry install
 
