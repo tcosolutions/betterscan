@@ -7,7 +7,7 @@ ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y \
     ca-certificates \
     curl \
     tar \
@@ -62,14 +62,5 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
-# Final image with only the necessary tools and dependencies
-FROM python:3.8-slim AS final
 
-COPY --from=builder /usr/local/go/bin /usr/local/go/bin
-COPY --from=builder /usr/local/bin/staticcheck /usr/local/bin/staticcheck
-COPY --from=builder /usr/local/bin/find_unicode_control2.py /usr/local/bin/find_unicode_control2.py
-COPY --from=builder /srv/betterscan /srv/betterscan
-COPY --from=builder /root/graudit /root/graudit
-COPY --from=builder /root/text4shell-ce /root/text4shell-ce
 
-WORKDIR /root
