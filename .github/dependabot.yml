@@ -1,7 +1,0 @@
-version: 2
-updates:
-  - package-ecosystem: "pip"
-    directory: "/" # This assumes your Pipfile is in the root directory
-    schedule:
-      interval: "daily"
-
