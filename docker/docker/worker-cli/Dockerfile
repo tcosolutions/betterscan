@@ -6,21 +6,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV GO_VERSION=1.23.0
 
-RUN apt-get update && \
-    apt-get install -y && \
-    ca-certificates && \
-    curl && \
-    tar && \
-    libssl-dev && \
-    git && \
-    ssh && \
-    rubygems && \
-    python3-pip && \
-    pipenv && \
-    unzip && \
-    jq && \
-    gcc && \
-    build-essential
+RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential
 
 
 # Detect architecture and set GO_ARCH accordingly
