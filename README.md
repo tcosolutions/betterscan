@@ -1,3 +1,11 @@
+[![tcosolutions - betterscan](https://img.shields.io/static/v1?label=tcosolutions&message=betterscan&color=blue&logo=github)](https://github.com/tcosolutions/betterscan "Go to GitHub repo")
+[![stars - betterscan](https://img.shields.io/github/stars/tcosolutions/betterscan?style=social)](https://github.com/tcosolutions/betterscan)
+[![forks - betterscan](https://img.shields.io/github/forks/tcosolutions/betterscan?style=social)](https://github.com/tcosolutions/betterscan)
+[![GitHub tag](https://img.shields.io/github/tag/tcosolutions/betterscan?include_prereleases=&sort=semver&color=blue)](https://github.com/tcosolutions/betterscan/releases/)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](#license)
+[![issues - betterscan](https://img.shields.io/github/issues/tcosolutions/betterscan)](https://github.com/tcosolutions/betterscan/issues)
+
+
 
 
 <div align="center">
@@ -10,6 +18,24 @@
   Open DevSecOps Orchestration Toolchain
 </h2>
 
+
+
+
+
+</div>
+
+## Documentation
+
+<div align="center">
+
+[![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](/docs/ "Go to project documentation")
+
+</div>
+
+
+## License
+
+Released under [AGPL-3.0](/LICENSE) by [@tcosolutions](https://github.com/tcosolutions).
 
 Scan your source code and infra IaC against top **security** risks
 
