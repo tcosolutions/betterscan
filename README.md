@@ -5,9 +5,6 @@
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](#license)
 [![issues - betterscan](https://img.shields.io/github/issues/tcosolutions/betterscan)](https://github.com/tcosolutions/betterscan/issues)
 
-
-
-
 <div align="center">
   <a href="https://github.com/tcosolutions/betterscan">
     <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/6662b3cba2059f268d0ada99_cloud%20(Website).svg">
@@ -17,21 +14,6 @@
 <h2 align="center">
   Open DevSecOps Orchestration Toolchain
 </h2>
-
-
-
-
-
-</div>
-
-## Documentation
-
-<div align="center">
-
-[![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](/docs/ "Go to project documentation")
-
-</div>
-
 
 ## License
 
