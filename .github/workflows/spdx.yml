@@ -1,0 +1,38 @@
+            - name: Get SPDX license overview
+  # You may pin to the exact commit or the version.
+  # uses: philips-software/spdx-action@d3e3c46c2e1521e4b8786d8985df8a92cfc8a19f
+  uses: philips-software/spdx-action@v0.9.2
+  with:
+    # project
+    project: # default is spdx-builder
+    # spdx-builder-version
+    spdx-builder-version: # default is v0.9.2
+    # Scan mode. Can be 'ort', 'blackduck' or 'tree'
+    mode: # default is ort
+    # scanner-url (license-scanner)
+    scanner-url: # optional
+    # bombase-url (in case of mode: 'tree')
+    bombase-url: # optional
+    # upload-url (f.e. BOM-bar)
+    upload-url: # optional
+    # philipssoftware/ort version (in case of mode: 'ort')
+    ort-version: # optional, default is 2021-11-24
+    # Specifies an ort-file to override ORT scanning in this action. (in case of mode: 'ort')
+    ort-file: # optional
+    # file with tree input (in case of mode: 'tree')
+    tree: # optional
+    # format input (in case of mode: 'tree')
+    format: # optional
+    # Blackduck url (in case of mode: 'blackduck')
+    blackduck-url: # optional
+    # Blackduck token (in case of mode: 'blackduck')
+    blackduck-token: # optional
+    # Blackduck project (in case of mode: 'blackduck')
+    blackduck-project: # optional
+    # Blackduck version (in case of mode: 'blackduck')
+    blackduck-version: # optional
+    # Optional arguments like `--tree`, `--release`, `--force` and `--custom`
+    optional-arguments: # optional
+    # Capture stdout in a file. When given, this will be used as the filename of the output
+    capture-stdout-file: # optional
+          
