@@ -1,5 +1,4 @@
-# Start from the official Python slim image
-FROM python:3.8-slim
+FROM python:3.8-alpine
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive

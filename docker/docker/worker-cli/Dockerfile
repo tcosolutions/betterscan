@@ -1,4 +1,4 @@
-FROM python:3.8 AS builder
+FROM python:3.8-alpine AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
