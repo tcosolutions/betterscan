@@ -47,7 +47,7 @@ jobs:
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
-          platforms: linux/amd64
+          platforms: linux/arm64, linux/amd64
           push: true
           tags: |
             sunsolution/betterscan-${{ matrix.component }}:latest
