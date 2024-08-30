@@ -1,4 +1,4 @@
-FROM ubuntu:22.04-slim 
+FROM python:3.8-buster-slim
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive

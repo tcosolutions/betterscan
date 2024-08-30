@@ -1,4 +1,4 @@
-FROM ubuntu:22.04-slim AS builder
+FROM python:3.8-buster-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
