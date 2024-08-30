@@ -1,4 +1,4 @@
-FROM python:3.8-alpine 
+FROM ubuntu:22.04-slim 
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
