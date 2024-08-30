@@ -1,4 +1,4 @@
-FROM python:3.8-buster-slim 
+FROM python:3.8-slim 
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
@@ -9,7 +9,7 @@ ENV QC_SETTTINGS=/srv/betterscan/quantifiedcode/settings/default.yml
 # Install dependencies and set up Python environment
 RUN apt-get update && apt-get install -y libssl-dev git python3-pip npm curl ruby-sass rsync sudo pipenv
 
-RUN pip install --upgrade pip && pip install checkmate3 && pip install pyyaml
+RUN pip install --upgrade pip && pip install checkmate3
 
 # Clone repositories and set up projects
 RUN mkdir -p /srv && \
