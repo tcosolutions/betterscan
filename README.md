@@ -1,4 +1,4 @@
-[![tcosolutions - betterscan](https://img.shields.io/static/v1?label=tcosolutions&message=betterscan&color=blue&logo=github)](https://github.com/tcosolutions/betterscan "Go to GitHub repo")
+
 [![stars - betterscan](https://img.shields.io/github/stars/tcosolutions/betterscan?style=social)](https://github.com/tcosolutions/betterscan)
 [![forks - betterscan](https://img.shields.io/github/forks/tcosolutions/betterscan?style=social)](https://github.com/tcosolutions/betterscan)
 [![GitHub tag](https://img.shields.io/github/tag/tcosolutions/betterscan?include_prereleases=&sort=semver&color=blue)](https://github.com/tcosolutions/betterscan/releases/)
