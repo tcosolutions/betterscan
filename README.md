@@ -1,5 +1,5 @@
 [![forks - betterscan](https://img.shields.io/github/forks/tcosolutions/betterscan?style=social)](https://github.com/tcosolutions/betterscan)
-[![GitHub tag](https://img.shields.io/github/tag/tcosolutions/betterscan?include_prereleases=&sort=semver&color=blue)](https://github.com/tcosolutions/betterscan/releases/)
+(https://github.com/tcosolutions/betterscan/releases/)
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](#license)
 [![issues - betterscan](https://img.shields.io/github/issues/tcosolutions/betterscan)](https://github.com/tcosolutions/betterscan/issues)
 
