@@ -1,6 +1,3 @@
-[![forks - betterscan](https://img.shields.io/github/forks/tcosolutions/betterscan?style=social)](https://github.com/tcosolutions/betterscan)
-[![License](https://img.shields.io/badge/License-AGPL--3.0-blue)](#license)
-[![issues - betterscan](https://img.shields.io/github/issues/tcosolutions/betterscan)](https://github.com/tcosolutions/betterscan/issues)
 
 <div align="center">
   <a href="https://github.com/tcosolutions/betterscan">
