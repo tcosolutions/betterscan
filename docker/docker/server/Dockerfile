@@ -1,4 +1,4 @@
-FROM python:3.8-slim 
+FROM python:3.9-slim 
 
 # Arguments for non-interactive installation and setting timezone
 ARG DEBIAN_FRONTEND=noninteractive
