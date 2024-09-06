@@ -49,7 +49,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN gem install brakeman
 
 # Clone the checkmate repository and install
-RUN pip install --upgrade pip && pip install checkmate2
+RUN pip install --upgrade pip && pip install checkmate3
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
