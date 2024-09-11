@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
-ENV GO_VERSION=1.23.0
+ENV GO_VERSION=1.23.1
 
 RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential
 
