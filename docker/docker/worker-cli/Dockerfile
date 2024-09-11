@@ -4,26 +4,26 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
-ENV GO_VERSION=1.23.1
+
 
 RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential
 
 
-# Detect architecture and set GO_ARCH accordingly
-RUN ARCH=$(dpkg --print-architecture) && \
-    if [ "$ARCH" = "amd64" ]; then \
-        GO_ARCH="amd64"; \
-    elif [ "$ARCH" = "arm64" ]; then \
-        GO_ARCH="arm64"; \
-    elif [ "$ARCH" = "armhf" ]; then \
-        GO_ARCH="armv6l"; \
-    else \
-        echo "Unsupported architecture: $ARCH"; exit 1; \
-    fi && \
-    curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz" -o go.tar.gz && \
-    tar -C /usr/local -xzf go.tar.gz && \
-    rm go.tar.gz
-
+# Install Go
+RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
+    GO_LATEST=$(echo "$GO_JSON" | jq -r '.[0].version') && \
+    ARCH=$(uname -m) && \
+    case $ARCH in \
+        x86_64) GO_ARCH="amd64" ;; \
+        aarch64) GO_ARCH="arm64" ;; \
+        armv7l) GO_ARCH="armv6l" ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
+    esac && \
+    GO_URL="https://dl.google.com/go/${GO_LATEST}.linux-${GO_ARCH}.tar.gz" && \
+    curl -O $GO_URL && \
+    tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
+    rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
+    
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
