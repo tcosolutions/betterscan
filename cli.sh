@@ -14,7 +14,7 @@ run_docker() {
 }
 
 # Initialize checkmate and analyze the git repository
-run_docker "checkmate init"
+run_docker "checkmate init --backend sqlite"
 run_docker "checkmate git init"
 run_docker "checkmate git analyze --branch \`$GIT_BRANCH_CMD\`"
 run_docker "checkmate issues"
