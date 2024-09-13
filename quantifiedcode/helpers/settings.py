@@ -34,7 +34,7 @@ from .hooks import Hooks
 from checkmate.settings import Settings as CheckmateSettings
 from sqlalchemy import create_engine
 
-from blitzdb.backends.sql import Backend as SqlBackend
+from blitzdb.backends.sql import SqlBackend
 
 logger = logging.getLogger(__name__)
 
