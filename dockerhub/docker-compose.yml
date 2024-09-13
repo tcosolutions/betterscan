@@ -6,6 +6,7 @@ services:
     restart: always
     environment: 
       OPENAI_GPT_API: ${OPENAI_GPT_API}
+      QC_SETTINGS: /srv/betterscan/quantifiedcode/settings/default.yml
     depends_on:
       postgres:
         condition: service_healthy
