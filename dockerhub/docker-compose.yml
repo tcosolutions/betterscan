@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   server:
-    image: sunsolution/betterscan-server:latest
+    image: tcosolutions/betterscan-server:latest
     restart: always
     environment: 
       OPENAI_GPT_API: ${OPENAI_GPT_API}
@@ -43,7 +43,7 @@ services:
       retries: 5
 
   worker_1:
-    image: sunsolution/betterscan-worker:latest
+    image: tcosolutions/betterscan-worker:latest
     ulimits:
       stack: -1
     restart: always
