@@ -1,0 +1,41 @@
+name: Create Crypto Bill of Materials
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-matrix:
+    name: Build analysis matrix
+    runs-on: ubuntu-latest
+    outputs:
+      repositories: ${{ steps.build-matrix-action.outputs.repositories }}
+    steps:
+      - uses: advanced-security/cbom-action/build-matrix@v1
+        id: build-matrix-action
+        with:
+          repositoryNameWithOwner: ${{ github.repository }}
+          analyzeDependencies: true
+          minimumLanguageBytes: 0
+  run-cbom-action:
+    name: ${{ fromJson(matrix.repository).nameWithOwner }} - ${{ fromJson(matrix.repository).language }}
+    runs-on: ubuntu-latest
+    needs: build-matrix
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        repository: ${{ fromJSON(needs.build-matrix.outputs.repositories) }}
+    steps:
+      - uses: advanced-security/cbom-action/analyze@v1
+        with:
+          repositoryNameWithOwner: ${{ fromJson(matrix.repository).nameWithOwner }}
+          language: ${{ fromJson(matrix.repository).language }}
+  add-workflow-summary:
+    name: CBOM results
+    runs-on: ubuntu-latest
+    needs: run-cbom-action
+    steps:
+      - uses: advanced-security/cbom-action/workflow-summary@v1
