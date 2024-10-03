@@ -1,3 +1,4 @@
+Free as a beer for everyone
 
 <div align="center">
   <a href="https://github.com/tcosolutions/betterscan">
