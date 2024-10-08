@@ -1,4 +1,3 @@
-lets go
 
 <div align="center">
   <a href="https://github.com/tcosolutions/betterscan">
