@@ -1,4 +1,4 @@
-stripes and stars
+power to the ppl
 
 <div align="center">
   <a href="https://github.com/tcosolutions/betterscan">
