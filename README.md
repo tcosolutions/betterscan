@@ -64,13 +64,17 @@ Explanation of Parameters
 ```--backend:```
 
 Specifies the backend type.
+
 Choices: "sql" (default), "sqlite".
+
 Example: --backend sql
 
 ```--backend-opts:```
 
 Provides backend-specific options, such as the connection string for an SQL database or file path for SQLite.
+
 Example for SQL: --backend-opts "postgresql://user:password@localhost/mydatabase"
+
 Example for SQLite: --backend-opts "sqlite:///path/to/database.db"
 
 defaults to memory store if not set for SQLite
@@ -78,6 +82,7 @@ defaults to memory store if not set for SQLite
 ```--path:```
 
 Specifies the path to create the new project. Defaults to the current working directory if not specified.
+
 Example: --path "/path/to/project"
 
 ```--pk:```
