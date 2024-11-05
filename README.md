@@ -55,6 +55,45 @@ Below setup is for Linux (Ubuntu), you can also run it on MacOS/Docker and Windo
 
 ### 1. Binary runtime
 
+Scripts used checkmate CLI binary (python based)
+
+Below are the checkmate current parameters:
+
+Explanation of Parameters
+
+```--backend:```
+
+Specifies the backend type.
+Choices: "sql" (default), "sqlite".
+Example: --backend sql
+
+```--backend-opts:```
+
+Provides backend-specific options, such as the connection string for an SQL database or file path for SQLite.
+Example for SQL: --backend-opts "postgresql://user:password@localhost/mydatabase"
+Example for SQLite: --backend-opts "sqlite:///path/to/database.db"
+
+defaults to memory store if not set for SQLite
+
+```--path:```
+
+Specifies the path to create the new project. Defaults to the current working directory if not specified.
+Example: --path "/path/to/project"
+
+```--pk:```
+
+Sets the primary key for the project. If not provided, a UUID is generated.
+
+Example: --pk "my_custom_primary_key"
+
+Example Usage
+
+To create a project with a SQL backend and a specific connection string:
+
+```checkmate --backend sql --backend-opts "postgresql://user:password@localhost/mydatabase" --path "/path/to/project" --pk "custom_pk"```
+
+
+
 #### CLI output
 
 Run in command prompt in your Git repository folder:
