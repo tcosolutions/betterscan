@@ -15,7 +15,7 @@ Scan your source code and infra IaC against top **security** risks
 
 Betterscan is a orchestration toolchain that uses state of the art tools to scan your source code and infrastructure IaC and analyzes your security and compliance risks.
 
-Currently supports: **Java**, **Python**, **PERL**, **Ruby**, **C**, **C++**, **Javascript**, **Typescript**, **GO**, Infrastructure as a Code (IaC) Security and Best Practices (**Docker**, **Kubernetes (k8s)**, **Terraform AWS, GCP, Azure**), Secret Scanning, Trojan Source, 
+Currently supports: **Java**, **Python**, **PERL**, **Ruby**, **C**, **C++**, **Javascript**, **Typescript**, **GO**, Infrastructure as a Code (IaC) Security and Best Practices (**Docker**, **Kubernetes (k8s)**, **Terraform AWS, GCP, Azure**), Secret Scanning, Trojan Source
 
 Open Source and Proprietary Checks
 
