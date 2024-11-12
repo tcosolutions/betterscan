@@ -1,9 +1,10 @@
-export CODE_DIR=${PWD}
-cd $CODE_DIR
+# Ensure CODE_DIR is defined as the current directory
+export CODE_DIR=$(pwd)
+cd "$CODE_DIR"
 
-# Set environment variables for Docker
-ENV_VARS="-e CODE_DIR -e OPENAI_GPT_API"
-VOLUME_MOUNT="-v ${PWD}:${PWD}"
+# Set environment variables and Docker options
+ENV_VARS="-e CODE_DIR=$CODE_DIR -e OPENAI_GPT_API"
+VOLUME_MOUNT="-v ${CODE_DIR}:${CODE_DIR}"
 DOCKER_IMAGE="tcosolutions/betterscan-worker-cli:latest"
 SAFE_DIR_CMD="git config --global --add safe.directory $CODE_DIR"
 GIT_BRANCH_CMD="git rev-parse --abbrev-ref HEAD"
