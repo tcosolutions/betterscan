@@ -14,11 +14,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [worker-cli]
+        service: [worker-cli,server,worker]
         include:
+          - service: server
+            dockerfile: docker/docker/server/Dockerfile
+            context: docker/docker/server
+            component: server
+          - service: worker
+            dockerfile: docker/docker/worker/Dockerfile
+            context: docker/docker/worker
+            component: worker
+          - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
+
 
 
             
@@ -45,5 +55,5 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            sunsolution/betterscan-${{ matrix.component }}:latest
-            sunsolution/betterscan-${{ matrix.component }}:${{ github.sha }}
+            tcosolutions/betterscan-${{ matrix.component }}:latest
+            tcosolutions/betterscan-${{ matrix.component }}:${{ github.sha }}
