@@ -69,6 +69,9 @@ jobs:
           subject-name: ${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
           push-to-registry: true
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Generate SBOM attestation
         uses: actions/attest-sbom@v1
@@ -77,3 +80,6 @@ jobs:
           subject-digest: ${{ steps.build-push.outputs.digest }}
           sbom-path: 'sbom.json'
           push-to-registry: true
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
