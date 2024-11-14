@@ -75,6 +75,18 @@ jobs:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
 
+
+      # Install Grype
+      - name: Install Grype
+        run: |
+          curl -sSL https://github.com/anchore/grype/releases/download/v0.80.0/grype-linux-amd64-v0.80.0.tar.gz | tar -xz -C /usr/local/bin
+
+      # Generate SBOM with Grype
+      - name: Generate SBOM with Grype
+        run: |
+          grype sbom ${env.IMAGE_NAME}:${{ github.sha }} -o json > sbom.json    
+      
+
       - name: Generate SBOM attestation
         uses: actions/attest-sbom@v1
         with:
