@@ -68,7 +68,7 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: docker.io/betterscan-${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.component }}
+          subject-name: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/betterscan-${{ matrix.component }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
           push-to-registry: true
         env:
@@ -78,7 +78,7 @@ jobs:
       - name: Generate SBOM attestation
         uses: actions/attest-sbom@v1
         with:
-          subject-name: docker.io/betterscan-${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.component }}
+          subject-name: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/betterscan-${{ matrix.component }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
           sbom-path: 'sbom.json'
           push-to-registry: true
