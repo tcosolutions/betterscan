@@ -69,7 +69,7 @@ jobs:
       - name: Generate SBOM attestation
         uses: actions/attest-sbom@v1
         with:
-          subject-name: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/betterscan-worker-cli  
+          subject-name: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.component }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
           sbom-path: 'sbom.json'
           push-to-registry: true
