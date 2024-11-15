@@ -84,14 +84,14 @@ jobs:
       # Generate SBOM with Grype
       - name: Generate SBOM with Grype
         run: |   
-          grype ${{ env.IMAGE_NAME }}:${{ github.sha }} -o json > sbom.json    
+          grype ${{ env.IMAGE_NAME }}:${{ github.sha }} -o spdx-json > sbom.spdx.json    
     
       - name: Generate SBOM attestation
         uses: actions/attest-sbom@v1
         with:
           subject-name: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/betterscan-${{ matrix.component }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
-          sbom-path: 'sbom.json'
+          sbom-path: 'sbom.spdx.json'
           push-to-registry: true
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
