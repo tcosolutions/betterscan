@@ -79,7 +79,8 @@ jobs:
       # Install Grype
       - name: Install Grype
         run: |
-          curl -sSL https://github.com/anchore/grype/releases/download/v0.84.0/grype-linux-amd64-v0.84.0.tar.gz | tar -xz -C /usr/local/bin
+          wget -O grype.tar.gz https://github.com/anchore/grype/releases/download/v0.84.0/grype-linux-amd64-v0.84.0.tar.gz
+          tar -xzvf grype.tar.gz -C /usr/local/bin
 
       # Generate SBOM with Grype
       - name: Generate SBOM with Grype
