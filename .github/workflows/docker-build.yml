@@ -85,7 +85,7 @@ jobs:
       # Generate SBOM with Grype
       - name: Generate SBOM with Grype
         run: |
-          grype sbom ${env.IMAGE_NAME}:${{ github.sha }} -o json > sbom.json    
+          grype sbom ${{ env.IMAGE_NAME }}:${{ github.sha }} -o json > sbom.json    
       
 
       - name: Generate SBOM attestation
