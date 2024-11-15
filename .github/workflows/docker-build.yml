@@ -79,15 +79,13 @@ jobs:
       # Install Grype
       - name: Install Grype
         run: |
-          curl -sSL -o grype.tar.gz https://github.com/anchore/grype/releases/download/v0.84.0/grype_0.84.0_linux_amd64.tar.gz
-          tar -xzvf grype.tar.gz -C /usr/local/bin
-
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+          
       # Generate SBOM with Grype
       - name: Generate SBOM with Grype
-        run: |
-          grype sbom ${{ env.IMAGE_NAME }}:${{ github.sha }} -o json > sbom.json    
-      
-
+        run: |   
+          grype ${{ env.IMAGE_NAME }}:${{ github.sha }} -o json > sbom.json    
+    
       - name: Generate SBOM attestation
         uses: actions/attest-sbom@v1
         with:
