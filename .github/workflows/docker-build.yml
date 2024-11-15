@@ -87,7 +87,7 @@ jobs:
           grype ${{ env.IMAGE_NAME }}:${{ github.sha }} -o spdx-json > sbom.spdx.json    
     
       - name: Generate SBOM attestation
-        uses: actions/attest-sbom@v1
+        uses: actions/attest-sbom@v1.4.1
         with:
           subject-name: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/betterscan-${{ matrix.component }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
