@@ -3,7 +3,6 @@ services:
     image: tcosolutions/betterscan-server:latest
     restart: always
     environment: 
-      OPENAI_GPT_API: ${OPENAI_GPT_API}
       QC_SETTINGS: /srv/betterscan/quantifiedcode/settings/default.yml
     depends_on:
       postgres:
@@ -46,7 +45,6 @@ services:
       stack: -1
     restart: always
     environment:
-      OPENAI_GPT_API: ${OPENAI_GPT_API}
     hostname: worker_1
     depends_on:
       rabbitmq3:
