@@ -21,14 +21,15 @@ RUN mkdir -p /srv && \
     . venv/bin/activate && \
     pipenv install && \
     pipenv install pyyaml && \
-    curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
     apt-get install -y nodejs && \
-    cd  /srv/betterscan/quantifiedcode/frontend   && \
-    sudo npm install -g bower \ 
-    npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/plugin-transform-parameters @babel/plugin-proposal-object-rest-spread @babel/plugin-transform-react-jsx @babel/plugin-transform-modules-amd babel-plugin-transform-remove-console \
-    npm install \
     cd /srv/betterscan/quantifiedcode/frontend && \
+    npm install -g bower && \
+    npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/plugin-transform-parameters @babel/plugin-proposal-object-rest-spread @babel/plugin-transform-react-jsx @babel/plugin-transform-modules-amd babel-plugin-transform-remove-console && \
+    npm install && \
     chmod -R ugo+rw /srv/betterscan/quantifiedcode/frontend && \
     make && \
     cd /srv/betterscan/quantifiedcode/plugins/git/frontend && \
     make
+
