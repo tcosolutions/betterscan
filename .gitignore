@@ -22,4 +22,4 @@ celerybeat-schedule
 run.sh
 .idea
 **/settings.yml
-
+node_modules/*
