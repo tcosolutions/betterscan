@@ -44,7 +44,6 @@ services:
     ulimits:
       stack: -1
     restart: always
-    environment:
     hostname: worker_1
     depends_on:
       rabbitmq3:
