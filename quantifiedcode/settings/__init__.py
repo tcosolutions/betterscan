@@ -19,4 +19,4 @@ LGPL v2.1 with Commons Clause.
 See the original LICENSE file for details.
 
 """
-from .base import * #noqa
+from .base import *
