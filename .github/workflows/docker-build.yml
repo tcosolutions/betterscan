@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
 
-        service: [worker-cli]
+        service: [worker-cli, server, worker]
         include:
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
