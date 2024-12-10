@@ -19,7 +19,7 @@ RUN mkdir -p /srv && \
     pip install virtualenv && \
     virtualenv venv && \
     . venv/bin/activate && \
-    pipenv install --skip-lock && \
+    pipenv install  && \
     curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     apt-get install -y nodejs && \
