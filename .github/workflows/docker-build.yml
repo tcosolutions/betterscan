@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
 
-        service: [worker-cli, server, worker]
+        service: [worker-cli]
         include:
        
           - service: worker-cli
