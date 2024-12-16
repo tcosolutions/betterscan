@@ -21,8 +21,6 @@ RUN apt-get update && apt-get install -y \
     git \
     ssh \
     rubygems \
-    python3-pip \
-    pipenv \
     unzip \
     jq \
     gcc \
