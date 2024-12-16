@@ -28,8 +28,7 @@ RUN apt-get update && apt-get install -y \
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install Rust using rustup
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path && \
-    chmod -R a+w ${RUSTUP_HOME} ${CARGO_HOME}
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
