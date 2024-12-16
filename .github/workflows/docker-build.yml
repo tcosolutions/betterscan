@@ -25,9 +25,6 @@ jobs:
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
- 
-
-
     env:
       REGISTRY: docker.io
       IMAGE_NAME: tcosolutions/betterscan-${{ matrix.component }}
