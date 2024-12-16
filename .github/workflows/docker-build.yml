@@ -19,12 +19,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [worker-cli]
+        service: [worker-cli, server, worker]
         include:
+          - service: server
+            dockerfile: docker/docker/server/Dockerfile
+            context: docker/docker/server
+            component: server
+          - service: worker
+            dockerfile: docker/docker/worker/Dockerfile
+            context: docker/docker/worker
+            component: worker
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
             component: worker-cli
+ 
     env:
       REGISTRY: docker.io
       IMAGE_NAME: tcosolutions/betterscan-${{ matrix.component }}
