@@ -63,4 +63,4 @@ RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     uv go install github.com/tcosolutions/ptpt@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
     curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-       curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
