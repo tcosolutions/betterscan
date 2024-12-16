@@ -46,8 +46,6 @@ RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
     tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
     rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
 
-# Install Ruby and Python packages using uv
-RUN uv install checkmate5
 
 # Clone repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
