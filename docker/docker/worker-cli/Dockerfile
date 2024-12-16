@@ -26,10 +26,10 @@ RUN apt-get update && apt-get install -y \
     gcc \
     build-essential
 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -y | sh
+
 RUN curl -LsSf https://astral.sh/uv/install.sh -y | sh
 
-# Install Rust using rustup
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -y | sh
 
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
