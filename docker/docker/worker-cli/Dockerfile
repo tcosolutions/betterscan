@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
     jq \
     gcc \
     build-essential \
-    && curl -sSf https://raw.githubusercontent.com/astral-sh/uv/master/install.sh | sh
+    curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install Rust using rustup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path && \
