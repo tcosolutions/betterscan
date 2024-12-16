@@ -53,9 +53,4 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
     git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
 # Set up additional tools (using uv where possible)
-RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
-    uv go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    uv go install github.com/tcosolutions/ptpt@latest && \
-    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
-    curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/
