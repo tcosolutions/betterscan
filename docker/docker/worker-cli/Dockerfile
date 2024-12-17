@@ -5,23 +5,9 @@ ENV SHELL=/bin/bash
 ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 
-# Install necessary packages (including uv)
-RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    curl \
-    tar \
-    libssl-dev \
-    git \
-    ssh \
-    rubygems \
-    python3-pip \
-    pipenv \
-    unzip \
-    jq \
-    gcc \
-    build-essential 
-    
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && curl -sSf https://raw.githubusercontent.com/astral-sh/uv/master/install.sh | sh
+
+RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential
+
 
 # Install Go
 RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
@@ -37,25 +23,26 @@ RUN GO_JSON=$(curl -s https://go.dev/dl/?mode=json) && \
     curl -O $GO_URL && \
     tar -C /usr/local -xzf ${GO_LATEST}.linux-${GO_ARCH}.tar.gz && \
     rm ${GO_LATEST}.linux-${GO_ARCH}.tar.gz
-
+    
 # Set up Go environment variables
 ENV PATH=$PATH:/usr/local/go/bin
 
-# Install Ruby and Python packages using uv
-RUN uv install brakeman \
-    && uv install bandit \
-    && uv install checkmate5
+# Install Ruby and npm packages
+RUN gem install brakeman 
 
-# Clone repositories
+RUN pip install pip && pip install bandit && pip install checkmate5
+
+# Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
     git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
     git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
 
-# Set up additional tools (using uv where possible)
+# Set up additional tools
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
-    uv go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    uv go install github.com/tcosolutions/ptpt@latest && \
+    go install honnef.co/go/tools/cmd/staticcheck@latest && \
+    go install github.com/tcosolutions/ptpt@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
     curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+
 
