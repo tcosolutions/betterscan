@@ -704,7 +704,7 @@ gostaticcheck - https://github.com/dominikh/go-tools
 kubescape - https://github.com/kubescape/kubescape
 graudit - https://github.com/tcosolutions/graudit-ce
 tfsec - https://github.com/aquasecurity/tfsec
-ptpt - https://github.com/tcosolutions/ptpt/blob/main/LICENSE.txt
+ptpt - https://github.com/tcosolutions/ptpt
 
 ==== License for bandit ====
 
