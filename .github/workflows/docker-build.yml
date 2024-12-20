@@ -19,8 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [worker-cli]
+        service: [worker-cli, server, worker]
         include:
+          - service: server
+            dockerfile: docker/docker/server/Dockerfile
+            context: docker/docker/server
+            component: server
+          - service: worker
+            dockerfile: docker/docker/worker/Dockerfile
+            context: docker/docker/worker
+            component: worker
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
@@ -49,7 +57,7 @@ jobs:
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
-          platforms: linux/amd64
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
