@@ -49,7 +49,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN gem install brakeman
 
 # Clone the checkmate repository and install
-RUN pip install --upgrade pip && pip install checkmate5
+RUN pip install --upgrade pip && pip install checkmate5 && pip install aigraphcodescan
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
@@ -59,7 +59,6 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && 
 # Set up additional tools
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
     go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    go install github.com/tcosolutions/ptpt@latest && \
     cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
     curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
