@@ -22,6 +22,7 @@ Currently supports: **Java**, **Python**, **PERL**, **Ruby**, **C**, **C++**, **
 
 Checks for misconfigurations across all major (and some minor) cloud providers (AWS Checks, Azure Checks, GCP Checks, CloudStack Checks, DigitalOcean Checks, GitHub Checks, Kubernetes Checks, OpenStack Checks, Oracle Checks)
 
+Also AI LLM based via OpenAi Gpt and graph analysis.
 
 ## Open and Developer friendly DevSecOps toolchain
 
