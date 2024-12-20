@@ -1,6 +1,3 @@
-
-  
-  
 <div align="center">
   <a href="https://github.com/tcosolutions/betterscan">
     <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/6662b3cba2059f268d0ada99_cloud%20(Website).svg">
@@ -22,7 +19,7 @@ Currently supports: **Java**, **Python**, **PERL**, **Ruby**, **C**, **C++**, **
 
 Checks for misconfigurations across all major (and some minor) cloud providers (AWS Checks, Azure Checks, GCP Checks, CloudStack Checks, DigitalOcean Checks, GitHub Checks, Kubernetes Checks, OpenStack Checks, Oracle Checks)
 
-Also AI LLM based via OpenAi Gpt and graph analysis.
+Also AI LLM based via OpenAi Gpt and graph analysis. See https://github.com/tcosolutions/aigraphcodescan
 
 ## Open and Developer friendly DevSecOps toolchain
 
