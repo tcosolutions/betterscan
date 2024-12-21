@@ -16,13 +16,20 @@ Released under [AGPL-3.0](/LICENSE) by [@tcosolutions](https://github.com/tcosol
 
 Scan your source code and infra IaC against top **security** risks
 
-Betterscan is a orchestration toolchain that uses state of the art tools to scan your source code and infrastructure IaC and analyzes your security and compliance risks.
+## Overview
 
-Currently supports: **Java**, **Python**, **PERL**, **Ruby**, **C**, **C++**, **Javascript**, **Typescript**, **GO**, Infrastructure as a Code (IaC) Security and Best Practices (**Docker**, **Kubernetes (k8s)**, **Terraform AWS, GCP, Azure**), Secret Scanning, Trojan Source, Open Source and Proprietary Checks.
+**Betterscan** is a state-of-the-art orchestration toolchain designed to scan your source code and Infrastructure as Code (IaC) for **security** and **compliance** risks. 
 
-Checks for misconfigurations across all major (and some minor) cloud providers (AWS Checks, Azure Checks, GCP Checks, CloudStack Checks, DigitalOcean Checks, GitHub Checks, Kubernetes Checks, OpenStack Checks, Oracle Checks)
+### Key Features
 
-Also AI LLM based via OpenAi Gpt and graph analysis. See https://github.com/tcosolutions/aigraphcodescan
+
+- **Language Support**: Java, Python, PERL, Ruby, C, C++, JavaScript, TypeScript, Go.
+- **IaC Security**: Scans Docker, Kubernetes, Terraform (AWS, GCP, Azure) for misconfigurations.
+- **Cloud Provider Checks**: AWS, Azure, GCP, Kubernetes, OpenStack, DigitalOcean, Oracle, and more.
+- **Advanced Security**: Secret scanning, Trojan source detection, OpenAI GPT-based AI analysis, and graph-based scanning.
+- **Output Formats**: HTML, JSON, SARIF.
+
+ See https://github.com/tcosolutions/aigraphcodescan
 
 ## Open and Developer friendly DevSecOps toolchain
 
