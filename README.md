@@ -27,8 +27,14 @@ Scan your source code and infra IaC against top **security** risks
 - **Language Support**: Java, Python, PERL, Ruby, C, C++, JavaScript, TypeScript, Go.
 - **IaC Security**: Scans Docker, Kubernetes, Terraform (AWS, GCP, Azure) for misconfigurations.
 - **Cloud Provider Checks**: AWS, Azure, GCP, Kubernetes, OpenStack, DigitalOcean, Oracle, and more.
-- **Advanced Security**: Secret scanning, Trojan source detection, OpenAI GPT-based AI analysis, and graph-based scanning.
+- **Advanced Security Analysis**: 
+  - Secret scanning
+  - Trojan source detection
+  - AI-powered analysis using OpenAI GPT
+  - Graph-based scanning
 - **Output Formats**: HTML, JSON, SARIF.
+- **Developer-Friendly**: Unified results from top tools with additional custom checks.
+
 
  See https://github.com/tcosolutions/aigraphcodescan
 
@@ -158,6 +164,11 @@ Open up the Browser to:
 Sign up locally (and login in when needed)
 
 
+## Installation Options
+
+- **Linux (Ubuntu)**: Follow the default instructions provided in the Quickstart section.  
+- **MacOS/Windows**: Use Docker or Windows Subsystem for Linux (WSL) for seamless compatibility.
+
 That's it.
 
-Read more in the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
+For more information, please visit the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**.
