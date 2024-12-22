@@ -164,6 +164,11 @@ Open up the Browser to:
 Sign up locally (and login in when needed)
 
 
+## Installation Options
+
+- **Linux (Ubuntu)**: Follow the default instructions provided in the Quickstart section.  
+- **MacOS/Windows**: Use Docker or Windows Subsystem for Linux (WSL) for seamless compatibility.
+
 That's it.
 
-Read more in the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
+For more information, please visit the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**.
