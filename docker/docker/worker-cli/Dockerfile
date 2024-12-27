@@ -30,7 +30,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 # Install Ruby and npm packages
 RUN gem install brakeman 
 
-RUN pip install pip && pip install bandit && pip install checkmate5 && pip install aigraphcodescan
+RUN pip install pip && pip install bandit && pip install checkmate5
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
