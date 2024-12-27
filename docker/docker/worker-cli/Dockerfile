@@ -30,18 +30,13 @@ ENV PATH=$PATH:/usr/local/go/bin
 # Install Ruby and npm packages
 RUN gem install brakeman 
 
-RUN pip install pip && pip install bandit && pip install checkmate5
+RUN pip install pip && pip install bandit && pip install checkmate5 && pip install aigraphcodescan
 
 # Clone and install other repositories
-RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
-    git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
+RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 
 # Set up additional tools
-RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
-    go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    cp /root/go/bin/staticcheck /usr/local/bin/staticcheck && \
-    curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
+RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 
