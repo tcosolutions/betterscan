@@ -20,8 +20,16 @@ jobs:
     strategy:
       matrix:
 
-        service: [worker-cli]
+        service: [worker-cli, server, worker]
         include:
+          - service: server
+            dockerfile: docker/docker/server/Dockerfile
+            context: docker/docker/server
+            component: server
+          - service: worker
+            dockerfile: docker/docker/worker/Dockerfile
+            context: docker/docker/worker
+            component: worker
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
@@ -68,4 +76,23 @@ jobs:
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
 
 
-
+      # Install Grype
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+          
+      # Generate SBOM with Grype
+      - name: Generate SBOM with Grype
+        run: |   
+          grype ${{ env.IMAGE_NAME }}:${{ github.sha }} -o spdx-json > sbom.spdx.json    
+    
+      - name: Generate SBOM attestation
+        uses: actions/attest-sbom@v1.4.1
+        with:
+          subject-name: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/betterscan-${{ matrix.component }}
+          subject-digest: ${{ steps.build-push.outputs.digest }}
+          sbom-path: 'sbom.spdx.json'
+          push-to-registry: true
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
