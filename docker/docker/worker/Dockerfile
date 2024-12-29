@@ -52,9 +52,7 @@ RUN gem install brakeman
 RUN pip install --upgrade pip && pip install checkmate5
 
 # Clone and install other repositories
-RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
-    git clone https://github.com/tcosolutions/graudit-ce.git /root/graudit && \
-    git clone https://github.com/tcosolutions/text4shell-ce.git /root/text4shell-ce
+RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 
 # Set up additional tools
 RUN cp /srv/betterscan/analyzers/find_unicode_control2.py /usr/local/bin/ && \
