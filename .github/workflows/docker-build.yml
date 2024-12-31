@@ -20,8 +20,16 @@ jobs:
     strategy:
       matrix:
 
-        service: [worker-cli]
+        service: [worker-cli, server, worker]
         include:
+          - service: server
+            dockerfile: docker/docker/server/Dockerfile
+            context: docker/docker/server
+            component: server
+          - service: worker
+            dockerfile: docker/docker/worker/Dockerfile
+            context: docker/docker/worker
+            component: worker
           - service: worker-cli
             dockerfile: docker/docker/worker-cli/Dockerfile
             context: docker/docker/worker-cli
@@ -66,5 +74,3 @@ jobs:
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-
-
