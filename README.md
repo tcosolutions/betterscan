@@ -13,6 +13,14 @@ Released under [AGPL-3.0](/LICENSE) by [@tcosolutions](https://github.com/tcosol
 
 Scan your source code and infra IaC against top **security** risks
 
+
+<div align="center">
+  <a href="https://github.com/tcosolutions/betterscan">
+    <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/64be844b5283d4d96caa0de9_betterscan-demo-ai.gif">
+  </a>
+</div>
+
+
 ## Overview
 
 **Betterscan** is a state-of-the-art orchestration toolchain designed to scan your source code and Infrastructure as Code (IaC) for **security** and **compliance** risks. 
@@ -22,7 +30,7 @@ Scan your source code and infra IaC against top **security** risks
 Betterscan uses many tools for Code, Cloud, secrets. All the best Tools, researched, setup, ran together, unifed and de-duplicated results, **so you don't have to do it**. Added our own checkers also. Continuous Security. Fit for purpose and results.
 
 
-More info in **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
+
 
 ## License Information
 
@@ -144,5 +152,3 @@ Sign up locally (and login in when needed)
 
 
 That's it.
-
-Read more in the **[Wiki](https://github.com/tcosolutions/betterscan/wiki)**
