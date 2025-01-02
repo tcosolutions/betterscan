@@ -108,7 +108,7 @@ Run in command prompt in your Git repository folder:
   
 `sh <(curl https://raw.githubusercontent.com/tcosolutions/betterscan/main/cli-html.sh)`
 
-### 2. Platform with Webinterface and workers
+### 2. Platform with Webinterface and workers (DEPRECATED due to unupdated dependencies)
 
 #### Docker
 
