@@ -1,3 +1,0 @@
-{
-  "plugins": ["transform-react-jsx", "transform-es2015-modules-amd"]
-}
