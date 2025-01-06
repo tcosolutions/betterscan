@@ -14,12 +14,6 @@ Released under [AGPL-3.0](/LICENSE) by [@tcosolutions](https://github.com/tcosol
 Scan your source code and infra IaC against top **security** risks
 
 
-<div align="center">
-  <a href="https://github.com/tcosolutions/betterscan">
-    <img alt="Betterscan" src="https://cdn.prod.website-files.com/6339e3b81867539b5fe2498d/64be844b5283d4d96caa0de9_betterscan-demo-ai.gif">
-  </a>
-</div>
-
 
 ## Overview
 
