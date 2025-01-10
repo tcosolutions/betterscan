@@ -1,4 +1,4 @@
-FROM python:3.8-slim AS builder
+FROM debian:bookworm-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
