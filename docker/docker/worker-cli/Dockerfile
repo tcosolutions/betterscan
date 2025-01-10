@@ -6,7 +6,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 
 
-RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv python3.11-venv unzip jq gcc build-essential
+RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv python3-venv unzip jq gcc build-essential
 
 
 # Install Go
