@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim AS builder
+FROM python:3.8-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
@@ -6,7 +6,7 @@ ENV PIPENV_IGNORE_VIRTUALENVS=1
 ENV PIP_ROOT_USER_ACTION=ignore
 
 
-RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv python3-venv unzip jq gcc build-essential
+RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential
 
 
 # Install Go
@@ -30,7 +30,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 # Install Ruby and npm packages
 RUN gem install brakeman 
 
-RUN  python3 -m venv path/to/venv && source venv/bin/activate && pip install pip && pip install bandit && pip install checkmate5 && pip install git+https://github.com/tcosolutions/aigraphcodescan
+RUN pip install pip && pip install bandit && pip install checkmate5 && pip install git+https://github.com/tcosolutions/aigraphcodescan
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
@@ -38,5 +38,6 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 # Set up additional tools
 RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+
 
 
