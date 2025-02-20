@@ -2,8 +2,7 @@ FROM python:3.12-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
-ENV PIPENV_IGNORE_VIRTUALENVS=1
-ENV PIP_ROOT_USER_ACTION=ignore
+
 
 
 RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential
@@ -30,7 +29,7 @@ ENV PATH=$PATH:/usr/local/go/bin
 # Install Ruby and npm packages
 RUN gem install brakeman 
 
-RUN pip install pip && pip install bandit && pip install checkmate5 && pip install git+https://github.com/tcosolutions/aigraphcodescan
+RUN python3 -m venv venv && pip install pip && pip install bandit && pip install checkmate5 && pip install git+https://github.com/tcosolutions/aigraphcodescan
 
 # Clone and install other repositories
 RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
