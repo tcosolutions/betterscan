@@ -23,7 +23,7 @@ Scan your source code and infra IaC against top **security** risks
 
 Betterscan uses many tools for Code, Cloud, secrets. All the best Tools, researched, setup, ran together, unifed and de-duplicated results, **so you don't have to do it**. Added our own checkers also. Continuous Security. Fit for purpose and results.
 
-Betterscan is performing security reviews of codebases using graph analysis. It utilizes Neo4j and Fast GraphRAG to query and visualize relationships within the code, helping identify potential security risks and vulnerabilities by analyzing the structure and flow of the code (using AI capabilities for this). Done via `aigraphcodescan` plugin.
+Betterscan is performing security reviews of codebases using graph analysis. It utilizes Neo4j and Fast GraphRAG to query and visualize relationships within the code, helping identify potential security risks and vulnerabilities by analyzing the structure and flow of the code (using AI capabilities for this). Done via [aigraphcodescan](https://github.com/tcosolutions/aigraphcodescan) plugin. 
 
 
 ## License Information
