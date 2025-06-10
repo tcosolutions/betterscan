@@ -36,9 +36,15 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 
 # Set up additional tools
 RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash \
-    curl -L $(curl -s https://github.com/opengrep/opengrep/releases/latest | jq --raw-output '.assets[0].browser_download_url') \
-    git clone git@github.com:opengrep/opengrep-rules.git /opengrep-rules
+    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+
+# Setup opengrep
+RUN OPENGREP_URL=$(curl -s https://github.com/opengrep/opengrep/releases/latest | jq --raw-output '.assets[] | select(.name | contains("manylinux_x86") or contains("darwin_x64") or contains("windows_x64")) | .browser_download_url'); \
+    curl -L "$OPENGREP_URL" -o /usr/local/bin/opengrep && \
+    chmod +x /usr/local/bin/opengrep
+
+RUN git clone https://github.com/opengrep/opengrep-rules.git /root/opengrep-rules
+
 
 
 
