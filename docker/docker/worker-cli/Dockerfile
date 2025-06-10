@@ -36,10 +36,9 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 
 # Set up additional tools
 RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
-
-curl -L $(curl -s https://github.com/opengrep/opengrep/releases/latest | jq --raw-output '.assets[0].browser_download_url')
-
+    curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash \
+    curl -L $(curl -s https://github.com/opengrep/opengrep/releases/latest | jq --raw-output '.assets[0].browser_download_url') \
+    git clone git@github.com:opengrep/opengrep-rules.git /opengrep-rules
 
 
 
