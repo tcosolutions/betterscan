@@ -38,6 +38,8 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
+curl -L $(curl -s https://github.com/opengrep/opengrep/releases/latest | jq --raw-output '.assets[0].browser_download_url')
+
 
 
 
