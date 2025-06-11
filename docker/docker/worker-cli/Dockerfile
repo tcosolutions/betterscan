@@ -56,8 +56,8 @@ ENV PATH="/opt/venv/bin:${PATH}"
 # Using --depth 1 for shallow clones to save space if full history isn't needed.
 RUN echo "Cloning repositories and installing additional tools..." && \
     git clone --depth 1 https://github.com/tcosolutions/betterscan.git /srv/betterscan && \
-    curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
-    curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
+    curl -sL https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
+    curl -sL https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 # --- Setup opengrep ---
 # Docker's TARGETARCH is used to download the correct opengrep binary.
@@ -76,7 +76,9 @@ RUN set -eux; \
     echo "Identified opengrep architecture suffix: $OPENGREP_ARCH_SUFFIX"; \
     \
     LATEST_RELEASE_URL="https://api.github.com/repos/opengrep/opengrep/releases/latest"; \
-    LATEST_RELEASE_JSON=$(curl -s "$LATEST_RELEASE_URL"); \
+    # FIX: Pipe curl output through 'tr -d' to remove problematic control characters (0x00-0x1F and 0x7F)
+    # before passing to jq. This resolves "parse error: Invalid string: control characters..."
+    LATEST_RELEASE_JSON=$(curl -sL "$LATEST_RELEASE_URL" | tr -d '\000-\031\177'); \
     \
     # Extract the download URL and the exact filename of the asset.
     # We prioritize 'manylinux' or 'musllinux' builds for Linux.
@@ -123,7 +125,7 @@ COPY --from=builder /srv/betterscan /srv/betterscan
 
 # Copy tfsec binary (assuming it's in /usr/local/bin from its install script)
 COPY --from=builder /usr/local/bin/tfsec /usr/local/bin/tfsec
-COPY --from=builder /usr/local/bin/tfsec-alpine-amd64 /usr/local/bin/tfsec-alpine-amd64 # tfsec might install with arch suffix
+# Removed: COPY --from=builder /usr/local/bin/tfsec-alpine-amd64 /usr/local/bin/tfsec-alpine-amd64 # tfsec usually installs as 'tfsec'
 
 # Copy kubescape binary (assuming it's in /usr/local/bin from its install script)
 COPY --from=builder /usr/local/bin/kubescape /usr/local/bin/kubescape
@@ -131,18 +133,14 @@ COPY --from=builder /usr/local/bin/kubescape /usr/local/bin/kubescape
 # Copy opengrep-rules
 COPY --from=builder /root/opengrep-rules /root/opengrep-rules
 
-# Re-install Ruby and Brakeman, as `gem` isn't copied directly
-# This is a trade-off: either copy full Ruby env or reinstall.
-# For a "slim" final image, reinstalling minimal runtime deps is often better.
-# However, python:3.12-slim is Debian-based, so apt is available.
-# We'll install Ruby and the gem in the final stage for minimum footprint.
+# Install Ruby and Brakeman in the final stage for a slim image.
+# python:3.12-slim is Debian-based, so apt is available.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ruby ruby-dev && \
+    ruby && \
     gem install brakeman --no-document && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/apt/lists/* # Corrected rm path for clarity and robustness
 
 # Set the default command if the container is run without arguments.
 # You might want to make this point to a script that executes various scanners.
 # For now, let's keep it simple.
-CMD ["/usr/local/bin/checkmate", "--help"]
-
+CMD ["/opt/venv/bin/checkmate", "--help"] # Assuming checkmate is the primary tool to run
