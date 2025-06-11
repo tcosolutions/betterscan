@@ -8,10 +8,8 @@ ENV SHELL=/bin/bash
 
 # Install core build dependencies and common tools in a single RUN command.
 # This reduces the number of Docker layers and cleans up apt cache immediately.
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ca-certificates curl tar libssl-dev git ssh rubygems unzip jq gcc build-essential && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ca-certificates curl tar libssl-dev git ssh rubygems python3-pip pipenv unzip jq gcc build-essential && \
+    rm -rf /var/lib/apt/lists/* 
 
 # --- Install Go ---
 # Dynamically downloads the latest Go version for the correct architecture.
