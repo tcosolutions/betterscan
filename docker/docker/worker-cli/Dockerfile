@@ -76,11 +76,11 @@ RUN set -eux; \
     echo "Identified opengrep architecture suffix: $OPENGREP_ARCH_SUFFIX"; \
     \
     LATEST_RELEASE_URL="https://api.github.com/repos/opengrep/opengrep/releases/latest"; \
-    # FIX: Pipe curl output directly to 'tr -d' then to 'jq' to minimize intermediate shell issues.
-    # This helps in handling subtle parsing errors due to unescaped control characters.
+    # Remove problematic control characters and ensure single-line output from jq
+    # The 'head -n 1' ensures that if multiple assets match, only the first is considered.
     ASSET_INFO=$(curl -sL "$LATEST_RELEASE_URL" | tr -d '\000-\031\177' | \
         jq -r --arg opengrep_arch_suffix "$OPENGREP_ARCH_SUFFIX" \
-        '.assets[] | select(.name | test("opengrep_(manylinux|musllinux)_" + $opengrep_arch_suffix + "$")) | "\(.browser_download_url) \(.name)"' \
+        '.assets[] | select(.name | test("opengrep_(manylinux|musllinux)_" + $opengrep_arch_suffix + "$")) | "\(.browser_download_url) \(.name)"' | head -n 1 \
     ); \
     \
     DOWNLOAD_URL=$(echo "$ASSET_INFO" | awk '{print $1}'); \
@@ -93,8 +93,9 @@ RUN set -eux; \
     echo "Identified download URL for opengrep: $DOWNLOAD_URL"; \
     echo "Expected downloaded filename: $DOWNLOADED_FILENAME"; \
     \
-    curl -LO "$DOWNLOAD_URL"; \
-    mv "$DOWNLOADED_FILENAME" /usr/local/bin/opengrep; \
+    # Use 'curl -o' to explicitly specify the output filename, preventing issues with filename inference
+    # and ensuring only one URL is processed.
+    curl -L -o /usr/local/bin/opengrep "$DOWNLOAD_URL"; \
     chmod +x /usr/local/bin/opengrep; \
     echo "opengrep installed successfully."
 
@@ -121,7 +122,6 @@ COPY --from=builder /srv/betterscan /srv/betterscan
 
 # Copy tfsec binary (assuming it's in /usr/local/bin from its install script)
 COPY --from=builder /usr/local/bin/tfsec /usr/local/bin/tfsec
-# Removed: COPY --from=builder /usr/local/bin/tfsec-alpine-amd64 /usr/local/bin/tfsec-alpine-amd64 # tfsec usually installs as 'tfsec'
 
 # Copy kubescape binary (assuming it's in /usr/local/bin from its install script)
 COPY --from=builder /usr/local/bin/kubescape /usr/local/bin/kubescape
@@ -137,6 +137,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # Set the default command if the container is run without arguments.
-# You might want to make this point to a script that executes various scanners.
-# For now, let's keep it simple.
-CMD ["/opt/venv/bin/checkmate", "--help"] # Assuming checkmate is the primary tool to run
+# This CMD is already in the recommended JSON array format.
+CMD ["/opt/venv/bin/checkmate", "--help"]
