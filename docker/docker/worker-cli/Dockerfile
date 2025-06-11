@@ -104,8 +104,6 @@ RUN set -eux; \
 RUN echo "Cloning opengrep-rules..." && \
     git clone --depth 1 https://github.com/opengrep/opengrep-rules.git /root/opengrep-rules
 
----
-
 # Stage 2: final - The minimal runtime image
 # Only copies the necessary files from the builder stage.
 FROM python:3.12-slim
