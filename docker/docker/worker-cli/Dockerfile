@@ -76,14 +76,10 @@ RUN set -eux; \
     echo "Identified opengrep architecture suffix: $OPENGREP_ARCH_SUFFIX"; \
     \
     LATEST_RELEASE_URL="https://api.github.com/repos/opengrep/opengrep/releases/latest"; \
-    # FIX: Pipe curl output through 'tr -d' to remove problematic control characters (0x00-0x1F and 0x7F)
-    # before passing to jq. This resolves "parse error: Invalid string: control characters..."
-    LATEST_RELEASE_JSON=$(curl -sL "$LATEST_RELEASE_URL" | tr -d '\000-\031\177'); \
-    \
-    # Extract the download URL and the exact filename of the asset.
-    # We prioritize 'manylinux' or 'musllinux' builds for Linux.
-    ASSET_INFO=$( \
-        echo "$LATEST_RELEASE_JSON" | jq -r --arg opengrep_arch_suffix "$OPENGREP_ARCH_SUFFIX" \
+    # FIX: Pipe curl output directly to 'tr -d' then to 'jq' to minimize intermediate shell issues.
+    # This helps in handling subtle parsing errors due to unescaped control characters.
+    ASSET_INFO=$(curl -sL "$LATEST_RELEASE_URL" | tr -d '\000-\031\177' | \
+        jq -r --arg opengrep_arch_suffix "$OPENGREP_ARCH_SUFFIX" \
         '.assets[] | select(.name | test("opengrep_(manylinux|musllinux)_" + $opengrep_arch_suffix + "$")) | "\(.browser_download_url) \(.name)"' \
     ); \
     \
@@ -138,7 +134,7 @@ COPY --from=builder /root/opengrep-rules /root/opengrep-rules
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ruby && \
     gem install brakeman --no-document && \
-    rm -rf /var/lib/apt/apt/lists/* # Corrected rm path for clarity and robustness
+    rm -rf /var/lib/apt/lists/*
 
 # Set the default command if the container is run without arguments.
 # You might want to make this point to a script that executes various scanners.
