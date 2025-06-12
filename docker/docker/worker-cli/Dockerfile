@@ -37,8 +37,7 @@ RUN git clone https://github.com/tcosolutions/betterscan.git /srv/betterscan
 # Set up additional tools
 RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash && \
     curl https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
-
-
+    
 # --- Setup opengrep ---
 # Docker's TARGETARCH is used to download the correct opengrep binary.
 # The logic determines the correct suffix ('x86' for amd64, 'aarch64' for arm64)
@@ -82,8 +81,3 @@ RUN set -eux; \
 # Clone opengrep-rules
 RUN echo "Cloning opengrep-rules..." && \
     git clone --depth 1 https://github.com/opengrep/opengrep-rules.git /root/opengrep-rules
-
-
-
-
-
