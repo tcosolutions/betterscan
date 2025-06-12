@@ -128,7 +128,7 @@ ENV PATH="/opt/venv/bin:${PATH}"
 
 # Copy Go runtime (important if Go applications are run directly)
 COPY --from=builder /usr/local/go /usr/local/go
-ENV PATH="/usr/local/go/bin:${PATH}" # Add Go path to final image's PATH
+ENV PATH="/usr/local/go/bin:${PATH}"
 
 # Copy binaries and repositories
 COPY --from=builder /usr/local/bin/opengrep /usr/local/bin/opengrep
