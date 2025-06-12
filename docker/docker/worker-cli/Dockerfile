@@ -43,7 +43,6 @@ RUN curl https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/ins
 # Docker's TARGETARCH is used to download the correct opengrep binary.
 # The logic determines the correct suffix ('x86' for amd64, 'aarch64' for arm64)
 # for opengrep's specific release asset naming convention.
- TARGETARCH=$(uname -m) && \
 ENV OPENGREP_ARCH_SUFFIX=""
 RUN set -eux; \
     if [ "$TARGETARCH" = "amd64" ]; then \
@@ -61,7 +60,7 @@ RUN set -eux; \
     # The 'head -n 1' ensures that if multiple assets match, only the first is considered.
     ASSET_INFO=$(curl -sL "$LATEST_RELEASE_URL" | tr -d '\000-\031\177' | \
         jq -r --arg opengrep_arch_suffix "$OPENGREP_ARCH_SUFFIX" \
-        '.assets[] | select(.name | test("opengrep_(manylinux|musllinux)_" + $opengrep_arch_suffix + "$")) | "\(.browser_download_url) \(.name)"' | head -n 1 \
+        '.assets[] | select(.name | test("opengrep_(manylinux)_" + $opengrep_arch_suffix + "$")) | "\(.browser_download_url) \(.name)"' | head -n 1 \
     ); \
     \
     DOWNLOAD_URL=$(echo "$ASSET_INFO" | awk '{print $1}'); \
