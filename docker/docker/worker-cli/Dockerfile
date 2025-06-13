@@ -1,6 +1,6 @@
 # Stage 1: builder - Used for installing build tools, downloading binaries, and cloning repositories.
 # This stage contains all dependencies needed for building/downloading.
-FROM python:3.12-slim AS builder
+FROM python:3.13-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
